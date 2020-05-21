@@ -29,10 +29,17 @@ namespace TilesWalk.Tile
 		}
 		public Vector3 Position
 		{
-			get => _position;
+			get
+			{
+				return _position;
+			}
+
 			set
 			{
 				_position = value;
+				// change boundaries center as well
+				_bounds.center = _position;
+				// notify others
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Position"));
 			}
 		}

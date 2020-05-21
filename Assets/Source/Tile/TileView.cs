@@ -31,6 +31,12 @@ namespace TilesWalk.Tile
 		{
 			transform.position = _controller.Tile.Position;
 		}
+
+		private void OnDrawGizmos()
+		{
+			Gizmos.color = Color.green;
+			Gizmos.DrawWireCube(_controller.Tile.Bounds.center, _controller.Tile.Bounds.size);
+		}
 	}
 }
 
