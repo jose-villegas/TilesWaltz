@@ -1,4 +1,5 @@
 ﻿using TilesWalk.BaseInterfaces;
+using TilesWalk.General;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -36,8 +37,18 @@ namespace TilesWalk.Tile
 				return;
 			}
 
+			var instances = new TileView[10];
 			// Instantiate first tile
-			var instance = Instantiate(source, Vector3.zero, Quaternion.identity, transform);
+			for (int i = 0; i < 10; i++)
+			{
+				var instance = Instantiate(source, Vector3.zero, Quaternion.identity, transform);
+				instances[i] = instance.AddComponent<TileView>();
+			}
+			// Add neighborhood structure
+			for (int i = 0; i < 9; i++)
+			{
+				instances[i].Controller.AddNeighbor(CardinalDirection.North, instances[i + 1].Controller.Tile);
+			}
 		}
 	}
 }
