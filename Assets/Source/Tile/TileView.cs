@@ -1,6 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using TilesWalk.BaseInterfaces;
+using TilesWalk.Extensions;
+using TilesWalk.General;
 using UnityEngine;
 
 namespace TilesWalk.Tile
@@ -46,7 +49,7 @@ namespace TilesWalk.Tile
 					break;
 			}
 
-			transform.position = tile.Index;
+			transform.position = tile.Position;
 		}
 
 		private void OnDrawGizmos()
@@ -58,6 +61,15 @@ namespace TilesWalk.Tile
 
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawRay(bounds.center, _controller.Tile.Forward);
+
+			var tilePoints = _controller.Tile.HingePoints(CardinalDirection.North);
+			tilePoints = tilePoints.Concat(_controller.Tile.HingePoints(CardinalDirection.South)).ToArray();
+
+			Gizmos.color = Color.blue;
+			for (int i = 0; i < tilePoints.Length; i++)
+			{
+				Gizmos.DrawSphere(tilePoints[i], 0.05f);
+			}
 		}
 	}
 }

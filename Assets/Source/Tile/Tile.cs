@@ -63,11 +63,8 @@ namespace TilesWalk.Tile
 			set
 			{
 				_index = value;
-				// change boundaries center as well
-				_bounds[0].center = _index;
-				_bounds[1].center = _index;
 				// notify others
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Position"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Index"));
 			}
 		}
 		public Bounds Bounds
@@ -92,6 +89,9 @@ namespace TilesWalk.Tile
 				_bounds[1].extents = new Vector3(_bounds[0].extents.x,
 												 _bounds[0].extents.z,
 												 _bounds[0].extents.y);
+
+				// notify others
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Bounds"));
 			}
 		}
 		public Vector3Int Forward { get => _forward; set => _forward = value; }
@@ -120,6 +120,23 @@ namespace TilesWalk.Tile
 
 				// notify others
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Orientation"));
+			}
+		}
+
+		public Vector3 Position
+		{
+			get
+			{
+				return _position;
+			}
+			set
+			{
+				_position = value;
+				// change boundaries center as well
+				_bounds[0].center = _position;
+				_bounds[1].center = _position;
+				// notify others
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Position"));
 			}
 		}
 
