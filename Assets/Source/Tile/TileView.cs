@@ -29,13 +29,35 @@ namespace TilesWalk.Tile
 
 		public void PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			transform.position = _controller.Tile.Position;
+			var tile = _controller.Tile;
+
+			transform.position = Vector3.zero;
+			transform.rotation = Quaternion.identity;
+
+			switch (tile.Orientation)
+			{
+				case TileOrientation.Horizontal:
+					transform.rotation = Quaternion.identity;
+					break;
+				case TileOrientation.Vertical:
+					transform.RotateAround(Vector3.zero, Vector3.left, 90);
+					break;
+				default:
+					break;
+			}
+
+			transform.position = tile.Index;
 		}
 
 		private void OnDrawGizmos()
 		{
+			var bounds = _controller.Tile.Bounds;
+
 			Gizmos.color = Color.green;
-			Gizmos.DrawWireCube(_controller.Tile.Bounds.center, _controller.Tile.Bounds.size);
+			Gizmos.DrawWireCube(bounds.center, _controller.Tile.Bounds.size);
+
+			Gizmos.color = Color.yellow;
+			Gizmos.DrawRay(bounds.center, _controller.Tile.Forward);
 		}
 	}
 }

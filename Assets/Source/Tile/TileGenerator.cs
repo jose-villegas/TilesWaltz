@@ -43,11 +43,19 @@ namespace TilesWalk.Tile
 			{
 				var instance = Instantiate(source, Vector3.zero, Quaternion.identity, transform);
 				instances[i] = instance.AddComponent<TileView>();
+
+				// Obtain proper boundaries from collider
+				var boxCollider = instances[i].GetComponent<BoxCollider>();
+				instances[i].Controller.AdjustBounds(boxCollider.bounds);
+
 			}
 			// Add neighborhood structure
 			for (int i = 0; i < 9; i++)
 			{
-				instances[i].Controller.AddNeighbor(CardinalDirection.North, instances[i + 1].Controller.Tile);
+				if ((i + 1) % 3 == 0)
+					instances[i].Controller.AddNeighbor(CardinalDirection.North, NeighborWalkRule.Plain, instances[i + 1].Controller.Tile);
+				else
+					instances[i].Controller.AddNeighbor(CardinalDirection.North, NeighborWalkRule.Up, instances[i + 1].Controller.Tile);
 			}
 		}
 	}

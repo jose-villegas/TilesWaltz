@@ -1,10 +1,12 @@
-﻿using TilesWalk.BaseInterfaces;
+﻿using System;
+using TilesWalk.BaseInterfaces;
+using TilesWalk.Extensions;
 using TilesWalk.General;
 using UnityEngine;
 
 namespace TilesWalk.Tile
 {
-
+	[Serializable]
 	public class TileController : IController
 	{
 		[SerializeField]
@@ -17,9 +19,10 @@ namespace TilesWalk.Tile
 			_tile = new Tile();
 		}
 
-		public void AddNeighbor(CardinalDirection direction, Tile tile)
+		public void AddNeighbor(CardinalDirection direction, NeighborWalkRule rule, Tile tile)
 		{
 			var dirIndex = (int)direction;
+			var oppositeIndex = (int)direction.Opposite();
 
 			if (dirIndex < 0 || dirIndex > _tile.Neighbors.Length)
 			{
@@ -27,31 +30,55 @@ namespace TilesWalk.Tile
 				return;
 			}
 
-			_tile.Neighbors[dirIndex] = tile;
 
-			// adjust position according to neighbor
-			var source = _tile.Position;
-			var translate = Vector3.zero;
+			// adjust 3d index according to neighbor
+			var source = _tile.Index;
+			var translate = _tile.Forward;
 
 			switch (direction)
 			{
 				case CardinalDirection.North:
-					translate = Vector3.forward;
+					translate = _tile.Forward;
 					break;
 				case CardinalDirection.South:
-					translate = Vector3.back;
+					translate = -tile.Forward;
 					break;
 				case CardinalDirection.East:
-					translate = Vector3.right;
+					translate += Vector3Int.right;
 					break;
 				case CardinalDirection.West:
-					translate = Vector3.left;
+					translate += Vector3Int.left;
 					break;
 				default:
 					break;
 			}
 
-			tile.Position = source + translate;
+			tile.Index = source + translate;
+
+			// set orientation 
+			switch (rule)
+			{
+				case NeighborWalkRule.Up:
+					tile.Orientation = TileOrientation.Vertical;
+					break;
+				case NeighborWalkRule.Plain:
+					// do nothing
+					break;
+				case NeighborWalkRule.Down:
+					break;
+				default:
+					tile.Orientation = TileOrientation.Vertical;
+					break;
+			}
+
+			// connect neighbor references
+			_tile.Neighbors[dirIndex] = tile;
+			tile.Neighbors[oppositeIndex] = _tile;
+		}
+
+		internal void AdjustBounds(Bounds bounds)
+		{
+			_tile.Bounds = bounds;
 		}
 	}
 }
