@@ -116,11 +116,13 @@ namespace TilesWalk.Tile
 			switch (direction)
 			{
 				case CardinalDirection.North:
-					// first take continuity behaviours	
+					// first take continuity behaviours, first the horizontal case:
 					if ((ruleSet & PathBehaviourRule.HorizontalContinuous) > 0)
 					{
 						translate = Vector3.forward;
 					}
+					// the vertical case depends on the source tile, growing down
+					// will continue growing down, same for growing up
 					else if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
 					{
 						if (_tile.Rule == NeighborWalkRule.Down)
@@ -128,13 +130,13 @@ namespace TilesWalk.Tile
 							translate = Vector3.down;
 							tile.Rule = NeighborWalkRule.Down;
 						}
-						else if(_tile.Rule == NeighborWalkRule.Up)
+						else if (_tile.Rule == NeighborWalkRule.Up)
 						{
 							translate = Vector3.up;
 							tile.Rule = NeighborWalkRule.Up;
 						}
 					}
-					// then take on break cases
+					// then take on break cases, horizontal break is easy as it only will follow a vertical direction
 					if ((ruleSet & PathBehaviourRule.HorizontalBreak) > 0)
 					{
 						if (rule == NeighborWalkRule.Up)
@@ -148,6 +150,9 @@ namespace TilesWalk.Tile
 							tile.Rule = NeighborWalkRule.Down;
 						}
 					}
+					// the vertical case depends on the source tile, as adding neighbor on upper or 
+					// down structure changes the behavior for up and down insertion. first coming from a vertically 
+					// structure growing down:
 					else if ((ruleSet & PathBehaviourRule.VerticalBreak) > 0 && _tile.Rule == NeighborWalkRule.Down)
 					{
 						if (rule == NeighborWalkRule.Up)
@@ -162,6 +167,7 @@ namespace TilesWalk.Tile
 
 						tile.Rule = NeighborWalkRule.Plain;
 					}
+					// coming from a vertically structure growing up
 					else if ((ruleSet & PathBehaviourRule.VerticalBreak) > 0 && _tile.Rule == NeighborWalkRule.Up)
 					{
 						if (rule == NeighborWalkRule.Up)
