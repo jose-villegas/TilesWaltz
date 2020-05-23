@@ -59,6 +59,9 @@ namespace TilesWalk.Tile
 			Gizmos.color = Color.green;
 			Gizmos.DrawWireCube(bounds.center, _controller.Tile.Bounds.size);
 
+			Gizmos.color = Color.green;
+			Gizmos.DrawWireCube(_controller.Tile.Index, Vector3.one);
+
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawRay(bounds.center, _controller.Tile.Forward);
 

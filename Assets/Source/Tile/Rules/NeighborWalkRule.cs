@@ -1,4 +1,4 @@
-﻿namespace TilesWalk.General
+﻿namespace TilesWalk.Tile.Rules
 {
 	public enum NeighborWalkRule
 	{

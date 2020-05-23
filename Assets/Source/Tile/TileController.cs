@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Extensions;
 using TilesWalk.General;
+using TilesWalk.Tile.Rules;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -22,18 +24,10 @@ namespace TilesWalk.Tile
 
 		public void AddNeighbor(CardinalDirection direction, NeighborWalkRule rule, Tile tile)
 		{
-			var dirIndex = (int)direction;
-			var oppositeIndex = (int)direction.Opposite();
-
-			if (dirIndex < 0 || dirIndex > _tile.Neighbors.Length)
-			{
-				Debug.LogError("Given index is invalid for the tile neighbor array");
-				return;
-			}
-
-
+			// obtain neighbouring behavior
+			var ruleSet = _tile.GetPathBehaviour(rule);
 			// adjust 3d index according to neighbor
-			AdjustIndex(direction, tile);
+			AdjustNeighborIndex(direction, ruleSet, tile);
 
 			// set orientation 
 			tile.Orientation = TileExtension.Orientation(rule);
@@ -46,84 +40,124 @@ namespace TilesWalk.Tile
 			var tileHingePoints = tile.HingePoints(direction.Opposite());
 			var move = Vector3.zero;
 
-			if (rule == NeighborWalkRule.Up || rule == NeighborWalkRule.Down)
+			switch (direction)
 			{
-				// change in path orientation
-				if (_tile.Orientation == TileOrientation.Horizontal)
-				{
-					if (rule == NeighborWalkRule.Up)
+				case CardinalDirection.North:
+					if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
 					{
-						if (direction == CardinalDirection.North)
-						{
-							tile.Position += sourceHingePoints[2] - tileHingePoints[0];
-						}
+						tile.Position = _tile.Position + Vector3.up;
 					}
-				}
-				// orientation stays the same
-				else
-				{
-					if (direction == CardinalDirection.North)
+					if ((ruleSet & PathBehaviourRule.HorizontalContinuous) > 0)
 					{
-						tile.Position = _tile.Position + _tile.Forward;
+						tile.Position = _tile.Position + Vector3.forward;
 					}
-				}
+					break;
+				case CardinalDirection.South:
+					if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
+					{
+						tile.Position = _tile.Position + Vector3.down;
+					}
+					if ((ruleSet & PathBehaviourRule.HorizontalContinuous) > 0)
+					{
+						tile.Position = _tile.Position + Vector3.back;
+					}
+					break;
+				case CardinalDirection.East:
+					if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
+					{
+						tile.Position = _tile.Position + Vector3.forward;
+					}
+					if ((ruleSet & PathBehaviourRule.HorizontalContinuous) > 0)
+					{
+						tile.Position = _tile.Position + Vector3.right;
+					}
+					break;
+				case CardinalDirection.West:
+					if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
+					{
+						tile.Position = _tile.Position + Vector3.back;
+					}
+					if ((ruleSet & PathBehaviourRule.HorizontalContinuous) > 0)
+					{
+						tile.Position = _tile.Position + Vector3.left;
+					}
+					break;
+				default:
+					break;
 			}
-			else
+
+			if ((ruleSet & PathBehaviourRule.Break) > 0)
 			{
-				// change in path orientation
-				if (_tile.Orientation == TileOrientation.Vertical)
+				switch (direction)
 				{
-					if (direction == CardinalDirection.North)
-					{
+					case CardinalDirection.North:
 						tile.Position += sourceHingePoints[2] - tileHingePoints[0];
-					}
-				}
-				// orientation stays the same way
-				else
-				{
-					switch (direction)
-					{
-						case CardinalDirection.North:
-							tile.Position = _tile.Position + _tile.Forward;
-							break;
-						case CardinalDirection.South:
-							tile.Position = _tile.Position - _tile.Forward;
-							break;
-						case CardinalDirection.East:
-							tile.Position = _tile.Position + Vector3.right;
-							break;
-						case CardinalDirection.West:
-							tile.Position = _tile.Position + Vector3.left;
-							break;
-						default:
-							break;
-					}
+						break;
+					case CardinalDirection.South:
+						tile.Position += sourceHingePoints[2] - tileHingePoints[0];
+						break;
+					case CardinalDirection.East:
+						tile.Position += sourceHingePoints[2] - tileHingePoints[0];
+						break;
+					case CardinalDirection.West:
+						tile.Position += sourceHingePoints[2] - tileHingePoints[0];
+						break;
+					default:
+						break;
 				}
 			}
 
 			// connect neighbor references
-			_tile.Neighbors[dirIndex] = tile;
-			tile.Neighbors[oppositeIndex] = _tile;
+			_tile.Neighbors[direction] = tile;
+			tile.Neighbors[direction.Opposite()] = _tile;
 		}
 
-		private void AdjustIndex(CardinalDirection direction, Tile tile)
+		private void AdjustNeighborIndex(CardinalDirection direction, PathBehaviourRule ruleSet, Tile tile)
 		{
 			var source = _tile.Index;
-			var translate = _tile.Forward;
+			var translate = Vector3Int.zero;
 
 			switch (direction)
 			{
 				case CardinalDirection.North:
-					translate += Vector3IntExtension.forward();
+					if ((ruleSet & PathBehaviourRule.VerticalContinuousOrBreak) > 0)
+					{
+						translate += Vector3Int.up;
+					}
+					if ((ruleSet & PathBehaviourRule.HorizontalContinuousOrBreak) > 0)
+					{
+						translate += Vector3IntExtension.forward();
+					}
 					break;
 				case CardinalDirection.South:
-					translate += Vector3IntExtension.backward();
+					if ((ruleSet & PathBehaviourRule.VerticalContinuousOrBreak) > 0)
+					{
+						translate += Vector3Int.down;
+					}
+					if ((ruleSet & PathBehaviourRule.HorizontalContinuousOrBreak) > 0)
+					{
+						translate += Vector3IntExtension.backward();
+					}
 					break;
 				case CardinalDirection.East:
-					translate += Vector3Int.right;
+					if ((ruleSet & PathBehaviourRule.VerticalContinuousOrBreak) > 0)
+					{
+						translate += Vector3IntExtension.forward();
+					}
+					if ((ruleSet & PathBehaviourRule.HorizontalContinuousOrBreak) > 0)
+					{
+						translate += Vector3Int.right;
+					}
 					break;
 				case CardinalDirection.West:
-					translate += Vector3Int.left;
+					if ((ruleSet & PathBehaviourRule.VerticalContinuousOrBreak) > 0)
+					{
+						translate += Vector3IntExtension.backward();
+					}
+					if ((ruleSet & PathBehaviourRule.HorizontalContinuousOrBreak) > 0)
+					{
+						translate += Vector3Int.left;
+					}
 					break;
 				default:
 					break;

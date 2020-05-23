@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Extensions;
+using TilesWalk.General;
 using UnityEngine;
 
 namespace TilesWalk.Tile
@@ -31,7 +33,7 @@ namespace TilesWalk.Tile
 		[SerializeField]
 		private Color _color;
 
-		private Tile[] _neighbors;
+		private Dictionary<CardinalDirection, Tile> _neighbors;
 
 		/// <summary>
 		/// This is used to notify the model-view to be updated in the game frame, 
@@ -43,7 +45,7 @@ namespace TilesWalk.Tile
 		/// This structure contains a reference to the nighbor tiles, useful for indexing
 		/// the structure, each index represents an index at <see cref="CardinalDirection"/>
 		/// </summary>
-		public Tile[] Neighbors
+		public Dictionary<CardinalDirection, Tile> Neighbors
 		{
 			get => _neighbors; set => _neighbors = value;
 		}
@@ -143,7 +145,7 @@ namespace TilesWalk.Tile
 		public Tile()
 		{
 			_color = new Color();
-			_neighbors = new Tile[4];
+			_neighbors = new Dictionary<CardinalDirection, Tile>();
 			_index = Vector3Int.zero;
 			_forward = Vector3IntExtension.forward();
 			_bounds = new Bounds[2];
