@@ -10,7 +10,7 @@ namespace TilesWalk.Extensions
 			return new Vector3Int(0, 0, 1);
 		}
 
-		public static Vector3Int backward()
+		public static Vector3Int back()
 		{
 			return new Vector3Int(0, 0, -1);
 		}

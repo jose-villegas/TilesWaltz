@@ -16,7 +16,7 @@ namespace TilesWalk.Tile
 	public class Tile : IModel, INotifyPropertyChanged
 	{
 		[SerializeField]
-		private Vector3Int _index;
+		private Vector3 _index;
 
 		[SerializeField]
 		private Vector3 _position;
@@ -52,7 +52,7 @@ namespace TilesWalk.Tile
 		/// it doesn't look like a series of voxels, this coordinate represents its position in voxel
 		/// space
 		/// </summary>
-		public Vector3Int Index
+		public Vector3 Index
 		{
 			get
 			{
@@ -129,7 +129,7 @@ namespace TilesWalk.Tile
 		{
 			_color = new Color();
 			_neighbors = new Dictionary<CardinalDirection, Tile>();
-			_index = Vector3Int.zero;
+			_index = Vector3.zero;
 			_bounds = new Bounds[2];
 		}
 	}

@@ -76,12 +76,20 @@ namespace TilesWalk.Tile
 			}
 		}
 
+		private void OnDestroy()
+		{
+			foreach (var item in _controller.Tile.Neighbors)
+			{
+				item.Value.Neighbors.Remove(item.Key.Opposite());
+			}
+		}
+
 #if UNITY_EDITOR
 		[Header("Editor")]
 		[SerializeField]
-		private CardinalDirection direction;
+		private CardinalDirection direction = CardinalDirection.North;
 		[SerializeField]
-		private NeighborWalkRule rule;
+		private NeighborWalkRule rule = NeighborWalkRule.Plain;
 		[Inject(Id = "TileAsset")]
 		private AssetReference _tileAsset;
 
@@ -89,9 +97,15 @@ namespace TilesWalk.Tile
 		[Button]
 		private void AddNeighbor()
 		{
+			if (!_controller.Tile.IsValidInsertion(direction, rule))
+			{
+				Debug.LogError("Cannot insert a neighbor here, space already occupied ");
+				return;
+			}
+
 			_tileAsset.InstantiateAsync(Vector3.zero, Quaternion.identity, transform.parent).Completed += (handle) =>
 			{
-				var view  = handle.Result.AddComponent< TileView>();
+				var view = handle.Result.AddComponent<TileView>();
 				view._tileAsset = _tileAsset;
 
 				// Obtain proper boundaries from collider

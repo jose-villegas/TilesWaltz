@@ -57,7 +57,7 @@ namespace TilesWalk.Extensions
 			var ruleSet = PathBehaviourRule.None;
 
 			// for when we continue a vertical path
-			if (tile.Orientation == TileOrientation.Vertical && (rule == NeighborWalkRule.Down || rule == NeighborWalkRule.Up))
+			if (tile.Orientation == TileOrientation.Vertical && rule == NeighborWalkRule.Plain)
 			{
 				ruleSet |= PathBehaviourRule.VerticalContinuous;
 			}
@@ -75,7 +75,7 @@ namespace TilesWalk.Extensions
 			}
 
 			// for when we break a vertical path by going horizontal
-			if (tile.Orientation == TileOrientation.Vertical && rule == NeighborWalkRule.Plain)
+			if (tile.Orientation == TileOrientation.Vertical && (rule == NeighborWalkRule.Down || rule == NeighborWalkRule.Up))
 			{
 				ruleSet |= PathBehaviourRule.VerticalBreak;
 			}
@@ -83,19 +83,20 @@ namespace TilesWalk.Extensions
 			return ruleSet;
 		}
 
-		public static bool IsValidInsertion(Tile.Tile source, Tile.Tile possibleNeighbor, CardinalDirection direction, NeighborWalkRule rule)
+		public static bool IsValidInsertion(this Tile.Tile source, CardinalDirection direction, NeighborWalkRule rule)
 		{
 			bool result = false;
 
 			// first check if direction is already occupied
 			if (source.Neighbors.ContainsKey(direction))
 			{
-				return false;
+				return source.Neighbors[direction] == null;
 			}
-
+			else
+			{
+				return true;
+			}
 			// todo: add rules here
-
-			return result;
 		}
 	}
 }

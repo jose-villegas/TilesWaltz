@@ -29,7 +29,7 @@ namespace TilesWalk.Tile
 			// set orientation 
 			tile.Orientation = TileExtension.Orientation(rule);
 			// adjust 3d index according to neighbor
-			AdjustNeighborIndex(direction, ruleSet, tile);
+			AdjustNeighborIndex(direction, rule, ruleSet, tile);
 			// set 3d actual position to match with hinge points
 			tile.Position = tile.Index;
 
@@ -38,123 +38,149 @@ namespace TilesWalk.Tile
 			var tileHingePoints = tile.HingePoints(direction.Opposite());
 			var move = Vector3.zero;
 
-			switch (direction)
-			{
-				case CardinalDirection.North:
-					if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
-					{
-						tile.Position = _tile.Position + Vector3.up;
-					}
-					if ((ruleSet & PathBehaviourRule.HorizontalContinuous) > 0)
-					{
-						tile.Position = _tile.Position + Vector3.forward;
-					}
-					break;
-				case CardinalDirection.South:
-					if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
-					{
-						tile.Position = _tile.Position + Vector3.down;
-					}
-					if ((ruleSet & PathBehaviourRule.HorizontalContinuous) > 0)
-					{
-						tile.Position = _tile.Position + Vector3.back;
-					}
-					break;
-				case CardinalDirection.East:
-					if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
-					{
-						tile.Position = _tile.Position + Vector3.forward;
-					}
-					if ((ruleSet & PathBehaviourRule.HorizontalContinuous) > 0)
-					{
-						tile.Position = _tile.Position + Vector3.right;
-					}
-					break;
-				case CardinalDirection.West:
-					if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
-					{
-						tile.Position = _tile.Position + Vector3.back;
-					}
-					if ((ruleSet & PathBehaviourRule.HorizontalContinuous) > 0)
-					{
-						tile.Position = _tile.Position + Vector3.left;
-					}
-					break;
-				default:
-					break;
-			}
+			//switch (direction)
+			//{
+			//	case CardinalDirection.North:
+			//		if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
+			//		{
+			//			tile.Position = _tile.Position + Vector3.up;
+			//		}
+			//		if ((ruleSet & PathBehaviourRule.HorizontalContinuous) > 0)
+			//		{
+			//			tile.Position = _tile.Position + Vector3.forward;
+			//		}
+			//		break;
+			//	case CardinalDirection.South:
+			//		if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
+			//		{
+			//			tile.Position = _tile.Position + Vector3.down;
+			//		}
+			//		if ((ruleSet & PathBehaviourRule.HorizontalContinuous) > 0)
+			//		{
+			//			tile.Position = _tile.Position + Vector3.back;
+			//		}
+			//		break;
+			//	case CardinalDirection.East:
+			//		if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
+			//		{
+			//			tile.Position = _tile.Position + Vector3.forward;
+			//		}
+			//		if ((ruleSet & PathBehaviourRule.HorizontalContinuous) > 0)
+			//		{
+			//			tile.Position = _tile.Position + Vector3.right;
+			//		}
+			//		break;
+			//	case CardinalDirection.West:
+			//		if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
+			//		{
+			//			tile.Position = _tile.Position + Vector3.back;
+			//		}
+			//		if ((ruleSet & PathBehaviourRule.HorizontalContinuous) > 0)
+			//		{
+			//			tile.Position = _tile.Position + Vector3.left;
+			//		}
+			//		break;
+			//	default:
+			//		break;
+			//}
 
-			if ((ruleSet & PathBehaviourRule.Break) > 0)
-			{
-				switch (direction)
-				{
-					case CardinalDirection.North:
-						tile.Position += sourceHingePoints[2] - tileHingePoints[0];
-						break;
-					case CardinalDirection.South:
-						tile.Position += sourceHingePoints[2] - tileHingePoints[0];
-						break;
-					case CardinalDirection.East:
-						tile.Position += sourceHingePoints[2] - tileHingePoints[0];
-						break;
-					case CardinalDirection.West:
-						tile.Position += sourceHingePoints[2] - tileHingePoints[0];
-						break;
-					default:
-						break;
-				}
-			}
+			//if ((ruleSet & PathBehaviourRule.Break) > 0)
+			//{
+			//	switch (direction)
+			//	{
+			//		case CardinalDirection.North:
+			//			tile.Position += sourceHingePoints[2] - tileHingePoints[0];
+			//			break;
+			//		case CardinalDirection.South:
+			//			tile.Position += sourceHingePoints[2] - tileHingePoints[0];
+			//			break;
+			//		case CardinalDirection.East:
+			//			tile.Position += sourceHingePoints[2] - tileHingePoints[0];
+			//			break;
+			//		case CardinalDirection.West:
+			//			tile.Position += sourceHingePoints[2] - tileHingePoints[0];
+			//			break;
+			//		default:
+			//			break;
+			//	}
+			//}
 
 			// connect neighbor references
 			_tile.Neighbors[direction] = tile;
 			tile.Neighbors[direction.Opposite()] = _tile;
 		}
 
-		private void AdjustNeighborIndex(CardinalDirection direction, PathBehaviourRule ruleSet, Tile tile)
+		private void AdjustNeighborIndex(CardinalDirection direction, NeighborWalkRule rule, PathBehaviourRule ruleSet, Tile tile)
 		{
 			var source = _tile.Index;
-			var translate = Vector3Int.zero;
+			var translate = Vector3.zero;
 
 			switch (direction)
 			{
 				case CardinalDirection.North:
-					if ((ruleSet & PathBehaviourRule.VerticalContinuousOrBreak) > 0)
+					// first take continuity behaviours	
+					if ((ruleSet & PathBehaviourRule.HorizontalContinuous) > 0)
 					{
-						translate += Vector3Int.up;
+						translate = Vector3.forward;
 					}
-					if ((ruleSet & PathBehaviourRule.HorizontalContinuousOrBreak) > 0)
+					else if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
 					{
-						translate += Vector3IntExtension.forward();
+						translate = Vector3.up;
 					}
+					// then take on break cases
+					if ((ruleSet & PathBehaviourRule.HorizontalBreak) > 0)
+					{
+						if (rule == NeighborWalkRule.Up)
+						{
+							translate = Vector3.forward + Vector3.up;
+						}
+						else if (rule == NeighborWalkRule.Down)
+						{
+							translate = Vector3.forward + Vector3.down;
+						}
+					}
+					else if ((ruleSet & PathBehaviourRule.VerticalBreak) > 0)
+					{
+						if (rule == NeighborWalkRule.Up)
+						{
+							translate = Vector3.back + Vector3.up;
+						}
+						else if (rule == NeighborWalkRule.Down)
+						{
+							translate = Vector3.forward + Vector3.up;
+						}
+					}
+
 					break;
 				case CardinalDirection.South:
-					if ((ruleSet & PathBehaviourRule.VerticalContinuousOrBreak) > 0)
+					// first take continuity behaviours	
+					if ((ruleSet & PathBehaviourRule.HorizontalContinuous) > 0)
 					{
-						translate += Vector3Int.down;
+						translate = Vector3.back;
 					}
-					if ((ruleSet & PathBehaviourRule.HorizontalContinuousOrBreak) > 0)
+					else if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
 					{
-						translate += Vector3IntExtension.backward();
+						translate = Vector3.down;
 					}
 					break;
 				case CardinalDirection.East:
 					if ((ruleSet & PathBehaviourRule.VerticalContinuousOrBreak) > 0)
 					{
-						translate += Vector3IntExtension.forward();
+						translate += Vector3.forward;
 					}
 					if ((ruleSet & PathBehaviourRule.HorizontalContinuousOrBreak) > 0)
 					{
-						translate += Vector3Int.right;
+						translate += Vector3.right;
 					}
 					break;
 				case CardinalDirection.West:
 					if ((ruleSet & PathBehaviourRule.VerticalContinuousOrBreak) > 0)
 					{
-						translate += Vector3IntExtension.backward();
+						translate += Vector3.back;
 					}
 					if ((ruleSet & PathBehaviourRule.HorizontalContinuousOrBreak) > 0)
 					{
-						translate += Vector3Int.left;
+						translate += Vector3.left;
 					}
 					break;
 				default:
