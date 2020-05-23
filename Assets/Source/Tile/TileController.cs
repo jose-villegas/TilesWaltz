@@ -26,12 +26,10 @@ namespace TilesWalk.Tile
 		{
 			// obtain neighbouring behavior
 			var ruleSet = _tile.GetPathBehaviour(rule);
-			// adjust 3d index according to neighbor
-			AdjustNeighborIndex(direction, ruleSet, tile);
-
 			// set orientation 
 			tile.Orientation = TileExtension.Orientation(rule);
-
+			// adjust 3d index according to neighbor
+			AdjustNeighborIndex(direction, ruleSet, tile);
 			// set 3d actual position to match with hinge points
 			tile.Position = tile.Index;
 

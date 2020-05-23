@@ -1,10 +1,14 @@
-﻿using System;
+﻿using NaughtyAttributes;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Extensions;
 using TilesWalk.General;
+using TilesWalk.Tile.Rules;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using Zenject;
 
 namespace TilesWalk.Tile
 {
@@ -62,9 +66,6 @@ namespace TilesWalk.Tile
 			Gizmos.color = Color.green;
 			Gizmos.DrawWireCube(_controller.Tile.Index, Vector3.one);
 
-			Gizmos.color = Color.yellow;
-			Gizmos.DrawRay(bounds.center, _controller.Tile.Forward);
-
 			var tilePoints = _controller.Tile.HingePoints(CardinalDirection.North);
 			tilePoints = tilePoints.Concat(_controller.Tile.HingePoints(CardinalDirection.South)).ToArray();
 
@@ -74,6 +75,33 @@ namespace TilesWalk.Tile
 				Gizmos.DrawSphere(tilePoints[i], 0.05f);
 			}
 		}
+
+#if UNITY_EDITOR
+		[Header("Editor")]
+		[SerializeField]
+		private CardinalDirection direction;
+		[SerializeField]
+		private NeighborWalkRule rule;
+		[Inject(Id = "TileAsset")]
+		private AssetReference _tileAsset;
+
+
+		[Button]
+		private void AddNeighbor()
+		{
+			_tileAsset.InstantiateAsync(Vector3.zero, Quaternion.identity, transform.parent).Completed += (handle) =>
+			{
+				var view  = handle.Result.AddComponent< TileView>();
+				view._tileAsset = _tileAsset;
+
+				// Obtain proper boundaries from collider
+				var boxCollider = handle.Result.GetComponent<BoxCollider>();
+				view.Controller.AdjustBounds(boxCollider.bounds);
+
+				_controller.AddNeighbor(direction, rule, view.Controller.Tile);
+			};
+		}
+#endif
 	}
 }
 

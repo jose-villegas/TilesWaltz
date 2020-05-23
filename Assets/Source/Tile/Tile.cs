@@ -22,9 +22,6 @@ namespace TilesWalk.Tile
 		private Vector3 _position;
 
 		[SerializeField]
-		private Vector3Int _forward;
-
-		[SerializeField]
 		private Bounds[] _bounds;
 
 		[SerializeField]
@@ -96,7 +93,6 @@ namespace TilesWalk.Tile
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Bounds"));
 			}
 		}
-		public Vector3Int Forward { get => _forward; set => _forward = value; }
 		public TileOrientation Orientation
 		{
 			get
@@ -107,19 +103,6 @@ namespace TilesWalk.Tile
 			set
 			{
 				_orientation = value;
-
-				switch (_orientation)
-				{
-					case TileOrientation.Horizontal:
-						_forward = Vector3IntExtension.forward();
-						break;
-					case TileOrientation.Vertical:
-						_forward = Vector3Int.up;
-						break;
-					default:
-						break;
-				}
-
 				// notify others
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Orientation"));
 			}
@@ -147,7 +130,6 @@ namespace TilesWalk.Tile
 			_color = new Color();
 			_neighbors = new Dictionary<CardinalDirection, Tile>();
 			_index = Vector3Int.zero;
-			_forward = Vector3IntExtension.forward();
 			_bounds = new Bounds[2];
 		}
 	}
