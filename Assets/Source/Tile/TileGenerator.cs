@@ -12,8 +12,8 @@ namespace TilesWalk.Tile
 	{
 		[Inject(Id = "TileAsset")]
 		private AssetReference _tileAsset;
-		[Inject] DiContainer 
-		_container;
+		[Inject]
+		private DiContainer _container;
 
 		private void Start()
 		{

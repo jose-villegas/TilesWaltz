@@ -41,15 +41,16 @@ namespace TilesWalk.Tile
 			transform.position = Vector3.zero;
 			transform.rotation = Quaternion.identity;
 
-			switch (tile.Orientation)
+			switch (tile.Rule)
 			{
-				case TileOrientation.Horizontal:
-					transform.rotation = Quaternion.identity;
-					break;
-				case TileOrientation.Vertical:
+				case NeighborWalkRule.Up:
 					transform.RotateAround(Vector3.zero, Vector3.left, 90);
 					break;
-				default:
+				case NeighborWalkRule.Plain:
+					transform.rotation = Quaternion.identity;
+					break;
+				case NeighborWalkRule.Down:
+					transform.RotateAround(Vector3.zero, Vector3.left, 90);
 					break;
 			}
 

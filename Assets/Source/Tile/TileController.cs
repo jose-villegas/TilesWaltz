@@ -26,10 +26,8 @@ namespace TilesWalk.Tile
 		{
 			// obtain neighbouring behavior
 			var ruleSet = _tile.GetPathBehaviour(rule);
-			// set orientation 
-			tile.Orientation = TileExtension.Orientation(rule);
 			// adjust 3d index according to neighbor
-			AdjustNeighborIndex(direction, rule, ruleSet, tile);
+			AdjustNeighborSpace(direction, rule, ruleSet, tile);
 			// set 3d actual position to match with hinge points
 			tile.Position = tile.Index;
 
@@ -110,7 +108,7 @@ namespace TilesWalk.Tile
 			tile.Neighbors[direction.Opposite()] = _tile;
 		}
 
-		private void AdjustNeighborIndex(CardinalDirection direction, NeighborWalkRule rule, PathBehaviourRule ruleSet, Tile tile)
+		private void AdjustNeighborSpace(CardinalDirection direction, NeighborWalkRule rule, PathBehaviourRule ruleSet, Tile tile)
 		{
 			var source = _tile.Index;
 			var translate = Vector3.zero;
@@ -125,7 +123,16 @@ namespace TilesWalk.Tile
 					}
 					else if ((ruleSet & PathBehaviourRule.VerticalContinuous) > 0)
 					{
-						translate = Vector3.up;
+						if (_tile.Rule == NeighborWalkRule.Down)
+						{
+							translate = Vector3.down;
+							tile.Rule = NeighborWalkRule.Down;
+						}
+						else if(_tile.Rule == NeighborWalkRule.Up)
+						{
+							translate = Vector3.up;
+							tile.Rule = NeighborWalkRule.Up;
+						}
 					}
 					// then take on break cases
 					if ((ruleSet & PathBehaviourRule.HorizontalBreak) > 0)
@@ -133,22 +140,41 @@ namespace TilesWalk.Tile
 						if (rule == NeighborWalkRule.Up)
 						{
 							translate = Vector3.forward + Vector3.up;
+							tile.Rule = NeighborWalkRule.Up;
 						}
 						else if (rule == NeighborWalkRule.Down)
 						{
 							translate = Vector3.forward + Vector3.down;
+							tile.Rule = NeighborWalkRule.Down;
 						}
 					}
-					else if ((ruleSet & PathBehaviourRule.VerticalBreak) > 0)
+					else if ((ruleSet & PathBehaviourRule.VerticalBreak) > 0 && _tile.Rule == NeighborWalkRule.Down)
+					{
+						if (rule == NeighborWalkRule.Up)
+						{
+							translate = Vector3.forward - Vector3.up;
+
+						}
+						else if (rule == NeighborWalkRule.Down)
+						{
+							translate = Vector3.back - Vector3.up;
+						}
+
+						tile.Rule = NeighborWalkRule.Plain;
+					}
+					else if ((ruleSet & PathBehaviourRule.VerticalBreak) > 0 && _tile.Rule == NeighborWalkRule.Up)
 					{
 						if (rule == NeighborWalkRule.Up)
 						{
 							translate = Vector3.back + Vector3.up;
+
 						}
 						else if (rule == NeighborWalkRule.Down)
 						{
 							translate = Vector3.forward + Vector3.up;
 						}
+
+						tile.Rule = NeighborWalkRule.Plain;
 					}
 
 					break;

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Extensions;
 using TilesWalk.General;
+using TilesWalk.Tile.Rules;
 using UnityEngine;
 
 namespace TilesWalk.Tile
@@ -25,7 +26,7 @@ namespace TilesWalk.Tile
 		private Bounds[] _bounds;
 
 		[SerializeField]
-		private TileOrientation _orientation;
+		private NeighborWalkRule _rule;
 
 		[SerializeField]
 		private Color _color;
@@ -70,11 +71,12 @@ namespace TilesWalk.Tile
 		{
 			get
 			{
-				switch (_orientation)
+				switch (_rule)
 				{
-					case TileOrientation.Horizontal:
+					case NeighborWalkRule.Plain:
 						return _bounds[0];
-					case TileOrientation.Vertical:
+					case NeighborWalkRule.Down:
+					case NeighborWalkRule.Up:
 						return _bounds[1];
 					default:
 						break;
@@ -93,18 +95,18 @@ namespace TilesWalk.Tile
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Bounds"));
 			}
 		}
-		public TileOrientation Orientation
+		public NeighborWalkRule Rule
 		{
 			get
 			{
-				return _orientation;
+				return _rule;
 			}
 
 			set
 			{
-				_orientation = value;
+				_rule = value;
 				// notify others
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Orientation"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Rule"));
 			}
 		}
 
@@ -131,6 +133,7 @@ namespace TilesWalk.Tile
 			_neighbors = new Dictionary<CardinalDirection, Tile>();
 			_index = Vector3.zero;
 			_bounds = new Bounds[2];
+			_rule = NeighborWalkRule.Plain;
 		}
 	}
 }
