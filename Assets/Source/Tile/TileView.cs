@@ -6,22 +6,46 @@ using TilesWalk.BaseInterfaces;
 using TilesWalk.Extensions;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace TilesWalk.Tile
 {
+	[ExecuteInEditMode]
 	public class TileView : MonoBehaviour, IView
 	{
-		[SerializeField]
-		private TileController _controller;
+		[SerializeField] private TileController _controller;
 
-		public TileController Controller { get => _controller; }
+		private BoxCollider _collider;
+
+		private BoxCollider Collider
+		{
+			get
+			{
+				if (_collider == null)
+				{
+					_collider = GetComponent<BoxCollider>();
+				}
+
+				return _collider;
+			}
+		}
+
+		public TileController Controller
+		{
+			get => _controller;
+		}
 
 		public TileView()
 		{
 			_controller = new TileController();
+		}
+
+		private void Start()
+		{
+			_collider = GetComponent<BoxCollider>();
 		}
 
 		private void OnEnable()
@@ -38,37 +62,40 @@ namespace TilesWalk.Tile
 		{
 			var tile = _controller.Tile;
 
-			transform.position = Vector3.zero;
-			transform.rotation = Quaternion.identity;
-
-			switch (tile.Rule)
+			if (e.PropertyName != "Position" && e.PropertyName != "Rotation")
 			{
-				case NeighborWalkRule.Up:
-					transform.RotateAround(Vector3.zero, Vector3.left, 90);
-					break;
-				case NeighborWalkRule.Plain:
-					transform.rotation = Quaternion.identity;
-					break;
-				case NeighborWalkRule.Down:
-					transform.RotateAround(Vector3.zero, Vector3.left, 90);
-					break;
+				return;
 			}
 
 			transform.position = tile.Position;
+			transform.rotation = tile.Rotation;
+			// update tile bounds after frame update
+			Observable.TimerFrame(1, FrameCountType.EndOfFrame).Subscribe(_ =>
+			{
+				_controller.AdjustBounds(Collider.bounds);
+			}).AddTo(this);
 		}
 
 		private void OnDrawGizmos()
 		{
 			var bounds = _controller.Tile.Bounds;
+			var tile = _controller.Tile;
 
 			Gizmos.color = Color.green;
-			Gizmos.DrawWireCube(bounds.center, _controller.Tile.Bounds.size);
+			Gizmos.DrawWireCube(bounds.center, bounds.size);
 
 			Gizmos.color = Color.green;
-			Gizmos.DrawWireCube(_controller.Tile.Index, Vector3.one);
+			Gizmos.DrawWireCube(tile.Index, Vector3.one);
 
-			var tilePoints = _controller.Tile.HingePoints(CardinalDirection.North);
-			tilePoints = tilePoints.Concat(_controller.Tile.HingePoints(CardinalDirection.South)).ToArray();
+			//Gizmos.color = Color.red;
+			//Gizmos.DrawRay(bounds.center, tile.Right);
+			//Gizmos.color = Color.green;
+			//Gizmos.DrawRay(bounds.center, tile.Up);
+			//Gizmos.color = Color.blue;
+			//Gizmos.DrawRay(bounds.center, tile.Forward);
+
+			var tilePoints = tile.HingePoints(CardinalDirection.North);
+			tilePoints = tilePoints.Concat(tile.HingePoints(CardinalDirection.South)).ToArray();
 
 			Gizmos.color = Color.blue;
 			for (int i = 0; i < tilePoints.Length; i++)
@@ -86,14 +113,9 @@ namespace TilesWalk.Tile
 		}
 
 #if UNITY_EDITOR
-		[Header("Editor")]
-		[SerializeField]
-		private CardinalDirection direction = CardinalDirection.North;
-		[SerializeField]
-		private NeighborWalkRule rule = NeighborWalkRule.Plain;
-		[Inject(Id = "TileAsset")]
-		private AssetReference _tileAsset;
-
+		[Header("Editor")] [SerializeField] private CardinalDirection direction = CardinalDirection.North;
+		[SerializeField] private NeighborWalkRule rule = NeighborWalkRule.Plain;
+		[Inject(Id = "TileAsset")] private AssetReference _tileAsset;
 
 		[Button]
 		private void AddNeighbor()
@@ -119,4 +141,3 @@ namespace TilesWalk.Tile
 #endif
 	}
 }
-

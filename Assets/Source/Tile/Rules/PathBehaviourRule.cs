@@ -1,8 +1,11 @@
-﻿namespace TilesWalk.Tile.Rules
+﻿using System;
+
+namespace TilesWalk.Tile.Rules
 {
 	/// <summary>
 	/// This class represents the possible rule sets for path building between tiles
 	/// </summary>
+	[Flags]
 	public enum PathBehaviourRule
 	{
 		None = 0,

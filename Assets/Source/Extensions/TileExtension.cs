@@ -38,33 +38,33 @@ namespace TilesWalk.Extensions
 			return points;
 		}
 
-		public static PathBehaviourRule GetPathBehaviour(this Tile.Tile tile, NeighborWalkRule rule)
+		public static PathBehaviourRule GetPathBehaviour(NeighborWalkRule source, NeighborWalkRule rule)
 		{
 			var ruleSet = PathBehaviourRule.None;
 
 			// for when we continue a vertical path
-			if ((tile.Rule == NeighborWalkRule.Down || tile.Rule == NeighborWalkRule.Up) 
+			if ((source == NeighborWalkRule.Down || source == NeighborWalkRule.Up) 
 				&& rule == NeighborWalkRule.Plain)
 			{
 				ruleSet |= PathBehaviourRule.VerticalContinuous;
 			}
 
 			// for when we continue a horizontal path
-			if ((tile.Rule == NeighborWalkRule.Plain) 
+			if ((source == NeighborWalkRule.Plain) 
 				&& rule == NeighborWalkRule.Plain)
 			{
 				ruleSet |= PathBehaviourRule.HorizontalContinuous;
 			}
 
 			// for when we break a horizontal path by going vertical
-			if ((tile.Rule == NeighborWalkRule.Plain) 
+			if ((source == NeighborWalkRule.Plain) 
 				&& (rule == NeighborWalkRule.Down || rule == NeighborWalkRule.Up))
 			{
 				ruleSet |= PathBehaviourRule.HorizontalBreak;
 			}
 
 			// for when we break a vertical path by going horizontal
-			if ((tile.Rule == NeighborWalkRule.Down || tile.Rule == NeighborWalkRule.Up)
+			if ((source == NeighborWalkRule.Down || source == NeighborWalkRule.Up)
 				&& (rule == NeighborWalkRule.Down || rule == NeighborWalkRule.Up))
 			{
 				ruleSet |= PathBehaviourRule.VerticalBreak;

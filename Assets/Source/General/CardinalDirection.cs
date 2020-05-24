@@ -1,4 +1,6 @@
-﻿namespace TilesWalk.General
+﻿using System;
+
+namespace TilesWalk.General
 {
 	public enum CardinalDirection
 	{
