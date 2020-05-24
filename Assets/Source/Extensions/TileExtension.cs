@@ -38,41 +38,6 @@ namespace TilesWalk.Extensions
 			return points;
 		}
 
-		public static PathBehaviourRule GetPathBehaviour(NeighborWalkRule source, NeighborWalkRule rule)
-		{
-			var ruleSet = PathBehaviourRule.None;
-
-			// for when we continue a vertical path
-			if ((source == NeighborWalkRule.Down || source == NeighborWalkRule.Up) 
-				&& rule == NeighborWalkRule.Plain)
-			{
-				ruleSet |= PathBehaviourRule.VerticalContinuous;
-			}
-
-			// for when we continue a horizontal path
-			if ((source == NeighborWalkRule.Plain) 
-				&& rule == NeighborWalkRule.Plain)
-			{
-				ruleSet |= PathBehaviourRule.HorizontalContinuous;
-			}
-
-			// for when we break a horizontal path by going vertical
-			if ((source == NeighborWalkRule.Plain) 
-				&& (rule == NeighborWalkRule.Down || rule == NeighborWalkRule.Up))
-			{
-				ruleSet |= PathBehaviourRule.HorizontalBreak;
-			}
-
-			// for when we break a vertical path by going horizontal
-			if ((source == NeighborWalkRule.Down || source == NeighborWalkRule.Up)
-				&& (rule == NeighborWalkRule.Down || rule == NeighborWalkRule.Up))
-			{
-				ruleSet |= PathBehaviourRule.VerticalBreak;
-			}
-
-			return ruleSet;
-		}
-
 		public static bool IsValidInsertion(this Tile.Tile source, CardinalDirection direction, NeighborWalkRule rule)
 		{
 			bool result = false;

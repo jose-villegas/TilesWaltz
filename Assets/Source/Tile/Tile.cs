@@ -22,6 +22,8 @@ namespace TilesWalk.Tile
 
 		[SerializeField] private Color _color;
 
+		[SerializeField] private Tuple<CardinalDirection, NeighborWalkRule> _insertionRule;
+
 		/// <summary>
 		/// This structure contains a reference to the neighbor tiles, useful for indexing
 		/// the structure, each index represents an index at <see cref="CardinalDirection"/>
@@ -49,7 +51,26 @@ namespace TilesWalk.Tile
 			get
 			{
 				_bounds.center = Position;
-				return _bounds;
+
+				// non-origin tile, check for path behavior
+				if (_insertionRule.Item1 != CardinalDirection.None)
+				{
+					var sourceDirection = _insertionRule.Item1.Opposite();
+
+					if (Neighbors.TryGetValue(sourceDirection, out var neighbor))
+					{
+						var path = neighbor.InsertionRule.Item2.GetPathBehaviour(_insertionRule.Item2);
+
+						if ((path & (PathBehaviourRule.VerticalContinuous | PathBehaviourRule.HorizontalBreak)) > 0)
+						{
+							return new Bounds(Position,
+								new Vector3(_bounds.size.x, _bounds.size.z, _bounds.size.y));
+						}
+					}
+				}
+
+
+				return new Bounds(Position, _bounds.size);
 			}
 			set
 			{
@@ -59,6 +80,12 @@ namespace TilesWalk.Tile
 			}
 		}
 
+		public Tuple<CardinalDirection, NeighborWalkRule> InsertionRule
+		{
+			get => _insertionRule;
+			set => _insertionRule = value;
+		}
+
 		public Tile()
 		{
 			_color = new Color();
@@ -66,6 +93,9 @@ namespace TilesWalk.Tile
 			_index = Vector3.zero;
 			Bounds = new Bounds();
 			_model = Matrix4x4.identity;
+			// origin
+			_insertionRule =
+				new Tuple<CardinalDirection, NeighborWalkRule>(CardinalDirection.None, NeighborWalkRule.Plain);
 		}
 	}
 }

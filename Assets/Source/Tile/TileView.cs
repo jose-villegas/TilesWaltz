@@ -69,11 +69,11 @@ namespace TilesWalk.Tile
 
 			transform.position = tile.Position;
 			transform.rotation = tile.Rotation;
-			// update tile bounds after frame update
-			Observable.TimerFrame(1, FrameCountType.EndOfFrame).Subscribe(_ =>
-			{
-				_controller.AdjustBounds(Collider.bounds);
-			}).AddTo(this);
+			//// update tile bounds after frame update
+			//Observable.TimerFrame(1, FrameCountType.EndOfFrame).Subscribe(_ =>
+			//{
+			//	_controller.AdjustBounds(Collider.bounds);
+			//}).AddTo(this);
 		}
 
 		private void OnDrawGizmos()
@@ -84,8 +84,8 @@ namespace TilesWalk.Tile
 			Gizmos.color = Color.green;
 			Gizmos.DrawWireCube(bounds.center, bounds.size);
 
-			Gizmos.color = Color.green;
-			Gizmos.DrawWireCube(tile.Index, Vector3.one);
+			//Gizmos.color = Color.green;
+			//Gizmos.DrawWireCube(tile.Index, Vector3.one);
 
 			//Gizmos.color = Color.red;
 			//Gizmos.DrawRay(bounds.center, tile.Right);
@@ -130,6 +130,8 @@ namespace TilesWalk.Tile
 			{
 				var view = handle.Result.AddComponent<TileView>();
 				view._tileAsset = _tileAsset;
+				view.rule = rule;
+				view.direction = direction;
 
 				// Obtain proper boundaries from collider
 				var boxCollider = handle.Result.GetComponent<BoxCollider>();
