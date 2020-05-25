@@ -10,13 +10,13 @@ namespace TilesWalk.Tile.Editor
 		[DrawGizmo(GizmoType.Selected)]
 		private static void RenderCustomGizmoSelected(Transform objectTransform, GizmoType gizmoType)
 		{
-			DrawHandles(objectTransform);
+			// DrawHandles(objectTransform);
 		}
 
 		[DrawGizmo(GizmoType.NonSelected)]
 		private static void RenderCustomGizmoNonSelected(Transform objectTransform, GizmoType gizmoType)
 		{
-			DrawHandles(objectTransform);
+			// DrawHandles(objectTransform);
 		}
 
 		private static void DrawHandles(Transform objectTransform)
@@ -28,15 +28,15 @@ namespace TilesWalk.Tile.Editor
 			var tile = t.Controller.Tile;
 
 			Handles.color = Handles.xAxisColor;
-			var rotation = Quaternion.LookRotation(tile.Right, tile.Forward);
+			var rotation = Quaternion.LookRotation(tile.Transform.Right, tile.Transform.Forward);
 			Handles.ArrowHandleCap(0, t.transform.position, rotation, 1, EventType.Repaint);
 
 			Handles.color = Handles.yAxisColor;
-			rotation = Quaternion.LookRotation(tile.Up, tile.Right);
+			rotation = Quaternion.LookRotation(tile.Transform.Up, tile.Transform.Right);
 			Handles.ArrowHandleCap(0, t.transform.position, rotation, 1, EventType.Repaint);
 
 			Handles.color = Handles.zAxisColor;
-			rotation = Quaternion.LookRotation(tile.Forward, tile.Up);
+			rotation = Quaternion.LookRotation(tile.Transform.Forward, tile.Transform.Up);
 			Handles.ArrowHandleCap(0, t.transform.position, rotation, 1, EventType.Repaint);
 		}
 	}

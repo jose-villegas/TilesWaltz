@@ -14,7 +14,7 @@ namespace TilesWalk.Tile
 	/// puzzle figure, most property names are self explanatory
 	/// </summary>
 	[Serializable]
-	public class Tile : SceneModel
+	public class Tile : IModel
 	{
 		[SerializeField] private Vector3 _index;
 
@@ -43,10 +43,7 @@ namespace TilesWalk.Tile
 		public Vector3 Index
 		{
 			get => _index;
-			set
-			{
-				_index = value;
-			}
+			set => _index = value;
 		}
 
 		public Bounds Bounds
@@ -61,14 +58,17 @@ namespace TilesWalk.Tile
 			set => _insertionRule = value;
 		}
 
+		public ReactiveTransform Transform { get; set; }
+
 		public Tile()
 		{
 			_color = new Color();
 			_bounds = new Bounds();
-			Neighbors = new Dictionary<CardinalDirection, Tile>();
 			_index = Vector3.zero;
 			HingePoints = new Dictionary<CardinalDirection, Vector3>();
-			// origin
+			Neighbors = new Dictionary<CardinalDirection, Tile>();
+			Transform = new ReactiveTransform();
+			// origin tile
 			_insertionRule =
 				new Tuple<CardinalDirection, NeighborWalkRule>(CardinalDirection.None, NeighborWalkRule.Plain);
 		}

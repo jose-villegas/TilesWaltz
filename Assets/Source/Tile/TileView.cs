@@ -19,6 +19,9 @@ namespace TilesWalk.Tile
 		[SerializeField] private TileController _controller;
 
 		private BoxCollider _collider;
+		private IDisposable _positionDisposable;
+		private IDisposable _rotationDisposable;
+		private IDisposable _scaleDisposable;
 
 		private BoxCollider Collider
 		{
@@ -43,44 +46,14 @@ namespace TilesWalk.Tile
 			_controller = new TileController();
 		}
 
-		private void Start()
-		{
-			_collider = GetComponent<BoxCollider>();
-		}
-
 		private void OnEnable()
 		{
-			_controller.Tile.PropertyChanged += PropertyChanged;
+			_controller.Tile.Transform.SubscribeTransform(transform);
 		}
 
 		private void OnDisable()
 		{
-			_controller.Tile.PropertyChanged -= PropertyChanged;
-		}
-
-		public void PropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			var tile = _controller.Tile;
-
-			if (e.PropertyName != "Position" && e.PropertyName != "Rotation")
-			{
-				return;
-			}
-
-			transform.position = tile.Position;
-			transform.rotation = tile.Rotation;
-		}
-
-		private void OnDrawGizmos()
-		{
-			var tile = _controller.Tile;
-
-			Gizmos.color = Color.blue;
-			foreach (var value in tile.HingePoints.Values)
-			{
-				var translate = tile.Position - tile.Index;
-				Gizmos.DrawSphere(translate + value, 0.05f);
-			}
+			_controller.Tile.Transform.Unsubscribe();
 		}
 
 		private void OnDestroy()
@@ -91,6 +64,8 @@ namespace TilesWalk.Tile
 				item.Value.HingePoints.Remove(item.Key.Opposite());
 			}
 		}
+
+		#region Debug
 
 #if UNITY_EDITOR
 		[Header("Editor")] [SerializeField] private CardinalDirection direction = CardinalDirection.North;
@@ -120,6 +95,20 @@ namespace TilesWalk.Tile
 				_controller.AddNeighbor(direction, rule, view.Controller.Tile);
 			};
 		}
+
+		private void OnDrawGizmos()
+		{
+			var tile = _controller.Tile;
+
+			Gizmos.color = Color.blue;
+			foreach (var value in tile.HingePoints.Values)
+			{
+				var translate = transform.position - tile.Index;
+				Gizmos.DrawSphere(translate + value, 0.05f);
+			}
+		}
 #endif
+
+		#endregion
 	}
 }
