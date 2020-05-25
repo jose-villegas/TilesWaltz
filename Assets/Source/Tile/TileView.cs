@@ -60,7 +60,7 @@ namespace TilesWalk.Tile
 #if UNITY_EDITOR
 		[Header("Editor")] [SerializeField] private CardinalDirection direction = CardinalDirection.North;
 		[SerializeField] private NeighborWalkRule rule = NeighborWalkRule.Plain;
-		[Inject(Id = "TileAsset")] private AssetReference _tileAsset;
+		[Inject] private TileGenerator _generator;
 
 		[Button]
 		private void AddNeighbor()
@@ -71,19 +71,8 @@ namespace TilesWalk.Tile
 				return;
 			}
 
-			_tileAsset.InstantiateAsync(Vector3.zero, Quaternion.identity, transform.parent).Completed += (handle) =>
-			{
-				var view = handle.Result.AddComponent<TileView>();
-				view._tileAsset = _tileAsset;
-				view.rule = rule;
-				view.direction = direction;
-
-				// Obtain proper boundaries from collider
-				var boxCollider = handle.Result.GetComponent<BoxCollider>();
-				view.Controller.AdjustBounds(boxCollider.bounds);
-
-				_controller.AddNeighbor(direction, rule, view.Controller.Tile, transform, view.transform);
-			};
+			var tile = _generator.Generate();
+			_controller.AddNeighbor(direction, rule, tile.Controller.Tile, transform, tile.transform);
 		}
 
 		private void OnDrawGizmos()
