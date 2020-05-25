@@ -58,8 +58,6 @@ namespace TilesWalk.Tile
 			set => _insertionRule = value;
 		}
 
-		public ReactiveTransform Transform { get; set; }
-
 		public Tile()
 		{
 			_color = new Color();
@@ -67,7 +65,6 @@ namespace TilesWalk.Tile
 			_index = Vector3.zero;
 			HingePoints = new Dictionary<CardinalDirection, Vector3>();
 			Neighbors = new Dictionary<CardinalDirection, Tile>();
-			Transform = new ReactiveTransform();
 			// origin tile
 			_insertionRule =
 				new Tuple<CardinalDirection, NeighborWalkRule>(CardinalDirection.None, NeighborWalkRule.Plain);

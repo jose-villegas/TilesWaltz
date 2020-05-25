@@ -46,16 +46,6 @@ namespace TilesWalk.Tile
 			_controller = new TileController();
 		}
 
-		private void OnEnable()
-		{
-			_controller.Tile.Transform.SubscribeTransform(transform);
-		}
-
-		private void OnDisable()
-		{
-			_controller.Tile.Transform.Unsubscribe();
-		}
-
 		private void OnDestroy()
 		{
 			foreach (var item in _controller.Tile.Neighbors)
@@ -92,7 +82,7 @@ namespace TilesWalk.Tile
 				var boxCollider = handle.Result.GetComponent<BoxCollider>();
 				view.Controller.AdjustBounds(boxCollider.bounds);
 
-				_controller.AddNeighbor(direction, rule, view.Controller.Tile);
+				_controller.AddNeighbor(direction, rule, view.Controller.Tile, transform, view.transform);
 			};
 		}
 

@@ -1,4 +1,5 @@
-﻿using TilesWalk.BaseInterfaces;
+﻿using NaughtyAttributes;
+using TilesWalk.BaseInterfaces;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 using UnityEngine;
@@ -8,12 +9,14 @@ using Zenject;
 
 namespace TilesWalk.Tile
 {
-	public class TileGenerator : MonoBehaviour, IGenerator<GameObject>
+	public class TileGenerator : MonoBehaviour, IGenerator<TileView>
 	{
 		[Inject(Id = "TileAsset")]
 		private AssetReference _tileAsset;
 		[Inject]
 		private DiContainer _container;
+
+		private AsyncOperationHandle<GameObject> _asyncLoad;
 
 		private void Start()
 		{
@@ -23,51 +26,32 @@ namespace TilesWalk.Tile
 				return;
 			}
 
-			var asyncLoad = _tileAsset.LoadAssetAsync<GameObject>();
-			asyncLoad.Completed += OnAssetLoadCompleted;
+			_asyncLoad = _tileAsset.LoadAssetAsync<GameObject>();
 		}
 
-		private void OnAssetLoadCompleted(AsyncOperationHandle<GameObject> handle)
+		[Button]
+		public TileView Generate()
 		{
-			Generate(handle.Result);
-		}
-
-		public void Generate(GameObject source)
-		{
-			if (source == null)
+			if (_asyncLoad.Result == null)
 			{
 				Debug.LogError("No asset loaded for the TileGenerator");
-				return;
+				return null;
 			}
 
-			var n = 1;
-			var instances = new TileView[n];
+			var source = _asyncLoad.Result;
+
 			// Instantiate first tile
-			for (int i = 0; i < n; i++)
+			var instance = Instantiate(source, Vector3.zero, Quaternion.identity, transform);
+			var view = _container.InstantiateComponent(typeof(TileView), instance) as TileView;
+
+			// Obtain proper boundaries from collider
+			if (view != null)
 			{
-				var instance = Instantiate(source, Vector3.zero, Quaternion.identity, transform);
-				instances[i] = _container.InstantiateComponent(typeof(TileView), instance) as TileView;
-
-				// Obtain proper boundaries from collider
-				var boxCollider = instances[i].GetComponent<BoxCollider>();
-				instances[i].Controller.AdjustBounds(boxCollider.bounds);
-
+				var boxCollider = view.GetComponent<BoxCollider>();
+				view.Controller.AdjustBounds(boxCollider.bounds);
 			}
-			// Add neighborhood structure
-			//instances[0].Controller.AddNeighbor(CardinalDirection.North, NeighborWalkRule.Plain, instances[1].Controller.Tile);
-			//instances[1].Controller.AddNeighbor(CardinalDirection.North, NeighborWalkRule.Plain, instances[2].Controller.Tile);
-			//instances[2].Controller.AddNeighbor(CardinalDirection.West, NeighborWalkRule.Plain, instances[3].Controller.Tile);
-			//instances[3].Controller.AddNeighbor(CardinalDirection.North, NeighborWalkRule.Plain, instances[4].Controller.Tile);
-			//instances[4].Controller.AddNeighbor(CardinalDirection.North, NeighborWalkRule.Plain, instances[5].Controller.Tile);
-			//instances[5].Controller.AddNeighbor(CardinalDirection.North, NeighborWalkRule.Plain, instances[6].Controller.Tile);
-			//instances[6].Controller.AddNeighbor(CardinalDirection.North, NeighborWalkRule.Plain, instances[7].Controller.Tile);
-			//instances[7].Controller.AddNeighbor(CardinalDirection.North, NeighborWalkRule.Plain, instances[8].Controller.Tile);
-			//instances[8].Controller.AddNeighbor(CardinalDirection.West, NeighborWalkRule.Plain, instances[9].Controller.Tile);
-			//instances[9].Controller.AddNeighbor(CardinalDirection.South, NeighborWalkRule.Plain, instances[10].Controller.Tile);
-			//instances[10].Controller.AddNeighbor(CardinalDirection.South, NeighborWalkRule.Plain, instances[11].Controller.Tile);
-			//instances[11].Controller.AddNeighbor(CardinalDirection.South, NeighborWalkRule.Down, instances[12].Controller.Tile);
-			//instances[12].Controller.AddNeighbor(CardinalDirection.South, NeighborWalkRule.Down, instances[13].Controller.Tile);
-			//instances[12].Controller.AddNeighbor(CardinalDirection.West, NeighborWalkRule.Down, instances[13].Controller.Tile);
+
+			return view;
 		}
 	}
 }
