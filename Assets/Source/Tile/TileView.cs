@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using TilesWalk.BaseInterfaces;
+using TilesWalk.Building;
 using TilesWalk.Extensions;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
