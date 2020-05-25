@@ -73,6 +73,8 @@ namespace TilesWalk.Tile
 
 			var tile = _generator.Generate();
 			_controller.AddNeighbor(direction, rule, tile.Controller.Tile, transform, tile.transform);
+			// add new insertion instruction for this tile
+			_generator.UpdateInstructions(this, direction, rule);
 		}
 
 		private void OnDrawGizmos()

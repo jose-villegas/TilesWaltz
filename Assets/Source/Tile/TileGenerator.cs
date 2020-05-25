@@ -1,4 +1,7 @@
-﻿using NaughtyAttributes;
+﻿using System.Collections.Generic;
+using System.Linq;
+using NaughtyAttributes;
+using Newtonsoft.Json;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
@@ -11,10 +14,13 @@ namespace TilesWalk.Tile
 {
 	public class TileGenerator : MonoBehaviour, IGenerator<TileView>
 	{
-		[Inject(Id = "TileAsset")]
-		private AssetReference _tileAsset;
-		[Inject]
-		private DiContainer _container;
+		[TextArea, SerializeField] private string _instructions;
+
+		[Inject(Id = "TileAsset")] private AssetReference _tileAsset;
+		[Inject] private DiContainer _container;
+
+		private Dictionary<TileView, int> _tiles = new Dictionary<TileView, int>();
+		private Dictionary<int, List<InsertionInstruction>> _insertions = new Dictionary<int, List<InsertionInstruction>>();
 
 		private AsyncOperationHandle<GameObject> _asyncLoad;
 
@@ -53,7 +59,22 @@ namespace TilesWalk.Tile
 
 			return view;
 		}
+
+		public void UpdateInstructions(TileView tile, CardinalDirection d, NeighborWalkRule r)
+		{
+			int h;
+			_tiles[tile] = tile.GetHashCode();
+
+			if (_tiles.TryGetValue(tile, out h))
+			{
+				if (!_insertions.TryGetValue(h, out var insertions))
+				{
+					_insertions[h] = insertions = new List<InsertionInstruction>();
+				}
+
+				insertions.Add(new InsertionInstruction() {hash = h, direction = d, rule = r});
+				_instructions = JsonConvert.SerializeObject(_insertions.Values.SelectMany(x => x));
+			}
+		}
 	}
 }
-
-
