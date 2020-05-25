@@ -12,10 +12,12 @@ namespace TilesWalk.Tile
 	[Serializable]
 	public class TileController : IController
 	{
-		[SerializeField]
-		private Tile _tile;
+		[SerializeField] private Tile _tile;
 
-		public Tile Tile { get => _tile; }
+		public Tile Tile
+		{
+			get => _tile;
+		}
 
 		public TileController()
 		{
@@ -27,121 +29,120 @@ namespace TilesWalk.Tile
 			// copy neighbor
 			tile.Model = _tile.Model;
 			tile.InsertionRule = new Tuple<CardinalDirection, NeighborWalkRule>(direction, rule);
+			// connect neighbor references
+			_tile.Neighbors[direction] = tile;
+			tile.Neighbors[direction.Opposite()] = _tile;
 			// adjust 3d index according to neighbor
 			AdjustNeighborSpace(direction, rule, tile);
 			// set 3d actual position to match with hinge points
 			tile.Position = tile.Index;
-			// connect neighbor references
-			_tile.Neighbors[direction] = tile;
-			tile.Neighbors[direction.Opposite()] = _tile;
 		}
 
 		private void AdjustNeighborSpace(CardinalDirection direction, NeighborWalkRule rule, Tile tile)
 		{
-			var source = _tile.Index;
-			var translate = Vector3.zero;
+			tile.Index = _tile.Index;
 
 			switch (direction)
 			{
 				case CardinalDirection.North:
-					translate = TranslateNorth(rule, tile);
+					tile.Index += TranslateIndex(CardinalDirection.North, rule, tile);
+					CreateHinge(CardinalDirection.North, rule, tile, _tile.Forward, tile.Forward);
 					break;
 				case CardinalDirection.South:
-					translate = TranslateSouth(rule, tile);
+					tile.Index += TranslateIndex(CardinalDirection.South, rule, tile);
+					CreateHinge(CardinalDirection.South, rule, tile, -_tile.Forward, -tile.Forward);
 					break;
 				case CardinalDirection.East:
-					translate = TranslateEast(rule, tile);
+					tile.Index += TranslateIndex(CardinalDirection.East, rule, tile);
+					CreateHinge(CardinalDirection.East, rule, tile, _tile.Right, tile.Right);
 					break;
 				case CardinalDirection.West:
-					translate = TranslateWest(rule, tile);
+					tile.Index += TranslateIndex(CardinalDirection.West, rule, tile);
+					CreateHinge(CardinalDirection.West, rule, tile, -_tile.Right, -tile.Right);
 					break;
 				default:
 					break;
 			}
-
-			tile.Index = source + translate;
 		}
 
-		private Vector3 TranslateWest(NeighborWalkRule rule, Tile tile)
+		private void CreateHinge(CardinalDirection direction, NeighborWalkRule rule, Tile tile,
+			params Vector3[] forward)
 		{
-			// first take continuity behaviour, first the horizontal case:
-			var translate = -tile.Right;
+			// parent hinge
+			_tile.HingePoints[direction] = _tile.Index;
+			_tile.HingePoints[direction] += _tile.Bounds.extents.z * forward[0];
+			// inserted hinge
+			tile.HingePoints[direction.Opposite()] = tile.Index;
+			tile.HingePoints[direction.Opposite()] -= tile.Bounds.extents.z * forward[1];
 
 			if (rule == NeighborWalkRule.Down)
 			{
-				tile.Rotation = _tile.Rotation * Quaternion.AngleAxis(90, -tile.Forward);
-				translate -= TranslateEast(NeighborWalkRule.Plain, tile);
+				_tile.HingePoints[direction] -= _tile.Bounds.extents.y * _tile.Up;
+				tile.HingePoints[direction.Opposite()] -= tile.Bounds.extents.y * tile.Up;
 			}
 			else if (rule == NeighborWalkRule.Up)
 			{
-				tile.Rotation = _tile.Rotation * Quaternion.AngleAxis(-90, -tile.Forward);
-				translate -= TranslateEast(NeighborWalkRule.Plain, tile);
+				_tile.HingePoints[direction] += _tile.Bounds.extents.y * _tile.Up;
+				tile.HingePoints[direction.Opposite()] += tile.Bounds.extents.y * tile.Up;
+			}
+		}
+
+		private Vector3 TranslateIndex(CardinalDirection direction, NeighborWalkRule rule, Tile tile)
+		{
+			TranslateParameters(direction, tile, out var forward, out var axis, out var sign);
+			var translate = forward;
+
+			if (rule == NeighborWalkRule.Down)
+			{
+				tile.Rotation = _tile.Rotation * Quaternion.AngleAxis(-90 * sign, axis);
+				TranslateParameters(direction, tile, out forward, out axis, out sign);
+				translate = translate + forward;
+			}
+			else if (rule == NeighborWalkRule.Up)
+			{
+				tile.Rotation = _tile.Rotation * Quaternion.AngleAxis(90 * sign, axis);
+				TranslateParameters(direction, tile, out forward, out axis, out sign);
+				translate = translate + forward;
 			}
 
 			return translate;
 		}
 
-		private Vector3 TranslateEast(NeighborWalkRule rule, Tile tile)
+		private void TranslateParameters(CardinalDirection direction, Tile tile, out Vector3 forward, out Vector3 axis,
+			out int sign)
 		{
-			// first take continuity behaviour, first the horizontal case:
-			var translate = tile.Right;
+			forward = Vector3.zero;
+			axis = Vector3.zero;
+			sign = 1;
 
-			if (rule == NeighborWalkRule.Down)
+			switch (direction)
 			{
-				tile.Rotation = _tile.Rotation * Quaternion.AngleAxis(90, tile.Forward);
-				translate += TranslateEast(NeighborWalkRule.Plain, tile);
+				case CardinalDirection.North:
+					forward = tile.Forward;
+					axis = tile.Right;
+					sign = 1;
+					return;
+				case CardinalDirection.South:
+					forward = -tile.Forward;
+					axis = -tile.Right;
+					sign = 1;
+					return;
+				case CardinalDirection.East:
+					forward = tile.Right;
+					axis = tile.Forward;
+					sign = -1;
+					return;
+				case CardinalDirection.West:
+					forward = -tile.Right;
+					axis = -tile.Forward;
+					sign = 1;
+					return;
 			}
-			else if (rule == NeighborWalkRule.Up)
-			{
-				tile.Rotation = _tile.Rotation * Quaternion.AngleAxis(-90, tile.Forward);
-				translate += TranslateEast(NeighborWalkRule.Plain, tile);
-			}
-
-			return translate;
-		}
-
-		private Vector3 TranslateNorth(NeighborWalkRule rule, Tile tile)
-		{
-			// first take continuity behaviour, first the horizontal case:
-			var translate = tile.Forward;
-
-			if (rule == NeighborWalkRule.Down)
-			{
-				tile.Rotation = _tile.Rotation * Quaternion.AngleAxis(-90, tile.Right);
-				translate += TranslateNorth(NeighborWalkRule.Plain, tile);
-			}
-			else if (rule == NeighborWalkRule.Up)
-			{
-				tile.Rotation = _tile.Rotation * Quaternion.AngleAxis(90, tile.Right);
-				translate += TranslateNorth(NeighborWalkRule.Plain, tile);
-			}
-
-			return translate;
-		}
-
-		private Vector3 TranslateSouth(NeighborWalkRule rule, Tile tile)
-		{
-			// first take continuity behaviour, first the horizontal case:
-			var translate = -tile.Forward;
-
-			if (rule == NeighborWalkRule.Down)
-			{
-				tile.Rotation = _tile.Rotation * Quaternion.AngleAxis(-90, -tile.Right);
-				translate -= TranslateNorth(NeighborWalkRule.Plain, tile);
-			}
-			else if (rule == NeighborWalkRule.Up)
-			{
-				tile.Rotation = _tile.Rotation * Quaternion.AngleAxis(90, -tile.Right);
-				translate -= TranslateNorth(NeighborWalkRule.Plain, tile);
-			}
-
-			return translate;
 		}
 
 		internal void AdjustBounds(Bounds bounds)
 		{
-			_tile.Bounds = bounds;
+			_tile.OrientedBounds = bounds;
 		}
 	}
 }
-

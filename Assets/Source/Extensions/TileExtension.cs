@@ -8,12 +8,12 @@ namespace TilesWalk.Extensions
 {
 	public static class TileExtension
 	{
-		public static Vector3[] HingePoints(this Tile.Tile tile, CardinalDirection face)
+		public static Vector3[] ExtractHingePoints(this Tile.Tile tile, CardinalDirection face)
 		{
 			var points = new Vector3[8];
 
-			points[0] = tile.Bounds.min;
-			points[1] = tile.Bounds.max;
+			points[0] = tile.OrientedBounds.min;
+			points[1] = tile.OrientedBounds.max;
 			points[2] = new Vector3(points[0].x, points[0].y, points[1].z);
 			points[3] = new Vector3(points[0].x, points[1].y, points[0].z);
 			points[4] = new Vector3(points[1].x, points[0].y, points[0].z);

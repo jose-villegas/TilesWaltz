@@ -31,6 +31,11 @@ namespace TilesWalk.Tile
 		public Dictionary<CardinalDirection, Tile> Neighbors { get; set; }
 
 		/// <summary>
+		/// This points connects this tile with the neighbor tile, useful for positioning
+		/// </summary>
+		public Dictionary<CardinalDirection, Vector3> HingePoints { get; set; }
+
+		/// <summary>
 		/// This vector contains a 3D coordinate respective to the tile structure, though visually
 		/// it doesn't look like a series of voxels, this coordinate represents its position in voxel
 		/// space
@@ -48,6 +53,11 @@ namespace TilesWalk.Tile
 
 		public Bounds Bounds
 		{
+			get => _bounds;
+		}
+
+		public Bounds OrientedBounds
+		{
 			get
 			{
 				_bounds.center = Position;
@@ -63,8 +73,16 @@ namespace TilesWalk.Tile
 
 						if ((path & (PathBehaviourRule.VerticalContinuous | PathBehaviourRule.HorizontalBreak)) > 0)
 						{
-							return new Bounds(Position,
-								new Vector3(_bounds.size.x, _bounds.size.z, _bounds.size.y));
+							if ((_insertionRule.Item1 & CardinalDirection.Axis) > 0)
+							{
+								return new Bounds(Position,
+									new Vector3(_bounds.size.x, _bounds.size.z, _bounds.size.y));
+							}
+							if ((_insertionRule.Item1 & CardinalDirection.Sides) > 0)
+							{
+								return new Bounds(Position,
+									new Vector3(_bounds.size.y, _bounds.size.x, _bounds.size.z));
+							}
 						}
 					}
 				}
@@ -76,7 +94,7 @@ namespace TilesWalk.Tile
 			{
 				_bounds = value;
 				// notify others
-				NotifyChange(this, new PropertyChangedEventArgs("Bounds"));
+				NotifyChange(this, new PropertyChangedEventArgs("OrientedBounds"));
 			}
 		}
 
@@ -91,7 +109,8 @@ namespace TilesWalk.Tile
 			_color = new Color();
 			Neighbors = new Dictionary<CardinalDirection, Tile>();
 			_index = Vector3.zero;
-			Bounds = new Bounds();
+			HingePoints = new Dictionary<CardinalDirection, Vector3>();
+			OrientedBounds = new Bounds();
 			_model = Matrix4x4.identity;
 			// origin
 			_insertionRule =

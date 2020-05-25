@@ -78,7 +78,7 @@ namespace TilesWalk.Tile
 
 		private void OnDrawGizmos()
 		{
-			var bounds = _controller.Tile.Bounds;
+			var bounds = _controller.Tile.OrientedBounds;
 			var tile = _controller.Tile;
 
 			Gizmos.color = Color.green;
@@ -94,13 +94,12 @@ namespace TilesWalk.Tile
 			//Gizmos.color = Color.blue;
 			//Gizmos.DrawRay(bounds.center, tile.Forward);
 
-			var tilePoints = tile.HingePoints(CardinalDirection.North);
-			tilePoints = tilePoints.Concat(tile.HingePoints(CardinalDirection.South)).ToArray();
-
+			//var tilePoints = tile.ExtractHingePoints(CardinalDirection.North);
+			//tilePoints = tilePoints.Concat(tile.ExtractHingePoints(CardinalDirection.South)).ToArray();
 			Gizmos.color = Color.blue;
-			for (int i = 0; i < tilePoints.Length; i++)
+			foreach (var value in tile.HingePoints.Values)
 			{
-				Gizmos.DrawSphere(tilePoints[i], 0.05f);
+				Gizmos.DrawSphere(value, 0.05f);
 			}
 		}
 
@@ -109,6 +108,7 @@ namespace TilesWalk.Tile
 			foreach (var item in _controller.Tile.Neighbors)
 			{
 				item.Value.Neighbors.Remove(item.Key.Opposite());
+				item.Value.HingePoints.Remove(item.Key.Opposite());
 			}
 		}
 
