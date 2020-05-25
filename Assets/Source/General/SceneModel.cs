@@ -68,5 +68,10 @@ namespace TilesWalk.General
 		{
 			PropertyChanged?.Invoke(sender, e);
 		}
+
+		public SceneModel()
+		{
+			_model = Matrix4x4.identity;
+		}
 	}
 }

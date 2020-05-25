@@ -34,8 +34,6 @@ namespace TilesWalk.Tile
 			tile.Neighbors[direction.Opposite()] = _tile;
 			// adjust 3d index according to neighbor
 			AdjustNeighborSpace(direction, rule, tile);
-			// set 3d actual position to match with hinge points
-			tile.Position = tile.Index;
 		}
 
 		private void AdjustNeighborSpace(CardinalDirection direction, NeighborWalkRule rule, Tile tile)
@@ -45,8 +43,14 @@ namespace TilesWalk.Tile
 			switch (direction)
 			{
 				case CardinalDirection.North:
-					tile.Index += TranslateIndex(CardinalDirection.North, rule, tile);
+					var translate = TranslateIndex(CardinalDirection.North, rule, tile);
+					tile.Index += translate;
 					CreateHinge(CardinalDirection.North, rule, tile, _tile.Forward, tile.Forward);
+
+					var srcPoint = _tile.HingePoints[CardinalDirection.North];
+					var dstPoint = tile.HingePoints[CardinalDirection.South];
+					tile.Position = _tile.Position + translate;
+					tile.Position += srcPoint - dstPoint;
 					break;
 				case CardinalDirection.South:
 					tile.Index += TranslateIndex(CardinalDirection.South, rule, tile);
@@ -142,7 +146,7 @@ namespace TilesWalk.Tile
 
 		internal void AdjustBounds(Bounds bounds)
 		{
-			_tile.OrientedBounds = bounds;
+			_tile.Bounds = bounds;
 		}
 	}
 }

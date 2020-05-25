@@ -46,56 +46,13 @@ namespace TilesWalk.Tile
 			set
 			{
 				_index = value;
-				// notify others
-				NotifyChange(this, new PropertyChangedEventArgs("Index"));
 			}
 		}
 
 		public Bounds Bounds
 		{
 			get => _bounds;
-		}
-
-		public Bounds OrientedBounds
-		{
-			get
-			{
-				_bounds.center = Position;
-
-				// non-origin tile, check for path behavior
-				if (_insertionRule.Item1 != CardinalDirection.None)
-				{
-					var sourceDirection = _insertionRule.Item1.Opposite();
-
-					if (Neighbors.TryGetValue(sourceDirection, out var neighbor))
-					{
-						var path = neighbor.InsertionRule.Item2.GetPathBehaviour(_insertionRule.Item2);
-
-						if ((path & (PathBehaviourRule.VerticalContinuous | PathBehaviourRule.HorizontalBreak)) > 0)
-						{
-							if ((_insertionRule.Item1 & CardinalDirection.Axis) > 0)
-							{
-								return new Bounds(Position,
-									new Vector3(_bounds.size.x, _bounds.size.z, _bounds.size.y));
-							}
-							if ((_insertionRule.Item1 & CardinalDirection.Sides) > 0)
-							{
-								return new Bounds(Position,
-									new Vector3(_bounds.size.y, _bounds.size.x, _bounds.size.z));
-							}
-						}
-					}
-				}
-
-
-				return new Bounds(Position, _bounds.size);
-			}
-			set
-			{
-				_bounds = value;
-				// notify others
-				NotifyChange(this, new PropertyChangedEventArgs("OrientedBounds"));
-			}
+			set => _bounds = value;
 		}
 
 		public Tuple<CardinalDirection, NeighborWalkRule> InsertionRule
@@ -107,11 +64,10 @@ namespace TilesWalk.Tile
 		public Tile()
 		{
 			_color = new Color();
+			_bounds = new Bounds();
 			Neighbors = new Dictionary<CardinalDirection, Tile>();
 			_index = Vector3.zero;
 			HingePoints = new Dictionary<CardinalDirection, Vector3>();
-			OrientedBounds = new Bounds();
-			_model = Matrix4x4.identity;
 			// origin
 			_insertionRule =
 				new Tuple<CardinalDirection, NeighborWalkRule>(CardinalDirection.None, NeighborWalkRule.Plain);

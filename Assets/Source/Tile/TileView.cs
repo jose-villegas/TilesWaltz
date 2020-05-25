@@ -69,37 +69,17 @@ namespace TilesWalk.Tile
 
 			transform.position = tile.Position;
 			transform.rotation = tile.Rotation;
-			//// update tile bounds after frame update
-			//Observable.TimerFrame(1, FrameCountType.EndOfFrame).Subscribe(_ =>
-			//{
-			//	_controller.AdjustBounds(Collider.bounds);
-			//}).AddTo(this);
 		}
 
 		private void OnDrawGizmos()
 		{
-			var bounds = _controller.Tile.OrientedBounds;
 			var tile = _controller.Tile;
 
-			Gizmos.color = Color.green;
-			Gizmos.DrawWireCube(bounds.center, bounds.size);
-
-			//Gizmos.color = Color.green;
-			//Gizmos.DrawWireCube(tile.Index, Vector3.one);
-
-			//Gizmos.color = Color.red;
-			//Gizmos.DrawRay(bounds.center, tile.Right);
-			//Gizmos.color = Color.green;
-			//Gizmos.DrawRay(bounds.center, tile.Up);
-			//Gizmos.color = Color.blue;
-			//Gizmos.DrawRay(bounds.center, tile.Forward);
-
-			//var tilePoints = tile.ExtractHingePoints(CardinalDirection.North);
-			//tilePoints = tilePoints.Concat(tile.ExtractHingePoints(CardinalDirection.South)).ToArray();
 			Gizmos.color = Color.blue;
 			foreach (var value in tile.HingePoints.Values)
 			{
-				Gizmos.DrawSphere(value, 0.05f);
+				var translate = tile.Position - tile.Index;
+				Gizmos.DrawSphere(translate + value, 0.05f);
 			}
 		}
 
