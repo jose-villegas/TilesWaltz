@@ -64,6 +64,11 @@ namespace TilesWalk.Tile
 			get => _color.Color();
 		}
 
+		public TileColor TileColor
+		{
+			get => _color;
+		}
+
 		public void ShuffleColor()
 		{
 			_color = TileColorExtension.RandomColor();

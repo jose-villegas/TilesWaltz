@@ -1,11 +1,13 @@
 ﻿using NaughtyAttributes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Building;
 using TilesWalk.Extensions;
+using TilesWalk.Gameplay;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 using UniRx;
@@ -71,9 +73,24 @@ namespace TilesWalk.Tile
 			}
 		}
 
+		private static readonly Dictionary<TileColor, Material> Materials = new Dictionary<TileColor, Material>();
+
 		private void Start()
 		{
-			Renderer.material.color = _controller.Tile.Color;
+			if (Materials.Count == 0)
+			{
+				var colors = Enum.GetValues(typeof(TileColor));
+
+				foreach (TileColor color in colors)
+				{
+					Materials[color] = new Material(Renderer.material) {color = color.Color()};
+				}
+			}
+
+			// This small optimization enables us to share the material per color
+			// instead of creating a new instance per every tile that tries to
+			// change its color
+			Renderer.material = Materials[_controller.Tile.TileColor];
 		}
 
 		#region Debug
@@ -100,9 +117,15 @@ namespace TilesWalk.Tile
 		}
 
 		[Button]
-		private void CalculateShortestPath()
+		private void CalculateGetShortestLeafPath()
 		{
 			_shortestPath = _controller.Tile.GetShortestLeafPath();
+		}
+
+		[Button]
+		private void CalculateShortestColorPath()
+		{
+			_shortestPath = _controller.Tile.GetShortestColorPath();
 		}
 
 		private void OnDrawGizmos()

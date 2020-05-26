@@ -2,6 +2,7 @@
 {
 	public enum TileColor
 	{
+		None,
 		Red,
 		Orange,
 		Yellow,

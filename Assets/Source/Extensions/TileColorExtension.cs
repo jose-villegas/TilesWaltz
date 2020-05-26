@@ -23,6 +23,8 @@ namespace TilesWalk.Extensions
 					return UnityEngine.Color.blue;
 				case TileColor.Purple:
 					return new Color(0.63f, 0.13f, 0.94f);
+				case TileColor.None:
+					return UnityEngine.Color.white;;
 			}
 
 			return UnityEngine.Color.gray;
@@ -31,7 +33,7 @@ namespace TilesWalk.Extensions
 		public static TileColor RandomColor()
 		{
 			var values = Enum.GetValues(typeof(TileColor));
-			return (TileColor)values.GetValue(Random.Range(0, values.Length));
+			return (TileColor)values.GetValue(Random.Range(1, values.Length));
 		}
 	}
 }
