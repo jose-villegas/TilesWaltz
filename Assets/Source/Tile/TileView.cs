@@ -81,7 +81,7 @@ namespace TilesWalk.Tile
 #if UNITY_EDITOR
 		[Header("Editor")] [SerializeField] private CardinalDirection direction = CardinalDirection.North;
 		[SerializeField] private NeighborWalkRule rule = NeighborWalkRule.Plain;
-		[Inject] private TileGenerator _generator;
+		[Inject] private TileViewFactory _viewFactory;
 		private List<Tile> _shortestPath;
 
 		[Button]
@@ -93,10 +93,10 @@ namespace TilesWalk.Tile
 				return;
 			}
 
-			var tile = _generator.Generate();
+			var tile = _viewFactory.NewInstance();
 			_controller.AddNeighbor(direction, rule, tile.Controller.Tile, transform, tile.transform);
 			// add new insertion instruction for this tile
-			_generator.UpdateInstructions(this, tile, direction, rule);
+			_viewFactory.UpdateInstructions(this, tile, direction, rule);
 		}
 
 		[Button]
@@ -125,7 +125,7 @@ namespace TilesWalk.Tile
 			{
 				foreach (var tile in _shortestPath)
 				{
-					var view = _generator.GetTileView(tile);
+					var view = _viewFactory.GetTileView(tile);
 					Gizmos.DrawCube(view.transform.position + transform.up * 0.15f, Vector3.one * 0.25f);
 				}
 			}

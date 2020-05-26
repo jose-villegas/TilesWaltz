@@ -2,7 +2,6 @@
 using System.Linq;
 using NaughtyAttributes;
 using Newtonsoft.Json;
-using TilesWalk.BaseInterfaces;
 using TilesWalk.General;
 using TilesWalk.Tile;
 using TilesWalk.Tile.Rules;
@@ -13,7 +12,7 @@ using Zenject;
 
 namespace TilesWalk.Building
 {
-	public class TileGenerator : MonoBehaviour, IGenerator<TileView>
+	public class TileViewFactory : MonoBehaviour, BaseInterfaces.IFactory<TileView>
 	{
 		[TextArea, SerializeField] private string _instructions;
 
@@ -34,7 +33,7 @@ namespace TilesWalk.Building
 		{
 			if (_tileAsset == null)
 			{
-				Debug.LogError("No asset assigned to the TileGenerator");
+				Debug.LogError("No asset assigned to the TileViewFactory");
 				return;
 			}
 
@@ -61,11 +60,11 @@ namespace TilesWalk.Building
 		}
 
 		[Button]
-		public TileView Generate()
+		public TileView NewInstance()
 		{
 			if (_asyncLoad.Result == null)
 			{
-				Debug.LogError("No asset loaded for the TileGenerator");
+				Debug.LogError("No asset loaded for the TileViewFactory");
 				return null;
 			}
 
@@ -120,7 +119,7 @@ namespace TilesWalk.Building
 
 			foreach (var mapTile in map.tiles)
 			{
-				var tile = Generate();
+				var tile = NewInstance();
 				// register with the source hash
 				RegisterTile(tile, mapTile.Key);
 			}

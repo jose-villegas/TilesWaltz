@@ -6,11 +6,11 @@ namespace TilesWalk.Tile.Installer
 {
 	public class TileGeneratorInstaller : MonoInstaller
 	{
-		[SerializeField] private TileGenerator _generator;
+		[SerializeField] private TileViewFactory _viewFactory;
 
 		public override void InstallBindings()
 		{
-			Container.Bind<TileGenerator>().FromInstance(_generator).AsSingle();
+			Container.Bind<TileViewFactory>().FromInstance(_viewFactory).AsSingle();
 		}
 	}
 }
