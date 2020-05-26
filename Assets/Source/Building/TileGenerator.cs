@@ -20,6 +20,8 @@ namespace TilesWalk.Building
 		[Inject(Id = "TileAsset")] private AssetReference _tileAsset;
 		[Inject] private DiContainer _container;
 
+		private Dictionary<Tile.Tile, TileView> _tileView = new Dictionary<Tile.Tile, TileView>();
+
 		private Dictionary<TileView, int> _tileToHash = new Dictionary<TileView, int>();
 		private Dictionary<int, TileView> _hashToTile = new Dictionary<int, TileView>();
 
@@ -38,6 +40,10 @@ namespace TilesWalk.Building
 
 			_asyncLoad = _tileAsset.LoadAssetAsync<GameObject>();
 		}
+		public TileView GetTileView(Tile.Tile tile)
+		{
+			return _tileView[tile];
+		}
 
 		private void RegisterTile(TileView tile, int? hash = null)
 		{
@@ -51,6 +57,7 @@ namespace TilesWalk.Building
 			var id = hash ?? tile.GetHashCode();
 			_tileToHash[tile] = id;
 			_hashToTile[id] = tile;
+			_tileView[tile.Controller.Tile] = tile;
 		}
 
 		[Button]

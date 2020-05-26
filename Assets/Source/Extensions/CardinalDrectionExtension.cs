@@ -20,7 +20,7 @@ namespace TilesWalk.Extensions
 					break;
 			}
 
-			return CardinalDirection.North;
+			return CardinalDirection.None;
 		}
 	}
 }

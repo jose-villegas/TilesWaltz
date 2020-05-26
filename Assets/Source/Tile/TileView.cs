@@ -1,5 +1,6 @@
 ﻿using NaughtyAttributes;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using TilesWalk.BaseInterfaces;
@@ -81,6 +82,7 @@ namespace TilesWalk.Tile
 		[Header("Editor")] [SerializeField] private CardinalDirection direction = CardinalDirection.North;
 		[SerializeField] private NeighborWalkRule rule = NeighborWalkRule.Plain;
 		[Inject] private TileGenerator _generator;
+		private List<Tile> _shortestPath;
 
 		[Button]
 		private void AddNeighbor()
@@ -97,6 +99,12 @@ namespace TilesWalk.Tile
 			_generator.UpdateInstructions(this, tile, direction, rule);
 		}
 
+		[Button]
+		private void CalculateShortestPath()
+		{
+			_shortestPath = _controller.Tile.GetShortestLeafPath();
+		}
+
 		private void OnDrawGizmos()
 		{
 			var tile = _controller.Tile;
@@ -106,6 +114,20 @@ namespace TilesWalk.Tile
 			{
 				var translate = transform.position - tile.Index;
 				Gizmos.DrawSphere(translate + value, 0.05f);
+			}
+		}
+
+		private void OnDrawGizmosSelected()
+		{
+			Gizmos.color = Color.green;
+
+			if (_shortestPath != null)
+			{
+				foreach (var tile in _shortestPath)
+				{
+					var view = _generator.GetTileView(tile);
+					Gizmos.DrawCube(view.transform.position + transform.up * 0.15f, Vector3.one * 0.25f);
+				}
 			}
 		}
 #endif
