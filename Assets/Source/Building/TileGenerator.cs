@@ -129,24 +129,23 @@ namespace TilesWalk.Building
 		}
 
 
-		public void UpdateInstructions(TileView tile, CardinalDirection d, NeighborWalkRule r)
+		public void UpdateInstructions(TileView root, TileView tile, CardinalDirection d, NeighborWalkRule r)
 		{
-			int h;
+			if (!_tileToHash.TryGetValue(root, out var rootId) ||
+			    !_tileToHash.TryGetValue(tile, out var tileId)) return;
 
-			if (_tileToHash.TryGetValue(tile, out h))
+			if (!_insertions.TryGetValue(rootId, out var insertions))
 			{
-				if (!_insertions.TryGetValue(h, out var insertions))
-				{
-					_insertions[h] = insertions = new List<InsertionInstruction>();
-				}
-
-				insertions.Add(new InsertionInstruction()
-				{
-					root = h,
-					direction = d,
-					rule = r
-				});
+				_insertions[rootId] = insertions = new List<InsertionInstruction>();
 			}
+
+			insertions.Add(new InsertionInstruction()
+			{
+				tile = tileId,
+				root = rootId,
+				direction = d,
+				rule = r
+			});
 		}
 	}
 }

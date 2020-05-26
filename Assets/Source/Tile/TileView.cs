@@ -19,6 +19,7 @@ namespace TilesWalk.Tile
 	{
 		[SerializeField] private TileController _controller;
 
+		private MeshRenderer _meshRenderer;
 		private BoxCollider _collider;
 		private IDisposable _positionDisposable;
 		private IDisposable _rotationDisposable;
@@ -34,6 +35,19 @@ namespace TilesWalk.Tile
 				}
 
 				return _collider;
+			}
+		}
+
+		private MeshRenderer Renderer
+		{
+			get
+			{
+				if (_meshRenderer == null)
+				{
+					_meshRenderer = GetComponent<MeshRenderer>();
+				}
+
+				return _meshRenderer;
 			}
 		}
 
@@ -56,6 +70,11 @@ namespace TilesWalk.Tile
 			}
 		}
 
+		private void Start()
+		{
+			Renderer.material.color = _controller.Tile.Color;
+		}
+
 		#region Debug
 
 #if UNITY_EDITOR
@@ -75,7 +94,7 @@ namespace TilesWalk.Tile
 			var tile = _generator.Generate();
 			_controller.AddNeighbor(direction, rule, tile.Controller.Tile, transform, tile.transform);
 			// add new insertion instruction for this tile
-			_generator.UpdateInstructions(this, direction, rule);
+			_generator.UpdateInstructions(this, tile, direction, rule);
 		}
 
 		private void OnDrawGizmos()

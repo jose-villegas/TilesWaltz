@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Extensions;
+using TilesWalk.Gameplay;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace TilesWalk.Tile
 
 		[SerializeField] private Bounds _bounds;
 
-		[SerializeField] private Color _color;
+		[SerializeField] private TileColor _color;
 
 		[SerializeField] private Tuple<CardinalDirection, NeighborWalkRule> _insertionRule;
 
@@ -58,9 +59,14 @@ namespace TilesWalk.Tile
 			set => _insertionRule = value;
 		}
 
+		public Color Color
+		{
+			get => _color.Color();
+		}
+
 		public Tile()
 		{
-			_color = new Color();
+			_color = TileColorExtension.RandomColor();
 			_bounds = new Bounds();
 			_index = Vector3.zero;
 			HingePoints = new Dictionary<CardinalDirection, Vector3>();
