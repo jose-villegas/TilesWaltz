@@ -1,8 +1,7 @@
 ﻿using System;
-using System.ComponentModel;
 using TilesWalk.Gameplay;
 using UnityEngine;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 namespace TilesWalk.Extensions
 {
@@ -32,8 +31,7 @@ namespace TilesWalk.Extensions
 		public static TileColor RandomColor()
 		{
 			var values = Enum.GetValues(typeof(TileColor));
-			var random = new Random();
-			return (TileColor)values.GetValue(random.Next(values.Length));
+			return (TileColor)values.GetValue(Random.Range(0, values.Length));
 		}
 	}
 }

@@ -73,6 +73,7 @@ namespace TilesWalk.Building
 			{
 				var boxCollider = view.GetComponent<BoxCollider>();
 				view.Controller.AdjustBounds(boxCollider.bounds);
+				view.Controller.Tile.ShuffleColor();
 				RegisterTile(view);
 			}
 

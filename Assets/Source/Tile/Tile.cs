@@ -64,9 +64,14 @@ namespace TilesWalk.Tile
 			get => _color.Color();
 		}
 
-		public Tile()
+		public void ShuffleColor()
 		{
 			_color = TileColorExtension.RandomColor();
+		}
+
+		public Tile()
+		{
+			_color = TileColor.Red;
 			_bounds = new Bounds();
 			_index = Vector3.zero;
 			HingePoints = new Dictionary<CardinalDirection, Vector3>();
