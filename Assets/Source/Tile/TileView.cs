@@ -173,11 +173,12 @@ namespace TilesWalk.Tile
 
 				var offset = source[i].Item1 - tile.transform.position;
 
-				while ((source[i].Item1 - tile.transform.position).sqrMagnitude > Mathf.Epsilon)
+				while ((source[i].Item1 - tile.transform.position).sqrMagnitude > Mathf.Epsilon ||
+				       Quaternion.Angle(source[i].Item2, tile.transform.rotation) > Mathf.Epsilon)
 				{
-					var step = 6 * Time.deltaTime;
+					var step = 20 * Time.deltaTime;
 					tile.transform.position = Vector3.MoveTowards(tile.transform.position, source[i].Item1, step);
-					tile.transform.rotation = Quaternion.RotateTowards(tile.transform.rotation, source[i].Item2, step);
+					tile.transform.rotation = Quaternion.RotateTowards(tile.transform.rotation, source[i].Item2, step * 50);
 					yield return new WaitForEndOfFrame();
 				}
 			}

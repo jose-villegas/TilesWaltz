@@ -75,6 +75,7 @@ namespace TilesWalk.Tile
 		public void RefreshShortPath()
 		{
 			_shortestPathToLeaf = this.GetShortestLeafPath();
+			_shortestPathToLeaf.Reverse();
 		}
 
 		public Tile()

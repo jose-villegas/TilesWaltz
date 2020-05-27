@@ -236,8 +236,6 @@ namespace TilesWalk.Tile
 				return;
 			}
 
-			shufflePath.Reverse();
-
 			// update the path
 			for (int i = 0; i < shufflePath.Count - 1; i++)
 			{
