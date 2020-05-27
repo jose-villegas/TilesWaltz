@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using NaughtyAttributes;
 using Newtonsoft.Json;
 using TilesWalk.General;
 using TilesWalk.Tile;
 using TilesWalk.Tile.Rules;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -81,6 +84,24 @@ namespace TilesWalk.Building
 				view.Controller.AdjustBounds(boxCollider.bounds);
 				view.Controller.Tile.ShuffleColor();
 				RegisterTile(view);
+				// unregistered when destroyed
+				view.OnDestroyAsObservable().Subscribe(x =>
+				{
+					if (!_tileToHash.TryGetValue(view, out var hash)) return;
+
+					_tileToHash.Remove(view);
+					_hashToTile.Remove(hash);
+					// remove all instructions that refer to this tile
+
+					if (!_insertions.TryGetValue(hash, out var instructions)) return;
+
+					_insertions.Remove(hash);
+
+					foreach (var instruction in instructions)
+					{
+						Destroy(_hashToTile[instruction.tile].gameObject);
+					}
+				});
 			}
 
 			return view;
@@ -132,6 +153,7 @@ namespace TilesWalk.Building
 				// adjust neighbor insertion
 				rootTile.Controller.AddNeighbor(instruction.direction, instruction.rule, insert.Controller.Tile,
 					rootTile.transform, insert.transform);
+				UpdateInstructions(rootTile, insert, instruction.direction, instruction.rule);
 			}
 		}
 

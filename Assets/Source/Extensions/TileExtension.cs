@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TilesWalk.Building;
 using TilesWalk.Gameplay;
 using TilesWalk.General;
-using TilesWalk.Tile;
 using TilesWalk.Tile.Rules;
-using UnityEngine;
 
 namespace TilesWalk.Extensions
 {
