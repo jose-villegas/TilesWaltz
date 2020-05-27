@@ -31,8 +31,6 @@ namespace TilesWalk.Tile
 			isr.position = src.position;
 			isr.rotation = src.rotation;
 			isr.localScale = src.localScale;
-			// set creation insertion rules, useful for other queries
-			tile.InsertionRule = new Tuple<CardinalDirection, NeighborWalkRule>(direction, rule);
 			// connect neighbor references
 			_tile.Neighbors[direction] = tile;
 			tile.Neighbors[direction.Opposite()] = _tile;

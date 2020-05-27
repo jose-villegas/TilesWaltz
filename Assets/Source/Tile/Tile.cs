@@ -23,8 +23,6 @@ namespace TilesWalk.Tile
 
 		[SerializeField] private TileColor _color;
 
-		[SerializeField] private Tuple<CardinalDirection, NeighborWalkRule> _insertionRule;
-
 		/// <summary>
 		/// This structure contains a reference to the neighbor tiles, useful for indexing
 		/// the structure, each index represents an index at <see cref="CardinalDirection"/>
@@ -53,12 +51,6 @@ namespace TilesWalk.Tile
 			set => _bounds = value;
 		}
 
-		public Tuple<CardinalDirection, NeighborWalkRule> InsertionRule
-		{
-			get => _insertionRule;
-			set => _insertionRule = value;
-		}
-
 		public Color Color
 		{
 			get => _color.Color();
@@ -81,9 +73,6 @@ namespace TilesWalk.Tile
 			_index = Vector3.zero;
 			HingePoints = new Dictionary<CardinalDirection, Vector3>();
 			Neighbors = new Dictionary<CardinalDirection, Tile>();
-			// origin tile
-			_insertionRule =
-				new Tuple<CardinalDirection, NeighborWalkRule>(CardinalDirection.None, NeighborWalkRule.Plain);
 		}
 	}
 }
