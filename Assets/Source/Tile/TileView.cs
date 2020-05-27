@@ -105,7 +105,6 @@ namespace TilesWalk.Tile
 		[Header("Editor")] [SerializeField] private CardinalDirection direction = CardinalDirection.North;
 		[SerializeField] private NeighborWalkRule rule = NeighborWalkRule.Plain;
 		[Inject] private TileViewFactory _viewFactory;
-		private List<Tile> _shortestPath;
 
 		[Button]
 		private void AddNeighbor()
@@ -123,26 +122,14 @@ namespace TilesWalk.Tile
 		}
 
 		[Button]
-		private void CalculateGetShortestLeafPath()
-		{
-			_shortestPath = _controller.Tile.GetShortestLeafPath();
-		}
-
-		[Button]
-		private void CalculateShortestColorPath()
-		{
-			_shortestPath = _controller.Tile.GetShortestColorPath();
-		}
-
-		[Button]
 		private void Remove()
 		{
-			List<Tile> shufflePath;
-			_controller.Remove(out shufflePath);
+			_controller.Remove();
+
+			List<Tile> shufflePath = _controller.Tile.ShortestPathToLeaf;
 
 			if (shufflePath == null || shufflePath.Count <= 0) return;
 
-			shufflePath.Insert(0, _controller.Tile);
 			// this structure with backup the origin position and rotations
 			var backup = new List<Tuple<Vector3, Quaternion>>();
 			var tiles = new List<TileView>();
@@ -190,6 +177,7 @@ namespace TilesWalk.Tile
 				{
 					var step = 6 * Time.deltaTime;
 					tile.transform.position = Vector3.MoveTowards(tile.transform.position, source[i].Item1, step);
+					tile.transform.rotation = Quaternion.RotateTowards(tile.transform.rotation, source[i].Item2, step);
 					yield return new WaitForEndOfFrame();
 				}
 			}
@@ -211,9 +199,9 @@ namespace TilesWalk.Tile
 		{
 			Gizmos.color = Color.green;
 
-			if (_shortestPath != null)
+			if (_controller.Tile.ShortestPathToLeaf != null)
 			{
-				foreach (var tile in _shortestPath)
+				foreach (var tile in _controller.Tile.ShortestPathToLeaf)
 				{
 					var view = _viewFactory.GetTileView(tile);
 					Gizmos.DrawCube(view.transform.position + transform.up * 0.15f, Vector3.one * 0.25f);

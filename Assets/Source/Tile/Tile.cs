@@ -6,6 +6,7 @@ using TilesWalk.Extensions;
 using TilesWalk.Gameplay;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
+using UniRx;
 using UnityEngine;
 
 namespace TilesWalk.Tile
@@ -34,6 +35,8 @@ namespace TilesWalk.Tile
 		/// </summary>
 		public Dictionary<CardinalDirection, Vector3> HingePoints { get; set; }
 
+		private List<Tile> _shortestPathToLeaf;
+
 		/// <summary>
 		/// This vector contains a 3D coordinate respective to the tile structure, though visually
 		/// it doesn't look like a series of voxels, this coordinate represents its position in voxel
@@ -59,9 +62,19 @@ namespace TilesWalk.Tile
 			set => _color = value;
 		}
 
+		public List<Tile> ShortestPathToLeaf
+		{
+			get => _shortestPathToLeaf;
+		}
+
 		public void ShuffleColor()
 		{
 			_color = TileColorExtension.RandomColor();
+		}
+
+		public void RefreshShortPath()
+		{
+			_shortestPathToLeaf = this.GetShortestLeafPath();
 		}
 
 		public Tile()

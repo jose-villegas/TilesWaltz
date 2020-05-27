@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TilesWalk.Gameplay;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
+using UnityEngine;
 
 namespace TilesWalk.Extensions
 {
@@ -42,20 +44,13 @@ namespace TilesWalk.Extensions
 		/// </summary>
 		/// <param name="source"></param>
 		/// <returns></returns>
-		public static List<Tile.Tile> GetShortestLeafPath(this Tile.Tile source, List<Tile.Tile> walk = null,
+		public static List<Tile.Tile> GetShortestLeafPath(this Tile.Tile source,
 			CardinalDirection direction = CardinalDirection.None)
 		{
+			List<Tile.Tile> result = new List<Tile.Tile>();
 			var keys = source.Neighbors.Keys;
 
-			if (source.IsLeaf() && direction != CardinalDirection.None && keys.First() == direction.Opposite())
-			{
-				return walk;
-			}
-
 			var count = int.MaxValue;
-			List<Tile.Tile> result = null;
-			var backup = walk?.ToList();
-
 			foreach (var key in keys)
 			{
 				// avoid infinite loop
@@ -65,74 +60,17 @@ namespace TilesWalk.Extensions
 
 				if (value == null) continue;
 
-				if (walk == null) walk = new List<Tile.Tile>();
+				var trace = GetShortestLeafPath(value, key);
 
-				walk.Add(value);
-
-				// concatenation of whole paths
-				var path = value.GetShortestLeafPath(walk, key);
-
-				if (path != null && path.Count < count)
+				if (trace != null && trace.Count < count)
 				{
-					walk = backup;
-					result = path;
-					count = path.Count;
+					result = trace;
+					// update minimum
+					count = trace.Count;
 				}
 			}
 
-			return result;
-		}
-
-		/// <summary>
-		/// This method finds the shortest path possible to a color following all the paths
-		/// available by walking through the neighbors
-		/// </summary>
-		/// <param name="source"></param>
-		/// <returns></returns>
-		public static List<Tile.Tile> GetShortestColorPath(this Tile.Tile source, List<Tile.Tile> walk = null,
-			CardinalDirection direction = CardinalDirection.None, TileColor color = TileColor.None)
-		{
-			var keys = source.Neighbors.Keys;
-
-			// check if colors match
-			if (color != TileColor.None && source.TileColor == color)
-			{
-				if (source.IsLeaf() && direction != CardinalDirection.None &&
-				    keys.First() == direction.Opposite()) return walk;
-				
-				return source.GetShortestLeafPath(walk, direction);
-			}
-
-			var count = int.MaxValue;
-			List<Tile.Tile> result = null;
-			var backup = walk?.ToList();
-
-
-			foreach (var key in keys)
-			{
-				// avoid infinite loop
-				if (direction != CardinalDirection.None && key == direction.Opposite()) continue;
-
-				var value = source.Neighbors[key];
-
-				if (value == null) continue;
-
-				if (walk == null) walk = new List<Tile.Tile>();
-
-				walk.Add(value);
-
-				// concatenation of whole paths
-				var path = value.GetShortestColorPath(walk, key,
-					direction == CardinalDirection.None ? source.TileColor : color);
-
-				if (path != null && path.Exists(x => x.TileColor == source.TileColor) && path.Count < count)
-				{
-					walk = backup;
-					result = path;
-					count = path.Count;
-				}
-			}
-
+			result.Add(source);
 			return result;
 		}
 	}

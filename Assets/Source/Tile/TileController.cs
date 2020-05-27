@@ -219,10 +219,10 @@ namespace TilesWalk.Tile
 		/// <summary>
 		/// Removes this tile from the tile structure
 		/// </summary>
-		public void Remove(out List<Tile> shufflePath)
+		public void Remove()
 		{
 			// obtain the path that should be updated after removal
-			shufflePath = _tile.GetShortestColorPath();
+			var shufflePath = _tile.ShortestPathToLeaf;
 
 			if (shufflePath == null || shufflePath.Count == 0)
 			{
@@ -236,10 +236,9 @@ namespace TilesWalk.Tile
 				return;
 			}
 
-			// first copy color from closest neighbor
-			_tile.TileColor = shufflePath[0].TileColor;
+			shufflePath.Reverse();
 
-			// then update the path
+			// update the path
 			for (int i = 0; i < shufflePath.Count - 1; i++)
 			{
 				var source = shufflePath[i];
