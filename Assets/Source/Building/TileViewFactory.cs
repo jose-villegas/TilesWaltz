@@ -42,6 +42,7 @@ namespace TilesWalk.Building
 
 			_asyncLoad = _tileAsset.LoadAssetAsync<GameObject>();
 		}
+
 		public TileView GetTileView(Tile.Tile tile)
 		{
 			return _tileView[tile];
@@ -101,7 +102,7 @@ namespace TilesWalk.Building
 					{
 						Destroy(_hashToTile[instruction.tile].gameObject);
 					}
-				});
+				}).AddTo(this);
 			}
 
 			return view;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Extensions;
 using TilesWalk.General;
@@ -213,6 +214,42 @@ namespace TilesWalk.Tile
 			}
 
 			return translate;
+		}
+
+		/// <summary>
+		/// Removes this tile from the tile structure
+		/// </summary>
+		public void Remove(out List<Tile> shufflePath)
+		{
+			// obtain the path that should be updated after removal
+			shufflePath = _tile.GetShortestColorPath();
+
+			if (shufflePath == null || shufflePath.Count == 0)
+			{
+				shufflePath = _tile.GetShortestLeafPath();
+			}
+
+			if (shufflePath == null || shufflePath.Count == 0)
+			{
+				_tile.ShuffleColor();
+				Debug.LogWarning("No possible shuffle path found for this tile");
+				return;
+			}
+
+			// first copy color from closest neighbor
+			_tile.TileColor = shufflePath[0].TileColor;
+
+			// then update the path
+			for (int i = 0; i < shufflePath.Count - 1; i++)
+			{
+				var source = shufflePath[i];
+				var nextTo = shufflePath[i + 1];
+
+				source.TileColor = nextTo.TileColor;
+			}
+
+			var lastTile = shufflePath[shufflePath.Count - 1];
+			lastTile.ShuffleColor();
 		}
 
 		internal void AdjustBounds(Bounds bounds)

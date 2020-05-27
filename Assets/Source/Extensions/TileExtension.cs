@@ -26,6 +26,17 @@ namespace TilesWalk.Extensions
 		}
 
 		/// <summary>
+		/// Determines if this tile has only one neighbor, meaning
+		/// it's a leaf as no other tiles comes from it
+		/// </summary>
+		/// <param name="tile"></param>
+		/// <returns></returns>
+		public static bool IsLeaf(this Tile.Tile tile)
+		{
+			return tile.Neighbors.Count == 1;
+		}
+
+		/// <summary>
 		/// This method finds the shortest path possible following all the paths
 		/// available by walking through the neighbors
 		/// </summary>
@@ -36,11 +47,9 @@ namespace TilesWalk.Extensions
 		{
 			var keys = source.Neighbors.Keys;
 
-			// check if we are on a leaf
-			if (keys.Count == 1)
+			if (source.IsLeaf() && direction != CardinalDirection.None && keys.First() == direction.Opposite())
 			{
-				// return concatenated path
-				if (direction != CardinalDirection.None && keys.First() == direction.Opposite()) return walk;
+				return walk;
 			}
 
 			var count = int.MaxValue;
@@ -88,12 +97,16 @@ namespace TilesWalk.Extensions
 			// check if colors match
 			if (color != TileColor.None && source.TileColor == color)
 			{
+				if (source.IsLeaf() && direction != CardinalDirection.None &&
+				    keys.First() == direction.Opposite()) return walk;
+				
 				return source.GetShortestLeafPath(walk, direction);
 			}
 
 			var count = int.MaxValue;
 			List<Tile.Tile> result = null;
 			var backup = walk?.ToList();
+
 
 			foreach (var key in keys)
 			{

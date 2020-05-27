@@ -2,8 +2,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Building;
 using TilesWalk.Extensions;
@@ -11,8 +9,8 @@ using TilesWalk.Gameplay;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace TilesWalk.Tile
@@ -24,9 +22,6 @@ namespace TilesWalk.Tile
 
 		private MeshRenderer _meshRenderer;
 		private BoxCollider _collider;
-		private IDisposable _positionDisposable;
-		private IDisposable _rotationDisposable;
-		private IDisposable _scaleDisposable;
 
 		private BoxCollider Collider
 		{
@@ -91,6 +86,17 @@ namespace TilesWalk.Tile
 			// instead of creating a new instance per every tile that tries to
 			// change its color
 			Renderer.material = Materials[_controller.Tile.TileColor];
+
+			// update material on color update
+			_controller.Tile
+				.ObserveEveryValueChanged(x => x.TileColor)
+				.Subscribe(UpdateColor)
+				.AddTo(this);
+		}
+
+		private void UpdateColor(TileColor color)
+		{
+			Renderer.material = Materials[color];
 		}
 
 		#region Debug
@@ -126,6 +132,67 @@ namespace TilesWalk.Tile
 		private void CalculateShortestColorPath()
 		{
 			_shortestPath = _controller.Tile.GetShortestColorPath();
+		}
+
+		[Button]
+		private void Remove()
+		{
+			List<Tile> shufflePath;
+			_controller.Remove(out shufflePath);
+
+			if (shufflePath == null || shufflePath.Count <= 0) return;
+
+			shufflePath.Insert(0, _controller.Tile);
+			// this structure with backup the origin position and rotations
+			var backup = new List<Tuple<Vector3, Quaternion>>();
+			var tiles = new List<TileView>();
+
+			for (int i = 0; i < shufflePath.Count - 1; i++)
+			{
+				var source = _viewFactory.GetTileView(shufflePath[i]);
+				var nextTo = _viewFactory.GetTileView(shufflePath[i + 1]);
+				// backup info
+				backup.Add(new Tuple<Vector3, Quaternion>(source.transform.position, source.transform.rotation));
+				tiles.Add(source);
+				// copy transform
+				source.transform.position = nextTo.transform.position;
+				source.transform.rotation = nextTo.transform.rotation;
+			}
+
+			var lastTile = _viewFactory.GetTileView(shufflePath[shufflePath.Count - 1]);
+			var scale = lastTile.transform.localScale;
+			lastTile.transform.localScale = Vector3.zero;
+
+			StartCoroutine(ChainTowardsAnimation(tiles, backup))
+				.GetAwaiter()
+				.OnCompleted(() => { StartCoroutine(lastTile.LastShuffleTileAnimation(scale)); });
+		}
+
+		private IEnumerator LastShuffleTileAnimation(Vector3 scale)
+		{
+			while ((scale - transform.localScale).sqrMagnitude > Mathf.Epsilon)
+			{
+				var step = 6 * Time.deltaTime;
+				transform.localScale = Vector3.MoveTowards(transform.localScale, scale, step);
+				yield return new WaitForEndOfFrame();
+			}
+		}
+
+		private IEnumerator ChainTowardsAnimation(List<TileView> tiles, List<Tuple<Vector3, Quaternion>> source)
+		{
+			for (int i = 0; i < tiles.Count && i < source.Count; i++)
+			{
+				var tile = tiles[i];
+
+				var offset = source[i].Item1 - tile.transform.position;
+
+				while ((source[i].Item1 - tile.transform.position).sqrMagnitude > Mathf.Epsilon)
+				{
+					var step = 6 * Time.deltaTime;
+					tile.transform.position = Vector3.MoveTowards(tile.transform.position, source[i].Item1, step);
+					yield return new WaitForEndOfFrame();
+				}
+			}
 		}
 
 		private void OnDrawGizmos()

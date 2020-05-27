@@ -51,14 +51,12 @@ namespace TilesWalk.Tile
 			set => _bounds = value;
 		}
 
-		public Color Color
-		{
-			get => _color.Color();
-		}
+		public Color Color => _color.Color();
 
 		public TileColor TileColor
 		{
 			get => _color;
+			set => _color = value;
 		}
 
 		public void ShuffleColor()
@@ -68,7 +66,7 @@ namespace TilesWalk.Tile
 
 		public Tile()
 		{
-			_color = TileColor.Red;
+			_color = TileColor.None;
 			_bounds = new Bounds();
 			_index = Vector3.zero;
 			HingePoints = new Dictionary<CardinalDirection, Vector3>();
