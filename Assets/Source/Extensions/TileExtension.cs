@@ -39,13 +39,27 @@ namespace TilesWalk.Extensions
 		}
 
 		/// <summary>
+		/// Determines if this tile has only one neighbor of the same color, meaning
+		/// it's a color as no other tiles with the same color comes from it
+		/// </summary>
+		/// <param name="tile"></param>
+		/// <returns></returns>
+		public static bool IsColorLeaf(this Tile.Tile tile)
+		{
+			return tile.Neighbors.Count(x => x.Value.TileColor == tile.TileColor) == 1;
+		}
+
+		/// <summary>
 		/// This method finds the shortest path possible following all the paths
 		/// available by walking through the neighbors
 		/// </summary>
-		/// <param name="source"></param>
+		/// <param name="source">The root tile</param>
+		/// <param name="ignore">
+		/// Initial direction to ignore, this parameter is
+		/// then used recursively to avoid infinite loops
+		/// </param>
 		/// <returns></returns>
-		public static List<Tile.Tile> GetShortestLeafPath(this Tile.Tile source,
-			CardinalDirection ignoreDirection = CardinalDirection.None)
+		public static List<Tile.Tile> GetShortestLeafPath(this Tile.Tile source, CardinalDirection ignore = default)
 		{
 			List<Tile.Tile> result = new List<Tile.Tile>();
 			var keys = source.Neighbors.Keys;
@@ -58,7 +72,7 @@ namespace TilesWalk.Extensions
 				if (value == null) continue;
 
 				// avoid infinite loop
-				if (key == ignoreDirection) continue;
+				if (key == ignore) continue;
 
 				var trace = GetShortestLeafPath(value, key.Opposite());
 
@@ -74,8 +88,17 @@ namespace TilesWalk.Extensions
 			return result;
 		}
 
-		public static List<Tile.Tile> GetColorMatchPath(this Tile.Tile source,
-			CardinalDirection ignoreDirection = CardinalDirection.None)
+		/// <summary>
+		/// This method finds a patch containing all the neighboring
+		/// color matching tiles
+		/// </summary>
+		/// <param name="source">The root tile</param>
+		/// <param name="ignore">
+		/// Initial direction to ignore, this parameter is
+		/// then used recursively to avoid infinite loops
+		/// </param>
+		/// <returns></returns>
+		public static List<Tile.Tile> GetColorMatchPath(this Tile.Tile source, CardinalDirection ignore = default)
 		{
 			List<Tile.Tile> result = new List<Tile.Tile>();
 			var keys = source.Neighbors.Keys;
@@ -87,7 +110,7 @@ namespace TilesWalk.Extensions
 				if (value == null) continue;
 
 				// avoid infinite loop
-				if (key == ignoreDirection) continue;
+				if (key == ignore) continue;
 
 				if (value.TileColor != source.TileColor) continue;
 
