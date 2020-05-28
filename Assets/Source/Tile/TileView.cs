@@ -16,7 +16,7 @@ namespace TilesWalk.Tile
 	[ExecuteInEditMode]
 	public partial class TileView : MonoBehaviour, IView
 	{
-		[SerializeField] private TileController _controller = new TileController();
+		[SerializeField] private TileController _controller;
 		[Inject] private TileViewFactory _viewFactory;
 
 		private MeshRenderer _meshRenderer;
@@ -55,6 +55,13 @@ namespace TilesWalk.Tile
 			get => _controller;
 		}
 
+		private static readonly Dictionary<TileColor, Material> Materials = new Dictionary<TileColor, Material>();
+
+		public TileView()
+		{
+			_controller = new TileController();
+		}
+
 		private void OnDestroy()
 		{
 			foreach (var item in _controller.Tile.Neighbors)
@@ -63,8 +70,6 @@ namespace TilesWalk.Tile
 				item.Value.HingePoints.Remove(item.Key.Opposite());
 			}
 		}
-
-		private static readonly Dictionary<TileColor, Material> Materials = new Dictionary<TileColor, Material>();
 
 		private void Start()
 		{
@@ -82,8 +87,6 @@ namespace TilesWalk.Tile
 			// instead of creating a new instance per every tile that tries to
 			// change its color
 			Renderer.material = Materials[_controller.Tile.TileColor];
-
-
 			// update material on color update
 			_controller.Tile.ObserveEveryValueChanged(x => x.TileColor).Subscribe(UpdateColor).AddTo(this);
 		}
@@ -136,7 +139,19 @@ namespace TilesWalk.Tile
 				foreach (var tile in _controller.Tile.ShortestPathToLeaf)
 				{
 					var view = _viewFactory.GetTileView(tile);
-					Gizmos.DrawCube(view.transform.position + transform.up * 0.15f, Vector3.one * 0.25f);
+					Gizmos.DrawCube(view.transform.position +
+					                transform.up * 0.15f, Vector3.one * 0.15f);
+				}
+			}
+
+			Gizmos.color = Color.magenta;
+			var colorPath = _controller.Tile.GetColorMatchPath();
+			if (colorPath != null && colorPath.Count > 2)
+			{
+				foreach (var tile in colorPath)
+				{
+					var view = _viewFactory.GetTileView(tile);
+					Gizmos.DrawWireCube(view.transform.position, Vector3.one);
 				}
 			}
 		}

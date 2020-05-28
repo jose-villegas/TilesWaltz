@@ -60,28 +60,6 @@ namespace TilesWalk.Tile
 
 		public List<Tile> ShortestPathToLeaf { get; private set; }
 
-		public bool IsTriadCenter
-		{
-			get
-			{
-				if (Neighbors != null && Neighbors.Count > 1)
-				{
-					var matchCount = 0;
-
-					foreach (var neighbor in Neighbors)
-					{
-						matchCount += neighbor.Value.TileColor == TileColor ? 1 : 0;
-
-						if (matchCount >= 2)
-						{
-							return true;
-						}
-					}
-				}
-
-				return false;
-			}
-		}
 
 		public void ShuffleColor()
 		{
@@ -101,6 +79,7 @@ namespace TilesWalk.Tile
 			_index = Vector3.zero;
 			HingePoints = new Dictionary<CardinalDirection, Vector3>();
 			Neighbors = new Dictionary<CardinalDirection, Tile>();
+
 		}
 	}
 }

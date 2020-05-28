@@ -158,16 +158,6 @@ namespace TilesWalk.Building
 			}
 		}
 
-		[Button]
-		public void UpdateTilePaths()
-		{
-			foreach (var tileViewKey in _tileView.Keys)
-			{
-				tileViewKey.RefreshShortPath();
-			}
-		}
-
-
 		public void UpdateInstructions(TileView root, TileView tile, CardinalDirection d, NeighborWalkRule r)
 		{
 			if (!_tileToHash.TryGetValue(root, out var rootId) ||

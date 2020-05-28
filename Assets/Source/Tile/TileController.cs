@@ -4,6 +4,7 @@ using TilesWalk.BaseInterfaces;
 using TilesWalk.Extensions;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
+using UniRx;
 using UnityEngine;
 
 namespace TilesWalk.Tile
@@ -43,6 +44,20 @@ namespace TilesWalk.Tile
 			tile.Neighbors[direction.Opposite()] = _tile;
 			// adjust 3d index according to neighbor
 			AdjustNeighborSpace(direction, rule, tile, rootTransform, tileTransform);
+			// refresh shortest path for all related neighbors
+			ChainRefreshShortestPath(tile);
+		}
+
+		private void ChainRefreshShortestPath(Tile source, CardinalDirection ignore = CardinalDirection.None)
+		{
+			source.RefreshShortPath();
+
+			foreach (var neighbor in source.Neighbors)
+			{
+				if (neighbor.Key == ignore) continue;;
+
+				ChainRefreshShortestPath(neighbor.Value, neighbor.Key.Opposite());
+			}
 		}
 
 		/// <summary>

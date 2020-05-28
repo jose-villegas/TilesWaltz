@@ -45,7 +45,7 @@ namespace TilesWalk.Extensions
 		/// <param name="source"></param>
 		/// <returns></returns>
 		public static List<Tile.Tile> GetShortestLeafPath(this Tile.Tile source,
-			CardinalDirection direction = CardinalDirection.None)
+			CardinalDirection ignoreDirection = CardinalDirection.None)
 		{
 			List<Tile.Tile> result = new List<Tile.Tile>();
 			var keys = source.Neighbors.Keys;
@@ -53,20 +53,49 @@ namespace TilesWalk.Extensions
 			var count = int.MaxValue;
 			foreach (var key in keys)
 			{
-				// avoid infinite loop
-				if (direction != CardinalDirection.None && key == direction.Opposite()) continue;
-
 				var value = source.Neighbors[key];
 
 				if (value == null) continue;
 
-				var trace = GetShortestLeafPath(value, key);
+				// avoid infinite loop
+				if (key == ignoreDirection) continue;
+
+				var trace = GetShortestLeafPath(value, key.Opposite());
 
 				if (trace != null && trace.Count < count)
 				{
 					result = trace;
 					// update minimum
 					count = trace.Count;
+				}
+			}
+
+			result.Add(source);
+			return result;
+		}
+
+		public static List<Tile.Tile> GetColorMatchPath(this Tile.Tile source,
+			CardinalDirection ignoreDirection = CardinalDirection.None)
+		{
+			List<Tile.Tile> result = new List<Tile.Tile>();
+			var keys = source.Neighbors.Keys;
+
+			foreach (var key in keys)
+			{
+				var value = source.Neighbors[key];
+
+				if (value == null) continue;
+
+				// avoid infinite loop
+				if (key == ignoreDirection) continue;
+
+				if (value.TileColor != source.TileColor) continue;
+
+				var trace = GetColorMatchPath(value, key.Opposite());
+
+				if (trace != null)
+				{
+					result.AddRange(trace);
 				}
 			}
 
