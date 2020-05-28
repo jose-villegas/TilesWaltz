@@ -45,18 +45,20 @@ namespace TilesWalk.Tile
 			// adjust 3d index according to neighbor
 			AdjustNeighborSpace(direction, rule, tile, rootTransform, tileTransform);
 			// refresh shortest path for all related neighbors
-			ChainRefreshShortestPath(tile);
+			ChainRefreshPaths(tile);
 		}
 
-		private void ChainRefreshShortestPath(Tile source, CardinalDirection ignore = CardinalDirection.None)
+		public void ChainRefreshPaths(Tile source, CardinalDirection ignore = CardinalDirection.None,
+			bool updateColorPath = true, bool updateShortestPath = true)
 		{
-			source.RefreshShortPath();
+			if (updateColorPath) source.RefreshMatchingColorPath();
+			if (updateShortestPath) source.RefreshShortestLeafPath();
 
 			foreach (var neighbor in source.Neighbors)
 			{
-				if (neighbor.Key == ignore) continue;;
+				if (neighbor.Key == ignore) continue;
 
-				ChainRefreshShortestPath(neighbor.Value, neighbor.Key.Opposite());
+				ChainRefreshPaths(neighbor.Value, neighbor.Key.Opposite(), updateColorPath, updateShortestPath);
 			}
 		}
 
@@ -262,6 +264,8 @@ namespace TilesWalk.Tile
 
 			var lastTile = shufflePath[shufflePath.Count - 1];
 			lastTile.ShuffleColor();
+
+			ChainRefreshPaths(_tile, updateShortestPath: false);
 		}
 
 		internal void AdjustBounds(Bounds bounds)

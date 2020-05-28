@@ -59,17 +59,22 @@ namespace TilesWalk.Tile
 		}
 
 		public List<Tile> ShortestPathToLeaf { get; private set; }
-
+		public List<Tile> MatchingColorPatch { get; private set; }
 
 		public void ShuffleColor()
 		{
 			_color = TileColorExtension.RandomColor();
 		}
 
-		public void RefreshShortPath()
+		public void RefreshShortestLeafPath()
 		{
 			ShortestPathToLeaf = this.GetShortestLeafPath();
 			ShortestPathToLeaf.Reverse();
+		}
+
+		public void RefreshMatchingColorPath()
+		{
+			MatchingColorPatch = this.GetColorMatchPath();
 		}
 
 		public Tile()

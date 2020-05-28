@@ -63,6 +63,15 @@ namespace TilesWalk.Building
 			_tileView[tile.Controller.Tile] = tile;
 		}
 
+		public void RefreshAllPaths()
+		{
+			foreach (var viewKey in _tileView.Keys)
+			{
+				viewKey.RefreshShortestLeafPath();
+				viewKey.RefreshMatchingColorPath();
+			}
+		}
+
 		[Button]
 		public TileView NewInstance()
 		{

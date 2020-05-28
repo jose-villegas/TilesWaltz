@@ -69,6 +69,8 @@ namespace TilesWalk.Tile
 				item.Value.Neighbors.Remove(item.Key.Opposite());
 				item.Value.HingePoints.Remove(item.Key.Opposite());
 			}
+
+			_viewFactory.RefreshAllPaths();
 		}
 
 		private void Start()
@@ -145,10 +147,9 @@ namespace TilesWalk.Tile
 			}
 
 			Gizmos.color = Color.magenta;
-			var colorPath = _controller.Tile.GetColorMatchPath();
-			if (colorPath != null && colorPath.Count > 2)
+			if (_controller.Tile.MatchingColorPatch != null && _controller.Tile.MatchingColorPatch.Count > 2)
 			{
-				foreach (var tile in colorPath)
+				foreach (var tile in _controller.Tile.MatchingColorPatch)
 				{
 					var view = _viewFactory.GetTileView(tile);
 					Gizmos.DrawWireCube(view.transform.position, Vector3.one);

@@ -59,7 +59,7 @@ namespace TilesWalk.Extensions
 		/// then used recursively to avoid infinite loops
 		/// </param>
 		/// <returns></returns>
-		public static List<Tile.Tile> GetShortestLeafPath(this Tile.Tile source, CardinalDirection ignore = default)
+		public static List<Tile.Tile> GetShortestLeafPath(this Tile.Tile source, params CardinalDirection[] ignore)
 		{
 			List<Tile.Tile> result = new List<Tile.Tile>();
 			var keys = source.Neighbors.Keys;
@@ -72,7 +72,7 @@ namespace TilesWalk.Extensions
 				if (value == null) continue;
 
 				// avoid infinite loop
-				if (key == ignore) continue;
+				if (ignore != null && ignore.Length > 0 && ignore.Contains(key)) continue;
 
 				var trace = GetShortestLeafPath(value, key.Opposite());
 
@@ -98,7 +98,7 @@ namespace TilesWalk.Extensions
 		/// then used recursively to avoid infinite loops
 		/// </param>
 		/// <returns></returns>
-		public static List<Tile.Tile> GetColorMatchPath(this Tile.Tile source, CardinalDirection ignore = default)
+		public static List<Tile.Tile> GetColorMatchPath(this Tile.Tile source, params CardinalDirection[] ignore)
 		{
 			List<Tile.Tile> result = new List<Tile.Tile>();
 			var keys = source.Neighbors.Keys;
@@ -110,7 +110,7 @@ namespace TilesWalk.Extensions
 				if (value == null) continue;
 
 				// avoid infinite loop
-				if (key == ignore) continue;
+				if (ignore != null && ignore.Length > 0 && ignore.Contains(key)) continue;
 
 				if (value.TileColor != source.TileColor) continue;
 
