@@ -167,6 +167,7 @@ namespace TilesWalk.Building
 			}
 		}
 
+
 		public void UpdateInstructions(TileView root, TileView tile, CardinalDirection d, NeighborWalkRule r)
 		{
 			if (!_tileToHash.TryGetValue(root, out var rootId) ||

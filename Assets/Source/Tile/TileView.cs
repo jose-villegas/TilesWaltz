@@ -1,6 +1,5 @@
 ﻿using NaughtyAttributes;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Building;
@@ -9,19 +8,21 @@ using TilesWalk.Gameplay;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
 
 namespace TilesWalk.Tile
 {
 	[ExecuteInEditMode]
-	public class TileView : MonoBehaviour, IView
+	public partial class TileView : MonoBehaviour, IView
 	{
-		[SerializeField] private TileController _controller;
+		[SerializeField] private TileController _controller = new TileController();
+		[Inject] private TileViewFactory _viewFactory;
 
 		private MeshRenderer _meshRenderer;
 		private BoxCollider _collider;
+
+		public static bool MovementLocked { get; private set; }
 
 		private BoxCollider Collider
 		{
@@ -54,11 +55,6 @@ namespace TilesWalk.Tile
 			get => _controller;
 		}
 
-		public TileView()
-		{
-			_controller = new TileController();
-		}
-
 		private void OnDestroy()
 		{
 			foreach (var item in _controller.Tile.Neighbors)
@@ -87,11 +83,9 @@ namespace TilesWalk.Tile
 			// change its color
 			Renderer.material = Materials[_controller.Tile.TileColor];
 
+
 			// update material on color update
-			_controller.Tile
-				.ObserveEveryValueChanged(x => x.TileColor)
-				.Subscribe(UpdateColor)
-				.AddTo(this);
+			_controller.Tile.ObserveEveryValueChanged(x => x.TileColor).Subscribe(UpdateColor).AddTo(this);
 		}
 
 		private void UpdateColor(TileColor color)
@@ -104,7 +98,6 @@ namespace TilesWalk.Tile
 #if UNITY_EDITOR
 		[Header("Editor")] [SerializeField] private CardinalDirection direction = CardinalDirection.North;
 		[SerializeField] private NeighborWalkRule rule = NeighborWalkRule.Plain;
-		[Inject] private TileViewFactory _viewFactory;
 
 		[Button]
 		private void AddNeighbor()
@@ -121,68 +114,6 @@ namespace TilesWalk.Tile
 			_viewFactory.UpdateInstructions(this, tile, direction, rule);
 		}
 
-		[Button]
-		private void Remove()
-		{
-			_controller.Remove();
-
-			List<Tile> shufflePath = _controller.Tile.ShortestPathToLeaf;
-
-			if (shufflePath == null || shufflePath.Count <= 0) return;
-
-			// this structure with backup the origin position and rotations
-			var backup = new List<Tuple<Vector3, Quaternion>>();
-			var tiles = new List<TileView>();
-
-			for (int i = 0; i < shufflePath.Count - 1; i++)
-			{
-				var source = _viewFactory.GetTileView(shufflePath[i]);
-				var nextTo = _viewFactory.GetTileView(shufflePath[i + 1]);
-				// backup info
-				backup.Add(new Tuple<Vector3, Quaternion>(source.transform.position, source.transform.rotation));
-				tiles.Add(source);
-				// copy transform
-				source.transform.position = nextTo.transform.position;
-				source.transform.rotation = nextTo.transform.rotation;
-			}
-
-			var lastTile = _viewFactory.GetTileView(shufflePath[shufflePath.Count - 1]);
-			var scale = lastTile.transform.localScale;
-			lastTile.transform.localScale = Vector3.zero;
-
-			StartCoroutine(ChainTowardsAnimation(tiles, backup))
-				.GetAwaiter()
-				.OnCompleted(() => { StartCoroutine(lastTile.LastShuffleTileAnimation(scale)); });
-		}
-
-		private IEnumerator LastShuffleTileAnimation(Vector3 scale)
-		{
-			while ((scale - transform.localScale).sqrMagnitude > Mathf.Epsilon)
-			{
-				var step = 6 * Time.deltaTime;
-				transform.localScale = Vector3.MoveTowards(transform.localScale, scale, step);
-				yield return new WaitForEndOfFrame();
-			}
-		}
-
-		private IEnumerator ChainTowardsAnimation(List<TileView> tiles, List<Tuple<Vector3, Quaternion>> source)
-		{
-			for (int i = 0; i < tiles.Count && i < source.Count; i++)
-			{
-				var tile = tiles[i];
-
-				var offset = source[i].Item1 - tile.transform.position;
-
-				while ((source[i].Item1 - tile.transform.position).sqrMagnitude > Mathf.Epsilon ||
-				       Quaternion.Angle(source[i].Item2, tile.transform.rotation) > Mathf.Epsilon)
-				{
-					var step = 20 * Time.deltaTime;
-					tile.transform.position = Vector3.MoveTowards(tile.transform.position, source[i].Item1, step);
-					tile.transform.rotation = Quaternion.RotateTowards(tile.transform.rotation, source[i].Item2, step * 50);
-					yield return new WaitForEndOfFrame();
-				}
-			}
-		}
 
 		private void OnDrawGizmos()
 		{

@@ -35,8 +35,6 @@ namespace TilesWalk.Tile
 		/// </summary>
 		public Dictionary<CardinalDirection, Vector3> HingePoints { get; set; }
 
-		private List<Tile> _shortestPathToLeaf;
-
 		/// <summary>
 		/// This vector contains a 3D coordinate respective to the tile structure, though visually
 		/// it doesn't look like a series of voxels, this coordinate represents its position in voxel
@@ -54,17 +52,35 @@ namespace TilesWalk.Tile
 			set => _bounds = value;
 		}
 
-		public Color Color => _color.Color();
-
 		public TileColor TileColor
 		{
 			get => _color;
 			set => _color = value;
 		}
 
-		public List<Tile> ShortestPathToLeaf
+		public List<Tile> ShortestPathToLeaf { get; private set; }
+
+		public bool IsTriadCenter
 		{
-			get => _shortestPathToLeaf;
+			get
+			{
+				if (Neighbors != null && Neighbors.Count > 1)
+				{
+					var matchCount = 0;
+
+					foreach (var neighbor in Neighbors)
+					{
+						matchCount += neighbor.Value.TileColor == TileColor ? 1 : 0;
+
+						if (matchCount >= 2)
+						{
+							return true;
+						}
+					}
+				}
+
+				return false;
+			}
 		}
 
 		public void ShuffleColor()
@@ -74,8 +90,8 @@ namespace TilesWalk.Tile
 
 		public void RefreshShortPath()
 		{
-			_shortestPathToLeaf = this.GetShortestLeafPath();
-			_shortestPathToLeaf.Reverse();
+			ShortestPathToLeaf = this.GetShortestLeafPath();
+			ShortestPathToLeaf.Reverse();
 		}
 
 		public Tile()
