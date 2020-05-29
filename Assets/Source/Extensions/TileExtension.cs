@@ -98,7 +98,7 @@ namespace TilesWalk.Extensions
 		/// then used recursively to avoid infinite loops
 		/// </param>
 		/// <returns></returns>
-		public static List<Tile.Tile> GetColorMatchPath(this Tile.Tile source, params CardinalDirection[] ignore)
+		public static List<Tile.Tile> GetColorMatchPatch(this Tile.Tile source, params CardinalDirection[] ignore)
 		{
 			List<Tile.Tile> result = new List<Tile.Tile>();
 			var keys = source.Neighbors.Keys;
@@ -114,7 +114,7 @@ namespace TilesWalk.Extensions
 
 				if (value.TileColor != source.TileColor) continue;
 
-				var trace = GetColorMatchPath(value, key.Opposite());
+				var trace = GetColorMatchPatch(value, key.Opposite());
 
 				if (trace != null)
 				{

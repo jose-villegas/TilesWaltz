@@ -91,7 +91,18 @@ namespace TilesWalk.Tile
 			// change its color
 			Renderer.material = Materials[_controller.Tile.TileColor];
 			// update material on color update
-			_controller.Tile.ObserveEveryValueChanged(x => x.TileColor).Subscribe(UpdateColor).AddTo(this);
+			_controller.Tile
+				.ObserveEveryValueChanged(x => x.TileColor)
+				.Subscribe(UpdateColor).AddTo(this);
+			// check for combos
+			transform.UpdateAsObservable().Subscribe(_ =>
+			{
+				if (_controller.Tile.MatchingColorPatch != null &&
+				    _controller.Tile.MatchingColorPatch.Count > 2)
+				{
+					RemoveCombo();
+				}
+			}).AddTo(this);
 		}
 
 		private void UpdateColor(TileColor color)

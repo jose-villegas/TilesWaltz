@@ -69,7 +69,7 @@ namespace TilesWalk.Building
 			foreach (var viewKey in _tileView.Keys)
 			{
 				viewKey.RefreshShortestLeafPath();
-				viewKey.RefreshMatchingColorPath();
+				viewKey.RefreshMatchingColorPatch();
 			}
 		}
 

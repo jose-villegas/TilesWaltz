@@ -43,8 +43,8 @@ namespace TilesWalk.Tile
 
 			MovementLocked = true;
 
-			var shufflePath = _controller.Remove();
-			;
+			_controller.Remove();
+			var shufflePath = _controller.Tile.ShortestPathToLeaf;
 
 			if (shufflePath == null || shufflePath.Count <= 0) return;
 
@@ -78,43 +78,42 @@ namespace TilesWalk.Tile
 				return;
 			}
 
-			MovementLocked = true;
-
-			var shufflePathCycles = _controller.RemoveCombo();
-			StartCoroutine(RemoveComboCyclesRoutine(shufflePathCycles))
-				.GetAwaiter()
-				.OnCompleted(() => { MovementLocked = false; });
-		}
-
-		private IEnumerator RemoveComboCyclesRoutine(List<List<List<Tile>>> shufflePathCycles)
-		{
-			foreach (var cyclePaths in shufflePathCycles)
+			// combo removals require at least three of the same color in the matching path
+			if (_controller.Tile.MatchingColorPatch == null || _controller.Tile.MatchingColorPatch.Count <= 2)
 			{
-				var pathReadyCount = 0;
+				Debug.LogWarning("A combo requires at least three matching color tiles together");
+				return;
+			}
 
-				foreach (var shufflePath in cyclePaths)
-				{
-					var tiles = shufflePath.Select(x => _viewFactory.GetTileView(x)).ToList();
-					// this structure with backup the origin position and rotations
-					var backup = ShufflePath(tiles);
+			MovementLocked = true;
+			var shufflePath = _controller.Tile.MatchingColorPatch;
+			var observables = new List<IObservable<Unit>>();
 
-					// since the last tile has no other to exchange positions with, reduce its
-					// scale to hide it before showing its new color
-					var lastTile = _viewFactory.GetTileView(shufflePath[shufflePath.Count - 1]);
-					var scale = lastTile.transform.localScale;
-					lastTile.transform.localScale = Vector3.zero;
+			for (int i = 0; i < shufflePath.Count; i++)
+			{
+				var index = i;
+				var tileView = _viewFactory.GetTileView(shufflePath[i]);
+				var sourceScale = tileView.transform.localScale;
 
-					StartCoroutine(ChainTowardsAnimation(tiles, backup))
-						.GetAwaiter()
-						.OnCompleted(() =>
+				StartCoroutine(tileView.LastShuffleTileAnimation(Vector3.zero))
+					.GetAwaiter()
+					.OnCompleted(() =>
+					{
+						if (index == shufflePath.Count - 1)
 						{
-							StartCoroutine(lastTile.LastShuffleTileAnimation(scale))
-								.GetAwaiter()
-								.OnCompleted(() => pathReadyCount++);
-						});
-				}
+							tileView.Controller.RemoveCombo();
+						}
 
-				while (pathReadyCount < cyclePaths.Count) yield return new WaitForEndOfFrame();
+						StartCoroutine(tileView.LastShuffleTileAnimation(sourceScale))
+							.GetAwaiter()
+							.OnCompleted(() =>
+							{
+								if (index == shufflePath.Count - 1)
+								{
+									MovementLocked = false;
+								}
+							});
+					});
 			}
 		}
 	}

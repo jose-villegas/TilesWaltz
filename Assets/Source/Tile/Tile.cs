@@ -72,9 +72,9 @@ namespace TilesWalk.Tile
 			ShortestPathToLeaf.Reverse();
 		}
 
-		public void RefreshMatchingColorPath()
+		public void RefreshMatchingColorPatch()
 		{
-			MatchingColorPatch = this.GetColorMatchPath();
+			MatchingColorPatch = this.GetColorMatchPatch();
 		}
 
 		public Tile()
@@ -84,7 +84,6 @@ namespace TilesWalk.Tile
 			_index = Vector3.zero;
 			HingePoints = new Dictionary<CardinalDirection, Vector3>();
 			Neighbors = new Dictionary<CardinalDirection, Tile>();
-
 		}
 	}
 }
