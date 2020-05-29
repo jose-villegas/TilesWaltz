@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Extensions;
 using TilesWalk.General;
@@ -236,7 +237,7 @@ namespace TilesWalk.Tile
 		/// <summary>
 		/// Removes this tile from the tile structure
 		/// </summary>
-		public void Remove()
+		public List<Tile> Remove()
 		{
 			// obtain the path that should be updated after removal
 			var shufflePath = _tile.ShortestPathToLeaf;
@@ -244,28 +245,98 @@ namespace TilesWalk.Tile
 			if (shufflePath == null || shufflePath.Count == 0)
 			{
 				shufflePath = _tile.GetShortestLeafPath();
+				shufflePath.Reverse();
 			}
 
 			if (shufflePath == null || shufflePath.Count == 0)
 			{
 				_tile.ShuffleColor();
 				Debug.LogWarning("No possible shuffle path found for this tile");
-				return;
+				return shufflePath;
 			}
 
 			// update the path
-			for (int i = 0; i < shufflePath.Count - 1; i++)
+			for (int i = 0; i < shufflePath.Count; i++)
 			{
 				var source = shufflePath[i];
+
+				// last tile obtains a new color
+				if (i == shufflePath.Count - 1)
+				{
+					source.ShuffleColor();
+					continue;
+				}
+
 				var nextTo = shufflePath[i + 1];
 
 				source.TileColor = nextTo.TileColor;
 			}
 
-			var lastTile = shufflePath[shufflePath.Count - 1];
-			lastTile.ShuffleColor();
+			ChainRefreshPaths(_tile, updateShortestPath: false);
+			return shufflePath;
+		}
+
+		public List<List<List<Tile>>> RemoveCombo()
+		{
+			// combo removals require at least three of the same color in the matching path
+			if (_tile.MatchingColorPatch == null || _tile.MatchingColorPatch.Count <= 2)
+			{
+				Debug.LogWarning("A combo requires at least three matching color tiles together");
+				return null;
+			}
+
+			var matchingColor = _tile.TileColor;
+
+			var leafs = _tile.MatchingColorPatch.Where(x => x.IsColorLeaf() && x.TileColor == matchingColor).ToList();
+			var result = new List<List<List<Tile>>>();
+
+			while (leafs.Count >= 1)
+			{
+				// add new cycle
+				result.Add(new List<List<Tile>>());
+				// unlike common removal the shuffle path here will choose the opposite shortest path
+				// to the lef tiles, instead of the shortest path, this avoids paths that would shuffle
+				// the colors within the matching color path
+				foreach (var leaf in leafs)
+				{
+					var shufflePath = leaf.GetShortestLeafPath(leaf.Neighbors
+						.Where(x => x.Value.TileColor != matchingColor)
+						.Select(x => x.Key.Opposite()).ToArray());
+
+					if (shufflePath == null || shufflePath.Count == 0)
+					{
+						_tile.ShuffleColor();
+						continue;
+					}
+
+					shufflePath.Reverse();
+					// add this leaf path to the latest cycle
+					result[result.Count - 1].Add(shufflePath);
+
+					// update the path
+					for (var i = 0; i < shufflePath.Count; i++)
+					{
+						var source = shufflePath[i];
+
+						// last tile obtains a new color
+						if (i == shufflePath.Count - 1)
+						{
+							source.ShuffleColor();
+							continue;
+						}
+
+						var nextTo = shufflePath[i + 1];
+
+						source.TileColor = nextTo.TileColor;
+					}
+				}
+
+				// update leaf array with new leafs after color shuffle
+				leafs = _tile.MatchingColorPatch.Where(x => x.IsColorLeaf() && x.TileColor == matchingColor).ToList();
+			}
 
 			ChainRefreshPaths(_tile, updateShortestPath: false);
+			return result;
 		}
 
 		internal void AdjustBounds(Bounds bounds)

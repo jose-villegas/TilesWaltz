@@ -8,6 +8,7 @@ using TilesWalk.Gameplay;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
 

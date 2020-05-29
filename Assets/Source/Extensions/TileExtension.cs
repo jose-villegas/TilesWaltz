@@ -40,13 +40,13 @@ namespace TilesWalk.Extensions
 
 		/// <summary>
 		/// Determines if this tile has only one neighbor of the same color, meaning
-		/// it's a color as no other tiles with the same color comes from it
+		/// it's a "color leaf" as no other tiles with the same color comes from it
 		/// </summary>
 		/// <param name="tile"></param>
 		/// <returns></returns>
 		public static bool IsColorLeaf(this Tile.Tile tile)
 		{
-			return tile.Neighbors.Count(x => x.Value.TileColor == tile.TileColor) == 1;
+			return tile.Neighbors.Count(x => x.Value.TileColor == tile.TileColor) <= 1;
 		}
 
 		/// <summary>
