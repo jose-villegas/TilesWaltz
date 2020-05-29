@@ -91,9 +91,7 @@ namespace TilesWalk.Tile
 			// change its color
 			Renderer.material = Materials[_controller.Tile.TileColor];
 			// update material on color update
-			_controller.Tile
-				.ObserveEveryValueChanged(x => x.TileColor)
-				.Subscribe(UpdateColor).AddTo(this);
+			_controller.Tile.ObserveEveryValueChanged(x => x.TileColor).Subscribe(UpdateColor).AddTo(this);
 			// check for combos
 			transform.UpdateAsObservable().Subscribe(_ =>
 			{
@@ -103,6 +101,8 @@ namespace TilesWalk.Tile
 					RemoveCombo();
 				}
 			}).AddTo(this);
+			// on click trigger remove
+			transform.OnMouseDownAsObservable().Subscribe(_ => Remove()).AddTo(this);
 		}
 
 		private void UpdateColor(TileColor color)
@@ -127,6 +127,9 @@ namespace TilesWalk.Tile
 
 			var tile = _viewFactory.NewInstance();
 			_controller.AddNeighbor(direction, rule, tile.Controller.Tile, transform, tile.transform);
+			// keep the same rule as parent, easier building
+			tile.direction = direction;
+			tile.rule = rule;
 			// add new insertion instruction for this tile
 			_viewFactory.UpdateInstructions(this, tile, direction, rule);
 		}
