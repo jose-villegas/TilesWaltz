@@ -59,11 +59,11 @@ namespace TilesWalk.Tile
 			var scale = lastTile.transform.localScale;
 			lastTile.transform.localScale = Vector3.zero;
 
-			StartCoroutine(ChainTowardsAnimation(tiles, backup))
+			StartCoroutine(ShuffleMoveAnimation(tiles, backup))
 				.GetAwaiter()
 				.OnCompleted(() =>
 				{
-					StartCoroutine(lastTile.LastShuffleTileAnimation(scale))
+					StartCoroutine(lastTile.ScalePopInAnimation(scale))
 						.GetAwaiter()
 						.OnCompleted(() =>
 						{
@@ -99,7 +99,7 @@ namespace TilesWalk.Tile
 				var tileView = _tileMap.GetTileView(shufflePath[i]);
 				var sourceScale = tileView.transform.localScale;
 
-				StartCoroutine(tileView.LastShuffleTileAnimation(Vector3.zero))
+				StartCoroutine(tileView.ScalePopInAnimation(Vector3.zero))
 					.GetAwaiter()
 					.OnCompleted(() =>
 					{
@@ -108,7 +108,7 @@ namespace TilesWalk.Tile
 							tileView.Controller.RemoveCombo();
 						}
 
-						StartCoroutine(tileView.LastShuffleTileAnimation(sourceScale))
+						StartCoroutine(tileView.ScalePopInAnimation(sourceScale))
 							.GetAwaiter()
 							.OnCompleted(() =>
 							{

@@ -1,31 +1,33 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using TilesWalk.BaseInterfaces;
-using UniRx.Triggers;
+using TilesWalk.Gameplay;
 using UnityEngine;
+using Zenject;
 
 namespace TilesWalk.Tile
 {
 	public partial class TileView
 	{
-		private IEnumerator LastShuffleTileAnimation(Vector3 scale)
+		[Inject] private AnimationConfiguration _animationSettings;
+
+		private IEnumerator ScalePopInAnimation(Vector3 scale)
 		{
 			while ((scale - transform.localScale).sqrMagnitude > Mathf.Epsilon)
 			{
-				var step = 6 * Time.deltaTime;
+				var step = _animationSettings.ScalePopInSpeed * Time.deltaTime;
 				transform.localScale = Vector3.MoveTowards(transform.localScale, scale, step);
 				yield return new WaitForEndOfFrame();
 			}
 		}
 
-		private IEnumerator ChainTowardsAnimation(List<TileView> tiles, List<Tuple<Vector3, Quaternion>> source)
+		private IEnumerator ShuffleMoveAnimation(List<TileView> tiles, List<Tuple<Vector3, Quaternion>> source)
 		{
 			var allTransformsDone = false;
 
 			while (!allTransformsDone)
 			{
-				var step = 10 * Time.deltaTime;
+				var step = _animationSettings.ShuffleMoveSpeed * Time.deltaTime;
 				allTransformsDone = true;
 
 				for (var i = 0; i < tiles.Count && i < source.Count; i++)
@@ -39,7 +41,8 @@ namespace TilesWalk.Tile
 
 					tile.transform.position = Vector3.MoveTowards(tile.transform.position, source[i].Item1, step);
 					tile.transform.rotation =
-						Quaternion.RotateTowards(tile.transform.rotation, source[i].Item2, step * 50);
+						Quaternion.RotateTowards(tile.transform.rotation, source[i].Item2,
+							step * _animationSettings.ShuffleMoveAngularSpeed);
 				}
 
 				yield return new WaitForEndOfFrame();
