@@ -1,5 +1,6 @@
 ﻿using System;
 using TilesWalk.Gameplay;
+using TilesWalk.Tile;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

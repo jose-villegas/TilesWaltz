@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TilesWalk.Gameplay;
+using TilesWalk.Gameplay.Animation;
 using UnityEngine;
 using Zenject;
 

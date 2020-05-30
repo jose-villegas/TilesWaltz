@@ -1,4 +1,6 @@
 using TilesWalk.Gameplay;
+using TilesWalk.Gameplay.Animation;
+using TilesWalk.Gameplay.Score;
 using UnityEngine;
 using Zenject;
 

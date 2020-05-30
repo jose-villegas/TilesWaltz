@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace TilesWalk.Gameplay
+namespace TilesWalk.Gameplay.Animation
 {
 	[Serializable]
 	public class AnimationConfiguration
