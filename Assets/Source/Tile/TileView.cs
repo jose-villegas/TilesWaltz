@@ -5,7 +5,6 @@ using TilesWalk.BaseInterfaces;
 using TilesWalk.Building;
 using TilesWalk.Building.Map;
 using TilesWalk.Extensions;
-using TilesWalk.Gameplay;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 using UniRx;

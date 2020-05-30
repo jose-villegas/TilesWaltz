@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 124986631}
   - component: {fileID: 124986633}
   - component: {fileID: 124986632}
+  - component: {fileID: 124986634}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -212,7 +213,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 257
+  m_textAlignment: 258
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -277,6 +278,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 124986630}
   m_CullTransparentMesh: 0
+--- !u!114 &124986634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124986630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49c4d8ed890691846a2b16747408de11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &376250601
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,7 +319,7 @@ Transform:
   m_Children:
   - {fileID: 1039857915}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &486076233
 GameObject:
@@ -336,7 +349,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &662492527
 GameObject:
@@ -429,7 +442,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 257
+  m_textAlignment: 258
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -714,6 +727,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1039857915}
+  - component: {fileID: 1039857916}
   m_Layer: 0
   m_Name: Score
   m_TagString: Untagged
@@ -735,6 +749,18 @@ Transform:
   m_Father: {fileID: 376250602}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1039857916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039857914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad705ca64e9881d4090ce9c0960941cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1252654962
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,7 +825,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1274978583
 GameObject:
@@ -830,7 +856,7 @@ Transform:
   m_Children:
   - {fileID: 1407493272}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1331649521
 GameObject:
@@ -978,6 +1004,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1581882912}
   - component: {fileID: 1581882911}
+  - component: {fileID: 1581882915}
   - component: {fileID: 1581882913}
   - component: {fileID: 1581882914}
   m_Layer: 0
@@ -1003,6 +1030,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 1581882913}
   - {fileID: 1581882914}
+  - {fileID: 1581882915}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -1032,7 +1060,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1581882913
 MonoBehaviour:
@@ -1060,6 +1088,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tileMap: {fileID: 1743313227}
+--- !u!114 &1581882915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581882910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8ac1b2b62c8be419355758b4dc24f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreTracker: {fileID: 1039857916}
 --- !u!1 &1743313224
 GameObject:
   m_ObjectHideFlags: 0

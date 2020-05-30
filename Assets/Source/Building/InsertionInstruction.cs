@@ -1,8 +1,10 @@
-﻿using TilesWalk.General;
+﻿using System;
+using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 
 namespace TilesWalk.Building
 {
+	[Serializable]
 	/// <summary>
 	/// This class describes steps to insert a tile into an
 	/// existing tile path

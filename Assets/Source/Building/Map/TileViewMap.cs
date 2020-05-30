@@ -15,7 +15,7 @@ namespace TilesWalk.Building.Map
 	public class TileViewMap : TileViewTrigger
 	{
 		[TextArea, SerializeField] private string _instructions;
-		[SerializeField] TileMap _map;
+		[SerializeField] TileMap _tileMap = new TileMap();
 
 		[Inject] private TileViewFactory _viewFactory;
 
@@ -26,6 +26,8 @@ namespace TilesWalk.Building.Map
 
 		public Dictionary<int, List<InsertionInstruction>> Insertions { get; } =
 			new Dictionary<int, List<InsertionInstruction>>();
+
+		public TileMap TileMap => _tileMap;
 
 		private void Start()
 		{
@@ -54,6 +56,8 @@ namespace TilesWalk.Building.Map
 			TileToHash[tile] = id;
 			HashToTile[id] = tile;
 			_tileView[tile.Controller.Tile] = tile;
+			// register tile to the tile map
+			_tileMap.Tiles.Add(id, tile.Controller.Tile.Index);
 		}
 
 		public void RemoveTile(TileView tile)
@@ -62,6 +66,10 @@ namespace TilesWalk.Building.Map
 
 			TileToHash.Remove(tile);
 			HashToTile.Remove(hash);
+			// remove from map
+			_tileMap.Instructions.RemoveAll(x => x.tile == hash);
+			_tileMap.Instructions.RemoveAll(x => x.root == hash);
+			_tileMap.Tiles.Remove(hash);
 			// remove all instructions that refer to this tile
 
 			if (!Insertions.TryGetValue(hash, out var instructions)) return;
@@ -101,13 +109,13 @@ namespace TilesWalk.Building.Map
 				allTiles[hash] = HashToTile[hash].Controller.Tile.Index;
 			}
 
-			_map = new TileMap()
+			var map = new TileMap()
 			{
 				Instructions = instr,
 				Tiles = allTiles
 			};
 
-			_instructions = JsonConvert.SerializeObject(_map);
+			_instructions = JsonConvert.SerializeObject(map);
 		}
 
 		[Button]
@@ -156,6 +164,8 @@ namespace TilesWalk.Building.Map
 				direction = d,
 				rule = r
 			});
+
+			_tileMap.Instructions.Add(insertions.Last());
 		}
 	}
 }
