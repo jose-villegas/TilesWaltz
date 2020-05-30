@@ -6,19 +6,17 @@ using TilesWalk.Extensions;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace TilesWalk.Tile
 {
 	[Serializable]
-	public class TileController : IController
+	public partial class TileController : IController
 	{
 		[SerializeField] private Tile _tile;
 
-		public Tile Tile
-		{
-			get => _tile;
-		}
+		public Tile Tile => _tile;
 
 		public TileController()
 		{
@@ -235,7 +233,9 @@ namespace TilesWalk.Tile
 		}
 
 		/// <summary>
-		/// Removes this tile from the tile structure
+		/// Tile removal works by changing the color of this tile for the next tile color
+		/// in its shortest path to a leaf tile, this action is then spread through all the
+		/// tiles in the path
 		/// </summary>
 		public void Remove()
 		{
@@ -276,6 +276,10 @@ namespace TilesWalk.Tile
 			ChainRefreshPaths(_tile, updateShortestPath: false);
 		}
 
+		/// <summary>
+		/// Combo removal works by changing the colors for all the tiles within a matching
+		/// color patch
+		/// </summary>
 		public void RemoveCombo()
 		{
 			// combo removals require at least three of the same color in the matching path
@@ -293,9 +297,15 @@ namespace TilesWalk.Tile
 			ChainRefreshPaths(_tile, updateShortestPath: false);
 		}
 
+		/// <summary>
+		/// Changes the tile's bounding box parameters, copies over the given bounds
+		/// </summary>
+		/// <param name="bounds"></param>
 		internal void AdjustBounds(Bounds bounds)
 		{
 			_tile.Bounds = bounds;
 		}
+
+
 	}
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TilesWalk.BaseInterfaces;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace TilesWalk.Tile

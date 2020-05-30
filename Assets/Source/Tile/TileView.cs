@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Building;
+using TilesWalk.Building.Map;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay;
 using TilesWalk.General;
@@ -15,10 +16,11 @@ using Zenject;
 namespace TilesWalk.Tile
 {
 	[ExecuteInEditMode]
-	public partial class TileView : MonoBehaviour, IView
+	public partial class TileView : TileViewTrigger, IView
 	{
 		[SerializeField] private TileController _controller;
-		[Inject] private TileViewFactory _viewFactory;
+		[Inject] private TileViewFactory _tileFactory;
+		[Inject] private TileViewMap _tileMap;
 
 		private MeshRenderer _meshRenderer;
 		private BoxCollider _collider;
@@ -71,7 +73,9 @@ namespace TilesWalk.Tile
 				item.Value.HingePoints.Remove(item.Key.Opposite());
 			}
 
-			_viewFactory.RefreshAllPaths();
+			_tileMap.RefreshAllPaths();
+			// unregistered when destroyed
+			_tileMap.RemoveTile(this);
 		}
 
 		private void Start()
@@ -116,6 +120,7 @@ namespace TilesWalk.Tile
 		[Header("Editor")] [SerializeField] private CardinalDirection direction = CardinalDirection.North;
 		[SerializeField] private NeighborWalkRule rule = NeighborWalkRule.Plain;
 
+
 		[Button]
 		private void AddNeighbor()
 		{
@@ -125,15 +130,14 @@ namespace TilesWalk.Tile
 				return;
 			}
 
-			var tile = _viewFactory.NewInstance();
+			var tile = _tileFactory.NewInstance();
 			_controller.AddNeighbor(direction, rule, tile.Controller.Tile, transform, tile.transform);
 			// keep the same rule as parent, easier building
 			tile.direction = direction;
 			tile.rule = rule;
 			// add new insertion instruction for this tile
-			_viewFactory.UpdateInstructions(this, tile, direction, rule);
+			_tileMap.UpdateInstructions(this, tile, direction, rule);
 		}
-
 
 		private void OnDrawGizmos()
 		{
@@ -155,7 +159,7 @@ namespace TilesWalk.Tile
 			{
 				foreach (var tile in _controller.Tile.ShortestPathToLeaf)
 				{
-					var view = _viewFactory.GetTileView(tile);
+					var view = _tileMap.GetTileView(tile);
 					Gizmos.DrawCube(view.transform.position +
 					                transform.up * 0.15f, Vector3.one * 0.15f);
 				}
@@ -166,7 +170,7 @@ namespace TilesWalk.Tile
 			{
 				foreach (var tile in _controller.Tile.MatchingColorPatch)
 				{
-					var view = _viewFactory.GetTileView(tile);
+					var view = _tileMap.GetTileView(tile);
 					Gizmos.DrawWireCube(view.transform.position, Vector3.one);
 				}
 			}

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace TilesWalk.Tile
@@ -48,13 +49,13 @@ namespace TilesWalk.Tile
 
 			if (shufflePath == null || shufflePath.Count <= 0) return;
 
-			var tiles = shufflePath.Select(x => _viewFactory.GetTileView(x)).ToList();
+			var tiles = shufflePath.Select(x => _tileMap.GetTileView(x)).ToList();
 			// this structure with backup the origin position and rotations
 			var backup = ShufflePath(tiles);
 
 			// since the last tile has no other to exchange positions with, reduce its
 			// scale to hide it before showing its new color
-			var lastTile = _viewFactory.GetTileView(shufflePath[shufflePath.Count - 1]);
+			var lastTile = _tileMap.GetTileView(shufflePath[shufflePath.Count - 1]);
 			var scale = lastTile.transform.localScale;
 			lastTile.transform.localScale = Vector3.zero;
 
@@ -64,7 +65,11 @@ namespace TilesWalk.Tile
 				{
 					StartCoroutine(lastTile.LastShuffleTileAnimation(scale))
 						.GetAwaiter()
-						.OnCompleted(() => MovementLocked = false);
+						.OnCompleted(() =>
+						{
+							MovementLocked = false;
+							_onTileRemoved?.OnNext(shufflePath);
+						});
 				});
 		}
 
@@ -87,12 +92,11 @@ namespace TilesWalk.Tile
 
 			MovementLocked = true;
 			var shufflePath = _controller.Tile.MatchingColorPatch;
-			var observables = new List<IObservable<Unit>>();
 
 			for (int i = 0; i < shufflePath.Count; i++)
 			{
 				var index = i;
-				var tileView = _viewFactory.GetTileView(shufflePath[i]);
+				var tileView = _tileMap.GetTileView(shufflePath[i]);
 				var sourceScale = tileView.transform.localScale;
 
 				StartCoroutine(tileView.LastShuffleTileAnimation(Vector3.zero))
@@ -111,6 +115,7 @@ namespace TilesWalk.Tile
 								if (index == shufflePath.Count - 1)
 								{
 									MovementLocked = false;
+									_onComboRemoval?.OnNext(shufflePath);
 								}
 							});
 					});
