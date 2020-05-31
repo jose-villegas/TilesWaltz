@@ -7,7 +7,7 @@ using Zenject;
 namespace TilesWalk.Gameplay.Score.UI
 {
 	[RequireComponent(typeof(TextMeshProUGUI))]
-	public class CurrentScoreLabel : MonoBehaviour
+	public class CurrentRecordScoreLabel : MonoBehaviour
 	{
 		[Inject] private ScoreTracker _scoreTracker;
 
@@ -34,8 +34,16 @@ namespace TilesWalk.Gameplay.Score.UI
 		private void Awake()
 		{
 			_scoreTracker
+				.OnScoresLoadedAsObservable()
+				.Subscribe(
+					_ => { },
+					() => Label.text = _scoreTracker.ActiveScore.HighestScore.ToString()
+				)
+				.AddTo(this);
+
+			_scoreTracker
 				.OnScoreUpdatedAsObservable()
-				.SubscribeToText(Label, score => score.LastScore.ToString())
+				.SubscribeToText(Label, score => score.HighestScore.ToString())
 				.AddTo(this);
 		}
 	}

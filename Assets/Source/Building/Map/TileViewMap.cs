@@ -14,6 +14,7 @@ namespace TilesWalk.Building.Map
 {
 	public class TileViewMap : TileViewTrigger
 	{
+		[SerializeField] private bool _buildFromInstructionsAtStart;
 		[TextArea, SerializeField] private string _instructions;
 		[SerializeField] TileMap _tileMap = new TileMap();
 
@@ -32,6 +33,14 @@ namespace TilesWalk.Building.Map
 		private void Start()
 		{
 			_viewFactory.OnNewInstanceAsObservable().Subscribe(OnNewTileInstance);
+
+			if (_buildFromInstructionsAtStart)
+			{
+				_viewFactory.IsAssetLoaded.Subscribe(ready =>
+				{
+					if (ready) BuildFromInstructions();
+				});
+			}
 		}
 
 		private void OnNewTileInstance(TileView tile)

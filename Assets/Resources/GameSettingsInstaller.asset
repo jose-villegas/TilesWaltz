@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scoreSettings:
     _scorePerTile: 10
-    _comboMultiplier: 2
+    _comboMultiplier: 10
   _animationSettings:
     _shuffleMoveSpeed: 5
     _shuffleMoveAngularSpeed: 60
