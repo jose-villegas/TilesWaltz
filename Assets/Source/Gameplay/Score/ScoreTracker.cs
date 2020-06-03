@@ -13,8 +13,9 @@ namespace TilesWalk.Gameplay.Score
 		[Inject] private ScoreConfiguration _scoreConfiguration;
 		[Inject] private TileViewMap _tileMap;
 
-		private Dictionary<int, Score> _scoreRecords = new Dictionary<int, Score>();
-		private Dictionary<int, int> _scoreTracking = new Dictionary<int, int>();
+		private Dictionary<string, Score> _scoreRecords = new Dictionary<string, Score>();
+		private Dictionary<string, int> _scoreTracking = new Dictionary<string, int>();
+
 		protected Subject<Score> _onScoreUpdated;
 		protected Subject<Unit> _onScoresLoaded;
 

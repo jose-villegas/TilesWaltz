@@ -6,18 +6,18 @@ namespace TilesWalk.Gameplay.Score
 	[Serializable]
 	public class Score
 	{
-		[SerializeField] private int _id;
+		[SerializeField] private string _id;
 		[SerializeField] private int _highestScore;
 		[SerializeField] private int _lastScore;
 
-		public Score(int id)
+		public Score(string id)
 		{
 			_id = id;
 			_highestScore = 0;
 			_lastScore = 0;
 		}
 
-		public int Id => _id;
+		public string Id => _id;
 
 		public int HighestScore => _highestScore;
 
