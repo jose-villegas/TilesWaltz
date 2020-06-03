@@ -1831,6 +1831,7 @@ MonoBehaviour:
   _instructions: 
   _tileMap:
     Id: 
+    Target: 0
     Instructions: []
     FinishCondition: 0
 --- !u!1 &1953044641

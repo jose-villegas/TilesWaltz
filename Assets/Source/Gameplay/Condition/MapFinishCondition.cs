@@ -32,6 +32,7 @@ namespace TilesWalk.Gameplay.Condition
 
 		protected MapFinishCondition(string id, T initial)
 		{
+			_id = id;
 			_handler = initial;
 			IsConditionMeet = new ReactiveProperty<bool>(false);
 		}

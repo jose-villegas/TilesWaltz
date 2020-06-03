@@ -10,6 +10,7 @@ namespace TilesWalk.Building.Map
 	public class TileMap : IModel
 	{
 		public string Id;
+		public int Target;
 		public List<InsertionInstruction> Instructions;
 		public Dictionary<int, Vector3> Tiles;
 		public FinishCondition FinishCondition;

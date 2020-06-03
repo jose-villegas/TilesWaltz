@@ -12,13 +12,112 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4db1560a02e1e48a2df94c781726ae, type: 3}
   m_Name: GameMapsInstaller
   m_EditorClassIdentifier: 
-  _instructions: 
+  _name: Two Birds
+  _instructions: '{"Id":"-1","Target":0,"Instructions":[{"tile":-143806,"root":-143640,"direction":1,"rule":1},{"tile":-143860,"root":-143640,"direction":2,"rule":1},{"tile":-143910,"root":-143640,"direction":4,"rule":1},{"tile":-143972,"root":-143640,"direction":8,"rule":1},{"tile":-144150,"root":-143972,"direction":8,"rule":2},{"tile":-144272,"root":-143860,"direction":2,"rule":2},{"tile":-144472,"root":-143910,"direction":4,"rule":2},{"tile":-144594,"root":-143806,"direction":1,"rule":2},{"tile":-144896,"root":-144272,"direction":2,"rule":1},{"tile":-145034,"root":-144150,"direction":8,"rule":1},{"tile":-145188,"root":-144472,"direction":4,"rule":0},{"tile":-145338,"root":-144594,"direction":1,"rule":0},{"tile":-145520,"root":-145338,"direction":1,"rule":0},{"tile":-145710,"root":-145188,"direction":4,"rule":0},{"tile":-145852,"root":-145520,"direction":4,"rule":0},{"tile":-146450,"root":-145710,"direction":1,"rule":0},{"tile":-146664,"root":-145852,"direction":1,"rule":1},{"tile":-147010,"root":-146450,"direction":4,"rule":1},{"tile":-147132,"root":-146664,"direction":1,"rule":1},{"tile":-147294,"root":-147010,"direction":4,"rule":1},{"tile":-147892,"root":-147010,"direction":1,"rule":2},{"tile":-147592,"root":-147132,"direction":4,"rule":2},{"tile":-148168,"root":-147132,"direction":8,"rule":1},{"tile":-148958,"root":-147294,"direction":2,"rule":1}],"Tiles":{"-143640":{"x":0.0,"y":0.0,"z":0.0},"-143806":{"x":0.0,"y":0.0,"z":1.0},"-143860":{"x":0.0,"y":0.0,"z":-1.0},"-143910":{"x":1.0,"y":0.0,"z":0.0},"-143972":{"x":-1.0,"y":0.0,"z":0.0},"-144150":{"x":-1.99999988,"y":-1.00000012,"z":0.0},"-144272":{"x":0.0,"y":-1.00000012,"z":-1.99999988},"-144472":{"x":1.99999988,"y":-1.00000012,"z":0.0},"-144594":{"x":0.0,"y":-1.00000012,"z":1.99999988},"-144896":{"x":0.0,"y":-2.00000024,"z":-1.99999976},"-145034":{"x":-1.99999976,"y":-2.00000024,"z":0.0},"-145188":{"x":2.99999976,"y":-2.00000024,"z":0.0},"-145338":{"x":0.0,"y":-2.00000024,"z":2.99999976},"-145520":{"x":0.0,"y":-1.00000012,"z":3.99999952},"-145710":{"x":3.99999952,"y":-1.00000012,"z":0.0},"-145852":{"x":1.0,"y":-1.00000024,"z":2.99999952},"-146450":{"x":2.99999952,"y":-1.00000024,"z":1.0},"-146664":{"x":1.00000012,"y":-2.38418579E-07,"z":2.99999952},"-147010":{"x":2.99999952,"y":-2.38418579E-07,"z":1.00000012},"-147132":{"x":1.00000024,"y":0.999999762,"z":2.99999952},"-147294":{"x":2.99999952,"y":0.999999762,"z":1.00000024},"-147592":{"x":2.00000024,"y":0.9999996,"z":1.99999952},"-147892":{"x":1.99999952,"y":-4.24463764E-07,"z":2.0},"-148168":{"x":1.00000024,"y":0.9999999,"z":3.99999952},"-148958":{"x":3.99999952,"y":0.9999999,"z":1.00000024}},"FinishCondition":0}'
   _condition: 0
-  _timeCondition:
-    _id: 0
-  _movesCondition:
-    _id: 0
-    _handler: 0
-  _availableMaps: []
+  _seconds: 60
+  _moves: 0
+  _availableMaps:
+  - Id: Two Birds
+    Target: 5500
+    Instructions:
+    - tile: -143806
+      root: -143640
+      direction: 1
+      rule: 1
+    - tile: -143860
+      root: -143640
+      direction: 2
+      rule: 1
+    - tile: -143910
+      root: -143640
+      direction: 4
+      rule: 1
+    - tile: -143972
+      root: -143640
+      direction: 8
+      rule: 1
+    - tile: -144150
+      root: -143972
+      direction: 8
+      rule: 2
+    - tile: -144272
+      root: -143860
+      direction: 2
+      rule: 2
+    - tile: -144472
+      root: -143910
+      direction: 4
+      rule: 2
+    - tile: -144594
+      root: -143806
+      direction: 1
+      rule: 2
+    - tile: -144896
+      root: -144272
+      direction: 2
+      rule: 1
+    - tile: -145034
+      root: -144150
+      direction: 8
+      rule: 1
+    - tile: -145188
+      root: -144472
+      direction: 4
+      rule: 0
+    - tile: -145338
+      root: -144594
+      direction: 1
+      rule: 0
+    - tile: -145520
+      root: -145338
+      direction: 1
+      rule: 0
+    - tile: -145710
+      root: -145188
+      direction: 4
+      rule: 0
+    - tile: -145852
+      root: -145520
+      direction: 4
+      rule: 0
+    - tile: -146450
+      root: -145710
+      direction: 1
+      rule: 0
+    - tile: -146664
+      root: -145852
+      direction: 1
+      rule: 1
+    - tile: -147010
+      root: -146450
+      direction: 4
+      rule: 1
+    - tile: -147132
+      root: -146664
+      direction: 1
+      rule: 1
+    - tile: -147294
+      root: -147010
+      direction: 4
+      rule: 1
+    - tile: -147892
+      root: -147010
+      direction: 1
+      rule: 2
+    - tile: -147592
+      root: -147132
+      direction: 4
+      rule: 2
+    - tile: -148168
+      root: -147132
+      direction: 8
+      rule: 1
+    - tile: -148958
+      root: -147294
+      direction: 2
+      rule: 1
+    FinishCondition: 0
   _movesFinishConditions: []
-  _timeFinishConditions: []
+  _timeFinishConditions:
+  - _id: Two Birds

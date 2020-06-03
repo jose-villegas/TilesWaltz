@@ -32,18 +32,20 @@ namespace TilesWalk.Gameplay.Installer
 			Container.Bind<List<TileMap>>().FromInstance(_availableMaps).AsSingle();
 		}
 
-		[Button()]
+		[Button]
 		public void Insert()
 		{
 			var map = JsonConvert.DeserializeObject<TileMap>(_instructions);
+			map.Id = _name;
+			_availableMaps.Add(map);
 
 			switch (_condition)
 			{
 				case FinishCondition.TimeLimit:
-					_movesFinishConditions.Add(new MovesFinishCondition(map.Id, _moves));
+					_timeFinishConditions.Add(new TimeFinishCondition(map.Id, TimeSpan.FromSeconds(_seconds)));
 					break;
 				case FinishCondition.MovesLimit:
-					_timeFinishConditions.Add(new TimeFinishCondition(map.Id, TimeSpan.FromSeconds(_seconds)));
+					_movesFinishConditions.Add(new MovesFinishCondition(map.Id, _moves));
 					break;
 			}
 		}
