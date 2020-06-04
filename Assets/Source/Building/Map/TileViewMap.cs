@@ -3,10 +3,10 @@ using System.Linq;
 using NaughtyAttributes;
 using Newtonsoft.Json;
 using TilesWalk.General;
+using TilesWalk.Navigation.Map;
 using TilesWalk.Tile;
 using TilesWalk.Tile.Rules;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
 
@@ -14,11 +14,12 @@ namespace TilesWalk.Building.Map
 {
 	public class TileViewMap : TileViewTrigger
 	{
-		[SerializeField] private bool _buildFromInstructionsAtStart;
+		[SerializeField] private TileViewMapStartLoadOptions _loadOption;
 		[TextArea, SerializeField] private string _instructions;
 		[SerializeField] TileMap _tileMap = new TileMap();
 
 		[Inject] private TileViewFactory _viewFactory;
+		[Inject] private MapLevelBridge _mapLevelBridge;
 
 		private Dictionary<Tile.Tile, TileView> _tileView = new Dictionary<Tile.Tile, TileView>();
 
@@ -34,11 +35,18 @@ namespace TilesWalk.Building.Map
 		{
 			_viewFactory.OnNewInstanceAsObservable().Subscribe(OnNewTileInstance);
 
-			if (_buildFromInstructionsAtStart)
+			if (_loadOption == TileViewMapStartLoadOptions.FromInstructions)
 			{
 				_viewFactory.IsAssetLoaded.Subscribe(ready =>
 				{
 					if (ready) BuildFromInstructions();
+				});
+			}
+			else if (_loadOption == TileViewMapStartLoadOptions.FromLevelBridge)
+			{
+				_viewFactory.IsAssetLoaded.Subscribe(ready =>
+				{
+					if (ready) BuildTileMap(_mapLevelBridge.SelectedTileMap);
 				});
 			}
 		}
@@ -66,7 +74,7 @@ namespace TilesWalk.Building.Map
 			HashToTile[id] = tile;
 			_tileView[tile.Controller.Tile] = tile;
 			// register tile to the tile map
-			_tileMap.Tiles.Add(id, tile.Controller.Tile.Index);
+			_tileMap.Tiles.Add(id);
 		}
 
 		public void RemoveTile(TileView tile)
@@ -111,17 +119,11 @@ namespace TilesWalk.Building.Map
 		{
 			var instr = Insertions.Values.SelectMany(x => x).ToList();
 			var hashes = TileToHash.Values.ToList();
-			var allTiles = new Dictionary<int, Vector3>();
-
-			foreach (var hash in hashes)
-			{
-				allTiles[hash] = HashToTile[hash].Controller.Tile.Index;
-			}
 
 			var map = new TileMap()
 			{
 				Instructions = instr,
-				Tiles = allTiles
+				Tiles = hashes
 			};
 
 			_instructions = JsonConvert.SerializeObject(map);
@@ -130,18 +132,23 @@ namespace TilesWalk.Building.Map
 		[Button]
 		public void BuildFromInstructions()
 		{
+			// first instance all the needed tiles
+			var map = JsonConvert.DeserializeObject<TileMap>(_instructions);
+			BuildTileMap(map);
+		}
+
+		private void BuildTileMap(TileMap map)
+		{
 			// reset data structures
 			HashToTile.Clear();
 			TileToHash.Clear();
 			Insertions.Clear();
-			// first instance all the needed tiles
-			var map = JsonConvert.DeserializeObject<TileMap>(_instructions);
 
 			foreach (var mapTile in map.Tiles)
 			{
 				var tile = _viewFactory.NewInstance();
 				// register with the source hash
-				RegisterTile(tile, mapTile.Key);
+				RegisterTile(tile, mapTile);
 			}
 
 			// Now execute neighbor insertion logic

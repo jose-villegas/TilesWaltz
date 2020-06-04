@@ -1827,12 +1827,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8248d9579af4304f942e4dd4b342755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildFromInstructionsAtStart: 0
+  _loadOption: 2
   _instructions: 
   _tileMap:
     Id: 
     Target: 0
     Instructions: []
+    Tiles: 
     FinishCondition: 0
 --- !u!1 &1953044641
 GameObject:

@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Map.unity
     guid: 8aa340d1f3ec31449ab3773e6247b2a3
   - enabled: 1
-    path: Assets/Scenes/TileMap.unity
+    path: Assets/Scenes/Level.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: ce0c96fae0c5ea2418df9466758dd26b,

@@ -398,6 +398,11 @@ PrefabInstance:
       propertyPath: _hideAtStart
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6280678238943839817, guid: 7be02a88b20717844b69b43af1e4e891,
+        type: 3}
+      propertyPath: _playButton
+      value: 
+      objectReference: {fileID: 485755464}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7be02a88b20717844b69b43af1e4e891, type: 3}
 --- !u!114 &485755462 stripped
@@ -418,6 +423,38 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 485755461}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &485755464 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3667716818627951023, guid: 7be02a88b20717844b69b43af1e4e891,
+    type: 3}
+  m_PrefabInstance: {fileID: 485755461}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485755465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &485755465 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3667716818627951021, guid: 7be02a88b20717844b69b43af1e4e891,
+    type: 3}
+  m_PrefabInstance: {fileID: 485755461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &485755466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485755465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 131ce5316ca43f4408537b39d0e4117c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneToLoad: Level
+  Mode: 0
 --- !u!1 &1099174536
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,7 +1133,7 @@ PrefabInstance:
     - target: {fileID: 6641646282590673843, guid: 12f77981d380c0d478ba5d6a1f4179a8,
         type: 3}
       propertyPath: _levelName
-      value: Two Birds
+      value: Equalizer
       objectReference: {fileID: 0}
     - target: {fileID: 6831295110255458896, guid: 12f77981d380c0d478ba5d6a1f4179a8,
         type: 3}

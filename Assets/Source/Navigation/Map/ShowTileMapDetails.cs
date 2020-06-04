@@ -19,7 +19,7 @@ namespace TilesWalk.Navigation.Map
 		private void Start()
 		{
 			_tileMap = _availableMaps.Find(x => x.Id == _levelName);
-			transform.OnMouseDownAsObservable().Subscribe(OnMapTileClick);
+			transform.OnMouseDownAsObservable().Subscribe(OnMapTileClick).AddTo(this);
 		}
 
 		private void OnMapTileClick(Unit u)

@@ -12,14 +12,14 @@ namespace TilesWalk.Building.Map
 		public string Id;
 		public int Target;
 		public List<InsertionInstruction> Instructions;
-		public Dictionary<int, Vector3> Tiles;
+		public List<int> Tiles;
 		public FinishCondition FinishCondition;
 
 		public TileMap()
 		{
 			Id = "-1";
 			Instructions = new List<InsertionInstruction>();
-			Tiles = new Dictionary<int, Vector3>();
+			Tiles = new List<int>();
 		}
 	}
 }
