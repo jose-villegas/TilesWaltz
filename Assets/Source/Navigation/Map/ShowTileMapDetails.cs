@@ -1,18 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using TilesWalk.Building.Map;
+using TilesWalk.Navigation.UI;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
+using Zenject;
 
-public class ShowTileMapDetails : MonoBehaviour
+namespace TilesWalk.Navigation.Map
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public class ShowTileMapDetails : MonoBehaviour
+	{
+		[SerializeField] private string _levelName;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		[Inject] private TileMapDetails _details;
+		[Inject] private List<TileMap> _availableMaps;
+		private TileMap _tileMap;
+
+		private void Start()
+		{
+			_tileMap = _availableMaps.Find(x => x.Id == _levelName);
+			transform.OnMouseDownAsObservable().Subscribe(OnMapTileClick);
+		}
+
+		private void OnMapTileClick(Unit u)
+		{
+			if (_details.IsVisible)
+			{
+				_details.Hide();
+			}
+			else
+			{
+				_details.LoadMapData(_tileMap);
+				_details.Show();
+			}
+		}
+	}
 }
