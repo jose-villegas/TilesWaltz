@@ -6,7 +6,7 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 
-namespace TilesWalk.Gameplay.Score.UI
+namespace TilesWalk.Gameplay.Limits.UI
 {
 	[RequireComponent(typeof(TextMeshProUGUI))]
 	public class MovesCounterLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
