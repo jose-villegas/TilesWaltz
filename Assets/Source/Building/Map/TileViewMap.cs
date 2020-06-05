@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
 using Newtonsoft.Json;
@@ -31,9 +32,11 @@ namespace TilesWalk.Building.Map
 
 		public TileMap TileMap => _tileMap;
 
+		protected Subject<Unit> _onTileMapLoaded;
+
 		private void Start()
 		{
-			_viewFactory.OnNewInstanceAsObservable().Subscribe(OnNewTileInstance);
+			_viewFactory.OnNewInstanceAsObservable().Subscribe(OnNewTileInstance).AddTo(this);
 
 			if (_loadOption == TileViewMapStartLoadOptions.FromInstructions)
 			{
@@ -139,6 +142,7 @@ namespace TilesWalk.Building.Map
 
 		private void BuildTileMap(TileMap map)
 		{
+			_tileMap = map;
 			// reset data structures
 			HashToTile.Clear();
 			TileToHash.Clear();
@@ -161,6 +165,8 @@ namespace TilesWalk.Building.Map
 					rootTile.transform, insert.transform);
 				UpdateInstructions(rootTile, insert, instruction.direction, instruction.rule);
 			}
+
+			_onTileMapLoaded?.OnCompleted();
 		}
 
 		public void UpdateInstructions(TileView root, TileView tile, CardinalDirection d, NeighborWalkRule r)
@@ -182,6 +188,11 @@ namespace TilesWalk.Building.Map
 			});
 
 			_tileMap.Instructions.Add(insertions.Last());
+		}
+
+		public IObservable<Unit> OnTileMapLoadedAsObservable()
+		{
+			return _onTileMapLoaded = _onTileMapLoaded ?? new Subject<Unit>();
 		}
 	}
 }

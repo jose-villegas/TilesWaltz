@@ -8,7 +8,7 @@ using Zenject;
 namespace TilesWalk.Gameplay.Score.UI
 {
 	[RequireComponent(typeof(TextMeshProUGUI))]
-	public class CurrentRecordScoreLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
+	public class RecordScoreLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
 		[Inject] private ScoreTracker _scoreTracker;
 
