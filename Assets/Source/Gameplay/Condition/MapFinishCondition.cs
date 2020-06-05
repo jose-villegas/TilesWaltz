@@ -28,7 +28,7 @@ namespace TilesWalk.Gameplay.Condition
 		/// </summary>
 		protected T Handler => _handler;
 
-		protected abstract T UpdateHandler();
+		protected abstract T UpdateHandler(T value);
 
 		protected MapFinishCondition(string id, T initial)
 		{

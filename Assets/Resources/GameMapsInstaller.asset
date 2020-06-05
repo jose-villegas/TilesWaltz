@@ -19,7 +19,7 @@ MonoBehaviour:
   _moves: 0
   _availableMaps:
   - Id: Equalizer
-    Target: 5500
+    Target: 200
     Instructions:
     - tile: -213548
       root: -213394

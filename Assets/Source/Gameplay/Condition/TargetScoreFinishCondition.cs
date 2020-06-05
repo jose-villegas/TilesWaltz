@@ -3,7 +3,7 @@
 namespace TilesWalk.Gameplay.Condition
 {
 	[Serializable]
-	public class MovesFinishCondition : MapFinishCondition<int>
+	public class TargetScoreFinishCondition : MapFinishCondition<int>
 	{
 		protected override int UpdateHandler(int value)
 		{
@@ -18,7 +18,7 @@ namespace TilesWalk.Gameplay.Condition
 			return _handler;
 		}
 
-		public MovesFinishCondition(string id, int initial) : base(id, initial)
+		public TargetScoreFinishCondition(string id, int initial) : base(id, initial)
 		{
 		}
 	}

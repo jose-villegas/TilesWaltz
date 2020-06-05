@@ -5,6 +5,7 @@ using TilesWalk.BaseInterfaces;
 using TilesWalk.Building;
 using TilesWalk.Building.Map;
 using TilesWalk.Extensions;
+using TilesWalk.Gameplay.Condition;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 using UniRx;
@@ -20,6 +21,7 @@ namespace TilesWalk.Tile
 		[SerializeField] private TileController _controller;
 		[Inject] private TileViewFactory _tileFactory;
 		[Inject] private TileViewMap _tileMap;
+		[Inject] private LevelFinishTracker _levelFinishTracker;
 
 		private MeshRenderer _meshRenderer;
 		private BoxCollider _collider;
@@ -106,6 +108,12 @@ namespace TilesWalk.Tile
 			}).AddTo(this);
 			// on click trigger remove
 			transform.OnMouseDownAsObservable().Subscribe(_ => Remove()).AddTo(this);
+			// on level finish stop interactions
+			_levelFinishTracker.OnLevelFinishAsObservable().Subscribe(_ =>
+			{
+				MovementLocked = true;
+				StartCoroutine(LevelFinishAnimation());
+			}).AddTo(this);
 		}
 
 		private void UpdateColor(TileColor color)

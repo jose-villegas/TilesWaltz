@@ -6,9 +6,9 @@ namespace TilesWalk.Gameplay.Condition
 	[Serializable]
 	public class TimeFinishCondition : MapFinishCondition<TimeSpan>
 	{
-		protected override TimeSpan UpdateHandler()
+		protected override TimeSpan UpdateHandler(TimeSpan value)
 		{
-			_handler -= TimeSpan.FromSeconds(Time.deltaTime);
+			_handler -= value;
 
 			if (_handler.TotalMilliseconds <= 0)
 			{

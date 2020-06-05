@@ -88,7 +88,6 @@ namespace TilesWalk.Gameplay.Score
 		protected override void RaiseOnCompletedOnDestroy()
 		{
 			_onScoreUpdated?.OnCompleted();
-			
 		}
 
 		public IObservable<Score> OnScoreUpdatedAsObservable()
