@@ -142,7 +142,6 @@ namespace TilesWalk.Building.Map
 
 		private void BuildTileMap(TileMap map)
 		{
-			_tileMap = map;
 			// reset data structures
 			HashToTile.Clear();
 			TileToHash.Clear();
@@ -166,6 +165,7 @@ namespace TilesWalk.Building.Map
 				UpdateInstructions(rootTile, insert, instruction.direction, instruction.rule);
 			}
 
+			_tileMap.Target = map.Target;
 			_onTileMapLoaded?.OnCompleted();
 		}
 
