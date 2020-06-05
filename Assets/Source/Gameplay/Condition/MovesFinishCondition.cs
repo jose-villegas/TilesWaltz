@@ -5,20 +5,20 @@ namespace TilesWalk.Gameplay.Condition
 	[Serializable]
 	public class MovesFinishCondition : MapFinishCondition<int>
 	{
-		protected override int UpdateHandler(int value)
+		protected override int Update(int value)
 		{
-			_handler -= value;
+			_tracker += value;
 
-			if (_handler <= 0)
+			if (_tracker >= _limit)
 			{
 				IsConditionMeet.Value = true;
 				return 0;
 			}
 
-			return _handler;
+			return _tracker;
 		}
 
-		public MovesFinishCondition(string id, int initial) : base(id, initial)
+		public MovesFinishCondition(string id, int limit) : base(id, limit)
 		{
 		}
 	}

@@ -4,36 +4,40 @@ using UnityEngine;
 
 namespace TilesWalk.Gameplay.Condition
 {
-	[Serializable]
-	public abstract class MapFinishCondition<T>
+	public abstract class MapFinishCondition
 	{
 		/// <summary>
 		/// The map identifier
 		/// </summary>
 		[SerializeField] protected string _id;
-		/// <summary>
-		/// The class type used for handling the condition
-		/// </summary>
-		[SerializeField] protected T _handler;
-
-		public ReactiveProperty<bool> IsConditionMeet { get; protected set; }
 
 		/// <summary>
 		/// The map identifier
 		/// </summary>
-		protected string Id => _id;
+		public string Id => _id;
 
+		public ReactiveProperty<bool> IsConditionMeet { get; protected set; }
+	}
+
+	[Serializable]
+	public abstract class MapFinishCondition<T> : MapFinishCondition
+	{
 		/// <summary>
 		/// The class type used for handling the condition
 		/// </summary>
-		protected T Handler => _handler;
+		[SerializeField] protected T _limit;
 
-		protected abstract T UpdateHandler(T value);
+		protected T _tracker;
 
-		protected MapFinishCondition(string id, T initial)
+		public T Limit => _limit;
+
+		protected abstract T Update(T value);
+
+		protected MapFinishCondition(string id, T limit)
 		{
 			_id = id;
-			_handler = initial;
+			_tracker = default(T);
+			_limit = limit;
 			IsConditionMeet = new ReactiveProperty<bool>(false);
 		}
 	}

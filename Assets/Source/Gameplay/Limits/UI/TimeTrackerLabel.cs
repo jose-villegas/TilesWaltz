@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using TilesWalk.Building.Map;
+using TilesWalk.Extensions;
+using TilesWalk.Gameplay.Condition;
 using TilesWalk.Navigation.UI;
 using TMPro;
 using UniRx;
@@ -13,7 +16,9 @@ namespace TilesWalk.Gameplay.Limits.UI
 	public class TimeTrackerLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
 		[Inject] private TileViewMap _tileMap;
+		[Inject] private List<TimeFinishCondition> _timeFinishConditions;
 		private DateTime _start;
+		private TimeSpan _limit;
 
 		private void Start()
 		{
@@ -21,14 +26,35 @@ namespace TilesWalk.Gameplay.Limits.UI
 				.OnTileMapLoadedAsObservable()
 				.Subscribe(
 					_ => { },
-					() => _start = DateTime.Now
+					OnTileMapLoaded
 				)
 				.AddTo(this);
 
-			transform.UpdateAsObservable().Subscribe(_ =>
+			transform.UpdateAsObservable().SubscribeToText(Component, _ =>
 			{
-				Component.text = new DateTime((DateTime.Now - _start).Ticks).ToString("mm:ss");
+				var currentTime = new DateTime((DateTime.Now - _start).Ticks).ToString("mm:ss");
+				var limitTime = new DateTime(_limit.Ticks).ToString("mm:ss");
+				return string.Format("{0}/{1}", currentTime, limitTime);
 			}).AddTo(this);
+		}
+
+		private void OnTileMapLoaded()
+		{
+			_start = DateTime.Now;
+
+			if (_tileMap.TileMap.FinishCondition != FinishCondition.TimeLimit &&
+			    _tileMap.TileMap.FinishCondition != FinishCondition.TimeAndMoveLimit)
+			{
+				transform.parent.gameObject.SetActive(false);
+				return;
+			}
+
+			var condition = _timeFinishConditions.Find(x => x.Id == _tileMap.TileMap.Id);
+
+			if (condition != null)
+			{
+				_limit = TimeSpan.FromSeconds(condition.Limit);
+			}
 		}
 	}
 }

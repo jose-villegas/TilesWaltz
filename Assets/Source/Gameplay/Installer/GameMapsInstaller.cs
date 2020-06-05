@@ -17,19 +17,28 @@ namespace TilesWalk.Gameplay.Installer
 
 		[SerializeField, TextArea] private string _instructions;
 		[SerializeField] private FinishCondition _condition;
-		[SerializeField, ShowIf("IsTimeCondition"), Min(1)] private float _seconds;
-		[SerializeField, ShowIf("IsMovesCondition"), Min(1)] private int _moves;
+
+		[SerializeField, ShowIf("IsTimeCondition"), Min(1)]
+		private float _seconds;
+
+		[SerializeField, ShowIf("IsMovesCondition"), Min(1)]
+		private int _moves;
 
 		[Header("Entries")] [SerializeField] private List<TileMap> _availableMaps;
 		[SerializeField] private List<MovesFinishCondition> _movesFinishConditions;
 		[SerializeField] private List<TimeFinishCondition> _timeFinishConditions;
 
-		public bool IsTimeCondition => _condition == FinishCondition.TimeLimit || _condition == FinishCondition.TimeAndMoveLimit;
-		public bool IsMovesCondition => _condition == FinishCondition.MovesLimit || _condition == FinishCondition.TimeAndMoveLimit;
+		public bool IsTimeCondition =>
+			_condition == FinishCondition.TimeLimit || _condition == FinishCondition.TimeAndMoveLimit;
+
+		public bool IsMovesCondition =>
+			_condition == FinishCondition.MovesLimit || _condition == FinishCondition.TimeAndMoveLimit;
 
 		public override void InstallBindings()
 		{
 			Container.Bind<List<TileMap>>().FromInstance(_availableMaps).AsSingle();
+			Container.Bind<List<MovesFinishCondition>>().FromInstance(_movesFinishConditions).AsSingle();
+			Container.Bind<List<TimeFinishCondition>>().FromInstance(_timeFinishConditions).AsSingle();
 		}
 
 		[Button]
@@ -42,14 +51,18 @@ namespace TilesWalk.Gameplay.Installer
 			switch (_condition)
 			{
 				case FinishCondition.TimeLimit:
-					_timeFinishConditions.Add(new TimeFinishCondition(map.Id, TimeSpan.FromSeconds(_seconds)));
+					var tCond = new TimeFinishCondition(map.Id, _seconds);
+					_timeFinishConditions.Add(tCond);
 					break;
 				case FinishCondition.MovesLimit:
-					_movesFinishConditions.Add(new MovesFinishCondition(map.Id, _moves));
+					var mCond = new MovesFinishCondition(map.Id, _moves);
+					_movesFinishConditions.Add(mCond);
 					break;
 				case FinishCondition.TimeAndMoveLimit:
-					_timeFinishConditions.Add(new TimeFinishCondition(map.Id, TimeSpan.FromSeconds(_seconds)));
-					_movesFinishConditions.Add(new MovesFinishCondition(map.Id, _moves));
+					var tCon = new TimeFinishCondition(map.Id, _seconds);
+					var mCon = new MovesFinishCondition(map.Id, _moves);
+					_timeFinishConditions.Add(tCon);
+					_movesFinishConditions.Add(mCon);
 					break;
 			}
 		}

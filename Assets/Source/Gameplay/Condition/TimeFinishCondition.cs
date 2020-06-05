@@ -4,22 +4,22 @@ using UnityEngine;
 namespace TilesWalk.Gameplay.Condition
 {
 	[Serializable]
-	public class TimeFinishCondition : MapFinishCondition<TimeSpan>
+	public class TimeFinishCondition : MapFinishCondition<float>
 	{
-		protected override TimeSpan UpdateHandler(TimeSpan value)
+		protected override float Update(float value)
 		{
-			_handler -= value;
+			_tracker += value;
 
-			if (_handler.TotalMilliseconds <= 0)
+			if (_tracker >= _limit)
 			{
 				IsConditionMeet.Value = true;
-				return _handler;
+				return _tracker;
 			}
 
-			return _handler;
+			return _tracker;
 		}
 
-		public TimeFinishCondition(string id, TimeSpan initial) : base(id, initial)
+		public TimeFinishCondition(string id, float limit) : base(id, limit)
 		{
 		}
 	}

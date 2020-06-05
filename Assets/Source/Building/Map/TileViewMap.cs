@@ -165,7 +165,9 @@ namespace TilesWalk.Building.Map
 				UpdateInstructions(rootTile, insert, instruction.direction, instruction.rule);
 			}
 
+			_tileMap.Id = map.Id;
 			_tileMap.Target = map.Target;
+			_tileMap.FinishCondition = map.FinishCondition;
 			_onTileMapLoaded?.OnCompleted();
 		}
 
