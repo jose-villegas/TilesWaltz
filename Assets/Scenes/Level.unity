@@ -2211,7 +2211,7 @@ GameObject:
   - component: {fileID: 1039857915}
   - component: {fileID: 1039857916}
   m_Layer: 0
-  m_Name: Score
+  m_Name: LevelScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2775,7 +2775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8ac1b2b62c8be419355758b4dc24f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreTracker: {fileID: 1039857916}
+  _levelScoreTracker: {fileID: 1039857916}
 --- !u!114 &1581882916
 MonoBehaviour:
   m_ObjectHideFlags: 0

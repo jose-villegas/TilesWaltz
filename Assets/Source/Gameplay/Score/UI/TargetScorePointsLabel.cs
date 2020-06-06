@@ -9,7 +9,7 @@ using Zenject;
 namespace TilesWalk.Gameplay.Score.UI
 {
 	[RequireComponent(typeof(TextMeshProUGUI))]
-	public class ScoreTargetLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
+	public class TargetScorePointsLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
 		[Inject] private TileViewMap _tileMap;
 

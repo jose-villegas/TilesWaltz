@@ -8,13 +8,13 @@ using Zenject;
 public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
 {
     [SerializeField]
-	private ScoreConfiguration _scoreSettings;
+	private ScorePointsConfiguration _scorePointsSettings;
 	[SerializeField]
 	private AnimationConfiguration _animationSettings;
 
     public override void InstallBindings()
     {
-	    Container.Bind<ScoreConfiguration>().FromInstance(_scoreSettings).AsSingle();
+	    Container.Bind<ScorePointsConfiguration>().FromInstance(_scorePointsSettings).AsSingle();
 	    Container.Bind<AnimationConfiguration>().FromInstance(_animationSettings).AsSingle();
 	}
 }

@@ -4,14 +4,14 @@ using Zenject;
 
 namespace TilesWalk.Gameplay.Score.Installer
 {
-	public class ScoreRecordsInstaller : MonoInstaller
+	public class LevelScoreRecordsInstaller : MonoInstaller
 	{
-		private Dictionary<string, Score> _scoreRecords = new Dictionary<string, Score>();
+		private Dictionary<string, LevelScore> _scoreRecords = new Dictionary<string, LevelScore>();
 
 		public override void InstallBindings()
 		{
 			_scoreRecords = SaveGame.Load("Scores", _scoreRecords);
-			Container.Bind<Dictionary<string, Score>>().FromInstance(_scoreRecords).AsSingle();
+			Container.Bind<Dictionary<string, LevelScore>>().FromInstance(_scoreRecords).AsSingle();
 		}
 
 		private void OnDestroy()

@@ -8,15 +8,15 @@ using Zenject;
 namespace TilesWalk.Gameplay.Score.UI
 {
 	[RequireComponent(typeof(TextMeshProUGUI))]
-	public class CurrentScoreLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
+	public class CurrentScorePointsLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
-		[Inject] private ScoreTracker _scoreTracker;
+		[Inject] private LevelScoreTracker _levelScoreTracker;
 
 		private void Awake()
 		{
-			_scoreTracker
+			_levelScoreTracker
 				.OnScoreUpdatedAsObservable()
-				.SubscribeToText(Component, score => score.LastScore.ToString())
+				.SubscribeToText(Component, score => score.Points.Last.ToString())
 				.AddTo(this);
 		}
 	}

@@ -8,22 +8,22 @@ using Zenject;
 namespace TilesWalk.Gameplay.Score.UI
 {
 	[RequireComponent(typeof(TextMeshProUGUI))]
-	public class RecordScoreLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
+	public class HighestScorePointsLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
-		[Inject] private ScoreTracker _scoreTracker;
+		[Inject] private LevelScoreTracker _levelScoreTracker;
 
 		private void Awake()
 		{
-			_scoreTracker
+			_levelScoreTracker
 				.OnScoresLoadedAsObservable()
 				.Subscribe(
-					score => Component.text = score.HighestScore.ToString()
+					score => Component.text = score.Points.Highest.ToString()
 				)
 				.AddTo(this);
 
-			_scoreTracker
+			_levelScoreTracker
 				.OnScoreUpdatedAsObservable()
-				.SubscribeToText(Component, score => score.HighestScore.ToString())
+				.SubscribeToText(Component, score => score.Points.Highest.ToString())
 				.AddTo(this);
 		}
 	}

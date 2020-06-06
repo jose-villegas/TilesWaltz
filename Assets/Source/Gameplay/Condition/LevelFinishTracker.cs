@@ -11,7 +11,7 @@ namespace TilesWalk.Gameplay.Condition
 {
 	public class LevelFinishTracker : ObservableTriggerBase
 	{
-		[Inject] private ScoreTracker _scoreTracker;
+		[Inject] private LevelScoreTracker _levelScoreTracker;
 		[Inject] private TileViewMap _tileMap;
 
 		private Subject<TileMap> _onLevelFinish;
@@ -25,8 +25,8 @@ namespace TilesWalk.Gameplay.Condition
 		private void OnTileMapLoaded(TileMap tileMap)
 		{
 			_targetFinish = new TargetScoreFinishCondition(tileMap.Id, tileMap.Target);
-			_scoreTracker
-				.OnScoreUpdatedAsObservable().Subscribe(score => { _targetFinish.Update(score.LastScore); })
+			_levelScoreTracker
+				.OnScoreUpdatedAsObservable().Subscribe(score => { _targetFinish.Update(score.Points.Last); })
 				.AddTo(this);
 			_targetFinish.IsConditionMeet.Subscribe(meet =>
 			{

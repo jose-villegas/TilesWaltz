@@ -8,24 +8,24 @@ using Zenject;
 
 namespace TilesWalk.Gameplay.Score
 {
-	public class ScoreTracker : ObservableTriggerBase
+	public class LevelScoreTracker : ObservableTriggerBase
 	{
-		[Inject] private ScoreConfiguration _scoreConfiguration;
+		[Inject] private ScorePointsConfiguration _scorePointsConfiguration;
 		[Inject] private TileViewMap _tileMap;
-		[Inject] private Dictionary<string, Score> _scoreRecords;
+		[Inject] private Dictionary<string, LevelScore> _scoreRecords;
 
 		private Dictionary<string, int> _scoreTracking = new Dictionary<string, int>();
 
-		protected Subject<Score> _onScoreUpdated;
-		protected Subject<Score> _onScoresLoaded;
+		protected Subject<LevelScore> _onScoreUpdated;
+		protected Subject<LevelScore> _onScoresLoaded;
 
-		public Score ActiveScore
+		public LevelScore ActiveLevelScore
 		{
 			get
 			{
 				if (!_scoreRecords.TryGetValue(_tileMap.TileMap.Id, out var score))
 				{
-					_scoreRecords[_tileMap.TileMap.Id] = new Score(_tileMap.TileMap.Id);
+					_scoreRecords[_tileMap.TileMap.Id] = new LevelScore(_tileMap.TileMap.Id);
 				}
 
 				return _scoreRecords[_tileMap.TileMap.Id];
@@ -36,7 +36,7 @@ namespace TilesWalk.Gameplay.Score
 		{
 			_tileMap.OnTileRemovedAsObservable().Subscribe(OnTileRemoved).AddTo(this);
 			_tileMap.OnComboRemovalAsObservable().Subscribe(OnComboRemoval).AddTo(this);
-			_tileMap.OnTileMapLoadedAsObservable().Subscribe(_ => { _onScoresLoaded?.OnNext(ActiveScore); }).AddTo(this);
+			_tileMap.OnTileMapLoadedAsObservable().Subscribe(_ => { _onScoresLoaded?.OnNext(ActiveLevelScore); }).AddTo(this);
 		}
 
 		private void OnTileRemoved(List<Tile.Tile> tile)
@@ -45,7 +45,7 @@ namespace TilesWalk.Gameplay.Score
 
 			if (!_scoreRecords.TryGetValue(mapName, out var score))
 			{
-				_scoreRecords[mapName] = new Score(mapName);
+				_scoreRecords[mapName] = new LevelScore(mapName);
 				score = _scoreRecords[mapName];
 			}
 
@@ -54,8 +54,8 @@ namespace TilesWalk.Gameplay.Score
 				_scoreTracking[score.Id] = 0;
 			}
 
-			_scoreTracking[score.Id] += _scoreConfiguration.ScorePerTile;
-			score.UpdateScore(_scoreTracking[score.Id]);
+			_scoreTracking[score.Id] += _scorePointsConfiguration.ScorePerTile;
+			score.Points.Update(_scoreTracking[score.Id]);
 			_onScoreUpdated?.OnNext(score);
 		}
 
@@ -65,7 +65,7 @@ namespace TilesWalk.Gameplay.Score
 
 			if (!_scoreRecords.TryGetValue(mapName, out var score))
 			{
-				_scoreRecords[mapName] = new Score(mapName);
+				_scoreRecords[mapName] = new LevelScore(mapName);
 				score = _scoreRecords[mapName];
 			}
 
@@ -75,8 +75,8 @@ namespace TilesWalk.Gameplay.Score
 			}
 
 			_scoreTracking[score.Id] +=
-				_scoreConfiguration.ScorePerTile * _scoreConfiguration.ComboMultiplier * tile.Count;
-			score.UpdateScore(_scoreTracking[score.Id]);
+				_scorePointsConfiguration.ScorePerTile * _scorePointsConfiguration.ComboMultiplier * tile.Count;
+			score.Points.Update(_scoreTracking[score.Id]);
 			_onScoreUpdated?.OnNext(score);
 		}
 
@@ -86,14 +86,14 @@ namespace TilesWalk.Gameplay.Score
 			_onScoresLoaded?.OnCompleted();
 		}
 
-		public IObservable<Score> OnScoreUpdatedAsObservable()
+		public IObservable<LevelScore> OnScoreUpdatedAsObservable()
 		{
-			return _onScoreUpdated = _onScoreUpdated ?? new Subject<Score>();
+			return _onScoreUpdated = _onScoreUpdated ?? new Subject<LevelScore>();
 		}
 
-		public IObservable<Score> OnScoresLoadedAsObservable()
+		public IObservable<LevelScore> OnScoresLoadedAsObservable()
 		{
-			return _onScoresLoaded = _onScoresLoaded ?? new Subject<Score>();
+			return _onScoresLoaded = _onScoresLoaded ?? new Subject<LevelScore>();
 		}
 	}
 }

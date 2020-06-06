@@ -4,7 +4,7 @@ using UnityEngine;
 namespace TilesWalk.Gameplay.Score
 {
 	[Serializable]
-	public class ScoreConfiguration
+	public class ScorePointsConfiguration
 	{
 		[Range(1, 100)] [SerializeField] private int _scorePerTile = 10;
 		[Range(1, 100)] [SerializeField] private int _comboMultiplier = 10;
