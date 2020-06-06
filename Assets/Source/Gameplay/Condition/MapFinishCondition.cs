@@ -16,7 +16,7 @@ namespace TilesWalk.Gameplay.Condition
 		/// </summary>
 		public string Id => _id;
 
-		public ReactiveProperty<bool> IsConditionMeet { get; protected set; }
+		public ReactiveProperty<bool> IsConditionMeet { get; protected set; } = new ReactiveProperty<bool>();
 	}
 
 	[Serializable]
@@ -31,14 +31,21 @@ namespace TilesWalk.Gameplay.Condition
 
 		public T Limit => _limit;
 
+		public T Tracker => _tracker;
+
 		public abstract T Update(T value);
+
+		public void Reset(T value)
+		{
+			_tracker = value;
+			IsConditionMeet = new ReactiveProperty<bool>();
+		}
 
 		protected MapFinishCondition(string id, T limit)
 		{
 			_id = id;
 			_tracker = default(T);
 			_limit = limit;
-			IsConditionMeet = new ReactiveProperty<bool>(false);
 		}
 	}
 }

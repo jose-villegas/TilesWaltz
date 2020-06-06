@@ -4,6 +4,5 @@
 	{
 		TimeLimit,
 		MovesLimit,
-		TimeAndMoveLimit,
 	}
 }

@@ -28,11 +28,9 @@ namespace TilesWalk.Gameplay.Installer
 		[SerializeField] private List<MovesFinishCondition> _movesFinishConditions;
 		[SerializeField] private List<TimeFinishCondition> _timeFinishConditions;
 
-		public bool IsTimeCondition =>
-			_condition == FinishCondition.TimeLimit || _condition == FinishCondition.TimeAndMoveLimit;
+		public bool IsTimeCondition => _condition == FinishCondition.TimeLimit;
 
-		public bool IsMovesCondition =>
-			_condition == FinishCondition.MovesLimit || _condition == FinishCondition.TimeAndMoveLimit;
+		public bool IsMovesCondition => _condition == FinishCondition.MovesLimit;
 
 		public override void InstallBindings()
 		{
@@ -57,12 +55,6 @@ namespace TilesWalk.Gameplay.Installer
 				case FinishCondition.MovesLimit:
 					var mCond = new MovesFinishCondition(map.Id, _moves);
 					_movesFinishConditions.Add(mCond);
-					break;
-				case FinishCondition.TimeAndMoveLimit:
-					var tCon = new TimeFinishCondition(map.Id, _seconds);
-					var mCon = new MovesFinishCondition(map.Id, _moves);
-					_timeFinishConditions.Add(tCon);
-					_movesFinishConditions.Add(mCon);
 					break;
 			}
 		}

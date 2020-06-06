@@ -22,7 +22,7 @@ namespace TilesWalk.Gameplay.Score.UI
 				.AddTo(this);
 
 			_levelScoreTracker
-				.OnScoreUpdatedAsObservable()
+				.OnScorePointsUpdatedAsObservable()
 				.SubscribeToText(Component, score => score.Points.Highest.ToString())
 				.AddTo(this);
 		}

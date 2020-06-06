@@ -14,10 +14,7 @@ namespace TilesWalk.Gameplay.Limits.UI
 	public class MovesCounterLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
 		[Inject] private TileViewMap _tileMap;
-		[Inject] private List<MovesFinishCondition> _movesFinishConditions;
-
-		private int _counter;
-		private int _limit;
+		[Inject] private LevelFinishTracker _levelFinishTracker;
 
 		private void Start()
 		{
@@ -32,29 +29,23 @@ namespace TilesWalk.Gameplay.Limits.UI
 				.OnTileRemovedAsObservable()
 				.SubscribeToText(Component, _ =>
 				{
-					_counter++;
-					return string.Format("%02d/%02d", _counter, _limit);
+					var condition = _levelFinishTracker.MovesFinishCondition;
+					return string.Format("%02d/%02d", condition.Tracker, condition.Limit);
 				})
 				.AddTo(this);
 		}
 
 		private void OnTileMapLoaded(TileMap tileMap)
 		{
-			if (tileMap.FinishCondition != FinishCondition.MovesLimit &&
-			    tileMap.FinishCondition != FinishCondition.TimeAndMoveLimit)
+			if (tileMap.FinishCondition != FinishCondition.MovesLimit)
 			{
 				transform.parent.gameObject.SetActive(false);
 				return;
 			}
 
-			var condition = _movesFinishConditions.Find(x => x.Id == tileMap.Id);
+			var condition = _levelFinishTracker.MovesFinishCondition;
 
-			if (condition != null)
-			{
-				_limit = condition.Limit;
-			}
-
-			Component.text = string.Format("%02d/%02d", _counter, _limit);
+			Component.text = string.Format("%02d/%02d", condition.Tracker, condition.Limit);
 		}
 	}
 }

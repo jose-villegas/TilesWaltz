@@ -86,7 +86,7 @@ namespace TilesWalk.Gameplay.Score
 			_onScoresLoaded?.OnCompleted();
 		}
 
-		public IObservable<LevelScore> OnScoreUpdatedAsObservable()
+		public IObservable<LevelScore> OnScorePointsUpdatedAsObservable()
 		{
 			return _onScoreUpdated = _onScoreUpdated ?? new Subject<LevelScore>();
 		}

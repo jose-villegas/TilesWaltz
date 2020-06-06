@@ -15,7 +15,7 @@ namespace TilesWalk.Gameplay.Score.UI
 		private void Awake()
 		{
 			_levelScoreTracker
-				.OnScoreUpdatedAsObservable()
+				.OnScorePointsUpdatedAsObservable()
 				.SubscribeToText(Component, score => score.Points.Last.ToString())
 				.AddTo(this);
 		}
