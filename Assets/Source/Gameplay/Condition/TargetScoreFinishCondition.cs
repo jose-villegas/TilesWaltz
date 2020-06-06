@@ -5,9 +5,9 @@ namespace TilesWalk.Gameplay.Condition
 	[Serializable]
 	public class TargetScoreFinishCondition : MapFinishCondition<int>
 	{
-		protected override int Update(int value)
+		public override int Update(int value)
 		{
-			_tracker += value;
+			_tracker = value;
 
 			if (_tracker >= _limit)
 			{

@@ -32,7 +32,7 @@ namespace TilesWalk.Building.Map
 
 		public TileMap TileMap => _tileMap;
 
-		protected Subject<Unit> _onTileMapLoaded;
+		protected Subject<TileMap> _onTileMapLoaded;
 
 		private void Start()
 		{
@@ -168,7 +168,7 @@ namespace TilesWalk.Building.Map
 			_tileMap.Id = map.Id;
 			_tileMap.Target = map.Target;
 			_tileMap.FinishCondition = map.FinishCondition;
-			_onTileMapLoaded?.OnCompleted();
+			_onTileMapLoaded?.OnNext(_tileMap);
 		}
 
 		public void UpdateInstructions(TileView root, TileView tile, CardinalDirection d, NeighborWalkRule r)
@@ -192,9 +192,15 @@ namespace TilesWalk.Building.Map
 			_tileMap.Instructions.Add(insertions.Last());
 		}
 
-		public IObservable<Unit> OnTileMapLoadedAsObservable()
+		public IObservable<TileMap> OnTileMapLoadedAsObservable()
 		{
-			return _onTileMapLoaded = _onTileMapLoaded ?? new Subject<Unit>();
+			return _onTileMapLoaded = _onTileMapLoaded ?? new Subject<TileMap>();
+		}
+
+		protected override void RaiseOnCompletedOnDestroy()
+		{
+			base.RaiseOnCompletedOnDestroy();
+			_onTileMapLoaded?.OnCompleted();
 		}
 	}
 }

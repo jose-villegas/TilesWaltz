@@ -13,18 +13,25 @@ namespace TilesWalk.Gameplay.Condition
 	{
 		[Inject] private ScoreTracker _scoreTracker;
 		[Inject] private TileViewMap _tileMap;
+
 		private Subject<TileMap> _onLevelFinish;
+		private TargetScoreFinishCondition _targetFinish;
 
 		private void Awake()
 		{
+			_tileMap.OnTileMapLoadedAsObservable().Subscribe(OnTileMapLoaded).AddTo(this);
+		}
+
+		private void OnTileMapLoaded(TileMap tileMap)
+		{
+			_targetFinish = new TargetScoreFinishCondition(tileMap.Id, tileMap.Target);
 			_scoreTracker
-				.OnScoreUpdatedAsObservable().Subscribe(score =>
-				{
-					if (score.LastScore >= _tileMap.TileMap.Target)
-					{
-						_onLevelFinish?.OnNext(_tileMap.TileMap);
-					}
-				}).AddTo(this);
+				.OnScoreUpdatedAsObservable().Subscribe(score => { _targetFinish.Update(score.LastScore); })
+				.AddTo(this);
+			_targetFinish.IsConditionMeet.Subscribe(meet =>
+			{
+				if (meet) _onLevelFinish?.OnNext(_tileMap.TileMap);
+			});
 		}
 
 		protected override void RaiseOnCompletedOnDestroy()

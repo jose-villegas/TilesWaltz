@@ -28,7 +28,7 @@ namespace TilesWalk.Gameplay.Score
 		/// </summary>
 		/// <param name="newScore"></param>
 		/// <returns>Returns [true] if the highest score was replaced</returns>
-		public bool Update(int newScore)
+		public bool UpdateScore(int newScore)
 		{
 			_lastScore = newScore;
 
@@ -43,7 +43,7 @@ namespace TilesWalk.Gameplay.Score
 
 		public static Score operator +(Score a, int b)
 		{
-			a.Update(a._lastScore + b);
+			a.UpdateScore(a._lastScore + b);
 			return a;
 		}
 	}

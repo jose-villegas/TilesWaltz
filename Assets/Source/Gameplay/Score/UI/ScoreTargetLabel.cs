@@ -18,8 +18,7 @@ namespace TilesWalk.Gameplay.Score.UI
 			_tileMap
 				.OnTileMapLoadedAsObservable()
 				.Subscribe(
-					_ => { },
-					() => Component.text = _tileMap.TileMap.Target.ToString()
+					tileMap => Component.text = tileMap.Target.ToString()
 				)
 				.AddTo(this);
 		}

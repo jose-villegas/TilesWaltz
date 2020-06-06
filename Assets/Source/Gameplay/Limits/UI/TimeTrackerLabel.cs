@@ -25,7 +25,6 @@ namespace TilesWalk.Gameplay.Limits.UI
 			_tileMap
 				.OnTileMapLoadedAsObservable()
 				.Subscribe(
-					_ => { },
 					OnTileMapLoaded
 				)
 				.AddTo(this);
@@ -38,18 +37,18 @@ namespace TilesWalk.Gameplay.Limits.UI
 			}).AddTo(this);
 		}
 
-		private void OnTileMapLoaded()
+		private void OnTileMapLoaded(TileMap tileMap)
 		{
 			_start = DateTime.Now;
 
-			if (_tileMap.TileMap.FinishCondition != FinishCondition.TimeLimit &&
-			    _tileMap.TileMap.FinishCondition != FinishCondition.TimeAndMoveLimit)
+			if (tileMap.FinishCondition != FinishCondition.TimeLimit &&
+			    tileMap.FinishCondition != FinishCondition.TimeAndMoveLimit)
 			{
 				transform.parent.gameObject.SetActive(false);
 				return;
 			}
 
-			var condition = _timeFinishConditions.Find(x => x.Id == _tileMap.TileMap.Id);
+			var condition = _timeFinishConditions.Find(x => x.Id == tileMap.Id);
 
 			if (condition != null)
 			{

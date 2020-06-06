@@ -6,7 +6,7 @@ namespace TilesWalk.Gameplay.Condition
 	[Serializable]
 	public class TimeFinishCondition : MapFinishCondition<float>
 	{
-		protected override float Update(float value)
+		public override float Update(float value)
 		{
 			_tracker += value;
 

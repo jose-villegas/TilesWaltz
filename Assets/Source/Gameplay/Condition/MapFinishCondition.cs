@@ -31,7 +31,7 @@ namespace TilesWalk.Gameplay.Condition
 
 		public T Limit => _limit;
 
-		protected abstract T Update(T value);
+		public abstract T Update(T value);
 
 		protected MapFinishCondition(string id, T limit)
 		{

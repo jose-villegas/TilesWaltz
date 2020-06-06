@@ -5,7 +5,7 @@ namespace TilesWalk.Gameplay.Condition
 	[Serializable]
 	public class MovesFinishCondition : MapFinishCondition<int>
 	{
-		protected override int Update(int value)
+		public override int Update(int value)
 		{
 			_tracker += value;
 

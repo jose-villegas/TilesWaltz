@@ -17,8 +17,7 @@ namespace TilesWalk.Gameplay.Score.UI
 			_scoreTracker
 				.OnScoresLoadedAsObservable()
 				.Subscribe(
-					_ => { },
-					() => Component.text = _scoreTracker.ActiveScore.HighestScore.ToString()
+					score => Component.text = score.HighestScore.ToString()
 				)
 				.AddTo(this);
 
