@@ -42,9 +42,12 @@ namespace TilesWalk.Gameplay.Limits.UI
 
 			transform.UpdateAsObservable().SubscribeToText(Component, _ =>
 			{
-				var currentTime = new DateTime((DateTime.Now - start).Ticks).ToString("mm:ss");
-				var limitTime = new DateTime((end - start).Ticks).ToString("mm:ss");
-				return $"{currentTime}/{limitTime}";
+				var current = new DateTime((DateTime.Now - start).Ticks);
+				var limit = new DateTime((end - start).Ticks);
+				var currentTime = current.ToString("mm:ss");
+				var limitTime = limit.ToString("mm:ss");
+
+				return current < limit ? $"{currentTime}/{limitTime}" : $"{limitTime}/{limitTime}";
 			}).AddTo(this);
 		}
 	}

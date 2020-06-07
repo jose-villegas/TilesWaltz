@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ModestTree;
 using TilesWalk.Building.Map;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Score;
@@ -22,7 +23,8 @@ namespace TilesWalk.Gameplay.Condition
 		private MovesFinishCondition _movesFinishCondition;
 		private TimeFinishCondition _timeFinishCondition;
 
-		private Subject<TileMap> _onLevelFinish;
+		private Subject<LevelScore> _onLevelFinish;
+		private Subject<LevelScore> _onScorePointsTargetReached;
 
 		public MovesFinishCondition MovesFinishCondition => _movesFinishCondition;
 		public TimeFinishCondition TimeFinishCondition => _timeFinishCondition;
@@ -61,44 +63,63 @@ namespace TilesWalk.Gameplay.Condition
 				})
 				.AddTo(this);
 
-			// track time
-			transform.UpdateAsObservable().Subscribe(_ =>
-				{
-					_timeFinishCondition?.Update(Time.deltaTime);
+			OnLevelFinishAsObservable().Subscribe(_ =>
+			{
+				if (_targetFinishCondition.IsConditionMeet.Value) return;
+				
+				_levelScoreTracker.ActiveLevelScore.Moves.Update(_movesFinishCondition.Tracker);
+				_levelScoreTracker.ActiveLevelScore.Time.Update(_timeFinishCondition.Tracker);
+			}).AddTo(this);
 
-					if (_tileMap.TileMap.FinishCondition == FinishCondition.TimeLimit)
-					{
-						if (_timeFinishCondition.IsConditionMeet.Value)
-						{
-							_onLevelFinish?.OnNext(_tileMap.TileMap);
-						}
-					}
-				})
+			// track time
+			transform.UpdateAsObservable().Subscribe(_ => { _timeFinishCondition?.Update(Time.deltaTime); })
 				.AddTo(this);
 
-			// track moves
-			_tileMap.OnTileRemovedAsObservable().Subscribe(_ =>
+			if (tileMap.FinishCondition == FinishCondition.TimeLimit)
 			{
-				_movesFinishCondition?.Update(1);
-
-				if (_tileMap.TileMap.FinishCondition == FinishCondition.MovesLimit)
+				_timeFinishCondition.IsConditionMeet.Subscribe(meet =>
 				{
-					if (_movesFinishCondition.IsConditionMeet.Value)
-					{
-						_onLevelFinish?.OnNext(_tileMap.TileMap);
-					}
-				}
+					if (meet) _onLevelFinish?.OnNext(_levelScoreTracker.ActiveLevelScore);
+				}).AddTo(this);
+			}
+
+			// track moves
+			_tileMap.OnTileRemovedAsObservable().Subscribe(_ => { _movesFinishCondition?.Update(1); })
+				.AddTo(this);
+
+			if (_tileMap.TileMap.FinishCondition == FinishCondition.MovesLimit)
+			{
+				_movesFinishCondition.IsConditionMeet.Subscribe(meet =>
+				{
+					if (meet) _onLevelFinish?.OnNext(_levelScoreTracker.ActiveLevelScore);
+				}).AddTo(this);
+			}
+
+			// track target points completion
+			_targetFinishCondition.IsConditionMeet.Subscribe(meet =>
+			{
+				if (!meet) return;
+
+				_levelScoreTracker.ActiveLevelScore.Moves.Update(_movesFinishCondition.Tracker);
+				_levelScoreTracker.ActiveLevelScore.Time.Update(_timeFinishCondition.Tracker);
+				_onScorePointsTargetReached?.OnNext(_levelScoreTracker.ActiveLevelScore);
 			}).AddTo(this);
 		}
 
 		protected override void RaiseOnCompletedOnDestroy()
 		{
 			_onLevelFinish?.OnCompleted();
+			_onScorePointsTargetReached?.OnCompleted();
 		}
 
-		public IObservable<TileMap> OnLevelFinishAsObservable()
+		public IObservable<LevelScore> OnLevelFinishAsObservable()
 		{
-			return _onLevelFinish = _onLevelFinish ?? new Subject<TileMap>();
+			return _onLevelFinish = _onLevelFinish ?? new Subject<LevelScore>();
+		}
+
+		public IObservable<LevelScore> OnScorePointsTargetReachedAsObservable()
+		{
+			return _onScorePointsTargetReached = _onScorePointsTargetReached ?? new Subject<LevelScore>();
 		}
 	}
 }
