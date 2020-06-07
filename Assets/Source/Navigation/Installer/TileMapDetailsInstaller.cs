@@ -6,11 +6,11 @@ namespace TilesWalk.Navigation.Installer
 {
 	public class TileMapDetailsInstaller : MonoInstaller
 	{
-		[SerializeField] private TileMapDetails _tileMapDetails;
+		[SerializeField] private TileMapDetailsCanvas _tileMapDetailsCanvas;
 
 		public override void InstallBindings()
 		{
-			Container.Bind<TileMapDetails>().FromInstance(_tileMapDetails).AsSingle();
+			Container.Bind<TileMapDetailsCanvas>().FromInstance(_tileMapDetailsCanvas).AsSingle();
 		}
 	}
 }

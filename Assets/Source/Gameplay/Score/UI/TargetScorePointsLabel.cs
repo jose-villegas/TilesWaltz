@@ -1,4 +1,4 @@
-﻿using TilesWalk.Building.Map;
+﻿using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Navigation.UI;
 using TMPro;
@@ -18,7 +18,7 @@ namespace TilesWalk.Gameplay.Score.UI
 			_tileMap
 				.OnTileMapLoadedAsObservable()
 				.Subscribe(
-					tileMap => Component.text = tileMap.Target.ToString()
+					tileMap => Component.text = tileMap.Target.Localize()
 				)
 				.AddTo(this);
 		}

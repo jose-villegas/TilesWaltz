@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using NaughtyAttributes;
-using TilesWalk.Building.Map;
+using TilesWalk.Building.Level;
+using TilesWalk.Extensions;
+using TilesWalk.General.UI;
 using TilesWalk.Navigation.Map;
 using TMPro;
 using TMPro.EditorUtilities;
@@ -12,8 +14,7 @@ using Zenject;
 
 namespace TilesWalk.Navigation.UI
 {
-	[RequireComponent(typeof(CanvasGroup))]
-	public class TileMapDetails : ObligatoryComponentBehaviour<CanvasGroup>
+	public class TileMapDetailsCanvas : CanvasGroupBehaviour
 	{
 		[SerializeField] private bool _loadFromLevelName;
 
@@ -28,8 +29,6 @@ namespace TilesWalk.Navigation.UI
 		[Inject] private List<TileMap> _availableMaps;
 		[Inject] private MapLevelBridge _mapLevelBridge;
 		private TileMap _currentTileMap;
-
-		public bool IsVisible => Component.alpha > 0;
 
 		private void Start()
 		{
@@ -53,19 +52,7 @@ namespace TilesWalk.Navigation.UI
 		{
 			_currentTileMap = tileMap;
 			_name.text = tileMap.Id;
-			_target.text = tileMap.Target.ToString();
-		}
-
-		public void Hide()
-		{
-			Component.alpha = 0;
-			Component.interactable = false;
-		}
-
-		public void Show()
-		{
-			Component.alpha = 1;
-			Component.interactable = true;
+			_target.text = tileMap.Target.Localize();
 		}
 	}
 }

@@ -5,11 +5,11 @@ namespace TilesWalk.Gameplay.Score.Installer
 {
 	public class LevelScoreTrackerInstaller : MonoInstaller
 	{
-		[SerializeField] private LevelScoreTracker _levelScoreTracker;
+		[SerializeField] private LevelScorePointsTracker _levelScorePointsTracker;
 
 		public override void InstallBindings()
 		{
-			Container.Bind<LevelScoreTracker>().FromInstance(_levelScoreTracker).AsSingle();
+			Container.Bind<LevelScorePointsTracker>().FromInstance(_levelScorePointsTracker).AsSingle();
 		}
 	}
 }

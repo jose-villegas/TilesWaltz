@@ -1,5 +1,4 @@
-﻿using TilesWalk.Building.Map;
-using TilesWalk.General.Patterns;
+﻿using TilesWalk.General.Patterns;
 using TilesWalk.Tile;
 using UniRx;
 using UnityEngine;

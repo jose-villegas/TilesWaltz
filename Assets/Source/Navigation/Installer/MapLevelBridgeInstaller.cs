@@ -1,4 +1,3 @@
-using TilesWalk.Building.Map;
 using TilesWalk.Navigation.Map;
 using UnityEngine;
 using Zenject;

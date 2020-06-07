@@ -11,7 +11,7 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 
-namespace TilesWalk.Building.Map
+namespace TilesWalk.Building.Level
 {
 	public class TileViewMap : TileViewTrigger
 	{

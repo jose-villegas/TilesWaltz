@@ -1,4 +1,4 @@
-﻿using TilesWalk.Building.Map;
+﻿using TilesWalk.Building.Level;
 using UnityEngine;
 
 namespace TilesWalk.Navigation.Map

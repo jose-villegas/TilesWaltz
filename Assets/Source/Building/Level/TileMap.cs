@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Gameplay.Condition;
-using UnityEngine;
 
-namespace TilesWalk.Building.Map
+namespace TilesWalk.Building.Level
 {
 	[Serializable]
 	public class TileMap : IModel

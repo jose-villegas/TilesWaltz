@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NaughtyAttributes;
 using Newtonsoft.Json;
-using TilesWalk.Building.Map;
+using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Condition;
 using UnityEngine;
 using Zenject;

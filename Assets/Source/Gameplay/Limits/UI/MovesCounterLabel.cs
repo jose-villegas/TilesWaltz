@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TilesWalk.Building.Map;
+using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Navigation.UI;

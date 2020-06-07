@@ -10,13 +10,13 @@ namespace TilesWalk.Gameplay.Score.UI
 	[RequireComponent(typeof(TextMeshProUGUI))]
 	public class CurrentScorePointsLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
-		[Inject] private LevelScoreTracker _levelScoreTracker;
+		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;
 
 		private void Awake()
 		{
-			_levelScoreTracker
+			_levelScorePointsTracker
 				.OnScorePointsUpdatedAsObservable()
-				.SubscribeToText(Component, score => score.Points.Last.ToString())
+				.SubscribeToText(Component, score => score.Points.Last.Localize())
 				.AddTo(this);
 		}
 	}

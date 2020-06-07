@@ -209,10 +209,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982853961d3463540ad0f9facef73c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadFromMapId: 0
-  _mapId: 
+  _loadFromLevelName: 0
+  _levelName: 
+  _hideAtStart: 1
   _name: {fileID: 3667716818991602055}
   _target: {fileID: 3667716818137066654}
+  _playButton: {fileID: 3667716818627951023}
 --- !u!114 &4357663852199657849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,6 +339,7 @@ GameObject:
   - component: {fileID: 3667716818627951017}
   - component: {fileID: 3667716818627951016}
   - component: {fileID: 3667716818627951023}
+  - component: {fileID: 485755466}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -444,6 +447,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &485755466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3667716818627951021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 131ce5316ca43f4408537b39d0e4117c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneToLoad: Level
+  Mode: 0
 --- !u!1 &3667716818948924238
 GameObject:
   m_ObjectHideFlags: 0

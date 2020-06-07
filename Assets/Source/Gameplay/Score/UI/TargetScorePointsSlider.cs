@@ -1,4 +1,4 @@
-﻿using TilesWalk.Building.Map;
+﻿using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Navigation.UI;
 using UniRx;
@@ -12,11 +12,11 @@ namespace TilesWalk.Gameplay.Score.UI
 	public class TargetScorePointsSlider : ObligatoryComponentBehaviour<Slider>
 	{
 		[Inject] private TileViewMap _tileMap;
-		[Inject] private LevelScoreTracker _levelScoreTracker;
+		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;
 
 		private void Start()
 		{
-			_levelScoreTracker
+			_levelScorePointsTracker
 				.OnScorePointsUpdatedAsObservable()
 				.Subscribe(
 					score =>

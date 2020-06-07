@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Building;
-using TilesWalk.Building.Map;
+using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.General;

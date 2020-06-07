@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TilesWalk.Building.Map;
+using TilesWalk.Building.Level;
 using TilesWalk.Navigation.UI;
 using UniRx;
 using UniRx.Triggers;
@@ -8,11 +8,11 @@ using Zenject;
 
 namespace TilesWalk.Navigation.Map
 {
-	public class ShowTileMapDetails : MonoBehaviour
+	public class ShowTileMapDetailsCanvas : MonoBehaviour
 	{
 		[SerializeField] private string _levelName;
 
-		[Inject] private TileMapDetails _details;
+		[Inject] private TileMapDetailsCanvas _detailsCanvas;
 		[Inject] private List<TileMap> _availableMaps;
 		private TileMap _tileMap;
 
@@ -24,14 +24,14 @@ namespace TilesWalk.Navigation.Map
 
 		private void OnMapTileClick(Unit u)
 		{
-			if (_details.IsVisible)
+			if (_detailsCanvas.IsVisible)
 			{
-				_details.Hide();
+				_detailsCanvas.Hide();
 			}
 			else
 			{
-				_details.LoadMapData(_tileMap);
-				_details.Show();
+				_detailsCanvas.LoadMapData(_tileMap);
+				_detailsCanvas.Show();
 			}
 		}
 	}
