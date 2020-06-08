@@ -15,7 +15,6 @@ using Zenject;
 
 namespace TilesWalk.Tile
 {
-	[ExecuteInEditMode]
 	public partial class TileView : TileViewTrigger, IView
 	{
 		[SerializeField] private TileController _controller;

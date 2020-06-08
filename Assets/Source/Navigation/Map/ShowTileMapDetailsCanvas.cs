@@ -16,6 +16,12 @@ namespace TilesWalk.Navigation.Map
 		[Inject] private List<TileMap> _availableMaps;
 		private TileMap _tileMap;
 
+		public string LevelName
+		{
+			get => _levelName;
+			set => _levelName = value;
+		}
+
 		private void Start()
 		{
 			_tileMap = _availableMaps.Find(x => x.Id == _levelName);

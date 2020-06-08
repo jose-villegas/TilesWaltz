@@ -14,10 +14,16 @@ namespace TilesWalk.Building.Level
 		public List<int> Tiles;
 		public FinishCondition FinishCondition;
 
+		/// <summary>
+		/// Useful for map building
+		/// </summary>
+		public List<string> TileParameters;
+
 		public TileMap()
 		{
 			Id = "-1";
 			Instructions = new List<InsertionInstruction>();
+			TileParameters = new List<string>();
 			Tiles = new List<int>();
 		}
 	}

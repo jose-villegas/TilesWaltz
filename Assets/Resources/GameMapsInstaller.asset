@@ -115,6 +115,29 @@ MonoBehaviour:
       rule: 1
     Tiles: 6ebefcffd4bdfcff9abdfcff30bdfcff7abcfcff10bcfcff9abbfcff58bbfcffdebafcff68bafcffb8b9fcffdeb8fcff60b8fcffe2b7fcff78b7fcff06b7fcff8cb6fcffe0b5fcff3cb5fcffbab4fcff08b4fcff4eb3fcffc0b2fcff56b2fcff
     FinishCondition: 0
+    TileParameters: []
+  - Id: Game Map
+    Target: 0
+    Instructions:
+    - tile: 87060
+      root: 86920
+      direction: 2
+      rule: 1
+    - tile: 87136
+      root: 87060
+      direction: 2
+      rule: 2
+    - tile: 87206
+      root: 87136
+      direction: 2
+      rule: 0
+    Tiles: 885301001454010060540100a6540100
+    FinishCondition: 0
+    TileParameters:
+    - False
+    - True
+    - True
+    - False
   _movesFinishConditions: []
   _timeFinishConditions:
   - _id: Equalizer

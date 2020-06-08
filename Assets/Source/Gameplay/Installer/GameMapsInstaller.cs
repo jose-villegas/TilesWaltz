@@ -28,9 +28,13 @@ namespace TilesWalk.Gameplay.Installer
 		[SerializeField] private List<MovesFinishCondition> _movesFinishConditions;
 		[SerializeField] private List<TimeFinishCondition> _timeFinishConditions;
 
-		public bool IsTimeCondition => _condition == FinishCondition.TimeLimit;
+		private bool IsTimeCondition => _condition == FinishCondition.TimeLimit;
 
-		public bool IsMovesCondition => _condition == FinishCondition.MovesLimit;
+		private bool IsMovesCondition => _condition == FinishCondition.MovesLimit;
+
+#if UNITY_EDITOR
+		public List<TileMap> AvailableMaps => _availableMaps;
+#endif
 
 		public override void InstallBindings()
 		{
@@ -44,7 +48,7 @@ namespace TilesWalk.Gameplay.Installer
 		{
 			var map = JsonConvert.DeserializeObject<TileMap>(_instructions);
 			map.Id = _name;
-			_availableMaps.Add(map);
+			AvailableMaps.Add(map);
 
 			switch (_condition)
 			{

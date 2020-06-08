@@ -37,7 +37,6 @@ namespace TilesWalk.Tile
 			// copy neighbor
 			tileTransform.position = rootTransform.position;
 			tileTransform.rotation = rootTransform.rotation;
-			tileTransform.localScale = rootTransform.localScale;
 			// connect neighbor references
 			_tile.Neighbors[direction] = tile;
 			tile.Neighbors[direction.Opposite()] = _tile;
@@ -301,7 +300,7 @@ namespace TilesWalk.Tile
 		/// Changes the tile's bounding box parameters, copies over the given bounds
 		/// </summary>
 		/// <param name="bounds"></param>
-		internal void AdjustBounds(Bounds bounds)
+		public void AdjustBounds(Bounds bounds)
 		{
 			_tile.Bounds = bounds;
 		}
