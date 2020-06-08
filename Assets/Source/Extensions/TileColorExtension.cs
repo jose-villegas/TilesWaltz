@@ -1,5 +1,5 @@
 ﻿using System;
-using TilesWalk.Gameplay;
+using System.Linq;
 using TilesWalk.Tile;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -31,10 +31,11 @@ namespace TilesWalk.Extensions
 			return UnityEngine.Color.gray;
 		}
 
-		public static TileColor RandomColor()
+		public static TileColor RandomColor(params TileColor[] filter)
 		{
-			var values = Enum.GetValues(typeof(TileColor));
-			return (TileColor)values.GetValue(Random.Range(1, values.Length));
+			var values = Enum.GetValues(typeof(TileColor)).OfType<TileColor>().ToList();
+			values = values.Where(x => !filter.Contains(x)).ToList();
+			return values.ElementAt(Random.Range(1, values.Count));
 		}
 	}
 }

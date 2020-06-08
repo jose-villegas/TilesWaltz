@@ -40,6 +40,7 @@ namespace TilesWalk.Tile
 			// connect neighbor references
 			_tile.Neighbors[direction] = tile;
 			tile.Neighbors[direction.Opposite()] = _tile;
+			tile.ShuffleColor();
 			// adjust 3d index according to neighbor
 			AdjustNeighborSpace(direction, rule, tile, rootTransform, tileTransform);
 			// refresh shortest path for all related neighbors

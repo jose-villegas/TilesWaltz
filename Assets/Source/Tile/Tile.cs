@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay;
@@ -63,7 +64,7 @@ namespace TilesWalk.Tile
 
 		public void ShuffleColor()
 		{
-			_color = TileColorExtension.RandomColor();
+			_color = TileColorExtension.RandomColor(this.Neighbors.Select(x => x.Value.TileColor).ToArray());
 		}
 
 		public void RefreshShortestLeafPath()
