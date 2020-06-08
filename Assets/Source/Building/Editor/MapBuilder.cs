@@ -35,9 +35,13 @@ namespace TilesWalk.Building.Editor
 			// Get existing open window or if none, make a new one:
 			MapBuilder window = (MapBuilder) EditorWindow.GetWindow(typeof(MapBuilder));
 
-			window._levelTile = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/LevelTile.prefab", typeof(GameObject)) as GameObject;
-			window._regularTile = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Tile.prefab", typeof(GameObject)) as GameObject;
-			window._gameMaps = AssetDatabase.LoadAssetAtPath("Assets/Resources/GameMapsInstaller.asset", typeof(GameMapsInstaller)) as GameMapsInstaller;
+			window._levelTile =
+				AssetDatabase.LoadAssetAtPath("Assets/Prefabs/LevelTile.prefab", typeof(GameObject)) as GameObject;
+			window._regularTile =
+				AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Tile.prefab", typeof(GameObject)) as GameObject;
+			window._gameMaps =
+				AssetDatabase.LoadAssetAtPath("Assets/Resources/GameMapsInstaller.asset", typeof(GameMapsInstaller)) as
+					GameMapsInstaller;
 
 			window.Show();
 		}
@@ -62,132 +66,27 @@ namespace TilesWalk.Building.Editor
 			if (Selection.activeGameObject != null &&
 			    _controllers.TryGetValue(Selection.activeGameObject, out controller))
 			{
-				_insertDirection =
-					(CardinalDirection) EditorGUILayout.EnumPopup("Insertion Direction", _insertDirection);
-				_insertRule = (NeighborWalkRule) EditorGUILayout.EnumPopup("Insertion Direction", _insertRule);
-
-				if (GUILayout.Button("Add Neighbor"))
-				{
-					var instance = PrefabUtility.InstantiatePrefab(_insertRegular ? _regularTile : _levelTile,
-						Selection.activeTransform.parent) as GameObject;
-					_controllers.Add(instance, new TileController());
-					var id = Mathf.Abs(instance.GetInstanceID());
-					_indexes.Add(id, instance);
-					_currentMap.Tiles.Add(id);
-					_currentMap.TileParameters.Add(_insertRegular.ToString() + "," + (_insertRegular ? "none" : _levelName));
-
-					if (!_insertRegular)
-					{
-						var details = instance.GetComponentInChildren<ShowTileMapDetailsCanvas>();
-						details.LevelName = _levelName;
-					}
-
-					// adjust bounds
-					var boxCollider = instance.GetComponentInChildren<BoxCollider>();
-					_controllers[instance].AdjustBounds(boxCollider.bounds);
-
-					controller.AddNeighbor(_insertDirection, _insertRule, _controllers[instance].Tile,
-						Selection.activeTransform, instance.transform);
-
-					var rootIndex = _indexes.FirstOrDefault(x => x.Value == Selection.activeGameObject);
-
-					_currentMap.Instructions.Add(new InsertionInstruction()
-					{
-						direction = _insertDirection,
-						root = rootIndex.Key,
-						rule = _insertRule,
-						tile = id
-					});
-				}
+				NeighborInsertion(controller);
 			}
 			else
 			{
-				if (GUILayout.Button("Create Instance"))
-				{
-					var instance = PrefabUtility.InstantiatePrefab(_insertRegular ? _regularTile : _levelTile,
-						Selection.activeTransform) as GameObject;
-
-					var id = Mathf.Abs(instance.GetInstanceID());
-					_controllers.Add(instance, new TileController());
-					_indexes.Add(id, instance);
-					_currentMap.Tiles.Add(id);
-					_currentMap.TileParameters.Add(_insertRegular.ToString() + "," + (_insertRegular ? "none" : _levelName));
-
-					// adjust bounds
-					var boxCollider = instance.GetComponentInChildren<BoxCollider>();
-					_controllers[instance].AdjustBounds(boxCollider.bounds);
-
-					if (!_insertRegular)
-					{
-						var details = instance.GetComponentInChildren<ShowTileMapDetailsCanvas>();
-						details.LevelName = _levelName;
-					}
-				}
+				NewInstance();
 			}
 
 			if (controller == null && Selection.activeGameObject != null && _gameMaps != null &&
 			    _gameMaps.AvailableMaps != null && _gameMaps.AvailableMaps.Count > 0)
 			{
-				var foundMap = _gameMaps.AvailableMaps.FirstOrDefault(x => x.Id == _mapName);
-
-				if (foundMap != null && GUILayout.Button("Build From Game Map"))
-				{
-					_controllers.Clear();
-					_indexes.Clear();
-
-					for (int i = 0; i < foundMap.Tiles.Count; i++)
-					{
-						var mapTile = foundMap.Tiles[i];
-						var isRegular = bool.Parse(foundMap.TileParameters[i].Split(',')[0]);
-
-						var instance = PrefabUtility.InstantiatePrefab(isRegular ? _regularTile : _levelTile,
-							Selection.activeTransform) as GameObject;
-						// register the new tile
-						_controllers.Add(instance, new TileController());
-						_indexes.Add(mapTile, instance);
-						_currentMap.Tiles.Add(mapTile);
-						_currentMap.TileParameters.Add(foundMap.TileParameters[i]);
-
-						// adjust bounds
-						var boxCollider = instance.GetComponentInChildren<BoxCollider>();
-						_controllers[instance].AdjustBounds(boxCollider.bounds);
-
-						if (!isRegular)
-						{
-							var levelName = foundMap.TileParameters[i].Split(',')[1];
-							var details = instance.GetComponentInChildren<ShowTileMapDetailsCanvas>();
-							details.LevelName = _levelName;
-						}
-					}
-
-					foreach (var instruction in foundMap.Instructions)
-					{
-						var rootIndex = instruction.root;
-						var tileIndex = instruction.tile;
-
-						var rootController = _controllers[_indexes[rootIndex]];
-						var tileController = _controllers[_indexes[tileIndex]];
-						var rootTransform = _indexes[rootIndex].transform;
-						var tileTransform = _indexes[tileIndex].transform;
-
-						// adjust neighbor insertion
-						rootController.AddNeighbor(instruction.direction, instruction.rule, tileController.Tile,
-							rootTransform, tileTransform);
-
-						_currentMap.Instructions.Add(new InsertionInstruction()
-						{
-							direction = instruction.direction,
-							root = rootIndex,
-							rule = instruction.rule,
-							tile = tileIndex
-						});
-					}
-				}
+				BuildFromGameMaps();
 			}
 
 
 			GUILayout.FlexibleSpace();
 
+			SaveToGameMaps();
+		}
+
+		private void SaveToGameMaps()
+		{
 			if (GUILayout.Button("Save to Game Map"))
 			{
 				if (_gameMaps != null)
@@ -207,6 +106,133 @@ namespace TilesWalk.Building.Editor
 						_gameMaps.AvailableMaps.Add(_currentMap);
 					}
 				}
+			}
+		}
+
+		private void BuildFromGameMaps()
+		{
+			var foundMap = _gameMaps.AvailableMaps.FirstOrDefault(x => x.Id == _mapName);
+
+			if (foundMap != null && GUILayout.Button("Build From Game Map"))
+			{
+				_controllers.Clear();
+				_indexes.Clear();
+
+				for (int i = 0; i < foundMap.Tiles.Count; i++)
+				{
+					var mapTile = foundMap.Tiles[i];
+					var isRegular = bool.Parse(foundMap.TileParameters[i].Split(',')[0]);
+
+					var instance = PrefabUtility.InstantiatePrefab(isRegular ? _regularTile : _levelTile,
+						Selection.activeTransform) as GameObject;
+					// register the new tile
+					_controllers.Add(instance, new TileController());
+					_indexes.Add(mapTile, instance);
+					_currentMap.Tiles.Add(mapTile);
+					_currentMap.TileParameters.Add(foundMap.TileParameters[i]);
+
+					// adjust bounds
+					var boxCollider = instance.GetComponentInChildren<BoxCollider>();
+					_controllers[instance].AdjustBounds(boxCollider.bounds);
+
+					if (!isRegular)
+					{
+						var levelName = foundMap.TileParameters[i].Split(',')[1];
+						var details = instance.GetComponentInChildren<LevelNameRequestHandler>();
+						details.LevelName = levelName;
+					}
+				}
+
+				foreach (var instruction in foundMap.Instructions)
+				{
+					var rootIndex = instruction.root;
+					var tileIndex = instruction.tile;
+
+					var rootController = _controllers[_indexes[rootIndex]];
+					var tileController = _controllers[_indexes[tileIndex]];
+					var rootTransform = _indexes[rootIndex].transform;
+					var tileTransform = _indexes[tileIndex].transform;
+
+					// adjust neighbor insertion
+					rootController.AddNeighbor(instruction.direction, instruction.rule, tileController.Tile,
+						rootTransform, tileTransform);
+
+					_currentMap.Instructions.Add(new InsertionInstruction()
+					{
+						direction = instruction.direction,
+						root = rootIndex,
+						rule = instruction.rule,
+						tile = tileIndex
+					});
+				}
+			}
+		}
+
+		private void NewInstance()
+		{
+			if (GUILayout.Button("Create Instance"))
+			{
+				var instance = PrefabUtility.InstantiatePrefab(_insertRegular ? _regularTile : _levelTile,
+					Selection.activeTransform) as GameObject;
+
+				var id = Mathf.Abs(instance.GetInstanceID());
+				_controllers.Add(instance, new TileController());
+				_indexes.Add(id, instance);
+				_currentMap.Tiles.Add(id);
+				_currentMap.TileParameters.Add(_insertRegular.ToString() + "," +
+				                               (_insertRegular ? "none" : _levelName));
+
+				// adjust bounds
+				var boxCollider = instance.GetComponentInChildren<BoxCollider>();
+				_controllers[instance].AdjustBounds(boxCollider.bounds);
+
+				if (!_insertRegular)
+				{
+					var details = instance.GetComponentInChildren<LevelNameRequestHandler>();
+					details.LevelName = _levelName;
+				}
+			}
+		}
+
+		private void NeighborInsertion(TileController controller)
+		{
+			_insertDirection =
+				(CardinalDirection) EditorGUILayout.EnumPopup("Insertion Direction", _insertDirection);
+			_insertRule = (NeighborWalkRule) EditorGUILayout.EnumPopup("Insertion Direction", _insertRule);
+
+			if (GUILayout.Button("Add Neighbor"))
+			{
+				var instance = PrefabUtility.InstantiatePrefab(_insertRegular ? _regularTile : _levelTile,
+					Selection.activeTransform.parent) as GameObject;
+				_controllers.Add(instance, new TileController());
+				var id = Mathf.Abs(instance.GetInstanceID());
+				_indexes.Add(id, instance);
+				_currentMap.Tiles.Add(id);
+				_currentMap.TileParameters.Add(_insertRegular.ToString() + "," +
+				                               (_insertRegular ? "none" : _levelName));
+
+				if (!_insertRegular)
+				{
+					var details = instance.GetComponentInChildren<LevelNameRequestHandler>();
+					details.LevelName = _levelName;
+				}
+
+				// adjust bounds
+				var boxCollider = instance.GetComponentInChildren<BoxCollider>();
+				_controllers[instance].AdjustBounds(boxCollider.bounds);
+
+				controller.AddNeighbor(_insertDirection, _insertRule, _controllers[instance].Tile,
+					Selection.activeTransform, instance.transform);
+
+				var rootIndex = _indexes.FirstOrDefault(x => x.Value == Selection.activeGameObject);
+
+				_currentMap.Instructions.Add(new InsertionInstruction()
+				{
+					direction = _insertDirection,
+					root = rootIndex.Key,
+					rule = _insertRule,
+					tile = id
+				});
 			}
 		}
 	}

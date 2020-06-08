@@ -408,6 +408,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1782906905635254893}
+  - component: {fileID: 3638524560124779930}
   m_Layer: 0
   m_Name: LevelTile
   m_TagString: Untagged
@@ -431,6 +432,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3638524560124779930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782906905635254889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb03b6330256cd64a9dd6621341b2824, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelName: 
 --- !u!1 &3786277928631288638
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,7 +551,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2552915eaf51d8c40b12e3c6f46a232c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelName: 
 --- !u!1 &5536155092589433250
 GameObject:
   m_ObjectHideFlags: 0

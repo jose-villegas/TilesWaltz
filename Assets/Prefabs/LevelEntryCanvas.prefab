@@ -418,6 +418,8 @@ MonoBehaviour:
   _name: {fileID: 3667716818991602055}
   _target: {fileID: 3667716818137066654}
   _playButton: {fileID: 3667716818627951023}
+  _nextLevel: {fileID: 469687202868383417}
+  _previousLevel: {fileID: 9050166670082394922}
 --- !u!225 &4435396061285242756
 CanvasGroup:
   m_ObjectHideFlags: 0

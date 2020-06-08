@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using BayatGames.SaveGameFree.Examples;
 using TilesWalk.Building.Level;
 using TilesWalk.Navigation.UI;
+using TMPro.EditorUtilities;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -8,23 +10,12 @@ using Zenject;
 
 namespace TilesWalk.Navigation.Map
 {
-	public class ShowTileMapDetailsCanvas : MonoBehaviour
+	public class ShowTileMapDetailsCanvas : LevelNameRequireBehaviour
 	{
-		[SerializeField] private string _levelName;
-
 		[Inject] private TileMapDetailsCanvas _detailsCanvas;
-		[Inject] private List<TileMap> _availableMaps;
-		private TileMap _tileMap;
 
-		public string LevelName
+		protected override void OnTileMapFound()
 		{
-			get => _levelName;
-			set => _levelName = value;
-		}
-
-		private void Start()
-		{
-			_tileMap = _availableMaps.Find(x => x.Id == _levelName);
 			transform.OnMouseDownAsObservable().Subscribe(OnMapTileClick).AddTo(this);
 		}
 
@@ -36,7 +27,7 @@ namespace TilesWalk.Navigation.Map
 			}
 			else
 			{
-				_detailsCanvas.LoadMapData(_tileMap);
+				_detailsCanvas.LevelName.Value = LevelName.Value;
 				_detailsCanvas.Show();
 			}
 		}

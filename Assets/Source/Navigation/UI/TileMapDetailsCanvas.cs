@@ -14,21 +14,22 @@ using Zenject;
 
 namespace TilesWalk.Navigation.UI
 {
-	public class TileMapDetailsCanvas : CanvasGroupBehaviour
+	public class TileMapDetailsCanvas : CanvasGroupBehaviour, ILevelNameRequire
 	{
-		[SerializeField] private bool _loadFromLevelName;
-
-		[SerializeField, ShowIf("_loadFromLevelName")]
-		private string _levelName;
-
 		[SerializeField] private bool _hideAtStart;
 		[SerializeField] private TextMeshProUGUI _name;
 		[SerializeField] private TextMeshProUGUI _target;
 		[SerializeField] private Button _playButton;
+		[Header("Navigation")]
+		[SerializeField] private Button _nextLevel;
+		[SerializeField] private Button _previousLevel;
 
 		[Inject] private List<TileMap> _availableMaps;
 		[Inject] private MapLevelBridge _mapLevelBridge;
-		private TileMap _currentTileMap;
+
+		public ReactiveProperty<string> LevelName { get; set; } =  new ReactiveProperty<string>();
+		public TileMap TileMap { get; private set; }
+
 
 		private void Start()
 		{
@@ -36,23 +37,27 @@ namespace TilesWalk.Navigation.UI
 
 			_playButton.OnClickAsObservable().Subscribe(OnPlayLevelClick).AddTo(this);
 
-			if (!_loadFromLevelName) return;
+			LevelName.Subscribe(level =>
+			{
+				TileMap = _availableMaps.Find(x => x.Id == level);
 
-			var found = _availableMaps.Find(x => x.Id == _levelName);
-
-			if (found != null) LoadMapData(found);
+				if (TileMap != null)
+				{
+					LoadMapData();
+				}
+			}).AddTo(this);
 		}
 
 		private void OnPlayLevelClick(Unit u)
 		{
-			_mapLevelBridge.SelectedTileMap = _currentTileMap;
+			_mapLevelBridge.SelectedTileMap = TileMap;
 		}
 
-		public void LoadMapData(TileMap tileMap)
+		private void LoadMapData()
 		{
-			_currentTileMap = tileMap;
-			_name.text = tileMap.Id;
-			_target.text = tileMap.Target.Localize();
+			_name.text = TileMap.Id;
+			_target.text = TileMap.Target.Localize();
 		}
+
 	}
 }
