@@ -17,8 +17,14 @@ namespace TilesWalk.Navigation.Map
 		{
 			LevelName.Subscribe(level =>
 			{
+				if (string.IsNullOrEmpty(level)) return;
+
 				TileMap = _availableMaps.Find(x => x.Id == level);
-				OnTileMapFound();
+
+				if (TileMap != null)
+				{
+					OnTileMapFound();
+				}
 			}).AddTo(this);
 		}
 

@@ -117,6 +117,105 @@ MonoBehaviour:
     Tiles: 6ebefcffd4bdfcff9abdfcff30bdfcff7abcfcff10bcfcff9abbfcff58bbfcffdebafcff68bafcffb8b9fcffdeb8fcff60b8fcffe2b7fcff78b7fcff06b7fcff8cb6fcffe0b5fcff3cb5fcffbab4fcff08b4fcff4eb3fcffc0b2fcff56b2fcff
     FinishCondition: 0
     TileParameters: []
+  - Id: The Chair
+    StarsRequired: 0
+    Target: 6000
+    Instructions:
+    - tile: -213548
+      root: -213394
+      direction: 1
+      rule: 1
+    - tile: -213606
+      root: -213394
+      direction: 2
+      rule: 1
+    - tile: -214306
+      root: -213394
+      direction: 4
+      rule: 1
+    - tile: -213712
+      root: -213606
+      direction: 2
+      rule: 1
+    - tile: -214944
+      root: -213606
+      direction: 8
+      rule: 1
+    - tile: -213894
+      root: -213548
+      direction: 1
+      rule: 1
+    - tile: -215070
+      root: -213548
+      direction: 8
+      rule: 1
+    - tile: -214000
+      root: -213894
+      direction: 1
+      rule: 1
+    - tile: -214818
+      root: -213894
+      direction: 4
+      rule: 1
+    - tile: -214118
+      root: -213712
+      direction: 2
+      rule: 1
+    - tile: -214184
+      root: -213712
+      direction: 4
+      rule: 1
+    - tile: -214424
+      root: -214306
+      direction: 4
+      rule: 1
+    - tile: -214600
+      root: -214424
+      direction: 4
+      rule: 1
+    - tile: -215176
+      root: -214944
+      direction: 8
+      rule: 1
+    - tile: -215290
+      root: -215070
+      direction: 8
+      rule: 1
+    - tile: -215412
+      root: -214818
+      direction: 4
+      rule: 1
+    - tile: -215584
+      root: -215176
+      direction: 8
+      rule: 1
+    - tile: -215748
+      root: -215584
+      direction: 8
+      rule: 1
+    - tile: -215878
+      root: -215412
+      direction: 4
+      rule: 1
+    - tile: -216056
+      root: -215878
+      direction: 4
+      rule: 1
+    - tile: -216242
+      root: -216056
+      direction: 4
+      rule: 1
+    - tile: -216384
+      root: -214118
+      direction: 8
+      rule: 1
+    - tile: -216490
+      root: -216384
+      direction: 8
+      rule: 1
+    Tiles: 6ebefcffd4bdfcff9abdfcff30bdfcff7abcfcff10bcfcff9abbfcff58bbfcffdebafcff68bafcffb8b9fcffdeb8fcff60b8fcffe2b7fcff78b7fcff06b7fcff8cb6fcffe0b5fcff3cb5fcffbab4fcff08b4fcff4eb3fcffc0b2fcff56b2fcff
+    FinishCondition: 0
+    TileParameters: []
   - Id: Game Map
     StarsRequired: 0
     Target: 0
