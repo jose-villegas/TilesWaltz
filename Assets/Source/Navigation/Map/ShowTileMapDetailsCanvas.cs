@@ -2,6 +2,7 @@
 using System.Linq;
 using BayatGames.SaveGameFree.Examples;
 using TilesWalk.Building.Level;
+using TilesWalk.Gameplay.Score;
 using TilesWalk.Navigation.UI;
 using TMPro.EditorUtilities;
 using UniRx;
@@ -15,7 +16,7 @@ namespace TilesWalk.Navigation.Map
 	{
 		[Inject] private TileMapDetailsCanvas _detailsCanvas;
 		[Inject] private MapLevelBridge _mapLevelBridge;
-		[Inject] private List<TileMap> _availableMaps;
+		[Inject] private Dictionary<string, LevelScore> _scoreRecords;
 
 		private void Awake()
 		{
@@ -42,8 +43,8 @@ namespace TilesWalk.Navigation.Map
 					if (_mapLevelBridge.Results.Points.Last >= TileMap.Target)
 					{
 						// find next level
-						var index = _availableMaps.IndexOf(TileMap);
-						var fromIndex = _availableMaps.GetRange(index, _availableMaps.Count - index);
+						var index = AvailableMaps.IndexOf(TileMap);
+						var fromIndex = AvailableMaps.GetRange(index, AvailableMaps.Count - index);
 						// ignore map as it should have a target of 0
 						var found = fromIndex.First(x => x.Target > 0 && x.Id != TileMap.Id);
 
@@ -53,6 +54,18 @@ namespace TilesWalk.Navigation.Map
 							_detailsCanvas.Show();
 						}
 					}
+				}
+			}
+			// find the latest record
+			else
+			{
+				// find the first map without record
+				var index = AvailableMaps.FindIndex(x => x.Target > 0 && !_scoreRecords.ContainsKey(x.Id));
+
+				if (AvailableMaps[index].Id == TileMap.Id)
+				{
+					_detailsCanvas.LevelName.Value = LevelName.Value;
+					_detailsCanvas.Show();
 				}
 			}
 		}

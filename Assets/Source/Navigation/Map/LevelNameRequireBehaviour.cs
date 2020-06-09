@@ -13,6 +13,8 @@ namespace TilesWalk.Navigation.Map
 		public ReactiveProperty<string> LevelName { get; set; } = new ReactiveProperty<string>();
 		public TileMap TileMap { get; private set; }
 
+		public List<TileMap> AvailableMaps => _availableMaps;
+
 		protected virtual void Start()
 		{
 			LevelName.Subscribe(level =>

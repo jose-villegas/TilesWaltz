@@ -16,7 +16,6 @@ namespace TilesWalk.Navigation.UI
 {
 	public class TileMapDetailsCanvas : CanvasGroupBehaviour, ILevelNameRequire
 	{
-		[SerializeField] private bool _hideAtStart;
 		[SerializeField] private TextMeshProUGUI _name;
 		[SerializeField] private TextMeshProUGUI _target;
 		[SerializeField] private Button _playButton;
@@ -33,8 +32,6 @@ namespace TilesWalk.Navigation.UI
 
 		private void Start()
 		{
-			if (_hideAtStart) Hide();
-
 			LevelName.Subscribe(level =>
 			{
 				TileMap = _availableMaps.Find(x => x.Id == level);

@@ -35,7 +35,13 @@ namespace TilesWalk.Gameplay.Score
 		{
 			_tileMap.OnTileRemovedAsObservable().Subscribe(OnTileRemoved).AddTo(this);
 			_tileMap.OnComboRemovalAsObservable().Subscribe(OnComboRemoval).AddTo(this);
-			_tileMap.OnTileMapLoadedAsObservable().Subscribe(_ => { _onScoresLoaded?.OnNext(LevelScore); }).AddTo(this);
+			_tileMap.OnTileMapLoadedAsObservable().Subscribe(OnTileMapLoaded).AddTo(this);
+		}
+
+		private void OnTileMapLoaded(TileMap _)
+		{
+			AddPoints(0);
+			_onScoresLoaded?.OnNext(LevelScore);
 		}
 
 		public void AddPoints(int points)

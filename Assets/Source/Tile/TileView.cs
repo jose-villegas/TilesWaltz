@@ -10,6 +10,7 @@ using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 using UniRx;
 using UniRx.Triggers;
+using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -67,15 +68,20 @@ namespace TilesWalk.Tile
 
 		private void OnDestroy()
 		{
-			foreach (var item in _controller.Tile.Neighbors)
+			if (Application.isEditor)
 			{
-				item.Value.Neighbors.Remove(item.Key.Opposite());
-				item.Value.HingePoints.Remove(item.Key.Opposite());
+				foreach (var item in _controller.Tile.Neighbors)
+				{
+					item.Value.Neighbors.Remove(item.Key.Opposite());
+					item.Value.HingePoints.Remove(item.Key.Opposite());
+				}
+
+				_tileMap.RefreshAllPaths();
+				// unregistered when destroyed
+				_tileMap.RemoveTile(this);
 			}
 
-			_tileMap.RefreshAllPaths();
-			// unregistered when destroyed
-			_tileMap.RemoveTile(this);
+			MovementLocked = false;
 		}
 
 		private void Start()
