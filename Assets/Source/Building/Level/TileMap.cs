@@ -9,6 +9,7 @@ namespace TilesWalk.Building.Level
 	public class TileMap : IModel
 	{
 		public string Id;
+		public int StarsRequired;
 		public int Target;
 		public List<InsertionInstruction> Instructions;
 		public List<int> Tiles;
