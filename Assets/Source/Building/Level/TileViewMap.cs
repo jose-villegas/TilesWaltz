@@ -49,7 +49,7 @@ namespace TilesWalk.Building.Level
 			{
 				_viewFactory.IsAssetLoaded.Subscribe(ready =>
 				{
-					if (ready) BuildTileMap(_mapLevelBridge.SelectedTileMap);
+					if (ready) BuildTileMap(_mapLevelBridge.SelectedLevel);
 				});
 			}
 		}

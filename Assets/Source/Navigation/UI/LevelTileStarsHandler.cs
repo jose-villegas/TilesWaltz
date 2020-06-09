@@ -27,7 +27,7 @@ namespace TilesWalk.Navigation.UI
 				return;
 			}
 
-			var ratio = (float) TileMap.Target / levelScore.Points.Highest;
+			var ratio = (float) levelScore.Points.Highest / TileMap.Target;
 
 			for (int i = 0; i < _stars.Length; i++)
 			{

@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using ModestTree;
 using TilesWalk.Building.Level;
-using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Score;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
-using UnityEngine.Timeline;
 using Zenject;
 
 namespace TilesWalk.Gameplay.Condition

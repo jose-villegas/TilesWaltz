@@ -35,8 +35,6 @@ namespace TilesWalk.Navigation.UI
 		{
 			if (_hideAtStart) Hide();
 
-			_playButton.OnClickAsObservable().Subscribe(OnPlayLevelClick).AddTo(this);
-
 			LevelName.Subscribe(level =>
 			{
 				TileMap = _availableMaps.Find(x => x.Id == level);
@@ -48,15 +46,13 @@ namespace TilesWalk.Navigation.UI
 			}).AddTo(this);
 		}
 
-		private void OnPlayLevelClick(Unit u)
-		{
-			_mapLevelBridge.SelectedTileMap = TileMap;
-		}
-
 		private void LoadMapData()
 		{
 			_name.text = TileMap.Id;
 			_target.text = TileMap.Target.Localize();
+			
+			// prepare the bridge
+			_mapLevelBridge.SelectedLevel = TileMap;
 		}
 
 	}

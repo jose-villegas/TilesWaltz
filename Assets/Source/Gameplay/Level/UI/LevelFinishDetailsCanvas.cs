@@ -5,6 +5,7 @@ using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.General.UI;
+using TilesWalk.Navigation.Map;
 using TilesWalk.Navigation.UI;
 using TMPro;
 using UniRx;
@@ -35,6 +36,7 @@ namespace TilesWalk.Gameplay.Level.UI
 		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;
 		[Inject] private List<TileMap> _availableMaps;
 		[Inject] private ScorePointsConfiguration _scorePointsConfiguration;
+		[Inject] private MapLevelBridge _mapLevelBridge;
 
 		private void Start()
 		{
@@ -44,6 +46,10 @@ namespace TilesWalk.Gameplay.Level.UI
 		private void OnLevelFinish(LevelScore score)
 		{
 			var tileMap = _availableMaps.Find(x => x.Id == score.Id);
+
+			// prepare the bridge
+			_mapLevelBridge.SelectedLevel = tileMap;
+			_mapLevelBridge.Results = score;
 
 			// points
 			_points.text = score.Points.Last.Localize();

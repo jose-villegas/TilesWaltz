@@ -19,7 +19,8 @@ MonoBehaviour:
   _moves: 0
   _availableMaps:
   - Id: Equalizer
-    Target: 6000
+    StarsRequired: 0
+    Target: 4500
     Instructions:
     - tile: -213548
       root: -213394
@@ -117,6 +118,7 @@ MonoBehaviour:
     FinishCondition: 0
     TileParameters: []
   - Id: Game Map
+    StarsRequired: 0
     Target: 0
     Instructions:
     - tile: 87060
