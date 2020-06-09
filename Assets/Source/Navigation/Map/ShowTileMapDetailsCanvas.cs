@@ -14,9 +14,13 @@ namespace TilesWalk.Navigation.Map
 	{
 		[Inject] private TileMapDetailsCanvas _detailsCanvas;
 
-		protected override void OnTileMapFound()
+		private void Awake()
 		{
 			transform.OnMouseDownAsObservable().Subscribe(OnMapTileClick).AddTo(this);
+		}
+
+		protected override void OnTileMapFound()
+		{
 		}
 
 		private void OnMapTileClick(Unit u)

@@ -134,10 +134,10 @@ MonoBehaviour:
     Tiles: 885301001454010060540100a6540100
     FinishCondition: 0
     TileParameters:
-    - False
-    - True
-    - True
-    - False
+    - False,Equalizer
+    - True,none
+    - True,none
+    - False,The Chair
   _movesFinishConditions: []
   _timeFinishConditions:
   - _id: Equalizer

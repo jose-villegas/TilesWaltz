@@ -16,8 +16,18 @@ namespace TilesWalk.Gameplay.Level.UI
 	public class LevelFinishDetailsCanvas : CanvasGroupBehaviour
 	{
 		[SerializeField] private TextMeshProUGUI _points;
-		[SerializeField] private TextMeshProUGUI _time;
-		[SerializeField] private TextMeshProUGUI _moves;
+		[Header("Time")] 
+		[SerializeField] private GameObject _timeContainer;
+		[SerializeField] private TextMeshProUGUI _timeLimit;
+		[SerializeField] private TextMeshProUGUI _timeTarget;
+		[SerializeField] private TextMeshProUGUI _timeExtra;
+		[Header("Moves")]
+		[SerializeField] private GameObject _movesContainer;
+		[SerializeField] private TextMeshProUGUI _movesLimit;
+		[SerializeField] private TextMeshProUGUI _movesTarget;
+		[SerializeField] private TextMeshProUGUI _movesExtra;
+
+		[Header("Result")]
 		[SerializeField] private TextMeshProUGUI _extraPoints;
 		[SerializeField] private TextMeshProUGUI _totalPoints;
 
@@ -54,7 +64,9 @@ namespace TilesWalk.Gameplay.Level.UI
 
 			if (tileMap.FinishCondition == FinishCondition.MovesLimit)
 			{
-				_time.text = string.Format("{0}-\n" + "<u>{1}</u>\n" + "{2}", limit, target, limit - target);
+				_timeLimit.text = limit.Localize();
+				_timeTarget.text = target.Localize();
+				_timeExtra.text = (limit - target).Localize();
 
 				var extra = ((limit - target) * _scorePointsConfiguration.PointsPerExtraMove);
 				_extraPoints.text = extra.Localize();
@@ -63,7 +75,7 @@ namespace TilesWalk.Gameplay.Level.UI
 			}
 			else
 			{
-				_moves.transform.parent.gameObject.SetActive(false);
+				_movesContainer.transform.gameObject.SetActive(false);
 			}
 		}
 
@@ -75,10 +87,9 @@ namespace TilesWalk.Gameplay.Level.UI
 
 			if (tileMap.FinishCondition == FinishCondition.TimeLimit)
 			{
-				_time.text = string.Format("{0}-\n" + "<u>{1}</u>\n" + "{2}",
-					new DateTime(limit.Ticks).ToString("mm:ss"),
-					new DateTime(target.Ticks).ToString("mm:ss"),
-					new DateTime((limit - target).Ticks).ToString("mm:ss"));
+				_timeLimit.text = new DateTime(limit.Ticks).ToString("mm:ss");
+				_timeTarget.text = new DateTime(target.Ticks).ToString("mm:ss");
+				_timeExtra.text = new DateTime((limit - target).Ticks).ToString("mm:ss");
 
 				var extra = Mathf.RoundToInt((float)(limit - target).TotalSeconds) * 
 				            _scorePointsConfiguration.PointsPerExtraSecond;
@@ -88,7 +99,7 @@ namespace TilesWalk.Gameplay.Level.UI
 			}
 			else
 			{
-				_time.transform.parent.gameObject.SetActive(false);
+				_timeContainer.transform.gameObject.SetActive(false);
 			}
 		}
 	}
