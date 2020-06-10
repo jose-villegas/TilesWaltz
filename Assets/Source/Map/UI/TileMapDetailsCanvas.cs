@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using ModestTree;
-using NaughtyAttributes;
 using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
+using TilesWalk.Gameplay.Score;
 using TilesWalk.General.UI;
 using TilesWalk.Map.Bridge;
 using TilesWalk.Map.Scaffolding;
 using TilesWalk.Map.Tile;
 using TMPro;
-using TMPro.EditorUtilities;
 using UniRx;
-using UnityEditor.Build.Pipeline;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -22,6 +19,7 @@ namespace TilesWalk.Navigation.UI
 	{
 		[SerializeField] private TextMeshProUGUI _name;
 		[SerializeField] private TextMeshProUGUI _target;
+		[SerializeField] private TextMeshProUGUI _stars;
 
 		[Header("Navigation")] [SerializeField]
 		private Button _nextLevel;
@@ -31,6 +29,7 @@ namespace TilesWalk.Navigation.UI
 		[Inject] private List<TileMap> _availableMaps;
 		[Inject] private MapLevelBridge _mapLevelBridge;
 		[Inject] private LevelTilesHandler _levelTilesHandler;
+		[Inject] private GameScoresHelper _gameScoresHelper;
 
 		public ReactiveProperty<string> LevelName { get; set; } = new ReactiveProperty<string>();
 		public TileMap TileMap { get; private set; }
@@ -79,9 +78,26 @@ namespace TilesWalk.Navigation.UI
 		{
 			_name.text = TileMap.Id;
 			_target.text = TileMap.Target.Localize();
+			_stars.text = $"{TileMap.StarsRequired}/{_gameScoresHelper.GameStars}";
 
 			// prepare the bridge
 			_mapLevelBridge.SelectedLevel = TileMap;
+
+			// set navigation buttons
+			var levelTile = _levelTilesHandler[TileMap];
+			var index = _levelTilesHandler.LevelTiles.IndexOf(levelTile);
+
+			if (index == 0)
+			{
+				_nextLevel.interactable = true;
+				_previousLevel.interactable = false;
+			}
+
+			if (index == _levelTilesHandler.LevelTiles.Length - 1)
+			{
+				_nextLevel.interactable = false;
+				_previousLevel.interactable = true;
+			}
 		}
 	}
 }

@@ -17,8 +17,7 @@ namespace TilesWalk.Navigation.UI
 		[SerializeField] private Sprite _starFilledSprite;
 		[SerializeField] private Image[] _stars;
 
-		[Inject] private Dictionary<string, LevelScore> _scoreRecords;
-		[Inject] private ScorePointsConfiguration _scorePointsSettings;
+		[Inject] private GameScoresHelper _gameScoresHelper;
 
 		private void Awake()
 		{
@@ -29,28 +28,13 @@ namespace TilesWalk.Navigation.UI
 		{
 			if (tileMap == null) return;
 
-			if (!_scoreRecords.TryGetValue(tileMap.Id, out var levelScore))
-			{
-				return;
-			}
-
-			var ratio = (float) levelScore.Points.Highest / tileMap.Target;
+			var stars = _gameScoresHelper.GetStarCount(tileMap);
 
 			for (int i = 0; i < _stars.Length; i++)
 			{
 				_stars[i].sprite = _starSprite;
 
-				if (i == 0 && ratio > _scorePointsSettings.OneStarRange)
-				{
-					_stars[i].sprite = _starFilledSprite;
-				}
-
-				if (i == 1 && ratio > _scorePointsSettings.TwoStarRange)
-				{
-					_stars[i].sprite = _starFilledSprite;
-				}
-
-				if (i == 2 && ratio >= 1f)
+				if (stars >= i + 1)
 				{
 					_stars[i].sprite = _starFilledSprite;
 				}

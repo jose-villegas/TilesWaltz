@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using TilesWalk.Map.Tile;
 using TilesWalk.Navigation.UI;
 using UniRx;
@@ -8,6 +7,9 @@ using Zenject;
 
 namespace TilesWalk.Map.Camera
 {
+	/// <summary>
+	/// Camera ocntroller for the game map view
+	/// </summary>
 	public class GameMapCameraHandler : MonoBehaviour
 	{
 		[Inject] private LevelTilesHandler _levelTilesHandler;
@@ -23,6 +25,10 @@ namespace TilesWalk.Map.Camera
 			_levelTilesHandler.OnLevelTilesMapsReadyAsObservable().Subscribe(OnLevelTilesMapsReady).AddTo(this);
 		}
 
+		/// <summary>
+		/// Find the selected <see cref="LevelTile"/> to focus the camera at
+		/// </summary>
+		/// <param name="unit"></param>
 		private void OnDetailsCanvasShown(Unit unit)
 		{
 			var levelTile = _levelTilesHandler.LevelTiles.FirstOrDefault(x =>
@@ -38,6 +44,11 @@ namespace TilesWalk.Map.Camera
 			if (levelTile != null) LookAtLevelTile(levelTile);
 		}
 
+
+		/// <summary>
+		/// Subscribes tile click action
+		/// </summary>
+		/// <param name="levelTiles"></param>
 		private void OnLevelTilesMapsReady(LevelTile[] levelTiles)
 		{
 			foreach (var tile in levelTiles)
@@ -46,6 +57,10 @@ namespace TilesWalk.Map.Camera
 			}
 		}
 
+		/// <summary>
+		/// Translates the camera to a proper position to look at the selected <see cref="LevelTile"/>
+		/// </summary>
+		/// <param name="tile"></param>
 		private void LookAtLevelTile(LevelTile tile)
 		{
 			transform.position = _initialPosition + tile.transform.position;

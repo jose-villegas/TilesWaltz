@@ -1,4 +1,5 @@
 ﻿using System;
+using UniRx;
 using UnityEngine;
 
 namespace TilesWalk.Gameplay.Score
@@ -13,6 +14,13 @@ namespace TilesWalk.Gameplay.Score
 		public T Lowest => _lowest;
 		public T Last => _last;
 
+		private Subject<Record<T>> _onRecordUpdated;
+
+		public IObservable<Record<T>> OnRecordUpdatedAsObservable()
+		{
+			return _onRecordUpdated = _onRecordUpdated ?? new Subject<Record<T>>();
+		}
+
 		public void Update(T record)
 		{
 			_last = record;
@@ -26,6 +34,8 @@ namespace TilesWalk.Gameplay.Score
 			{
 				_lowest = record;
 			}
+
+			_onRecordUpdated?.OnNext(this);
 		}
 
 		public Record()

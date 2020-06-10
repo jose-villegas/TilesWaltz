@@ -755,10 +755,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982853961d3463540ad0f9facef73c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hideAtStart: 1
   _name: {fileID: 3667716818991602055}
   _target: {fileID: 3667716818137066654}
-  _playButton: {fileID: 1371798736760002733}
+  _stars: {fileID: 8348607577319846565}
   _nextLevel: {fileID: 469687202868383417}
   _previousLevel: {fileID: 9050166670082394922}
 --- !u!225 &4435396061285242756
