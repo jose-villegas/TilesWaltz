@@ -20,7 +20,7 @@ namespace TilesWalk.Map.Tile
 			transform.OnMouseDownAsObservable().Subscribe(OnMapTileClick).AddTo(this);
 		}
 
-		private void OnMapTileClick(Unit u)
+		public void OnMapTileClick(Unit u)
 		{
 			if (_detailsCanvas.IsVisible && _detailsCanvas.LevelName.Value == LevelName.Value)
 			{

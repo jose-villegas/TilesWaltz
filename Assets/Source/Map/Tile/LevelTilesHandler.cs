@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.Navigation.UI;
@@ -20,6 +22,22 @@ namespace TilesWalk.Map.Tile
 		private Subject<LevelTile[]> _levelTilesMapsReady;
 
 		public LevelTile[] LevelTiles => _levelTiles;
+
+		public LevelTile this[TileMap map]
+		{
+			get
+			{
+				return _levelTiles.FirstOrDefault(x => x.TileMap.Id == map.Id);
+			}
+		}
+
+		public LevelTile this[int i]
+		{
+			get
+			{
+				return _levelTiles[i];
+			}
+		}
 
 		private void Awake()
 		{
