@@ -10,8 +10,8 @@ namespace TilesWalk.Navigation.Map
 	{
 		[Inject] private List<TileMap> _availableMaps;
 
-		public ReactiveProperty<string> LevelName { get; set; } = new ReactiveProperty<string>();
-		public TileMap TileMap { get; private set; }
+		public ReactiveProperty<string> LevelName { get; } = new ReactiveProperty<string>();
+		public ReactiveProperty<TileMap> TileMap { get; } = new ReactiveProperty<TileMap>();
 
 		public List<TileMap> AvailableMaps => _availableMaps;
 
@@ -21,15 +21,8 @@ namespace TilesWalk.Navigation.Map
 			{
 				if (string.IsNullOrEmpty(level)) return;
 
-				TileMap = _availableMaps.Find(x => x.Id == level);
-
-				if (TileMap != null)
-				{
-					OnTileMapFound();
-				}
+				TileMap.Value = _availableMaps.Find(x => x.Id == level);
 			}).AddTo(this);
 		}
-
-		protected abstract void OnTileMapFound();
 	}
 }

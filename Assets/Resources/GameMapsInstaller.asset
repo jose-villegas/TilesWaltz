@@ -20,7 +20,7 @@ MonoBehaviour:
   _availableMaps:
   - Id: Equalizer
     StarsRequired: 0
-    Target: 4500
+    Target: 4000
     Instructions:
     - tile: -213548
       root: -213394
@@ -242,4 +242,6 @@ MonoBehaviour:
   _movesFinishConditions: []
   _timeFinishConditions:
   - _id: Equalizer
+    _limit: 60
+  - _id: The Chair
     _limit: 60

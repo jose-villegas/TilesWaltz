@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.Gameplay.Score.Installer;
 using TilesWalk.Navigation.Map;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -18,16 +20,21 @@ namespace TilesWalk.Navigation.UI
 		[Inject] private Dictionary<string, LevelScore> _scoreRecords;
 		[Inject] private ScorePointsConfiguration _scorePointsSettings;
 
-		protected override void OnTileMapFound()
+		private void Start()
 		{
-			if (LevelName?.Value == null) return;
+			TileMap.Subscribe(OnTileMapUpdated).AddTo(this);
+		}
 
-			if (!_scoreRecords.TryGetValue(LevelName.Value, out var levelScore))
+		protected void OnTileMapUpdated(TileMap tileMap)
+		{
+			if (tileMap == null) return;
+
+			if (!_scoreRecords.TryGetValue(tileMap.Id, out var levelScore))
 			{
 				return;
 			}
 
-			var ratio = (float) levelScore.Points.Highest / TileMap.Target;
+			var ratio = (float) levelScore.Points.Highest / tileMap.Target;
 
 			for (int i = 0; i < _stars.Length; i++)
 			{

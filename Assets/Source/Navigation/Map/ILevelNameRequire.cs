@@ -4,6 +4,6 @@ namespace TilesWalk.Navigation.Map
 {
 	interface ILevelNameRequire
 	{
-		ReactiveProperty<string> LevelName { get; set; }
+		ReactiveProperty<string> LevelName { get; }
 	}
 }
