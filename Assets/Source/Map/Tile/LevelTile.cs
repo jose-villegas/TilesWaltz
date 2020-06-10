@@ -1,22 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using BayatGames.SaveGameFree.Examples;
-using TilesWalk.Building.Level;
-using TilesWalk.Gameplay.Score;
+﻿using System;
+using TilesWalk.Map.Bridge;
+using TilesWalk.Map.Scaffolding;
 using TilesWalk.Navigation.UI;
-using TMPro.EditorUtilities;
 using UniRx;
 using UniRx.Triggers;
-using UnityEngine;
 using Zenject;
 
-namespace TilesWalk.Navigation.Map
+namespace TilesWalk.Map.Tile
 {
 	public class LevelTile : LevelNameRequireBehaviour
 	{
 		[Inject] private TileMapDetailsCanvas _detailsCanvas;
 		[Inject] private MapLevelBridge _mapLevelBridge;
 
+		private Subject<LevelTile> _onLevelTileClick;
 
 		private void Awake()
 		{
@@ -34,6 +31,19 @@ namespace TilesWalk.Navigation.Map
 				_detailsCanvas.LevelName.Value = LevelName.Value;
 				_detailsCanvas.Show();
 			}
+
+			_onLevelTileClick?.OnNext(this);
+		}
+
+		public IObservable<LevelTile> OnLevelTileClickAsObservable()
+		{
+			return _onLevelTileClick = _onLevelTileClick ?? new Subject<LevelTile>();
+		}
+
+		protected override void RaiseOnCompletedOnDestroy()
+		{
+			_onLevelTileClick?.OnCompleted();
+			base.RaiseOnCompletedOnDestroy();
 		}
 	}
 }

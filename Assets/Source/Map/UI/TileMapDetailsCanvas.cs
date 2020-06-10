@@ -3,7 +3,8 @@ using NaughtyAttributes;
 using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.General.UI;
-using TilesWalk.Navigation.Map;
+using TilesWalk.Map.Bridge;
+using TilesWalk.Map.Scaffolding;
 using TMPro;
 using TMPro.EditorUtilities;
 using UniRx;
@@ -29,8 +30,7 @@ namespace TilesWalk.Navigation.UI
 		public ReactiveProperty<string> LevelName { get; set; } =  new ReactiveProperty<string>();
 		public TileMap TileMap { get; private set; }
 
-
-		private void Start()
+		private void Awake()
 		{
 			LevelName.Subscribe(level =>
 			{

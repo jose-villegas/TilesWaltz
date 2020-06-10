@@ -2,11 +2,10 @@
 using TilesWalk.Gameplay.Score;
 using UnityEngine;
 
-namespace TilesWalk.Navigation.Map
+namespace TilesWalk.Map.Bridge
 {
 	public class MapLevelBridge : MonoBehaviour
 	{
 		public TileMap SelectedLevel { get; set; } = null;
-		public LevelScore Results { get; set; } = null;
 	}
 }

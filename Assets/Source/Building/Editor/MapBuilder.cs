@@ -4,7 +4,7 @@ using System.Linq;
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Installer;
 using TilesWalk.General;
-using TilesWalk.Navigation.Map;
+using TilesWalk.Map.Scaffolding;
 using TilesWalk.Tile;
 using TilesWalk.Tile.Rules;
 using UnityEditor;

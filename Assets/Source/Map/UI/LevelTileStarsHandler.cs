@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.Gameplay.Score.Installer;
-using TilesWalk.Navigation.Map;
+using TilesWalk.Map.Scaffolding;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,9 +20,9 @@ namespace TilesWalk.Navigation.UI
 		[Inject] private Dictionary<string, LevelScore> _scoreRecords;
 		[Inject] private ScorePointsConfiguration _scorePointsSettings;
 
-		private void Start()
+		private void Awake()
 		{
-			TileMap.Subscribe(OnTileMapUpdated).AddTo(this);
+			OnTileMapFoundAsObservable().Subscribe(OnTileMapUpdated).AddTo(this);
 		}
 
 		protected void OnTileMapUpdated(TileMap tileMap)

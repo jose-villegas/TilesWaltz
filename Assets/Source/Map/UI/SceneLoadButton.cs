@@ -1,4 +1,5 @@
 ﻿using NaughtyAttributes;
+using TilesWalk.General.Patterns;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

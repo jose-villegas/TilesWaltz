@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using UniRx.Triggers;
+using UnityEngine;
 
-namespace TilesWalk.Navigation.UI
+namespace TilesWalk.General.Patterns
 {
-	public class ObligatoryComponentBehaviour<T> : MonoBehaviour where T : Component
+	public class ObligatoryComponentBehaviour<T> : ObservableTriggerBase where T : Component
 	{
 		private T _component;
 
@@ -23,6 +24,10 @@ namespace TilesWalk.Navigation.UI
 
 				return _component;
 			}
+		}
+
+		protected override void RaiseOnCompletedOnDestroy()
+		{
 		}
 	}
 }

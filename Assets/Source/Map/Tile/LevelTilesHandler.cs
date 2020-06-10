@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.Navigation.UI;
 using UniRx;
 using UniRx.Triggers;
 using Zenject;
 
-namespace TilesWalk.Navigation.Map
+namespace TilesWalk.Map.Tile
 {
 	public class LevelTilesHandler : ObservableTriggerBase
 	{
@@ -18,6 +19,8 @@ namespace TilesWalk.Navigation.Map
 
 		private Subject<LevelTile[]> _levelTilesMapsReady;
 
+		public LevelTile[] LevelTiles => _levelTiles;
+
 		private void Awake()
 		{
 			var inChildren = GetComponentsInChildren<LevelTile>();
@@ -27,13 +30,10 @@ namespace TilesWalk.Navigation.Map
 			{
 				var index = i;
 				var levelTile = inChildren[index];
-				levelTile.TileMap.Subscribe(tileMap =>
+				levelTile.OnTileMapFoundAsObservable().Subscribe(tileMap =>
 				{
-					if (tileMap != null)
-					{
-						_levelTiles[index] = levelTile;
-						_readyCount.Value += 1;
-					}
+					_levelTiles[index] = levelTile;
+					_readyCount.Value += 1;
 				}).AddTo(this);
 			}
 
@@ -51,18 +51,18 @@ namespace TilesWalk.Navigation.Map
 		{
 			foreach (var level in _levelTiles)
 			{
-				if (_scoreRecords.TryGetValue(level.TileMap.Value.Id, out var score))
+				if (_scoreRecords.TryGetValue(level.LevelName, out var score))
 				{
-					if (score.Points.Highest < level.TileMap.Value.Target)
+					if (score.Points.Highest < level.TileMap.Target)
 					{
-						_detailsCanvas.LevelName.Value = level.TileMap.Value.Id;
+						_detailsCanvas.LevelName.Value = level.TileMap.Id;
 						_detailsCanvas.Show();
 						return;
 					}
 				}
 				else
 				{
-					_detailsCanvas.LevelName.Value = level.TileMap.Value.Id;
+					_detailsCanvas.LevelName.Value = level.TileMap.Id;
 					_detailsCanvas.Show();
 					return;
 				}

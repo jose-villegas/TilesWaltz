@@ -1,6 +1,6 @@
 ﻿using UniRx;
 
-namespace TilesWalk.Navigation.Map
+namespace TilesWalk.Map.Scaffolding
 {
 	interface ILevelNameRequire
 	{

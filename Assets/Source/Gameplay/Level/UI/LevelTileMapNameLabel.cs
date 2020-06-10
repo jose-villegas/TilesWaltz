@@ -1,5 +1,5 @@
 ﻿using TilesWalk.Building.Level;
-using TilesWalk.Navigation.UI;
+using TilesWalk.General.Patterns;
 using TMPro;
 using UniRx;
 using UnityEngine;

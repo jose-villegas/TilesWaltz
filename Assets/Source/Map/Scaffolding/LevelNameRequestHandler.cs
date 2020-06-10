@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TilesWalk.Navigation.Map
+namespace TilesWalk.Map.Scaffolding
 {
 	public class LevelNameRequestHandler : MonoBehaviour
 	{

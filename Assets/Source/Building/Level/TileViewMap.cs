@@ -4,7 +4,7 @@ using System.Linq;
 using NaughtyAttributes;
 using Newtonsoft.Json;
 using TilesWalk.General;
-using TilesWalk.Navigation.Map;
+using TilesWalk.Map.Bridge;
 using TilesWalk.Tile;
 using TilesWalk.Tile.Rules;
 using UniRx;

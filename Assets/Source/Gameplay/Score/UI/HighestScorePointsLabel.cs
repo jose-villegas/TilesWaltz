@@ -1,4 +1,5 @@
 ﻿using TilesWalk.Extensions;
+using TilesWalk.General.Patterns;
 using TilesWalk.Navigation.UI;
 using TMPro;
 using UniRx;

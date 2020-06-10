@@ -1,5 +1,6 @@
 ﻿using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Condition;
+using TilesWalk.General.Patterns;
 using TilesWalk.Navigation.UI;
 using UniRx;
 using UnityEngine;
