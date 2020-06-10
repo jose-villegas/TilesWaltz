@@ -20,6 +20,7 @@ namespace TilesWalk.Navigation.UI
 		[SerializeField] private TextMeshProUGUI _name;
 		[SerializeField] private TextMeshProUGUI _target;
 		[SerializeField] private TextMeshProUGUI _stars;
+		[SerializeField] private Button _playButton;
 
 		[Header("Navigation")] [SerializeField]
 		private Button _nextLevel;
@@ -79,6 +80,7 @@ namespace TilesWalk.Navigation.UI
 			_name.text = TileMap.Id;
 			_target.text = TileMap.Target.Localize();
 			_stars.text = $"{TileMap.StarsRequired}/{_gameScoresHelper.GameStars}";
+			_playButton.interactable = _gameScoresHelper.GameStars >= TileMap.StarsRequired;
 
 			// prepare the bridge
 			_mapLevelBridge.SelectedLevel = TileMap;

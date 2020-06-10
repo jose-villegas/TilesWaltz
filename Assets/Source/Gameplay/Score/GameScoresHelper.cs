@@ -21,7 +21,13 @@ namespace TilesWalk.Gameplay.Score
 
 		private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 		{
-			CalculataAllGameStars();
+			CalculateAllGameStars();
+		}
+
+		public bool IsCompleted(TileMap tileMap)
+		{
+			var count = GetStarCount(tileMap);
+			return count == 3;
 		}
 
 		public int GetStarCount(TileMap tileMap)
@@ -80,7 +86,7 @@ namespace TilesWalk.Gameplay.Score
 			return 0;
 		}
 
-		private void CalculataAllGameStars()
+		private void CalculateAllGameStars()
 		{
 			if (_scoreRecords == null || _scoreRecords.Count == 0) return;
 
