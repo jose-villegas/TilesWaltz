@@ -20,6 +20,7 @@ namespace TilesWalk.Building.Editor
 		private string _mapName = "Game Map";
 		private bool _insertRegular = true;
 		private string _levelName = "none";
+		private bool _useTileParameters;
 
 		private CardinalDirection _insertDirection;
 		private NeighborWalkRule _insertRule = NeighborWalkRule.Plain;
@@ -36,9 +37,10 @@ namespace TilesWalk.Building.Editor
 			MapBuilder window = (MapBuilder) EditorWindow.GetWindow(typeof(MapBuilder));
 
 			window._levelTile =
-				AssetDatabase.LoadAssetAtPath("Assets/Prefabs/LevelTile.prefab", typeof(GameObject)) as GameObject;
+				AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Scene/LevelTile.prefab",
+					typeof(GameObject)) as GameObject;
 			window._regularTile =
-				AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Tile.prefab", typeof(GameObject)) as GameObject;
+				AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Scene/Tile.prefab", typeof(GameObject)) as GameObject;
 			window._gameMaps =
 				AssetDatabase.LoadAssetAtPath("Assets/Resources/GameMapsInstaller.asset", typeof(GameMapsInstaller)) as
 					GameMapsInstaller;
@@ -48,14 +50,27 @@ namespace TilesWalk.Building.Editor
 
 		void OnGUI()
 		{
-			_levelTile = (GameObject) EditorGUILayout.ObjectField("Level Tile", _levelTile, typeof(GameObject), true);
+			_useTileParameters = EditorGUILayout.Toggle("Use Tile Parameters", _useTileParameters);
+
+			if (_useTileParameters)
+			{
+				_levelTile =
+					(GameObject) EditorGUILayout.ObjectField("Level Tile", _levelTile, typeof(GameObject), true);
+			}
+
+			if (_useTileParameters)
+			{
+				_insertRegular = EditorGUILayout.Toggle("Insert Regular Tile", _insertRegular);
+			}
+
 			_regularTile =
 				(GameObject) EditorGUILayout.ObjectField("Regular Tile", _regularTile, typeof(GameObject), true);
 			_gameMaps = (GameMapsInstaller) EditorGUILayout.ObjectField("Game Maps", _gameMaps,
 				typeof(GameMapsInstaller),
 				true);
 			_mapName = EditorGUILayout.TextField("Map Name", _mapName);
-			_insertRegular = EditorGUILayout.Toggle("Insert Regular Tile", _insertRegular);
+
+
 			TileController controller = null;
 
 			if (!_insertRegular)
@@ -121,7 +136,13 @@ namespace TilesWalk.Building.Editor
 				for (int i = 0; i < foundMap.Tiles.Count; i++)
 				{
 					var mapTile = foundMap.Tiles[i];
-					var isRegular = bool.Parse(foundMap.TileParameters[i].Split(',')[0]);
+					var isRegular = true;
+
+					if (_useTileParameters && foundMap.TileParameters != null && foundMap.TileParameters.Count < i)
+					{
+						var split = foundMap.TileParameters[i].Split(',');
+						isRegular = split.Length > 0 && bool.Parse(split[0]);
+					}
 
 					var instance = PrefabUtility.InstantiatePrefab(isRegular ? _regularTile : _levelTile,
 						Selection.activeTransform) as GameObject;
@@ -129,13 +150,17 @@ namespace TilesWalk.Building.Editor
 					_controllers.Add(instance, new TileController());
 					_indexes.Add(mapTile, instance);
 					_currentMap.Tiles.Add(mapTile);
-					_currentMap.TileParameters.Add(foundMap.TileParameters[i]);
+
+					if (_useTileParameters)
+					{
+						_currentMap.TileParameters.Add(foundMap.TileParameters[i]);
+					}
 
 					// adjust bounds
 					var boxCollider = instance.GetComponentInChildren<BoxCollider>();
 					_controllers[instance].AdjustBounds(boxCollider.bounds);
 
-					if (!isRegular)
+					if (_useTileParameters && !isRegular)
 					{
 						var levelName = foundMap.TileParameters[i].Split(',')[1];
 						var details = instance.GetComponentInChildren<LevelNameRequestHandler>();
@@ -179,8 +204,12 @@ namespace TilesWalk.Building.Editor
 				_controllers.Add(instance, new TileController());
 				_indexes.Add(id, instance);
 				_currentMap.Tiles.Add(id);
-				_currentMap.TileParameters.Add(_insertRegular.ToString() + "," +
-				                               (_insertRegular ? "none" : _levelName));
+
+				if (_useTileParameters)
+				{
+					_currentMap.TileParameters.Add(_insertRegular.ToString() + "," +
+					                               (_insertRegular ? "none" : _levelName));
+				}
 
 				// adjust bounds
 				var boxCollider = instance.GetComponentInChildren<BoxCollider>();
@@ -208,8 +237,12 @@ namespace TilesWalk.Building.Editor
 				var id = Mathf.Abs(instance.GetInstanceID());
 				_indexes.Add(id, instance);
 				_currentMap.Tiles.Add(id);
-				_currentMap.TileParameters.Add(_insertRegular.ToString() + "," +
-				                               (_insertRegular ? "none" : _levelName));
+
+				if (_useTileParameters)
+				{
+					_currentMap.TileParameters.Add(_insertRegular.ToString() + "," +
+					                               (_insertRegular ? "none" : _levelName));
+				}
 
 				if (!_insertRegular)
 				{

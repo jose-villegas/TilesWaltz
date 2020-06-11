@@ -79,7 +79,7 @@ namespace TilesWalk.Navigation.UI
 		{
 			_name.text = TileMap.Id;
 			_target.text = TileMap.Target.Localize();
-			_stars.text = $"{TileMap.StarsRequired}/{_gameScoresHelper.GameStars}";
+			_stars.text = $"{_gameScoresHelper.GameStars}/{TileMap.StarsRequired}";
 			_playButton.interactable = _gameScoresHelper.GameStars >= TileMap.StarsRequired;
 
 			// prepare the bridge

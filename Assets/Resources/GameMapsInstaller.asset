@@ -12,114 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4db1560a02e1e48a2df94c781726ae, type: 3}
   m_Name: GameMapsInstaller
   m_EditorClassIdentifier: 
-  _name: Equalizer
-  _instructions: '{"Id":"-1","Target":0,"Instructions":[{"tile":-213548,"root":-213394,"direction":1,"rule":1},{"tile":-213606,"root":-213394,"direction":2,"rule":1},{"tile":-214306,"root":-213394,"direction":4,"rule":1},{"tile":-213712,"root":-213606,"direction":2,"rule":1},{"tile":-214944,"root":-213606,"direction":8,"rule":1},{"tile":-213894,"root":-213548,"direction":1,"rule":1},{"tile":-215070,"root":-213548,"direction":8,"rule":1},{"tile":-214000,"root":-213894,"direction":1,"rule":1},{"tile":-214818,"root":-213894,"direction":4,"rule":1},{"tile":-214118,"root":-213712,"direction":2,"rule":1},{"tile":-214184,"root":-213712,"direction":4,"rule":1},{"tile":-214424,"root":-214306,"direction":4,"rule":1},{"tile":-214600,"root":-214424,"direction":4,"rule":1},{"tile":-215176,"root":-214944,"direction":8,"rule":1},{"tile":-215290,"root":-215070,"direction":8,"rule":1},{"tile":-215412,"root":-214818,"direction":4,"rule":1},{"tile":-215584,"root":-215176,"direction":8,"rule":1},{"tile":-215748,"root":-215584,"direction":8,"rule":1},{"tile":-215878,"root":-215412,"direction":4,"rule":1},{"tile":-216056,"root":-215878,"direction":4,"rule":1},{"tile":-216242,"root":-216056,"direction":4,"rule":1},{"tile":-216384,"root":-214118,"direction":8,"rule":1},{"tile":-216490,"root":-216384,"direction":8,"rule":1}],"Tiles":[-213394,-213548,-213606,-213712,-213894,-214000,-214118,-214184,-214306,-214424,-214600,-214818,-214944,-215070,-215176,-215290,-215412,-215584,-215748,-215878,-216056,-216242,-216384,-216490],"FinishCondition":0}'
-  _condition: 0
+  _name: The Chair
+  _instructions: '{"Id":"-1","StarsRequired":0,"Target":0,"Instructions":[{"tile":-43268,"root":-43070,"direction":4,"rule":1},{"tile":-43522,"root":-43070,"direction":8,"rule":1},{"tile":-44828,"root":-43070,"direction":1,"rule":1},{"tile":-43384,"root":-43268,"direction":4,"rule":1},{"tile":-43856,"root":-43268,"direction":2,"rule":1},{"tile":-43632,"root":-43522,"direction":8,"rule":1},{"tile":-43714,"root":-43522,"direction":2,"rule":1},{"tile":-43986,"root":-43714,"direction":2,"rule":1},{"tile":-44096,"root":-43856,"direction":2,"rule":1},{"tile":-44214,"root":-44096,"direction":2,"rule":2},{"tile":-44352,"root":-43986,"direction":2,"rule":2},{"tile":-46860,"root":-43986,"direction":8,"rule":1},{"tile":-44474,"root":-44214,"direction":2,"rule":1},{"tile":-44608,"root":-44352,"direction":2,"rule":1},{"tile":-44966,"root":-43384,"direction":1,"rule":1},{"tile":-45088,"root":-43632,"direction":1,"rule":1},{"tile":-45274,"root":-44828,"direction":1,"rule":0},{"tile":-45408,"root":-45088,"direction":1,"rule":0},{"tile":-46460,"root":-45088,"direction":8,"rule":2},{"tile":-45642,"root":-44966,"direction":1,"rule":0},{"tile":-45780,"root":-45408,"direction":1,"rule":1},{"tile":-45918,"root":-45274,"direction":1,"rule":1},{"tile":-46052,"root":-45642,"direction":1,"rule":1},{"tile":-46618,"root":-46460,"direction":8,"rule":1},{"tile":-47004,"root":-46860,"direction":8,"rule":2},{"tile":-47158,"root":-47004,"direction":8,"rule":1}],"Tiles":[-43070,-43268,-43384,-43522,-43632,-43714,-43856,-43986,-44096,-44214,-44352,-44474,-44608,-44828,-44966,-45088,-45274,-45408,-45642,-45780,-45918,-46052,-46460,-46618,-46860,-47004,-47158],"FinishCondition":0,"TileParameters":[]}'
+  _condition: 1
   _seconds: 60
-  _moves: 0
+  _moves: 15
   _availableMaps:
   - Id: Equalizer
     StarsRequired: 0
     Target: 4000
-    Instructions:
-    - tile: -213548
-      root: -213394
-      direction: 1
-      rule: 1
-    - tile: -213606
-      root: -213394
-      direction: 2
-      rule: 1
-    - tile: -214306
-      root: -213394
-      direction: 4
-      rule: 1
-    - tile: -213712
-      root: -213606
-      direction: 2
-      rule: 1
-    - tile: -214944
-      root: -213606
-      direction: 8
-      rule: 1
-    - tile: -213894
-      root: -213548
-      direction: 1
-      rule: 1
-    - tile: -215070
-      root: -213548
-      direction: 8
-      rule: 1
-    - tile: -214000
-      root: -213894
-      direction: 1
-      rule: 1
-    - tile: -214818
-      root: -213894
-      direction: 4
-      rule: 1
-    - tile: -214118
-      root: -213712
-      direction: 2
-      rule: 1
-    - tile: -214184
-      root: -213712
-      direction: 4
-      rule: 1
-    - tile: -214424
-      root: -214306
-      direction: 4
-      rule: 1
-    - tile: -214600
-      root: -214424
-      direction: 4
-      rule: 1
-    - tile: -215176
-      root: -214944
-      direction: 8
-      rule: 1
-    - tile: -215290
-      root: -215070
-      direction: 8
-      rule: 1
-    - tile: -215412
-      root: -214818
-      direction: 4
-      rule: 1
-    - tile: -215584
-      root: -215176
-      direction: 8
-      rule: 1
-    - tile: -215748
-      root: -215584
-      direction: 8
-      rule: 1
-    - tile: -215878
-      root: -215412
-      direction: 4
-      rule: 1
-    - tile: -216056
-      root: -215878
-      direction: 4
-      rule: 1
-    - tile: -216242
-      root: -216056
-      direction: 4
-      rule: 1
-    - tile: -216384
-      root: -214118
-      direction: 8
-      rule: 1
-    - tile: -216490
-      root: -216384
-      direction: 8
-      rule: 1
-    Tiles: 6ebefcffd4bdfcff9abdfcff30bdfcff7abcfcff10bcfcff9abbfcff58bbfcffdebafcff68bafcffb8b9fcffdeb8fcff60b8fcffe2b7fcff78b7fcff06b7fcff8cb6fcffe0b5fcff3cb5fcffbab4fcff08b4fcff4eb3fcffc0b2fcff56b2fcff
-    FinishCondition: 0
-    TileParameters: []
-  - Id: The Chair
-    StarsRequired: 0
-    Target: 6000
     Instructions:
     - tile: -213548
       root: -213394
@@ -239,9 +140,120 @@ MonoBehaviour:
     - True,none
     - True,none
     - False,The Chair
-  _movesFinishConditions: []
+  - Id: The Chair
+    StarsRequired: 0
+    Target: 0
+    Instructions:
+    - tile: -43268
+      root: -43070
+      direction: 4
+      rule: 1
+    - tile: -43522
+      root: -43070
+      direction: 8
+      rule: 1
+    - tile: -44828
+      root: -43070
+      direction: 1
+      rule: 1
+    - tile: -43384
+      root: -43268
+      direction: 4
+      rule: 1
+    - tile: -43856
+      root: -43268
+      direction: 2
+      rule: 1
+    - tile: -43632
+      root: -43522
+      direction: 8
+      rule: 1
+    - tile: -43714
+      root: -43522
+      direction: 2
+      rule: 1
+    - tile: -43986
+      root: -43714
+      direction: 2
+      rule: 1
+    - tile: -44096
+      root: -43856
+      direction: 2
+      rule: 1
+    - tile: -44214
+      root: -44096
+      direction: 2
+      rule: 2
+    - tile: -44352
+      root: -43986
+      direction: 2
+      rule: 2
+    - tile: -46860
+      root: -43986
+      direction: 8
+      rule: 1
+    - tile: -44474
+      root: -44214
+      direction: 2
+      rule: 1
+    - tile: -44608
+      root: -44352
+      direction: 2
+      rule: 1
+    - tile: -44966
+      root: -43384
+      direction: 1
+      rule: 1
+    - tile: -45088
+      root: -43632
+      direction: 1
+      rule: 1
+    - tile: -45274
+      root: -44828
+      direction: 1
+      rule: 0
+    - tile: -45408
+      root: -45088
+      direction: 1
+      rule: 0
+    - tile: -46460
+      root: -45088
+      direction: 8
+      rule: 2
+    - tile: -45642
+      root: -44966
+      direction: 1
+      rule: 0
+    - tile: -45780
+      root: -45408
+      direction: 1
+      rule: 1
+    - tile: -45918
+      root: -45274
+      direction: 1
+      rule: 1
+    - tile: -46052
+      root: -45642
+      direction: 1
+      rule: 1
+    - tile: -46618
+      root: -46460
+      direction: 8
+      rule: 1
+    - tile: -47004
+      root: -46860
+      direction: 8
+      rule: 2
+    - tile: -47158
+      root: -47004
+      direction: 8
+      rule: 1
+    Tiles: c257fffffc56ffff8856fffffe55ffff9055ffff3e55ffffb054ffff2e54ffffc053ffff4a53ffffc052ffff4652ffffc051ffffe450ffff5a50ffffe04fffff264fffffa04effffb64dffff2c4dffffa24cffff1c4cffff844affffe649fffff448ffff6448ffffca47ffff
+    FinishCondition: 1
+    TileParameters: []
+  _movesFinishConditions:
+  - _id: The Chair
+    _limit: 15
   _timeFinishConditions:
   - _id: Equalizer
-    _limit: 60
-  - _id: The Chair
     _limit: 60
