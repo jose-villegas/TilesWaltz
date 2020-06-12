@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4db1560a02e1e48a2df94c781726ae, type: 3}
   m_Name: GameMapsInstaller
   m_EditorClassIdentifier: 
-  _name: The Chair
-  _instructions: '{"Id":"-1","StarsRequired":0,"Target":0,"Instructions":[{"tile":-43268,"root":-43070,"direction":4,"rule":1},{"tile":-43522,"root":-43070,"direction":8,"rule":1},{"tile":-44828,"root":-43070,"direction":1,"rule":1},{"tile":-43384,"root":-43268,"direction":4,"rule":1},{"tile":-43856,"root":-43268,"direction":2,"rule":1},{"tile":-43632,"root":-43522,"direction":8,"rule":1},{"tile":-43714,"root":-43522,"direction":2,"rule":1},{"tile":-43986,"root":-43714,"direction":2,"rule":1},{"tile":-44096,"root":-43856,"direction":2,"rule":1},{"tile":-44214,"root":-44096,"direction":2,"rule":2},{"tile":-44352,"root":-43986,"direction":2,"rule":2},{"tile":-46860,"root":-43986,"direction":8,"rule":1},{"tile":-44474,"root":-44214,"direction":2,"rule":1},{"tile":-44608,"root":-44352,"direction":2,"rule":1},{"tile":-44966,"root":-43384,"direction":1,"rule":1},{"tile":-45088,"root":-43632,"direction":1,"rule":1},{"tile":-45274,"root":-44828,"direction":1,"rule":0},{"tile":-45408,"root":-45088,"direction":1,"rule":0},{"tile":-46460,"root":-45088,"direction":8,"rule":2},{"tile":-45642,"root":-44966,"direction":1,"rule":0},{"tile":-45780,"root":-45408,"direction":1,"rule":1},{"tile":-45918,"root":-45274,"direction":1,"rule":1},{"tile":-46052,"root":-45642,"direction":1,"rule":1},{"tile":-46618,"root":-46460,"direction":8,"rule":1},{"tile":-47004,"root":-46860,"direction":8,"rule":2},{"tile":-47158,"root":-47004,"direction":8,"rule":1}],"Tiles":[-43070,-43268,-43384,-43522,-43632,-43714,-43856,-43986,-44096,-44214,-44352,-44474,-44608,-44828,-44966,-45088,-45274,-45408,-45642,-45780,-45918,-46052,-46460,-46618,-46860,-47004,-47158],"FinishCondition":0,"TileParameters":[]}'
+  _name: DNA
+  _instructions: '{"Id":"-1","StarsRequired":0,"Target":0,"Instructions":[{"tile":-54508,"root":-54336,"direction":1,"rule":1},{"tile":-54566,"root":-54336,"direction":2,"rule":1},{"tile":-54616,"root":-54336,"direction":4,"rule":1},{"tile":-54674,"root":-54336,"direction":8,"rule":1},{"tile":-54872,"root":-54566,"direction":2,"rule":2},{"tile":-54990,"root":-54674,"direction":8,"rule":2},{"tile":-55152,"root":-54616,"direction":4,"rule":0},{"tile":-55290,"root":-54508,"direction":1,"rule":0},{"tile":-55494,"root":-55152,"direction":4,"rule":1},{"tile":-55616,"root":-55290,"direction":1,"rule":1},{"tile":-55778,"root":-54872,"direction":2,"rule":1},{"tile":-55924,"root":-54990,"direction":8,"rule":1},{"tile":-56078,"root":-55616,"direction":1,"rule":1},{"tile":-56208,"root":-55494,"direction":4,"rule":1},{"tile":-56338,"root":-55924,"direction":8,"rule":1},{"tile":-56468,"root":-55778,"direction":2,"rule":1},{"tile":-57102,"root":-56208,"direction":4,"rule":2},{"tile":-57236,"root":-56078,"direction":1,"rule":2},{"tile":-57394,"root":-56338,"direction":8,"rule":0},{"tile":-57532,"root":-56468,"direction":2,"rule":0}],"Tiles":[-54336,-54508,-54566,-54616,-54674,-54872,-54990,-55152,-55290,-55494,-55616,-55778,-55924,-56078,-56208,-56338,-56468,-57102,-57236,-57394,-57532],"FinishCondition":0,"TileParameters":[]}'
   _condition: 1
   _seconds: 60
-  _moves: 15
+  _moves: 10
+  _mapSize: 0
   _availableMaps:
   - Id: Equalizer
     StarsRequired: 0
     Target: 4000
+    MapSize: 5
     Instructions:
     - tile: -213548
       root: -213394
@@ -120,6 +122,7 @@ MonoBehaviour:
   - Id: Game Map
     StarsRequired: 0
     Target: 0
+    MapSize: 5
     Instructions:
     - tile: 87060
       root: 86920
@@ -139,10 +142,11 @@ MonoBehaviour:
     - False,Equalizer
     - True,none
     - True,none
-    - False,The Chair
+    - False,DNA
   - Id: The Chair
-    StarsRequired: 0
-    Target: 0
+    StarsRequired: 3
+    Target: 5000
+    MapSize: 5
     Instructions:
     - tile: -43268
       root: -43070
@@ -251,9 +255,99 @@ MonoBehaviour:
     Tiles: c257fffffc56ffff8856fffffe55ffff9055ffff3e55ffffb054ffff2e54ffffc053ffff4a53ffffc052ffff4652ffffc051ffffe450ffff5a50ffffe04fffff264fffffa04effffb64dffff2c4dffffa24cffff1c4cffff844affffe649fffff448ffff6448ffffca47ffff
     FinishCondition: 1
     TileParameters: []
+  - Id: DNA
+    StarsRequired: 0
+    Target: 0
+    MapSize: 5
+    Instructions:
+    - tile: -54508
+      root: -54336
+      direction: 1
+      rule: 1
+    - tile: -54566
+      root: -54336
+      direction: 2
+      rule: 1
+    - tile: -54616
+      root: -54336
+      direction: 4
+      rule: 1
+    - tile: -54674
+      root: -54336
+      direction: 8
+      rule: 1
+    - tile: -54872
+      root: -54566
+      direction: 2
+      rule: 2
+    - tile: -54990
+      root: -54674
+      direction: 8
+      rule: 2
+    - tile: -55152
+      root: -54616
+      direction: 4
+      rule: 0
+    - tile: -55290
+      root: -54508
+      direction: 1
+      rule: 0
+    - tile: -55494
+      root: -55152
+      direction: 4
+      rule: 1
+    - tile: -55616
+      root: -55290
+      direction: 1
+      rule: 1
+    - tile: -55778
+      root: -54872
+      direction: 2
+      rule: 1
+    - tile: -55924
+      root: -54990
+      direction: 8
+      rule: 1
+    - tile: -56078
+      root: -55616
+      direction: 1
+      rule: 1
+    - tile: -56208
+      root: -55494
+      direction: 4
+      rule: 1
+    - tile: -56338
+      root: -55924
+      direction: 8
+      rule: 1
+    - tile: -56468
+      root: -55778
+      direction: 2
+      rule: 1
+    - tile: -57102
+      root: -56208
+      direction: 4
+      rule: 2
+    - tile: -57236
+      root: -56078
+      direction: 1
+      rule: 2
+    - tile: -57394
+      root: -56338
+      direction: 8
+      rule: 0
+    - tile: -57532
+      root: -56468
+      direction: 2
+      rule: 0
+    Tiles: c02bffff142bffffda2affffa82affff6e2affffa829ffff3229ffff9028ffff0628ffff3a27ffffc026ffff1e26ffff8c25fffff224ffff7024ffffee23ffff6c23fffff220ffff6c20ffffce1fffff441fffff
+    FinishCondition: 0
+    TileParameters: []
   _movesFinishConditions:
   - _id: The Chair
     _limit: 15
+  - _id: DNA
+    _limit: 10
   _timeFinishConditions:
   - _id: Equalizer
     _limit: 60

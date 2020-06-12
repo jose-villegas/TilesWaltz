@@ -24,6 +24,8 @@ namespace TilesWalk.Gameplay.Installer
 		[SerializeField, ShowIf("IsMovesCondition"), Min(1)]
 		private int _moves;
 
+		[SerializeField, Range(0, 5)] private int _mapSize;
+
 		[Header("Entries")] [SerializeField] private List<TileMap> _availableMaps;
 		[SerializeField] private List<MovesFinishCondition> _movesFinishConditions;
 		[SerializeField] private List<TimeFinishCondition> _timeFinishConditions;
@@ -48,6 +50,7 @@ namespace TilesWalk.Gameplay.Installer
 		{
 			var map = JsonConvert.DeserializeObject<TileMap>(_instructions);
 			map.Id = _name;
+			map.MapSize = _mapSize;
 			AvailableMaps.Add(map);
 
 			switch (_condition)
