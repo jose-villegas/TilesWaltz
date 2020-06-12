@@ -162,6 +162,7 @@ namespace TilesWalk.Building.Level
 			_levelMap.Id = map.Id;
 			_levelMap.Target = map.Target;
 			_levelMap.FinishCondition = map.FinishCondition;
+			_levelMap.MapSize = map.MapSize;
 			_onLevelMapLoaded?.OnNext(_levelMap);
 		}
 
