@@ -62,9 +62,9 @@ namespace TilesWalk.Gameplay.Level.UI
 				var target = score.Moves.Last;
 				var limit = _levelFinishTracker.MovesFinishCondition.Limit;
 
-				_timeLimit.text = limit.Localize();
-				_timeTarget.text = target.Localize();
-				_timeExtra.text = (limit - target).Localize();
+				_movesLimit.text = limit.Localize();
+				_movesTarget.text = target.Localize();
+				_movesExtra.text = (limit - target).Localize();
 
 				var extra = ((limit - target) * _scorePointsConfiguration.PointsPerExtraMove);
 				_extraPoints.text = extra.Localize();
