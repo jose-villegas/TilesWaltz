@@ -10,7 +10,15 @@ namespace TilesWalk.Gameplay.Score.Installer
 
 		public override void InstallBindings()
 		{
-			_scoreRecords = SaveGame.Load("Scores", _scoreRecords);
+			if (SaveGame.Exists("Scores"))
+			{
+				_scoreRecords = SaveGame.Load("Scores", _scoreRecords);
+			}
+			else
+			{
+				_scoreRecords = new Dictionary<string, LevelScore>();
+			}
+
 			Container.Bind<Dictionary<string, LevelScore>>().FromInstance(_scoreRecords).AsSingle();
 		}
 

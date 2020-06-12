@@ -1,20 +1,16 @@
 ﻿using TilesWalk.General.Patterns;
 using TilesWalk.Tile;
-using UniRx;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace TilesWalk.Building
 {
 	public class TileViewFactory : GenericFactory<TileView>
 	{
-		[Inject(Id = "TileAsset")] private AssetReference _tileAsset;
+		[Inject(Id = "TileAsset")] private GameObject _tileAsset;
 		[Inject] private DiContainer _container;
 
-		public ReactiveProperty<bool> IsAssetLoaded { get; private set; } = new ReactiveProperty<bool>();
-		
-		private async void Start()
+		private void Start()
 		{
 			if (_tileAsset == null)
 			{
@@ -22,11 +18,7 @@ namespace TilesWalk.Building
 				return;
 			}
 
-			// wait for load and assign factory asset
-			var task = _tileAsset.LoadAssetAsync<GameObject>().Task;
-			await task;
-			Asset = task.Result;
-			IsAssetLoaded.Value = true;
+			Asset = _tileAsset;
 		}
 
 		protected override TileView CreateInstance()

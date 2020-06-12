@@ -229,7 +229,7 @@ MonoBehaviour:
     Target: 5000
     MapSize: 5
     FinishCondition: 1
-  - Id: DNA
+  - Id: Chromosome X
     Instructions:
     - tile: -54508
       root: -54336
@@ -326,7 +326,7 @@ MonoBehaviour:
   _movesFinishConditions:
   - _id: The Chair
     _limit: 15
-  - _id: DNA
+  - _id: Chromosome X
     _limit: 10
   _timeFinishConditions:
   - _id: Equalizer

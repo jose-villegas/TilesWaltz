@@ -83,8 +83,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef9e86cf8e2822f41ba5f7bb13f19936, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tileAsset:
-    m_AssetGUID: 0b6bdae1fd9cf6447af0730bd45b7e93
+  _tileAsset: {fileID: 6458534633450095527, guid: 0b6bdae1fd9cf6447af0730bd45b7e93,
+    type: 3}
 --- !u!114 &-5448892470488491830
 MonoBehaviour:
   m_ObjectHideFlags: 0

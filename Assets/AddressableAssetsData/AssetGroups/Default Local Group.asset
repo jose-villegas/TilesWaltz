@@ -16,11 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 7fd65f6c2a07d6f4387b7819282b932f
-  m_SerializeEntries:
-  - m_GUID: 0b6bdae1fd9cf6447af0730bd45b7e93
-    m_Address: Assets/Prefabs/Scene/Tile.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9e1323f93b31c8b4384309ad72863bae, type: 2}
   m_SchemaSet:

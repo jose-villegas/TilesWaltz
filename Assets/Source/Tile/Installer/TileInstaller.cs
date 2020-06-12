@@ -7,11 +7,11 @@ namespace TilesWalk.Installers.Tile
 	public class TileInstaller : MonoInstaller
 	{
 		[SerializeField]
-		private AssetReference _tileAsset;
+		private GameObject _tileAsset;
 
 		public override void InstallBindings()
 		{
-			Container.Bind<AssetReference>().WithId("TileAsset").FromInstance(_tileAsset).AsSingle();
+			Container.Bind<GameObject>().WithId("TileAsset").FromInstance(_tileAsset).AsSingle();
 		}
 	}
 }

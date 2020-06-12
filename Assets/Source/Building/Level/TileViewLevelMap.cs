@@ -40,17 +40,11 @@ namespace TilesWalk.Building.Level
 
 			if (_loadOption == LevelLoadOptions.FromInstructions)
 			{
-				_viewFactory.IsAssetLoaded.Subscribe(ready =>
-				{
-					if (ready) BuildFromInstructions();
-				});
+				BuildFromInstructions();
 			}
 			else if (_loadOption == LevelLoadOptions.FromLevelBridge)
 			{
-				_viewFactory.IsAssetLoaded.Subscribe(ready =>
-				{
-					if (ready) BuildTileMap(_mapLevelBridge.SelectedLevel);
-				});
+				BuildTileMap(_mapLevelBridge.SelectedLevel);
 			}
 		}
 
