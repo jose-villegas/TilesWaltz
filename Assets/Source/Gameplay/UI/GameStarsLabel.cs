@@ -14,11 +14,11 @@ namespace TilesWalk.Gameplay.UI
 	public class GameStarsLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
 		[Inject] private GameScoresHelper _gameScoresHelper;
-		[Inject] private List<TileMap> _availableMaps;
+		[Inject] private List<LevelMap> _availableMaps;
 
 		private void Start()
 		{
-			var maps = _availableMaps.Count(x => x.Target > 0);
+			var maps = _availableMaps.Count;
 
 			Component.text = $"{_gameScoresHelper.GameStars.Localize()}/{(maps * 3).Localize()}";
 		}

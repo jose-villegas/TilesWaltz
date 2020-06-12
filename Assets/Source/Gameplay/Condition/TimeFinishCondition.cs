@@ -8,15 +8,15 @@ namespace TilesWalk.Gameplay.Condition
 	{
 		public override float Update(float value)
 		{
-			_tracker += value;
+			_tracker.Value += value;
 
-			if (_tracker >= _limit)
+			if (_tracker.Value >= _limit)
 			{
 				IsConditionMeet.Value = true;
-				return _tracker;
+				return _tracker.Value;
 			}
 
-			return _tracker;
+			return _tracker.Value;
 		}
 
 		public TimeFinishCondition(string id, float limit) : base(id, limit)

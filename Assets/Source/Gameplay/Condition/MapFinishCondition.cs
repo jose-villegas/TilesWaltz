@@ -27,24 +27,24 @@ namespace TilesWalk.Gameplay.Condition
 		/// </summary>
 		[SerializeField] protected T _limit;
 
-		protected T _tracker;
+		protected ReactiveProperty<T> _tracker;
 
 		public T Limit => _limit;
 
-		public T Tracker => _tracker;
+		public ReactiveProperty<T> Tracker => _tracker;
 
 		public abstract T Update(T value);
 
 		public void Reset(T value)
 		{
-			_tracker = value;
+			_tracker = new ReactiveProperty<T>(value);
 			IsConditionMeet = new ReactiveProperty<bool>();
 		}
 
 		protected MapFinishCondition(string id, T limit)
 		{
 			_id = id;
-			_tracker = default(T);
+			_tracker = new ReactiveProperty<T>();
 			_limit = limit;
 		}
 	}

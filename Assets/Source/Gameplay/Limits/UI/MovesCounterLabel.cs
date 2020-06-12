@@ -14,39 +14,31 @@ namespace TilesWalk.Gameplay.Limits.UI
 	[RequireComponent(typeof(TextMeshProUGUI))]
 	public class MovesCounterLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
-		[Inject] private TileViewMap _tileMap;
+		[Inject] private TileViewLevelMap _tileLevelMap;
 		[Inject] private LevelFinishTracker _levelFinishTracker;
 
 		private void Start()
 		{
-			_tileMap
-				.OnTileMapLoadedAsObservable()
+			_tileLevelMap
+				.OnLevelMapLoadedAsObservable()
 				.Subscribe(
-					OnTileMapLoaded
+					OnLevelMapLoaded
 				)
-				.AddTo(this);
-
-			_tileMap
-				.OnTileRemovedAsObservable()
-				.SubscribeToText(Component, _ =>
-				{
-					var condition = _levelFinishTracker.MovesFinishCondition;
-					return string.Format("%02d/%02d", condition.Tracker, condition.Limit);
-				})
 				.AddTo(this);
 		}
 
-		private void OnTileMapLoaded(TileMap tileMap)
+		private void OnLevelMapLoaded(LevelMap levelMap)
 		{
-			if (tileMap.FinishCondition != FinishCondition.MovesLimit)
+			if (levelMap.FinishCondition != FinishCondition.MovesLimit)
 			{
 				transform.parent.gameObject.SetActive(false);
 				return;
 			}
 
 			var condition = _levelFinishTracker.MovesFinishCondition;
-
-			Component.text = string.Format("%02d/%02d", condition.Tracker, condition.Limit);
+			Component.text = $"{condition.Tracker.Value}/{condition.Limit.Localize()}";
+			condition.Tracker.SubscribeToText(Component, value => $"{value.Localize()}/{condition.Limit.Localize()}")
+				.AddTo(this);
 		}
 	}
 }

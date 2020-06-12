@@ -1,6 +1,6 @@
 ﻿namespace TilesWalk.Building.Level
 {
-	public enum TileViewMapStartLoadOptions
+	public enum LevelLoadOptions
 	{
 		None,
 		FromInstructions,

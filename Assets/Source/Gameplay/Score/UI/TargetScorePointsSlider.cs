@@ -12,7 +12,7 @@ namespace TilesWalk.Gameplay.Score.UI
 	[RequireComponent(typeof(Slider))]
 	public class TargetScorePointsSlider : ObligatoryComponentBehaviour<Slider>
 	{
-		[Inject] private TileViewMap _tileMap;
+		[Inject] private TileViewLevelMap _tileLevelMap;
 		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;
 
 		private void Start()
@@ -23,7 +23,7 @@ namespace TilesWalk.Gameplay.Score.UI
 					score =>
 					{
 						float last = score.Points.Last;
-						float ceil = _tileMap.TileMap.Target;
+						float ceil = _tileLevelMap.LevelMap.Target;
 						Component.value = Mathf.Min(1f, last / ceil);
 					}).AddTo(this);
 		}

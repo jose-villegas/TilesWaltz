@@ -12,12 +12,12 @@ namespace TilesWalk.Gameplay.Score.UI
 	[RequireComponent(typeof(TextMeshProUGUI))]
 	public class TargetScorePointsLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
-		[Inject] private TileViewMap _tileMap;
+		[Inject] private TileViewLevelMap _tileLevelMap;
 
 		private void Start()
 		{
-			_tileMap
-				.OnTileMapLoadedAsObservable()
+			_tileLevelMap
+				.OnLevelMapLoadedAsObservable()
 				.Subscribe(
 					tileMap => Component.text = tileMap.Target.Localize()
 				)

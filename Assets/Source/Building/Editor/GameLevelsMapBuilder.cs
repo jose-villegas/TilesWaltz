@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace TilesWalk.Building.Editor
 {
-	public class MapBuilder : EditorWindow
+	public class GameLevelsMapBuilder : EditorWindow
 	{
 		private GameObject _levelTile;
 		private GameObject _regularTile;
@@ -20,21 +20,20 @@ namespace TilesWalk.Building.Editor
 		private string _mapName = "Game Map";
 		private bool _insertRegular = true;
 		private string _levelName = "none";
-		private bool _useTileParameters;
 
 		private CardinalDirection _insertDirection;
 		private NeighborWalkRule _insertRule = NeighborWalkRule.Plain;
 
 		private Dictionary<int, GameObject> _indexes = new Dictionary<int, GameObject>();
 		private Dictionary<GameObject, TileController> _controllers = new Dictionary<GameObject, TileController>();
-		private TileMap _currentMap = new TileMap();
+		private GameLevelsMap _currentMap = new GameLevelsMap();
 
 		// Add menu named "My Window" to the Window menu
 		[MenuItem("Tools/Map Builder")]
 		static void Init()
 		{
 			// Get existing open window or if none, make a new one:
-			MapBuilder window = (MapBuilder) EditorWindow.GetWindow(typeof(MapBuilder));
+			GameLevelsMapBuilder window = (GameLevelsMapBuilder) EditorWindow.GetWindow(typeof(GameLevelsMapBuilder));
 
 			window._levelTile =
 				AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Scene/LevelTile.prefab",
@@ -50,19 +49,9 @@ namespace TilesWalk.Building.Editor
 
 		void OnGUI()
 		{
-			_useTileParameters = EditorGUILayout.Toggle("Use Tile Parameters", _useTileParameters);
-
-			if (_useTileParameters)
-			{
-				_levelTile =
-					(GameObject) EditorGUILayout.ObjectField("Level Tile", _levelTile, typeof(GameObject), true);
-			}
-
-			if (_useTileParameters)
-			{
-				_insertRegular = EditorGUILayout.Toggle("Insert Regular Tile", _insertRegular);
-			}
-
+			_levelTile =
+				(GameObject) EditorGUILayout.ObjectField("Level Tile", _levelTile, typeof(GameObject), true);
+			_insertRegular = EditorGUILayout.Toggle("Insert Regular Tile", _insertRegular);
 			_regularTile =
 				(GameObject) EditorGUILayout.ObjectField("Regular Tile", _regularTile, typeof(GameObject), true);
 			_gameMaps = (GameMapsInstaller) EditorGUILayout.ObjectField("Game Maps", _gameMaps,
@@ -88,8 +77,7 @@ namespace TilesWalk.Building.Editor
 				NewInstance();
 			}
 
-			if (controller == null && Selection.activeGameObject != null && _gameMaps != null &&
-			    _gameMaps.AvailableMaps != null && _gameMaps.AvailableMaps.Count > 0)
+			if (controller == null && Selection.activeGameObject != null && _gameMaps != null)
 			{
 				BuildFromGameMaps();
 			}
@@ -108,88 +96,70 @@ namespace TilesWalk.Building.Editor
 				{
 					_currentMap.Id = _mapName;
 
-					if (_gameMaps.AvailableMaps == null) return;
-
-					var indexOf = _gameMaps.AvailableMaps.FindIndex(x => x.Id == _mapName);
-
-					if (indexOf >= 0)
-					{
-						_gameMaps.AvailableMaps[indexOf] = _currentMap;
-					}
-					else
-					{
-						_gameMaps.AvailableMaps.Add(_currentMap);
-					}
+					_gameMaps.LevelsMap = _currentMap;
 				}
 			}
 		}
 
 		private void BuildFromGameMaps()
 		{
-			var foundMap = _gameMaps.AvailableMaps.FirstOrDefault(x => x.Id == _mapName);
+			var foundMap = _gameMaps.LevelsMap;
 
-			if (foundMap != null && GUILayout.Button("Build From Game Map"))
+			if (foundMap == null || !GUILayout.Button("Build From Game Map")) return;
+
+			_controllers.Clear();
+			_indexes.Clear();
+
+			for (int i = 0; i < foundMap.Tiles.Count; i++)
 			{
-				_controllers.Clear();
-				_indexes.Clear();
+				var mapTile = foundMap.Tiles[i];
+				var isRegular = true;
 
-				for (int i = 0; i < foundMap.Tiles.Count; i++)
+				if (foundMap.TileParameters != null && foundMap.TileParameters.Count > i)
 				{
-					var mapTile = foundMap.Tiles[i];
-					var isRegular = true;
-
-					if (_useTileParameters && foundMap.TileParameters != null && foundMap.TileParameters.Count < i)
-					{
-						var split = foundMap.TileParameters[i].Split(',');
-						isRegular = split.Length > 0 && bool.Parse(split[0]);
-					}
-
-					var instance = PrefabUtility.InstantiatePrefab(isRegular ? _regularTile : _levelTile,
-						Selection.activeTransform) as GameObject;
-					// register the new tile
-					_controllers.Add(instance, new TileController());
-					_indexes.Add(mapTile, instance);
-					_currentMap.Tiles.Add(mapTile);
-
-					if (_useTileParameters)
-					{
-						_currentMap.TileParameters.Add(foundMap.TileParameters[i]);
-					}
-
-					// adjust bounds
-					var boxCollider = instance.GetComponentInChildren<BoxCollider>();
-					_controllers[instance].AdjustBounds(boxCollider.bounds);
-
-					if (_useTileParameters && !isRegular)
-					{
-						var levelName = foundMap.TileParameters[i].Split(',')[1];
-						var details = instance.GetComponentInChildren<LevelNameRequestHandler>();
-						details.LevelName = levelName;
-					}
+					isRegular = string.IsNullOrEmpty(foundMap.TileParameters[i]);
 				}
 
-				foreach (var instruction in foundMap.Instructions)
+				var instance = PrefabUtility.InstantiatePrefab(isRegular ? _regularTile : _levelTile,
+					Selection.activeTransform) as GameObject;
+				// register the new tile
+				_controllers.Add(instance, new TileController());
+				_indexes.Add(mapTile, instance);
+				_currentMap.Tiles.Add(mapTile);
+				_currentMap.TileParameters.Add(foundMap.TileParameters[i]);
+
+				// adjust bounds
+				var boxCollider = instance.GetComponentInChildren<BoxCollider>();
+				_controllers[instance].AdjustBounds(boxCollider.bounds);
+
+				if (isRegular) continue;
+
+				var levelName = foundMap.TileParameters[i];
+				var details = instance.GetComponentInChildren<LevelNameRequestHandler>();
+				details.LevelName = levelName;
+			}
+
+			foreach (var instruction in foundMap.Instructions)
+			{
+				var rootIndex = instruction.root;
+				var tileIndex = instruction.tile;
+
+				var rootController = _controllers[_indexes[rootIndex]];
+				var tileController = _controllers[_indexes[tileIndex]];
+				var rootTransform = _indexes[rootIndex].transform;
+				var tileTransform = _indexes[tileIndex].transform;
+
+				// adjust neighbor insertion
+				rootController.AddNeighbor(instruction.direction, instruction.rule, tileController.Tile,
+					rootTransform, tileTransform);
+
+				_currentMap.Instructions.Add(new InsertionInstruction()
 				{
-					var rootIndex = instruction.root;
-					var tileIndex = instruction.tile;
-
-					var rootController = _controllers[_indexes[rootIndex]];
-					var tileController = _controllers[_indexes[tileIndex]];
-					var rootTransform = _indexes[rootIndex].transform;
-					var tileTransform = _indexes[tileIndex].transform;
-
-					// adjust neighbor insertion
-					rootController.AddNeighbor(instruction.direction, instruction.rule, tileController.Tile,
-						rootTransform, tileTransform);
-
-					_currentMap.Instructions.Add(new InsertionInstruction()
-					{
-						direction = instruction.direction,
-						root = rootIndex,
-						rule = instruction.rule,
-						tile = tileIndex
-					});
-				}
+					direction = instruction.direction,
+					root = rootIndex,
+					rule = instruction.rule,
+					tile = tileIndex
+				});
 			}
 		}
 
@@ -204,12 +174,7 @@ namespace TilesWalk.Building.Editor
 				_controllers.Add(instance, new TileController());
 				_indexes.Add(id, instance);
 				_currentMap.Tiles.Add(id);
-
-				if (_useTileParameters)
-				{
-					_currentMap.TileParameters.Add(_insertRegular.ToString() + "," +
-					                               (_insertRegular ? "none" : _levelName));
-				}
+				_currentMap.TileParameters.Add(_insertRegular ? string.Empty : _levelName);
 
 				// adjust bounds
 				var boxCollider = instance.GetComponentInChildren<BoxCollider>();
@@ -237,12 +202,7 @@ namespace TilesWalk.Building.Editor
 				var id = Mathf.Abs(instance.GetInstanceID());
 				_indexes.Add(id, instance);
 				_currentMap.Tiles.Add(id);
-
-				if (_useTileParameters)
-				{
-					_currentMap.TileParameters.Add(_insertRegular.ToString() + "," +
-					                               (_insertRegular ? "none" : _levelName));
-				}
+				_currentMap.TileParameters.Add(_insertRegular ? string.Empty : _levelName);
 
 				if (!_insertRegular)
 				{

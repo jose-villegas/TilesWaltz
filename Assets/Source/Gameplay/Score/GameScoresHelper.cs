@@ -9,7 +9,7 @@ namespace TilesWalk.Gameplay.Score
 	public class GameScoresHelper : MonoBehaviour
 	{
 		[Inject] private Dictionary<string, LevelScore> _scoreRecords;
-		[Inject] private List<TileMap> _availableMaps;
+		[Inject] private List<LevelMap> _availableMaps;
 		[Inject] private ScorePointsConfiguration _scorePointsSettings;
 
 		public int GameStars { get; private set; }
@@ -24,17 +24,17 @@ namespace TilesWalk.Gameplay.Score
 			CalculateAllGameStars();
 		}
 
-		public bool IsCompleted(TileMap tileMap)
+		public bool IsCompleted(LevelMap levelMap)
 		{
-			var count = GetStarCount(tileMap);
+			var count = GetStarCount(levelMap);
 			return count == 3;
 		}
 
-		public int GetStarCount(TileMap tileMap)
+		public int GetStarCount(LevelMap levelMap)
 		{
-			if (_scoreRecords.TryGetValue(tileMap.Id, out var score))
+			if (_scoreRecords.TryGetValue(levelMap.Id, out var score))
 			{
-				var ratio = (float) score.Points.Highest / tileMap.Target;
+				var ratio = (float) score.Points.Highest / levelMap.Target;
 
 				if (ratio >= 1)
 				{

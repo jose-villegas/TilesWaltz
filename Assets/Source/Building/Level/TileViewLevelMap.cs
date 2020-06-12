@@ -13,11 +13,11 @@ using Zenject;
 
 namespace TilesWalk.Building.Level
 {
-	public class TileViewMap : TileViewTrigger
+	public class TileViewLevelMap : TileViewTrigger
 	{
-		[SerializeField] private TileViewMapStartLoadOptions _loadOption;
+		[SerializeField] private LevelLoadOptions _loadOption;
 		[TextArea, SerializeField] private string _instructions;
-		[SerializeField] TileMap _tileMap = new TileMap();
+		[SerializeField] LevelMap _levelMap = new LevelMap();
 
 		[Inject] private TileViewFactory _viewFactory;
 		[Inject] private MapLevelBridge _mapLevelBridge;
@@ -30,22 +30,22 @@ namespace TilesWalk.Building.Level
 		public Dictionary<int, List<InsertionInstruction>> Insertions { get; } =
 			new Dictionary<int, List<InsertionInstruction>>();
 
-		public TileMap TileMap => _tileMap;
+		public LevelMap LevelMap => _levelMap;
 
-		protected Subject<TileMap> _onTileMapLoaded;
+		protected Subject<LevelMap> _onLevelMapLoaded;
 
 		private void Start()
 		{
 			_viewFactory.OnNewInstanceAsObservable().Subscribe(OnNewTileInstance).AddTo(this);
 
-			if (_loadOption == TileViewMapStartLoadOptions.FromInstructions)
+			if (_loadOption == LevelLoadOptions.FromInstructions)
 			{
 				_viewFactory.IsAssetLoaded.Subscribe(ready =>
 				{
 					if (ready) BuildFromInstructions();
 				});
 			}
-			else if (_loadOption == TileViewMapStartLoadOptions.FromLevelBridge)
+			else if (_loadOption == LevelLoadOptions.FromLevelBridge)
 			{
 				_viewFactory.IsAssetLoaded.Subscribe(ready =>
 				{
@@ -77,7 +77,7 @@ namespace TilesWalk.Building.Level
 			HashToTile[id] = tile;
 			_tileView[tile.Controller.Tile] = tile;
 			// register tile to the tile map
-			_tileMap.Tiles.Add(id);
+			_levelMap.Tiles.Add(id);
 		}
 
 		public void RemoveTile(TileView tile)
@@ -87,9 +87,9 @@ namespace TilesWalk.Building.Level
 			TileToHash.Remove(tile);
 			HashToTile.Remove(hash);
 			// remove from map
-			_tileMap.Instructions.RemoveAll(x => x.tile == hash);
-			_tileMap.Instructions.RemoveAll(x => x.root == hash);
-			_tileMap.Tiles.Remove(hash);
+			_levelMap.Instructions.RemoveAll(x => x.tile == hash);
+			_levelMap.Instructions.RemoveAll(x => x.root == hash);
+			_levelMap.Tiles.Remove(hash);
 			// remove all instructions that refer to this tile
 
 			if (!Insertions.TryGetValue(hash, out var instructions)) return;
@@ -123,7 +123,7 @@ namespace TilesWalk.Building.Level
 			var instr = Insertions.Values.SelectMany(x => x).ToList();
 			var hashes = TileToHash.Values.ToList();
 
-			var map = new TileMap()
+			var map = new LevelMap()
 			{
 				Instructions = instr,
 				Tiles = hashes
@@ -136,11 +136,11 @@ namespace TilesWalk.Building.Level
 		public void BuildFromInstructions()
 		{
 			// first instance all the needed tiles
-			var map = JsonConvert.DeserializeObject<TileMap>(_instructions);
+			var map = JsonConvert.DeserializeObject<LevelMap>(_instructions);
 			BuildTileMap(map);
 		}
 
-		private void BuildTileMap(TileMap map)
+		private void BuildTileMap(LevelMap map)
 		{
 			// reset data structures
 			HashToTile.Clear();
@@ -165,10 +165,10 @@ namespace TilesWalk.Building.Level
 				UpdateInstructions(rootTile, insert, instruction.direction, instruction.rule);
 			}
 
-			_tileMap.Id = map.Id;
-			_tileMap.Target = map.Target;
-			_tileMap.FinishCondition = map.FinishCondition;
-			_onTileMapLoaded?.OnNext(_tileMap);
+			_levelMap.Id = map.Id;
+			_levelMap.Target = map.Target;
+			_levelMap.FinishCondition = map.FinishCondition;
+			_onLevelMapLoaded?.OnNext(_levelMap);
 		}
 
 		public void UpdateInstructions(TileView root, TileView tile, CardinalDirection d, NeighborWalkRule r)
@@ -189,18 +189,18 @@ namespace TilesWalk.Building.Level
 				rule = r
 			});
 
-			_tileMap.Instructions.Add(insertions.Last());
+			_levelMap.Instructions.Add(insertions.Last());
 		}
 
-		public IObservable<TileMap> OnTileMapLoadedAsObservable()
+		public IObservable<LevelMap> OnLevelMapLoadedAsObservable()
 		{
-			return _onTileMapLoaded = _onTileMapLoaded ?? new Subject<TileMap>();
+			return _onLevelMapLoaded = _onLevelMapLoaded ?? new Subject<LevelMap>();
 		}
 
 		protected override void RaiseOnCompletedOnDestroy()
 		{
 			base.RaiseOnCompletedOnDestroy();
-			_onTileMapLoaded?.OnCompleted();
+			_onLevelMapLoaded?.OnCompleted();
 		}
 	}
 }

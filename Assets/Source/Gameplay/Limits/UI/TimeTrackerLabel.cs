@@ -16,22 +16,22 @@ namespace TilesWalk.Gameplay.Limits.UI
 	[RequireComponent(typeof(TextMeshProUGUI))]
 	public class TimeTrackerLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
-		[Inject] private TileViewMap _tileMap;
+		[Inject] private TileViewLevelMap _tileLevelMap;
 		[Inject] private LevelFinishTracker _levelFinishTracker;
 
 		private void Start()
 		{
-			_tileMap
-				.OnTileMapLoadedAsObservable()
+			_tileLevelMap
+				.OnLevelMapLoadedAsObservable()
 				.Subscribe(
-					OnTileMapLoaded
+					OnLevelMapLoaded
 				)
 				.AddTo(this);
 		}
 
-		private void OnTileMapLoaded(TileMap tileMap)
+		private void OnLevelMapLoaded(LevelMap levelMap)
 		{
-			if (tileMap.FinishCondition != FinishCondition.TimeLimit)
+			if (levelMap.FinishCondition != FinishCondition.TimeLimit)
 			{
 				transform.parent.gameObject.SetActive(false);
 				return;

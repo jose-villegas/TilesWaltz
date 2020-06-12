@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace TilesWalk.Gameplay.Condition
 {
@@ -7,15 +8,15 @@ namespace TilesWalk.Gameplay.Condition
 	{
 		public override int Update(int value)
 		{
-			_tracker += value;
+			_tracker.Value += value;
 
-			if (_tracker >= _limit)
+			if (_tracker.Value >= _limit)
 			{
 				IsConditionMeet.Value = true;
 				return 0;
 			}
 
-			return _tracker;
+			return _tracker.Value;
 		}
 
 		public MovesFinishCondition(string id, int limit) : base(id, limit)

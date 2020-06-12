@@ -10,17 +10,17 @@ namespace TilesWalk.Map.Tile
 {
 	public class LevelTile : LevelNameRequireBehaviour
 	{
-		[Inject] private TileMapDetailsCanvas _detailsCanvas;
+		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
 		[Inject] private MapLevelBridge _mapLevelBridge;
 
 		private Subject<LevelTile> _onLevelTileClick;
 
-		private void Awake()
+		private void OnMouseDown()
 		{
-			transform.OnMouseDownAsObservable().Subscribe(OnMapTileClick).AddTo(this);
+			OnMapTileClick();
 		}
 
-		public void OnMapTileClick(Unit u)
+		public void OnMapTileClick()
 		{
 			if (_detailsCanvas.IsVisible && _detailsCanvas.LevelName.Value == LevelName.Value)
 			{

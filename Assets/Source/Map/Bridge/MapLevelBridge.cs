@@ -6,6 +6,6 @@ namespace TilesWalk.Map.Bridge
 {
 	public class MapLevelBridge : MonoBehaviour
 	{
-		public TileMap SelectedLevel { get; set; } = null;
+		public LevelMap SelectedLevel { get; set; } = null;
 	}
 }

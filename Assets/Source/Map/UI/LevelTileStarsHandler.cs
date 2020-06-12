@@ -24,11 +24,11 @@ namespace TilesWalk.Navigation.UI
 			OnTileMapFoundAsObservable().Subscribe(OnTileMapUpdated).AddTo(this);
 		}
 
-		protected void OnTileMapUpdated(TileMap tileMap)
+		protected void OnTileMapUpdated(LevelMap levelMap)
 		{
-			if (tileMap == null) return;
+			if (levelMap == null) return;
 
-			var stars = _gameScoresHelper.GetStarCount(tileMap);
+			var stars = _gameScoresHelper.GetStarCount(levelMap);
 
 			for (int i = 0; i < _stars.Length; i++)
 			{

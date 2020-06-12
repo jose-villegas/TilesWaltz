@@ -15,7 +15,7 @@ using Zenject;
 
 namespace TilesWalk.Navigation.UI
 {
-	public class TileMapDetailsCanvas : CanvasGroupBehaviour, ILevelNameRequire
+	public class LevelMapDetailsCanvas : CanvasGroupBehaviour, ILevelNameRequire
 	{
 		[SerializeField] private TextMeshProUGUI _name;
 		[SerializeField] private TextMeshProUGUI _target;
@@ -27,21 +27,21 @@ namespace TilesWalk.Navigation.UI
 
 		[SerializeField] private Button _previousLevel;
 
-		[Inject] private List<TileMap> _availableMaps;
+		[Inject] private List<LevelMap> _availableMaps;
 		[Inject] private MapLevelBridge _mapLevelBridge;
 		[Inject] private LevelTilesHandler _levelTilesHandler;
 		[Inject] private GameScoresHelper _gameScoresHelper;
 
 		public ReactiveProperty<string> LevelName { get; set; } = new ReactiveProperty<string>();
-		public TileMap TileMap { get; private set; }
+		public LevelMap LevelMap { get; private set; }
 
 		private void Awake()
 		{
 			LevelName.Subscribe(level =>
 			{
-				TileMap = _availableMaps.Find(x => x.Id == level);
+				LevelMap = _availableMaps.Find(x => x.Id == level);
 
-				if (TileMap != null)
+				if (LevelMap != null)
 				{
 					LoadMapData();
 				}
@@ -53,41 +53,43 @@ namespace TilesWalk.Navigation.UI
 
 		private void OnPreviousClick()
 		{
-			var levelTile = _levelTilesHandler[TileMap];
+			var levelTile = _levelTilesHandler[LevelMap];
 			var index = _levelTilesHandler.LevelTiles.IndexOf(levelTile);
 
 			if (index > 0)
 			{
 				levelTile = _levelTilesHandler.LevelTiles[index - 1];
-				levelTile.OnMapTileClick(new Unit());
+				levelTile.OnMapTileClick();
 			}
 		}
 
 		private void OnNextClick()
 		{
-			var levelTile = _levelTilesHandler[TileMap];
+			var levelTile = _levelTilesHandler[LevelMap];
 			var index = _levelTilesHandler.LevelTiles.IndexOf(levelTile);
 
 			if (index != _levelTilesHandler.LevelTiles.Length)
 			{
 				levelTile = _levelTilesHandler.LevelTiles[index + 1];
-				levelTile.OnMapTileClick(new Unit());
+				levelTile.OnMapTileClick();
 			}
 		}
 
 		private void LoadMapData()
 		{
-			_name.text = TileMap.Id;
-			_target.text = TileMap.Target.Localize();
-			_stars.text = $"{_gameScoresHelper.GameStars}/{TileMap.StarsRequired}";
-			_playButton.interactable = _gameScoresHelper.GameStars >= TileMap.StarsRequired;
+			_name.text = LevelMap.Id;
+			_target.text = LevelMap.Target.Localize();
+			_stars.text = $"{_gameScoresHelper.GameStars}/{LevelMap.StarsRequired}";
+			_playButton.interactable = _gameScoresHelper.GameStars >= LevelMap.StarsRequired;
 
 			// prepare the bridge
-			_mapLevelBridge.SelectedLevel = TileMap;
+			_mapLevelBridge.SelectedLevel = LevelMap;
 
 			// set navigation buttons
-			var levelTile = _levelTilesHandler[TileMap];
+			var levelTile = _levelTilesHandler[LevelMap];
 			var index = _levelTilesHandler.LevelTiles.IndexOf(levelTile);
+			_nextLevel.interactable = true;
+			_previousLevel.interactable = true;
 
 			if (index == 0)
 			{

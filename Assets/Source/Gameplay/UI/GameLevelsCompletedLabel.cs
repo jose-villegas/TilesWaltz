@@ -14,12 +14,12 @@ namespace TilesWalk.Gameplay.UI
 	public class GameLevelsCompletedLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
 		[Inject] private GameScoresHelper _gameScoresHelper;
-		[Inject] private List<TileMap> _availableMaps;
+		[Inject] private List<LevelMap> _availableMaps;
 
 		private void Start()
 		{
-			var maps = _availableMaps.Count(x => x.Target > 0);
-			var completed = _availableMaps.Count(x => x.Target > 0 && _gameScoresHelper.IsCompleted(x));
+			var maps = _availableMaps.Count;
+			var completed = _availableMaps.Count(x => _gameScoresHelper.IsCompleted(x));
 
 			Component.text = $"{completed.Localize()}/{maps.Localize()}";
 		}

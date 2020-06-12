@@ -13,7 +13,7 @@ namespace TilesWalk.Map.Tile
 {
 	public class LevelTilesHandler : ObservableTriggerBase
 	{
-		[Inject] private TileMapDetailsCanvas _detailsCanvas;
+		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
 		[Inject] private Dictionary<string, LevelScore> _scoreRecords;
 
 		private LevelTile[] _levelTiles;
@@ -23,11 +23,11 @@ namespace TilesWalk.Map.Tile
 
 		public LevelTile[] LevelTiles => _levelTiles;
 
-		public LevelTile this[TileMap map]
+		public LevelTile this[LevelMap map]
 		{
 			get
 			{
-				return _levelTiles.FirstOrDefault(x => x.TileMap.Id == map.Id);
+				return _levelTiles.FirstOrDefault(x => x.LevelMap.Id == map.Id);
 			}
 		}
 
@@ -71,16 +71,16 @@ namespace TilesWalk.Map.Tile
 			{
 				if (_scoreRecords.TryGetValue(level.LevelName, out var score))
 				{
-					if (score.Points.Highest < level.TileMap.Target)
+					if (score.Points.Highest < level.LevelMap.Target)
 					{
-						_detailsCanvas.LevelName.Value = level.TileMap.Id;
+						_detailsCanvas.LevelName.Value = level.LevelMap.Id;
 						_detailsCanvas.Show();
 						return;
 					}
 				}
 				else
 				{
-					_detailsCanvas.LevelName.Value = level.TileMap.Id;
+					_detailsCanvas.LevelName.Value = level.LevelMap.Id;
 					_detailsCanvas.Show();
 					return;
 				}

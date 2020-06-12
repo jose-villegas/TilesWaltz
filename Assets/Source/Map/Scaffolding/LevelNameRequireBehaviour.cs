@@ -10,12 +10,12 @@ namespace TilesWalk.Map.Scaffolding
 {
 	public abstract class LevelNameRequireBehaviour : ObservableTriggerBase, ILevelNameRequire
 	{
-		[Inject] private List<TileMap> _availableMaps;
+		[Inject] private List<LevelMap> _availableMaps;
 
 		public ReactiveProperty<string> LevelName { get; } = new ReactiveProperty<string>();
-		public TileMap TileMap { get; private set; }
+		public LevelMap LevelMap { get; private set; }
 
-		private Subject<TileMap> _onTileMapFound;
+		private Subject<LevelMap> _onTileMapFound;
 
 		protected virtual void Start()
 		{
@@ -23,16 +23,16 @@ namespace TilesWalk.Map.Scaffolding
 			{
 				if (string.IsNullOrEmpty(level)) return;
 
-				TileMap =  _availableMaps.Find(x => x.Id == level);
+				LevelMap =  _availableMaps.Find(x => x.Id == level);
 
-				if (TileMap != null) _onTileMapFound?.OnNext(TileMap);
+				if (LevelMap != null) _onTileMapFound?.OnNext(LevelMap);
 
 			}).AddTo(this);
 		}
 
-		public IObservable<TileMap> OnTileMapFoundAsObservable()
+		public IObservable<LevelMap> OnTileMapFoundAsObservable()
 		{
-			return _onTileMapFound = _onTileMapFound ?? new Subject<TileMap>();
+			return _onTileMapFound = _onTileMapFound ?? new Subject<LevelMap>();
 		}
 
 		protected override void RaiseOnCompletedOnDestroy()

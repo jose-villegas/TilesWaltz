@@ -13,7 +13,7 @@ namespace TilesWalk.Map.Camera
 	public class GameMapCameraHandler : MonoBehaviour
 	{
 		[Inject] private LevelTilesHandler _levelTilesHandler;
-		[Inject] private TileMapDetailsCanvas _detailsCanvas;
+		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
 
 		private Vector3 _initialPosition;
 
@@ -33,9 +33,9 @@ namespace TilesWalk.Map.Camera
 		{
 			var levelTile = _levelTilesHandler.LevelTiles.FirstOrDefault(x =>
 			{
-				if (x.TileMap != null && _detailsCanvas.TileMap != null)
+				if (x.LevelMap != null && _detailsCanvas.LevelMap != null)
 				{
-					return x.TileMap.Id == _detailsCanvas.TileMap.Id;
+					return x.LevelMap.Id == _detailsCanvas.LevelMap.Id;
 				}
 
 				return false;

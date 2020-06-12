@@ -26,21 +26,26 @@ namespace TilesWalk.Gameplay.Installer
 
 		[SerializeField, Range(0, 5)] private int _mapSize;
 
-		[Header("Entries")] [SerializeField] private List<TileMap> _availableMaps;
+		[Header("Entries")] [SerializeField] private List<LevelMap> _availableMaps;
 		[SerializeField] private List<MovesFinishCondition> _movesFinishConditions;
 		[SerializeField] private List<TimeFinishCondition> _timeFinishConditions;
+
+		[Header("Game Levels Map")] [SerializeField]
+		private GameLevelsMap _gameLevelsMap;
 
 		private bool IsTimeCondition => _condition == FinishCondition.TimeLimit;
 
 		private bool IsMovesCondition => _condition == FinishCondition.MovesLimit;
 
-#if UNITY_EDITOR
-		public List<TileMap> AvailableMaps => _availableMaps;
-#endif
+		public GameLevelsMap LevelsMap
+		{
+			get => _gameLevelsMap;
+			set => _gameLevelsMap = value;
+		}
 
 		public override void InstallBindings()
 		{
-			Container.Bind<List<TileMap>>().FromInstance(_availableMaps).AsSingle();
+			Container.Bind<List<LevelMap>>().FromInstance(_availableMaps).AsSingle();
 			Container.Bind<List<MovesFinishCondition>>().FromInstance(_movesFinishConditions).AsSingle();
 			Container.Bind<List<TimeFinishCondition>>().FromInstance(_timeFinishConditions).AsSingle();
 		}
@@ -48,10 +53,11 @@ namespace TilesWalk.Gameplay.Installer
 		[Button]
 		public void Insert()
 		{
-			var map = JsonConvert.DeserializeObject<TileMap>(_instructions);
+			var map = JsonConvert.DeserializeObject<LevelMap>(_instructions);
 			map.Id = _name;
 			map.MapSize = _mapSize;
-			AvailableMaps.Add(map);
+			map.FinishCondition = _condition;
+			_availableMaps.Add(map);
 
 			switch (_condition)
 			{

@@ -10,21 +10,21 @@ namespace TilesWalk.Gameplay.Level.UI
 	[RequireComponent(typeof(TextMeshProUGUI))]
 	public class LevelTileMapNameLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
-		[Inject] private TileViewMap _tileViewMap;
+		[Inject] private TileViewLevelMap _tileViewLevelMap;
 
 		private void Start()
 		{
-			if (_tileViewMap.TileMap != null && !string.IsNullOrEmpty(_tileViewMap.TileMap.Id))
+			if (_tileViewLevelMap.LevelMap != null && !string.IsNullOrEmpty(_tileViewLevelMap.LevelMap.Id))
 			{
-				Component.text = _tileViewMap.TileMap.Id;
+				Component.text = _tileViewLevelMap.LevelMap.Id;
 			}
 
-			_tileViewMap.OnTileMapLoadedAsObservable().Subscribe(OnTileMapLoaded).AddTo(this);
+			_tileViewLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
 		}
 
-		private void OnTileMapLoaded(TileMap tileMap)
+		private void OnLevelMapLoaded(LevelMap levelMap)
 		{
-			Component.text = tileMap.Id;
+			Component.text = levelMap.Id;
 		}
 	}
 }

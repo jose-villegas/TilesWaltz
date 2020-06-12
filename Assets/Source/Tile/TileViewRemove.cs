@@ -49,13 +49,13 @@ namespace TilesWalk.Tile
 
 			if (shufflePath == null || shufflePath.Count <= 0) return;
 
-			var tiles = shufflePath.Select(x => _tileMap.GetTileView(x)).ToList();
+			var tiles = shufflePath.Select(x => _tileLevelMap.GetTileView(x)).ToList();
 			// this structure with backup the origin position and rotations
 			var backup = ShufflePath(tiles);
 
 			// since the last tile has no other to exchange positions with, reduce its
 			// scale to hide it before showing its new color
-			var lastTile = _tileMap.GetTileView(shufflePath[shufflePath.Count - 1]);
+			var lastTile = _tileLevelMap.GetTileView(shufflePath[shufflePath.Count - 1]);
 			var scale = lastTile.transform.localScale;
 			lastTile.transform.localScale = Vector3.zero;
 
@@ -96,7 +96,7 @@ namespace TilesWalk.Tile
 			for (int i = 0; i < shufflePath.Count; i++)
 			{
 				var index = i;
-				var tileView = _tileMap.GetTileView(shufflePath[i]);
+				var tileView = _tileLevelMap.GetTileView(shufflePath[i]);
 				var sourceScale = tileView.transform.localScale;
 
 				StartCoroutine(tileView.ScalePopInAnimation(Vector3.zero))

@@ -10,7 +10,7 @@ namespace TilesWalk.Gameplay.Score
 	public class LevelScorePointsTracker : ObservableTriggerBase
 	{
 		[Inject] private ScorePointsConfiguration _scorePointsConfiguration;
-		[Inject] private TileViewMap _tileMap;
+		[Inject] private TileViewLevelMap _tileLevelMap;
 		[Inject] private Dictionary<string, LevelScore> _scoreRecords;
 
 		private Dictionary<string, int> _scoreTracking = new Dictionary<string, int>();
@@ -22,23 +22,23 @@ namespace TilesWalk.Gameplay.Score
 		{
 			get
 			{
-				if (!_scoreRecords.TryGetValue(_tileMap.TileMap.Id, out var score))
+				if (!_scoreRecords.TryGetValue(_tileLevelMap.LevelMap.Id, out var score))
 				{
-					_scoreRecords[_tileMap.TileMap.Id] = new LevelScore(_tileMap.TileMap.Id);
+					_scoreRecords[_tileLevelMap.LevelMap.Id] = new LevelScore(_tileLevelMap.LevelMap.Id);
 				}
 
-				return _scoreRecords[_tileMap.TileMap.Id];
+				return _scoreRecords[_tileLevelMap.LevelMap.Id];
 			}
 		}
 
 		private void Start()
 		{
-			_tileMap.OnTileRemovedAsObservable().Subscribe(OnTileRemoved).AddTo(this);
-			_tileMap.OnComboRemovalAsObservable().Subscribe(OnComboRemoval).AddTo(this);
-			_tileMap.OnTileMapLoadedAsObservable().Subscribe(OnTileMapLoaded).AddTo(this);
+			_tileLevelMap.OnTileRemovedAsObservable().Subscribe(OnTileRemoved).AddTo(this);
+			_tileLevelMap.OnComboRemovalAsObservable().Subscribe(OnComboRemoval).AddTo(this);
+			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
 		}
 
-		private void OnTileMapLoaded(TileMap _)
+		private void OnLevelMapLoaded(LevelMap _)
 		{
 			AddPoints(0);
 			_onScoresLoaded?.OnNext(LevelScore);
@@ -46,7 +46,7 @@ namespace TilesWalk.Gameplay.Score
 
 		public void AddPoints(int points)
 		{
-			var mapName = _tileMap.TileMap.Id;
+			var mapName = _tileLevelMap.LevelMap.Id;
 
 			if (!_scoreRecords.TryGetValue(mapName, out var score))
 			{

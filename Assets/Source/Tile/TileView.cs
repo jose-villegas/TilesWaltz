@@ -20,7 +20,7 @@ namespace TilesWalk.Tile
 	{
 		[SerializeField] private TileController _controller;
 		[Inject] private TileViewFactory _tileFactory;
-		[Inject] private TileViewMap _tileMap;
+		[Inject] private TileViewLevelMap _tileLevelMap;
 		[Inject] private LevelFinishTracker _levelFinishTracker;
 
 		private MeshRenderer _meshRenderer;
@@ -76,9 +76,9 @@ namespace TilesWalk.Tile
 					item.Value.HingePoints.Remove(item.Key.Opposite());
 				}
 
-				_tileMap.RefreshAllPaths();
+				_tileLevelMap.RefreshAllPaths();
 				// unregistered when destroyed
-				_tileMap.RemoveTile(this);
+				_tileLevelMap.RemoveTile(this);
 			}
 
 			MovementLocked = false;
@@ -111,14 +111,17 @@ namespace TilesWalk.Tile
 					RemoveCombo();
 				}
 			}).AddTo(this);
-			// on click trigger remove
-			transform.OnMouseDownAsObservable().Subscribe(_ => Remove()).AddTo(this);
 			// on level finish stop interactions
 			_levelFinishTracker.OnLevelFinishAsObservable().Subscribe(_ =>
 			{
 				MovementLocked = true;
 				StartCoroutine(LevelFinishAnimation());
 			}).AddTo(this);
+		}
+
+		private void OnMouseDown()
+		{
+			Remove();
 		}
 
 		private void UpdateColor(TileColor color)
@@ -148,7 +151,7 @@ namespace TilesWalk.Tile
 			tile.direction = direction;
 			tile.rule = rule;
 			// add new insertion instruction for this tile
-			_tileMap.UpdateInstructions(this, tile, direction, rule);
+			_tileLevelMap.UpdateInstructions(this, tile, direction, rule);
 		}
 
 		private void OnDrawGizmos()
@@ -171,7 +174,7 @@ namespace TilesWalk.Tile
 			{
 				foreach (var tile in _controller.Tile.ShortestPathToLeaf)
 				{
-					var view = _tileMap.GetTileView(tile);
+					var view = _tileLevelMap.GetTileView(tile);
 					Gizmos.DrawCube(view.transform.position +
 					                transform.up * 0.15f, Vector3.one * 0.15f);
 				}
@@ -182,7 +185,7 @@ namespace TilesWalk.Tile
 			{
 				foreach (var tile in _controller.Tile.MatchingColorPatch)
 				{
-					var view = _tileMap.GetTileView(tile);
+					var view = _tileLevelMap.GetTileView(tile);
 					Gizmos.DrawWireCube(view.transform.position, Vector3.one);
 				}
 			}

@@ -12,7 +12,7 @@ namespace TilesWalk.Gameplay.Condition
 	public class LevelFinishTracker : ObservableTriggerBase
 	{
 		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;
-		[Inject] private TileViewMap _tileMap;
+		[Inject] private TileViewLevelMap _tileLevelMap;
 		[Inject] private List<MovesFinishCondition> _movesFinishConditions;
 		[Inject] private List<TimeFinishCondition> _timeFinishConditions;
 
@@ -21,6 +21,7 @@ namespace TilesWalk.Gameplay.Condition
 		private TimeFinishCondition _timeFinishCondition;
 
 		private Subject<LevelScore> _onLevelFinish;
+		private Subject<LevelScore> _onTrackersSetupFinish;
 		private Subject<LevelScore> _onScorePointsTargetReached;
 
 		public MovesFinishCondition MovesFinishCondition => _movesFinishCondition;
@@ -28,25 +29,25 @@ namespace TilesWalk.Gameplay.Condition
 
 		private void Awake()
 		{
-			_tileMap.OnTileMapLoadedAsObservable().Subscribe(OnTileMapLoaded).AddTo(this);
+			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
 		}
 
-		private void OnTileMapLoaded(TileMap tileMap)
+		private void OnLevelMapLoaded(LevelMap levelMap)
 		{
-			_targetPointsCondition = new TargetScorePointsCondition(tileMap.Id, tileMap.Target);
+			_targetPointsCondition = new TargetScorePointsCondition(levelMap.Id, levelMap.Target);
 
 			// find finish conditions
-			_movesFinishCondition = _movesFinishConditions.Find(x => x.Id == tileMap.Id);
-			_timeFinishCondition = _timeFinishConditions.Find(x => x.Id == tileMap.Id);
+			_movesFinishCondition = _movesFinishConditions.Find(x => x.Id == levelMap.Id);
+			_timeFinishCondition = _timeFinishConditions.Find(x => x.Id == levelMap.Id);
 
 			if (_movesFinishCondition == null)
 			{
-				_movesFinishCondition = new MovesFinishCondition(tileMap.Id, int.MaxValue);
+				_movesFinishCondition = new MovesFinishCondition(levelMap.Id, int.MaxValue);
 			}
 
 			if (_timeFinishCondition == null)
 			{
-				_timeFinishCondition = new TimeFinishCondition(tileMap.Id, float.MaxValue);
+				_timeFinishCondition = new TimeFinishCondition(levelMap.Id, float.MaxValue);
 			}
 
 			_movesFinishCondition.Reset(0);
@@ -65,24 +66,26 @@ namespace TilesWalk.Gameplay.Condition
 			{
 				if (!meet) return;
 
-				_levelScorePointsTracker.LevelScore.Moves.Update(_movesFinishCondition.Tracker);
-				_levelScorePointsTracker.LevelScore.Time.Update(_timeFinishCondition.Tracker);
+				_levelScorePointsTracker.LevelScore.Moves.Update(_movesFinishCondition.Tracker.Value);
+				_levelScorePointsTracker.LevelScore.Time.Update(_timeFinishCondition.Tracker.Value);
 				_onScorePointsTargetReached?.OnNext(_levelScorePointsTracker.LevelScore);
 			}).AddTo(this);
 
 			// track time
-			TimeTracking(tileMap);
+			TimeTracking(levelMap);
 
 			// track moves
 			MovesTracking();
+
+			_onTrackersSetupFinish?.OnNext(_levelScorePointsTracker.LevelScore);
 		}
 
 		private void MovesTracking()
 		{
-			_tileMap.OnTileRemovedAsObservable().Subscribe(_ => { _movesFinishCondition?.Update(1); })
+			_tileLevelMap.OnTileRemovedAsObservable().Subscribe(_ => { _movesFinishCondition?.Update(1); })
 				.AddTo(this);
 
-			if (_tileMap.TileMap.FinishCondition == FinishCondition.MovesLimit)
+			if (_tileLevelMap.LevelMap.FinishCondition == FinishCondition.MovesLimit)
 			{
 				_movesFinishCondition.IsConditionMeet.Subscribe(meet =>
 				{
@@ -91,7 +94,7 @@ namespace TilesWalk.Gameplay.Condition
 					if (!_targetPointsCondition.IsConditionMeet.Value)
 					{
 						_levelScorePointsTracker.LevelScore.Moves.Update(_movesFinishCondition.Limit);
-						_levelScorePointsTracker.LevelScore.Time.Update(_timeFinishCondition.Tracker);
+						_levelScorePointsTracker.LevelScore.Time.Update(_timeFinishCondition.Tracker.Value);
 					}
 
 					_onLevelFinish?.OnNext(_levelScorePointsTracker.LevelScore);
@@ -99,7 +102,7 @@ namespace TilesWalk.Gameplay.Condition
 			}
 		}
 
-		private void TimeTracking(TileMap tileMap)
+		private void TimeTracking(LevelMap levelMap)
 		{
 			transform.UpdateAsObservable().Subscribe(_ =>
 				{
@@ -110,7 +113,7 @@ namespace TilesWalk.Gameplay.Condition
 				})
 				.AddTo(this);
 
-			if (tileMap.FinishCondition == FinishCondition.TimeLimit)
+			if (levelMap.FinishCondition == FinishCondition.TimeLimit)
 			{
 				_timeFinishCondition.IsConditionMeet.Subscribe(meet =>
 				{
@@ -118,7 +121,7 @@ namespace TilesWalk.Gameplay.Condition
 
 					if (!_targetPointsCondition.IsConditionMeet.Value)
 					{
-						_levelScorePointsTracker.LevelScore.Moves.Update(_movesFinishCondition.Tracker);
+						_levelScorePointsTracker.LevelScore.Moves.Update(_movesFinishCondition.Tracker.Value);
 						_levelScorePointsTracker.LevelScore.Time.Update(_timeFinishCondition.Limit);
 					}
 
@@ -131,6 +134,12 @@ namespace TilesWalk.Gameplay.Condition
 		{
 			_onLevelFinish?.OnCompleted();
 			_onScorePointsTargetReached?.OnCompleted();
+			_onTrackersSetupFinish?.OnCompleted();
+		}
+
+		public IObservable<LevelScore> OnTrackersSetupFinishAsObservable()
+		{
+			return _onTrackersSetupFinish = _onTrackersSetupFinish ?? new Subject<LevelScore>();
 		}
 
 		public IObservable<LevelScore> OnLevelFinishAsObservable()
