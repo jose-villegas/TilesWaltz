@@ -1,4 +1,4 @@
-﻿namespace TilesWalk.Tile
+﻿namespace TilesWalk.Gameplay.Display
 {
 	public enum TileColor
 	{

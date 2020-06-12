@@ -12,10 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 973962c4a480bd14d86b68c22b2a4ad4, type: 3}
   m_Name: GameSettingsInstaller
   m_EditorClassIdentifier: 
-  _scoreSettings:
-    _scorePerTile: 10
+  _scorePointsSettings:
+    _pointsPerTile: 10
     _comboMultiplier: 10
+    _pointsPerExtraSecond: 20
+    _pointsPerExtraMove: 100
+    _oneStarRange: 0.25
+    _twoStarRange: 0.65
   _animationSettings:
     _shuffleMoveSpeed: 5
     _shuffleMoveAngularSpeed: 60
     _scalePopInSpeed: 10
+  _tileColorsSettings:
+    _configuration:
+    - _name: 1
+      _color: {r: 1, g: 0.4117647, b: 0.38039216, a: 0}
+    - _name: 2
+      _color: {r: 1, g: 0.7019608, b: 0.2784314, a: 0}
+    - _name: 3
+      _color: {r: 0.99215686, g: 0.99215686, b: 0.5882353, a: 0}
+    - _name: 4
+      _color: {r: 0.46666667, g: 0.8666667, b: 0.46666667, a: 0}
+    - _name: 5
+      _color: {r: 0.68235296, g: 0.7764706, b: 0.8117647, a: 0}
+    - _name: 6
+      _color: {r: 0.7019608, g: 0.61960787, b: 0.70980394, a: 0}
+    - _name: 0
+      _color: {r: 0, g: 0, b: 0, a: 0}

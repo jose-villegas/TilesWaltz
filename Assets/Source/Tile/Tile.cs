@@ -5,6 +5,7 @@ using System.Linq;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay;
+using TilesWalk.Gameplay.Display;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 using UniRx;

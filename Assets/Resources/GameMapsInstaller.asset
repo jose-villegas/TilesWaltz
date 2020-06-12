@@ -313,7 +313,7 @@ MonoBehaviour:
       rule: 0
     Tiles: c02bffff142bffffda2affffa82affff6e2affffa829ffff3229ffff9028ffff0628ffff3a27ffffc026ffff1e26ffff8c25fffff224ffff7024ffffee23ffff6c23fffff220ffff6c20ffffce1fffff441fffff
     StarsRequired: 0
-    Target: 1500
+    Target: 800
     MapSize: 5
     FinishCondition: 1
   - Id: Shady

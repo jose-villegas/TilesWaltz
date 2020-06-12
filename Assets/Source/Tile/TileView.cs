@@ -6,6 +6,7 @@ using TilesWalk.Building;
 using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
+using TilesWalk.Gameplay.Display;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 using UniRx;
@@ -22,6 +23,7 @@ namespace TilesWalk.Tile
 		[Inject] private TileViewFactory _tileFactory;
 		[Inject] private TileViewLevelMap _tileLevelMap;
 		[Inject] private LevelFinishTracker _levelFinishTracker;
+		[Inject] private GameTileColorsConfiguration _tileColorsSettings;
 
 		private MeshRenderer _meshRenderer;
 		private BoxCollider _collider;
@@ -90,9 +92,9 @@ namespace TilesWalk.Tile
 			{
 				var colors = Enum.GetValues(typeof(TileColor));
 
-				foreach (TileColor color in colors)
+				foreach (TileColor tileColor in colors)
 				{
-					Materials[color] = new Material(Renderer.material) {color = color.Color()};
+					Materials[tileColor] = new Material(Renderer.material) {color = _tileColorsSettings[tileColor] };
 				}
 			}
 
