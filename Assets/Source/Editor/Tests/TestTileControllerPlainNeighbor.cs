@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using TilesWalk.Gameplay.Display;
 using TilesWalk.General;
 using TilesWalk.Tile;
 using TilesWalk.Tile.Rules;

@@ -23,6 +23,11 @@ namespace TilesWalk.Tile
 			_tile = new Tile();
 		}
 
+		public TileController(Tile tile)
+		{
+			_tile = tile;
+		}
+
 		/// <summary>
 		/// This methods inserts a neighbor in the data structure of the tile path
 		/// </summary>
@@ -42,7 +47,7 @@ namespace TilesWalk.Tile
 			ChainRefreshPaths(tile);
 		}
 
-		public void ChainRefreshPaths(Tile source, CardinalDirection ignore = CardinalDirection.None,
+		public static void ChainRefreshPaths(Tile source, CardinalDirection ignore = CardinalDirection.None,
 			bool updateColorPath = true, bool updateShortestPath = true)
 		{
 			if (updateColorPath) source.RefreshMatchingColorPatch();
