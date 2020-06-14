@@ -71,7 +71,6 @@ namespace TilesWalk.Tile
 			rotate = Quaternion.identity;
 
 			var rootRight = root.GetColumn(0).normalized;
-			var rootUp = root.GetColumn(1).normalized;
 			var rootForward = root.GetColumn(2).normalized;
 
 			switch (direction)
