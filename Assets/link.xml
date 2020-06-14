@@ -1,0 +1,7 @@
+<linker>
+    <assembly fullname="FullSerializer">
+        <namespace fullname="FullSerializer" preserve="all"/>
+        <namespace fullname="FullSerializer.Internal" preserve="all"/>
+        <namespace fullname="FullSerializer.Internal.DirectConverters" preserve="all"/>
+    </assembly>
+</linker>
