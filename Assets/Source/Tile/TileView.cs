@@ -94,7 +94,7 @@ namespace TilesWalk.Tile
 
 				foreach (TileColor tileColor in colors)
 				{
-					Materials[tileColor] = new Material(Renderer.material) {color = _tileColorsSettings[tileColor] };
+					Materials[tileColor] = new Material(Renderer.material) {color = _tileColorsSettings[tileColor]};
 				}
 			}
 
@@ -134,8 +134,8 @@ namespace TilesWalk.Tile
 		#region Debug
 
 #if UNITY_EDITOR
-		[Header("Editor")] [SerializeField] private CardinalDirection direction = CardinalDirection.North;
-		[SerializeField] private NeighborWalkRule rule = NeighborWalkRule.Plain;
+		[Header("Editor")] public CardinalDirection direction = CardinalDirection.North;
+		public NeighborWalkRule rule = NeighborWalkRule.Plain;
 
 
 		[Button]
@@ -148,24 +148,9 @@ namespace TilesWalk.Tile
 			}
 
 			var tile = _tileFactory.NewInstance();
-			_controller.AddNeighbor(direction, rule, tile.Controller.Tile, transform, tile.transform);
-			// keep the same rule as parent, easier building
-			tile.direction = direction;
-			tile.rule = rule;
+			this.InsertNeighbor(direction, rule, tile);
 			// add new insertion instruction for this tile
 			_tileLevelMap.UpdateInstructions(this, tile, direction, rule);
-		}
-
-		private void OnDrawGizmos()
-		{
-			var tile = _controller.Tile;
-
-			Gizmos.color = Color.blue;
-			foreach (var value in tile.HingePoints.Values)
-			{
-				var translate = transform.position - tile.Index;
-				Gizmos.DrawSphere(translate + value, 0.05f);
-			}
 		}
 
 		private void OnDrawGizmosSelected()
@@ -178,8 +163,19 @@ namespace TilesWalk.Tile
 				{
 					var view = _tileLevelMap.GetTileView(tile);
 					Gizmos.DrawCube(view.transform.position +
-					                transform.up * 0.15f, Vector3.one * 0.15f);
+					                view.transform.up * 0.15f, Vector3.one * 0.15f);
 				}
+			}
+
+			Gizmos.color = Color.blue;
+			foreach (var hingePoint in _controller.Tile.HingePoints)
+			{
+				var relative = transform.rotation * hingePoint.Value;
+				Gizmos.DrawSphere(transform.position + relative, 0.05f);
+
+				var view = _tileLevelMap.GetTileView(_controller.Tile.Neighbors[hingePoint.Key]);
+				var joint = view.transform.rotation * view.Controller.Tile.HingePoints[hingePoint.Key.Opposite()];
+				Gizmos.DrawLine(transform.position + relative, view.transform.position + joint);
 			}
 
 			Gizmos.color = Color.magenta;

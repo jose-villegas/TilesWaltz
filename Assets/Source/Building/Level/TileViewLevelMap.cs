@@ -154,8 +154,9 @@ namespace TilesWalk.Building.Level
 				var rootTile = HashToTile[instruction.root];
 				var insert = HashToTile[instruction.tile];
 				// adjust neighbor insertion
-				rootTile.Controller.AddNeighbor(instruction.direction, instruction.rule, insert.Controller.Tile,
-					rootTile.transform, insert.transform);
+				Vector3 translate = Vector3.zero;
+				Quaternion rotate = Quaternion.identity;
+				rootTile.InsertNeighbor(instruction.direction, instruction.rule, insert);
 				UpdateInstructions(rootTile, insert, instruction.direction, instruction.rule);
 			}
 

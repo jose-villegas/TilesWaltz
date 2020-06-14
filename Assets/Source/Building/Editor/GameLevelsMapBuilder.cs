@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TilesWalk.Building.Level;
+using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Installer;
 using TilesWalk.General;
 using TilesWalk.Map.Scaffolding;
@@ -151,7 +152,18 @@ namespace TilesWalk.Building.Editor
 
 				// adjust neighbor insertion
 				rootController.AddNeighbor(instruction.direction, instruction.rule, tileController.Tile,
-					rootTransform, tileTransform);
+					rootTransform.localToWorldMatrix, out var translate, out var rotate);
+
+				tileTransform.rotation = rootTransform.rotation;
+				tileTransform.Rotate(rotate.eulerAngles, Space.World);
+				tileTransform.position = rootTransform.position + translate;
+
+				// join hinge points
+				var src = rootController.Tile.HingePoints[instruction.direction];
+				var dst = tileController.Tile.HingePoints[instruction.direction.Opposite()];
+				src = rootTransform.position + rootTransform.rotation * src;
+				dst = tileTransform.position + tileTransform.rotation * dst;
+				tileTransform.position += src - dst;
 
 				_currentMap.Instructions.Add(new InsertionInstruction()
 				{
@@ -214,8 +226,20 @@ namespace TilesWalk.Building.Editor
 				var boxCollider = instance.GetComponentInChildren<BoxCollider>();
 				_controllers[instance].AdjustBounds(boxCollider.bounds);
 
+				// adjust neighbor insertion
 				controller.AddNeighbor(_insertDirection, _insertRule, _controllers[instance].Tile,
-					Selection.activeTransform, instance.transform);
+					Selection.activeTransform.localToWorldMatrix, out var translate, out var rotate);
+
+				instance.transform.rotation = Selection.activeTransform.rotation;
+				instance.transform.Rotate(rotate.eulerAngles, Space.World);
+				instance.transform.position = Selection.activeTransform.position + translate;
+
+				// join hinge points
+				var src = controller.Tile.HingePoints[_insertDirection];
+				var dst = _controllers[instance].Tile.HingePoints[_insertDirection.Opposite()];
+				src = Selection.activeTransform.position + Selection.activeTransform.rotation * src;
+				dst = instance.transform.position + instance.transform.rotation * dst;
+				instance.transform.position += src - dst;
 
 				var rootIndex = _indexes.FirstOrDefault(x => x.Value == Selection.activeGameObject);
 
