@@ -55,7 +55,7 @@ namespace TilesWalk.Building.Level
 					Tiles = new List<int> {0},
 					Id = Constants.CustomLevelName,
 					Instructions = new List<InsertionInstruction>(),
-					MapSize = 0,
+					MapSize = 3,
 					StarsRequired = 0,
 					Target = 0
 				};

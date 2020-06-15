@@ -32,6 +32,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 			public NeighborWalkRule Rule => _rule;
 		}
 
+		[Header("Insertion - Edit")]
 		[SerializeField] private Material _outlineMaterial;
 		[SerializeField] private Material _ghostMaterial;
 
