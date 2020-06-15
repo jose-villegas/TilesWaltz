@@ -10,6 +10,7 @@ using TilesWalk.Tile.Rules;
 using UniRx;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace TilesWalk.Building.Level
 {
