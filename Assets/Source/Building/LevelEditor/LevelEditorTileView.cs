@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using TilesWalk.Building.LevelEditor.UI;
+using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Display;
 using TilesWalk.General;
 using TilesWalk.Tile;
@@ -16,7 +18,7 @@ namespace TilesWalk.Building.LevelEditor
 		[Inject] private LevelEditorToolSet _levelEditorToolSet;
 
 		private LevelEditorTileView _ghostTileView;
-		private Bounds _ghostTileBounds;
+		private Bounds _ghostTileBounds = new Bounds(Vector3.zero, new Vector3(1f, 0.3f, 1f));
 
 		private NeighborWalkRule _currentRule = NeighborWalkRule.Plain;
 		private CardinalDirection _currentDirection = CardinalDirection.None;
@@ -26,19 +28,29 @@ namespace TilesWalk.Building.LevelEditor
 
 		protected override void Start()
 		{
+			if (IsGhost) return;
+
 			base.Start();
 			MovementLocked = true;
-			Renderer.material = Materials[TileColor.None];
+			Renderer.material = IsGhost ? _levelEditorToolSet.GhostMaterial : Materials[TileColor.None];
 
 			_tileLevelMap.OnTileClickedAsObservable().Subscribe(OnAnyTileClicked).AddTo(this);
 			IsSelected.Subscribe(OnTileSelected).AddTo(this);
+
+			_levelEditorToolSet.Confirm.interactable = false;
+			_levelEditorToolSet.Cancel.interactable = false;
+			_levelEditorToolSet.Delete.interactable = false;
+
+			_levelEditorToolSet.Confirm.OnClickAsObservable().Subscribe(_ => OnConfirmClick()).AddTo(this);
+			_levelEditorToolSet.Cancel.OnClickAsObservable().Subscribe(_ => OnCancelClick()).AddTo(this);
+			_levelEditorToolSet.Delete.OnClickAsObservable().Subscribe(_ => OnDeleteClick()).AddTo(this);
 
 			// subscribe to UI actions
 			foreach (var value in Enum.GetValues(typeof(NeighborWalkRule)))
 			{
 				var enumValue = (NeighborWalkRule) value;
 				var toggle = _levelEditorToolSet.GetToggle(enumValue);
-				toggle.onValueChanged.AddListener(val =>
+				toggle.OnValueChangedAsObservable().Subscribe(val =>
 				{
 					_currentRule = val ? enumValue : _currentRule;
 
@@ -47,8 +59,11 @@ namespace TilesWalk.Building.LevelEditor
 						// remove previous ghost
 						RemoveGhostNeighbor(_currentDirection);
 						InsertGhostNeighbor(_currentDirection, _currentRule);
+
+						_levelEditorToolSet.Confirm.interactable = true;
+						_levelEditorToolSet.Cancel.interactable = true;
 					}
-				});
+				}).AddTo(this);
 			}
 
 			foreach (var value in Enum.GetValues(typeof(CardinalDirection)))
@@ -56,10 +71,9 @@ namespace TilesWalk.Building.LevelEditor
 				var enumValue = (CardinalDirection) value;
 
 				if (enumValue == CardinalDirection.None) continue;
-				;
 
 				var button = _levelEditorToolSet.GetButton(enumValue);
-				button.onClick.AddListener(() =>
+				button.OnClickAsObservable().Subscribe(_ =>
 				{
 					if (!IsSelected.Value) return;
 
@@ -67,29 +81,49 @@ namespace TilesWalk.Building.LevelEditor
 					RemoveGhostNeighbor(_currentDirection);
 					_currentDirection = enumValue;
 					InsertGhostNeighbor(_currentDirection, _currentRule);
-				});
+
+					_levelEditorToolSet.Confirm.interactable = true;
+					_levelEditorToolSet.Cancel.interactable = true;
+				}).AddTo(this);
 			}
+		}
 
-			_levelEditorToolSet.Confirm.onClick.AddListener(() =>
+		private void OnDeleteClick()
+		{
+			if (IsSelected.Value)
 			{
-				if (IsSelected.Value)
-				{
-					_ghostTileView.IsGhost = false;
-					_ghostTileView = null;
-					_levelEditorToolSet.UpdateButtons(_controller.Tile);
-				}
-			});
+				var neighbor = _controller.Tile.Neighbors.First();
+				neighbor.Value.Neighbors.Remove(neighbor.Key.Opposite());
+				neighbor.Value.HingePoints.Remove(neighbor.Key.Opposite());
+				TileController.ChainRefreshPaths(neighbor.Value);
+				Destroy(this.gameObject);
+			}
+		}
 
-			_levelEditorToolSet.Cancel.onClick.AddListener(() =>
+		private void OnCancelClick()
+		{
+			if (IsSelected.Value && _ghostTileView != null)
 			{
-				if (IsSelected.Value)
-				{
-					RemoveGhostNeighbor(_currentDirection);
-					Destroy(_ghostTileView);
-					_ghostTileView = null;
-					_levelEditorToolSet.UpdateButtons(_controller.Tile);
-				}
-			});
+				RemoveGhostNeighbor(_currentDirection);
+				Destroy(_ghostTileView.gameObject);
+				_ghostTileView = null;
+				_levelEditorToolSet.UpdateButtons(_controller.Tile);
+			}
+		}
+
+		private void OnConfirmClick()
+		{
+			if (IsSelected.Value && _ghostTileView != null)
+			{
+				_ghostTileView.IsGhost = false;
+				_ghostTileView.Renderer.material = Renderer.material;
+				_tileLevelMap.RegisterTile(_ghostTileView);
+				_tileLevelMap.UpdateInstructions(this, _ghostTileView, _currentDirection, _currentRule);
+				_ghostTileView.Start();
+
+				_ghostTileView = null;
+				_levelEditorToolSet.UpdateButtons(_controller.Tile);
+			}
 		}
 
 		private void OnTileSelected(bool isSelected)
@@ -119,6 +153,11 @@ namespace TilesWalk.Building.LevelEditor
 		private void OnAnyTileClicked(Tile.Tile tile)
 		{
 			IsSelected.Value = tile == _controller.Tile;
+
+			if (IsSelected.Value)
+			{
+				_levelEditorToolSet.Delete.interactable = _controller.Tile.IsLeaf();
+			}
 		}
 
 		protected override void OnMouseDown()
@@ -139,7 +178,8 @@ namespace TilesWalk.Building.LevelEditor
 			if (_ghostTileView == null)
 			{
 				_ghostTileView = _tileFactory.NewInstance<LevelEditorTileView>();
-				_ghostTileBounds = GetComponent<BoxCollider>().bounds;
+				_ghostTileView.Controller.AdjustBounds(_ghostTileBounds);
+				_ghostTileView.Renderer.material = _levelEditorToolSet.GhostMaterial;
 				_ghostTileView.IsGhost = true;
 			}
 			else

@@ -33,18 +33,24 @@ namespace TilesWalk.Building.LevelEditor.UI
 		}
 
 		[SerializeField] private Material _outlineMaterial;
+		[SerializeField] private Material _ghostMaterial;
 
 		[SerializeField] private List<DirectionButton> _directionInsertButtons;
 		[SerializeField] private List<NeighborWalkRuleButton> _ruleInsertButtons;
 
 		[SerializeField] private Button _confirm;
 		[SerializeField] private Button _cancel;
+		[SerializeField] private Button _delete;
 
 		public Material OutlineMaterial => _outlineMaterial;
+		public Material GhostMaterial => _ghostMaterial;
 
 		public Button Confirm => _confirm;
 
 		public Button Cancel => _cancel;
+
+		public Button Delete => _delete;
+
 
 		public Button GetButton(CardinalDirection direction)
 		{
