@@ -3,6 +3,7 @@ using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Score;
+using TilesWalk.General;
 using TilesWalk.General.Patterns;
 using TilesWalk.Navigation.UI;
 using TMPro;
@@ -31,7 +32,7 @@ namespace TilesWalk.Gameplay.Limits.UI
 
 		private void OnLevelMapLoaded(LevelMap levelMap)
 		{
-			if (levelMap.FinishCondition != FinishCondition.MovesLimit)
+			if (levelMap.FinishCondition != FinishCondition.MovesLimit && levelMap.Id != Constants.CustomLevelName)
 			{
 				transform.parent.gameObject.SetActive(false);
 				return;

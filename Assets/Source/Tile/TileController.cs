@@ -47,6 +47,13 @@ namespace TilesWalk.Tile
 			ChainRefreshPaths(tile);
 		}
 
+		public void RemoveNeighbor(CardinalDirection direction)
+		{
+			_tile.Neighbors.Remove(direction);
+			_tile.HingePoints.Remove(direction);
+			ChainRefreshPaths(_tile);
+		}
+
 		public static void ChainRefreshPaths(Tile source, CardinalDirection ignore = CardinalDirection.None,
 			bool updateColorPath = true, bool updateShortestPath = true)
 		{

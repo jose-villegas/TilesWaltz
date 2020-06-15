@@ -16,12 +16,21 @@ namespace TilesWalk.General.Patterns
 		[Button]
 		public T NewInstance()
 		{
-			var instance= CreateInstance();
+			var instance = CreateInstance();
+			_onNewInstance?.OnNext(instance);
+			return instance;
+		}
+
+		public T1 NewInstance<T1>() where T1 : T
+		{
+			var instance = CreateInstance<T1>();
 			_onNewInstance?.OnNext(instance);
 			return instance;
 		}
 
 		protected abstract T CreateInstance();
+
+		protected abstract T1 CreateInstance<T1>() where T1 : T;
 
 		protected override void RaiseOnCompletedOnDestroy()
 		{

@@ -19,18 +19,18 @@ namespace TilesWalk.Tile
 {
 	public partial class TileView : TileViewTrigger, IView
 	{
-		[SerializeField] private TileController _controller;
-		[Inject] private TileViewFactory _tileFactory;
-		[Inject] private TileViewLevelMap _tileLevelMap;
-		[Inject] private LevelFinishTracker _levelFinishTracker;
-		[Inject] private GameTileColorsConfiguration _tileColorsSettings;
+		[SerializeField] protected TileController _controller;
+		[Inject] protected TileViewFactory _tileFactory;
+		[Inject] protected TileViewLevelMap _tileLevelMap;
+		[Inject] protected LevelFinishTracker _levelFinishTracker;
+		[Inject] protected GameTileColorsConfiguration _tileColorsSettings;
 
 		private MeshRenderer _meshRenderer;
 		private BoxCollider _collider;
 
-		public static bool MovementLocked { get; private set; }
+		public static bool MovementLocked { get; protected set; }
 
-		private BoxCollider Collider
+		protected BoxCollider Collider
 		{
 			get
 			{
@@ -43,7 +43,7 @@ namespace TilesWalk.Tile
 			}
 		}
 
-		private MeshRenderer Renderer
+		protected MeshRenderer Renderer
 		{
 			get
 			{
@@ -59,9 +59,10 @@ namespace TilesWalk.Tile
 		public TileController Controller
 		{
 			get => _controller;
+			set => _controller = value;
 		}
 
-		private static readonly Dictionary<TileColor, Material> Materials = new Dictionary<TileColor, Material>();
+		private protected static readonly Dictionary<TileColor, Material> Materials = new Dictionary<TileColor, Material>();
 
 		public TileView()
 		{
@@ -86,7 +87,7 @@ namespace TilesWalk.Tile
 			MovementLocked = false;
 		}
 
-		private void Start()
+		protected virtual void Start()
 		{
 			if (Materials.Count == 0)
 			{
@@ -121,12 +122,13 @@ namespace TilesWalk.Tile
 			}).AddTo(this);
 		}
 
-		private void OnMouseDown()
+		protected virtual void OnMouseDown()
 		{
+			_onTileClicked?.OnNext(_controller.Tile);
 			Remove();
 		}
 
-		private void UpdateColor(TileColor color)
+		protected virtual void UpdateColor(TileColor color)
 		{
 			Renderer.material = Materials[color];
 		}
@@ -134,7 +136,8 @@ namespace TilesWalk.Tile
 		#region Debug
 
 #if UNITY_EDITOR
-		[Header("Editor")] public CardinalDirection direction = CardinalDirection.North;
+		[Header("Editor")] 
+		public CardinalDirection direction = CardinalDirection.North;
 		public NeighborWalkRule rule = NeighborWalkRule.Plain;
 
 
@@ -161,6 +164,8 @@ namespace TilesWalk.Tile
 			{
 				foreach (var tile in _controller.Tile.ShortestPathToLeaf)
 				{
+					if (!_tileLevelMap.HasTileView(tile)) continue;
+
 					var view = _tileLevelMap.GetTileView(tile);
 					Gizmos.DrawCube(view.transform.position +
 					                view.transform.up * 0.15f, Vector3.one * 0.15f);
@@ -173,6 +178,8 @@ namespace TilesWalk.Tile
 				var relative = transform.rotation * hingePoint.Value;
 				Gizmos.DrawSphere(transform.position + relative, 0.05f);
 
+				if (!_tileLevelMap.HasTileView(_controller.Tile.Neighbors[hingePoint.Key])) continue;
+
 				var view = _tileLevelMap.GetTileView(_controller.Tile.Neighbors[hingePoint.Key]);
 				var joint = view.transform.rotation * view.Controller.Tile.HingePoints[hingePoint.Key.Opposite()];
 				Gizmos.DrawLine(transform.position + relative, view.transform.position + joint);
@@ -183,6 +190,8 @@ namespace TilesWalk.Tile
 			{
 				foreach (var tile in _controller.Tile.MatchingColorPatch)
 				{
+					if (!_tileLevelMap.HasTileView(tile)) continue;
+
 					var view = _tileLevelMap.GetTileView(tile);
 					Gizmos.DrawWireCube(view.transform.position, Vector3.one);
 				}

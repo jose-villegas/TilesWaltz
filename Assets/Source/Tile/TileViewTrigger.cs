@@ -9,11 +9,13 @@ namespace TilesWalk.Tile
 	{
 		protected Subject<List<Tile>> _onTileRemoved;
 		protected Subject<List<Tile>> _onComboRemoval;
+		protected Subject<Tile> _onTileClicked;
 
 		protected override void RaiseOnCompletedOnDestroy()
 		{
 			_onTileRemoved?.OnCompleted();
 			_onComboRemoval?.OnCompleted();
+			_onTileClicked?.OnCompleted();
 		}
 
 		public IObservable<List<Tile>> OnTileRemovedAsObservable()
@@ -24,6 +26,11 @@ namespace TilesWalk.Tile
 		public IObservable<List<Tile>> OnComboRemovalAsObservable()
 		{
 			return _onComboRemoval = _onComboRemoval ?? new Subject<List<Tile>>();
+		}
+
+		public IObservable<Tile> OnTileClickedAsObservable()
+		{
+			return _onTileClicked = _onTileClicked ?? new Subject<Tile>();
 		}
 	}
 }

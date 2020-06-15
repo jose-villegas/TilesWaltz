@@ -42,5 +42,27 @@ namespace TilesWalk.Building
 			
 			return view;
 		}
+
+		protected override T1 CreateInstance<T1>()
+		{
+			if (Asset == null)
+			{
+				Debug.LogError("No asset loaded for the TileViewFactory");
+				return null;
+			}
+
+			// Instantiate first tile
+			var instance = Instantiate(Asset, Vector3.zero, Quaternion.identity, transform);
+			var view = _container.InstantiateComponent(typeof(T1), instance) as T1;
+
+			// Obtain proper boundaries from collider
+			if (view == null) return null;
+
+			var boxCollider = view.GetComponent<BoxCollider>();
+			view.Controller.AdjustBounds(boxCollider.bounds);
+			view.Controller.Tile.ShuffleColor();
+
+			return view;
+		}
 	}
 }

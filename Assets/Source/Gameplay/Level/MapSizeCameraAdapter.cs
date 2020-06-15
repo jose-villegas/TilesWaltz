@@ -11,15 +11,17 @@ namespace TilesWalk.Gameplay.Level
 	public class MapSizeCameraAdapter : ObligatoryComponentBehaviour<Camera>
 	{
 		[Inject] private TileViewLevelMap _tileViewLevelMap;
+		private float _originalSize;
 
 		private void Start()
 		{
+			_originalSize = Component.orthographicSize;
 			_tileViewLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
 		}
 
 		private void OnLevelMapLoaded(LevelMap map)
 		{
-			Component.orthographicSize += map.MapSize;
+			Component.orthographicSize = _originalSize + map.MapSize;
 		}
 	}
 }

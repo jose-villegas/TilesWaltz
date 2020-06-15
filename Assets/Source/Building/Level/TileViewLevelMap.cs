@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
 using Newtonsoft.Json;
+using TilesWalk.Building.LevelEditor;
 using TilesWalk.General;
 using TilesWalk.Map.Bridge;
 using TilesWalk.Tile;
@@ -70,6 +71,8 @@ namespace TilesWalk.Building.Level
 				.Subscribe(path => _onComboRemoval?.OnNext(path)).AddTo(this);
 			tile.OnTileRemovedAsObservable()
 				.Subscribe(path => _onTileRemoved?.OnNext(path)).AddTo(this);
+			tile.OnTileClickedAsObservable()
+				.Subscribe(val => _onTileClicked?.OnNext(val)).AddTo(this);
 		}
 
 		public void RegisterTile(TileView tile, int? hash = null)
@@ -116,6 +119,11 @@ namespace TilesWalk.Building.Level
 			return _tileView[tile];
 		}
 
+		public bool HasTileView(Tile.Tile tile)
+		{
+			return _tileView.ContainsKey(tile);
+		}
+
 		[Button]
 		public void RefreshAllPaths()
 		{
@@ -158,7 +166,9 @@ namespace TilesWalk.Building.Level
 
 			foreach (var mapTile in map.Tiles)
 			{
-				var tile = _viewFactory.NewInstance();
+				var tile = map.Id == Constants.CustomLevelName
+					? _viewFactory.NewInstance<LevelEditorTileView>()
+					: _viewFactory.NewInstance<TileView>();
 				// register with the source hash
 				RegisterTile(tile, mapTile);
 			}
