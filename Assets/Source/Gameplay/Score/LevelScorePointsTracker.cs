@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TilesWalk.Building.Level;
+using TilesWalk.General;
 using UniRx;
 using UniRx.Triggers;
 using Zenject;
@@ -38,8 +39,19 @@ namespace TilesWalk.Gameplay.Score
 			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
 		}
 
-		private void OnLevelMapLoaded(LevelMap _)
+		private void OnLevelMapLoaded(LevelMap map)
 		{
+			if (map.Id == Constants.CustomLevelName)
+			{
+				var mapName = _tileLevelMap.LevelMap.Id;
+
+				// reset record
+				if (_scoreRecords.TryGetValue(mapName, out var score))
+				{
+					_scoreRecords[mapName] = new LevelScore(mapName);
+				}
+			}
+
 			AddPoints(0);
 			_onScoresLoaded?.OnNext(LevelScore);
 		}

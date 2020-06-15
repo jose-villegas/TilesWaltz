@@ -5,5 +5,6 @@
 		None,
 		FromInstructions,
 		FromLevelBridge,
+		LevelEditor,
 	}
 }

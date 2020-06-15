@@ -47,6 +47,20 @@ namespace TilesWalk.Building.Level
 			{
 				BuildTileMap(_mapLevelBridge.SelectedLevel);
 			}
+			else if (_loadOption == LevelLoadOptions.LevelEditor)
+			{
+				var customLevel = new LevelMap
+				{
+					Tiles = new List<int> {0},
+					Id = Constants.CustomLevelName,
+					Instructions = new List<InsertionInstruction>(),
+					MapSize = 0,
+					StarsRequired = 0,
+					Target = 0
+				};
+				// add the root tile
+				BuildTileMap(customLevel);
+			}
 		}
 
 		private void OnNewTileInstance(TileView tile)
