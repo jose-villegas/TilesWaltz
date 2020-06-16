@@ -41,19 +41,24 @@ namespace TilesWalk.Gameplay.Score
 
 		private void OnLevelMapLoaded(LevelMap map)
 		{
-			if (map.Id == Constants.CustomLevelName)
-			{
-				var mapName = _tileLevelMap.LevelMap.Id;
-
-				// reset record
-				if (_scoreRecords.TryGetValue(mapName, out var score))
-				{
-					_scoreRecords[mapName] = new LevelScore(mapName);
-				}
-			}
-
 			AddPoints(0);
 			_onScoresLoaded?.OnNext(LevelScore);
+		}
+
+		public void ResetTrack()
+		{
+			var mapName = _tileLevelMap.LevelMap.Id;
+
+			if (_scoreRecords.TryGetValue(mapName, out var score))
+			{
+				score = _scoreRecords[mapName];
+
+				if (_scoreTracking.TryGetValue(score.Id, out var track))
+				{
+					_scoreTracking[score.Id] = 0;
+					_onScoreUpdated?.OnNext(score);
+				}
+			}
 		}
 
 		public void AddPoints(int points)

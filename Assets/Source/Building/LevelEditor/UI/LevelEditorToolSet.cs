@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TilesWalk.Building.Level;
 using TilesWalk.General;
+using TilesWalk.General.UI;
 using TilesWalk.Tile.Rules;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace TilesWalk.Building.LevelEditor.UI
 {
@@ -32,7 +36,10 @@ namespace TilesWalk.Building.LevelEditor.UI
 			public NeighborWalkRule Rule => _rule;
 		}
 
-		[Header("Insertion - Edit")]
+		[Inject] private CustomLevelPlayer _customLevelPlayer;
+
+		[Header("Insertion - Edit")] [SerializeField]
+		private CanvasGroupBehaviour _insertionCanvas;
 		[SerializeField] private Material _outlineMaterial;
 		[SerializeField] private Material _ghostMaterial;
 
@@ -43,6 +50,9 @@ namespace TilesWalk.Building.LevelEditor.UI
 		[SerializeField] private Button _cancel;
 		[SerializeField] private Button _delete;
 
+		[Header("Save - Edit")] [SerializeField]
+		private CanvasGroupBehaviour _saveLevelCanvas;
+
 		public Material OutlineMaterial => _outlineMaterial;
 		public Material GhostMaterial => _ghostMaterial;
 
@@ -52,6 +62,23 @@ namespace TilesWalk.Building.LevelEditor.UI
 
 		public Button Delete => _delete;
 
+		private void Start()
+		{
+			_customLevelPlayer.OnPlayAsObservable().Subscribe(OnCustomLevelPlay).AddTo(this);
+			_customLevelPlayer.OnStopAsObservable().Subscribe(OnCustomLevelStop).AddTo(this);
+		}
+
+		private void OnCustomLevelStop(LevelMap obj)
+		{
+			_insertionCanvas.Show();
+			_saveLevelCanvas.Show();
+		}
+
+		private void OnCustomLevelPlay(LevelMap level)
+		{
+			_insertionCanvas.Hide();
+			_saveLevelCanvas.Hide();
+		}
 
 		public Button GetButton(CardinalDirection direction)
 		{

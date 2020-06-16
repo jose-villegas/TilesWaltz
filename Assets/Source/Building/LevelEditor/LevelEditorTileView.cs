@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using TilesWalk.Building.Level;
 using TilesWalk.Building.LevelEditor.UI;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Display;
@@ -16,6 +17,7 @@ namespace TilesWalk.Building.LevelEditor
 	public class LevelEditorTileView : TileView
 	{
 		[Inject] private LevelEditorToolSet _levelEditorToolSet;
+		[Inject] private CustomLevelPlayer _customLevelPlayer;
 
 		private LevelEditorTileView _ghostTileView;
 		private Bounds _ghostTileBounds = new Bounds(Vector3.zero, new Vector3(1f, 0.3f, 1f));
@@ -36,6 +38,9 @@ namespace TilesWalk.Building.LevelEditor
 
 			_tileLevelMap.OnTileClickedAsObservable().Subscribe(OnAnyTileClicked).AddTo(this);
 			IsSelected.Subscribe(OnTileSelected).AddTo(this);
+
+			_customLevelPlayer.OnPlayAsObservable().Subscribe(OnCustomLevelPlay).AddTo(this);
+			_customLevelPlayer.OnStopAsObservable().Subscribe(OnCustomLevelStop).AddTo(this);
 
 			_levelEditorToolSet.Confirm.interactable = false;
 			_levelEditorToolSet.Cancel.interactable = false;
@@ -88,6 +93,39 @@ namespace TilesWalk.Building.LevelEditor
 			}
 		}
 
+		private void OnCustomLevelStop(LevelMap obj)
+		{
+			MovementLocked = true;
+			// return blank material
+			Renderer.material = IsGhost ? _levelEditorToolSet.GhostMaterial : Materials[TileColor.None];
+		}
+
+		private void OnCustomLevelPlay(LevelMap obj)
+		{
+			// remove ghost tile if there is any
+			OnCancelClick();
+			// unselect
+			if (IsSelected.Value) OnTileSelected(false);
+			// assign a color and update render
+			_controller.Tile.ShuffleColor();
+			Renderer.material = Materials[_controller.Tile.TileColor];
+			MovementLocked = false;
+		}
+
+		protected override void OnMouseDown()
+		{
+			if (_customLevelPlayer.IsPlaying)
+			{
+				base.OnMouseDown();
+			}
+			else
+			{
+				if (IsGhost) return;
+
+				_onTileClicked?.OnNext(_controller.Tile);
+			}
+		}
+
 		private void OnDeleteClick()
 		{
 			if (IsSelected.Value)
@@ -120,8 +158,11 @@ namespace TilesWalk.Building.LevelEditor
 				_tileLevelMap.RegisterTile(_ghostTileView);
 				_tileLevelMap.UpdateInstructions(this, _ghostTileView, _currentDirection, _currentRule);
 				_ghostTileView.Start();
+				_ghostTileView._currentDirection = _currentDirection;
+				_ghostTileView._currentRule = _currentRule;
 
 				_ghostTileView = null;
+				_currentDirection = CardinalDirection.None;
 				_levelEditorToolSet.UpdateButtons(_controller.Tile);
 			}
 		}
@@ -152,23 +193,14 @@ namespace TilesWalk.Building.LevelEditor
 
 		private void OnAnyTileClicked(Tile.Tile tile)
 		{
+			if (_customLevelPlayer.IsPlaying) return;
+
 			IsSelected.Value = tile == _controller.Tile;
 
 			if (IsSelected.Value)
 			{
 				_levelEditorToolSet.Delete.interactable = _controller.Tile.IsLeaf();
 			}
-		}
-
-		protected override void OnMouseDown()
-		{
-			if (IsGhost) return;
-
-			_onTileClicked?.OnNext(_controller.Tile);
-		}
-
-		private void DrawGhostNeighbor()
-		{
 		}
 
 		private void InsertGhostNeighbor(CardinalDirection direction, NeighborWalkRule rule)
