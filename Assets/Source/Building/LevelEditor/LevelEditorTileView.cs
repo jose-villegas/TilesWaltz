@@ -195,7 +195,7 @@ namespace TilesWalk.Building.LevelEditor
 		{
 			if (_customLevelPlayer.IsPlaying) return;
 
-			IsSelected.Value = tile == _controller.Tile;
+			IsSelected.Value = (tile == _controller.Tile) && !IsSelected.Value;
 
 			if (IsSelected.Value)
 			{
