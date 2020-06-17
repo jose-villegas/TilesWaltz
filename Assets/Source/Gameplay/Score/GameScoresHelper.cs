@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TilesWalk.Building.Level;
+using TilesWalk.Gameplay.Persistence;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -8,7 +9,7 @@ namespace TilesWalk.Gameplay.Score
 {
 	public class GameScoresHelper : MonoBehaviour
 	{
-		[Inject] private Dictionary<string, LevelScore> _scoreRecords;
+		[Inject] private GameSave _gameSave;
 		[Inject] private List<LevelMap> _availableMaps;
 		[Inject] private ScorePointsConfiguration _scorePointsSettings;
 
@@ -32,7 +33,7 @@ namespace TilesWalk.Gameplay.Score
 
 		public int GetStarCount(LevelMap levelMap)
 		{
-			if (_scoreRecords.TryGetValue(levelMap.Id, out var score))
+			if (_gameSave.Records.TryGetValue(levelMap.Id, out var score))
 			{
 				var ratio = (float) score.Points.Highest / levelMap.Target;
 
@@ -88,11 +89,11 @@ namespace TilesWalk.Gameplay.Score
 
 		private void CalculateAllGameStars()
 		{
-			if (_scoreRecords == null || _scoreRecords.Count == 0) return;
+			if (_gameSave.Records == null || _gameSave.Records.Count == 0) return;
 
 			GameStars = 0;
 
-			foreach (var scoreRecord in _scoreRecords.Values)
+			foreach (var scoreRecord in _gameSave.Records.Values)
 			{
 				GameStars += GetStarCount(scoreRecord);
 			}

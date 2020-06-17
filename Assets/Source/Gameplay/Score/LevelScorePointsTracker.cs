@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TilesWalk.Building.Level;
+using TilesWalk.Gameplay.Persistence;
 using TilesWalk.General;
 using UniRx;
 using UniRx.Triggers;
@@ -12,7 +13,7 @@ namespace TilesWalk.Gameplay.Score
 	{
 		[Inject] private ScorePointsConfiguration _scorePointsConfiguration;
 		[Inject] private TileViewLevelMap _tileLevelMap;
-		[Inject] private Dictionary<string, LevelScore> _scoreRecords;
+		[Inject] private GameSave _gameSave;
 
 		private Dictionary<string, int> _scoreTracking = new Dictionary<string, int>();
 
@@ -23,12 +24,12 @@ namespace TilesWalk.Gameplay.Score
 		{
 			get
 			{
-				if (!_scoreRecords.TryGetValue(_tileLevelMap.LevelMap.Id, out var score))
+				if (!_gameSave.Records.TryGetValue(_tileLevelMap.LevelMap.Id, out var score))
 				{
-					_scoreRecords[_tileLevelMap.LevelMap.Id] = new LevelScore(_tileLevelMap.LevelMap.Id);
+					_gameSave.Records[_tileLevelMap.LevelMap.Id] = new LevelScore(_tileLevelMap.LevelMap.Id);
 				}
 
-				return _scoreRecords[_tileLevelMap.LevelMap.Id];
+				return _gameSave.Records[_tileLevelMap.LevelMap.Id];
 			}
 		}
 
@@ -49,9 +50,9 @@ namespace TilesWalk.Gameplay.Score
 		{
 			var mapName = _tileLevelMap.LevelMap.Id;
 
-			if (_scoreRecords.TryGetValue(mapName, out var score))
+			if (_gameSave.Records.TryGetValue(mapName, out var score))
 			{
-				score = _scoreRecords[mapName];
+				score = _gameSave.Records[mapName];
 
 				if (_scoreTracking.TryGetValue(score.Id, out var track))
 				{
@@ -65,10 +66,10 @@ namespace TilesWalk.Gameplay.Score
 		{
 			var mapName = _tileLevelMap.LevelMap.Id;
 
-			if (!_scoreRecords.TryGetValue(mapName, out var score))
+			if (!_gameSave.Records.TryGetValue(mapName, out var score))
 			{
-				_scoreRecords[mapName] = new LevelScore(mapName);
-				score = _scoreRecords[mapName];
+				_gameSave.Records[mapName] = new LevelScore(mapName);
+				score = _gameSave.Records[mapName];
 			}
 
 			if (!_scoreTracking.TryGetValue(score.Id, out var track))
