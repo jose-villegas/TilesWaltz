@@ -14,59 +14,33 @@ namespace TilesWalk.Building.LevelEditor.UI
 {
 	public class LevelEditorToolSet : MonoBehaviour
 	{
-		[Serializable]
-		private class DirectionButton
-		{
-			[SerializeField] private CardinalDirection _direction;
-			[SerializeField] private Button _button;
-
-			public Button Button => _button;
-
-			public CardinalDirection Direction => _direction;
-		}
-
-		[Serializable]
-		private class NeighborWalkRuleButton
-		{
-			[SerializeField] private NeighborWalkRule _rule;
-			[SerializeField] private Toggle _toggle;
-
-			public Toggle Toggle => _toggle;
-
-			public NeighborWalkRule Rule => _rule;
-		}
-
 		[Inject] private CustomLevelPlayer _customLevelPlayer;
 
-		[Header("Insertion - Edit")] [SerializeField]
-		private CanvasGroupBehaviour _insertionCanvas;
-		[SerializeField] private Material _editorTileMaterial;
+		[Header("Materials")] [SerializeField] private Material _editorTileMaterial;
 		[SerializeField] private Material _outlineMaterial;
 		[SerializeField] private Material _ghostMaterial;
 
-		[SerializeField] private List<DirectionButton> _directionInsertButtons;
-		[SerializeField] private List<NeighborWalkRuleButton> _ruleInsertButtons;
-
-		[SerializeField] private Button _confirm;
-		[SerializeField] private Button _cancel;
-		[SerializeField] private Button _delete;
+		[Header("Insertion - Edit")] [SerializeField]
+		private TileInsertionModeCanvas _insertionCanvas;
 
 		[Header("Save - Edit")] [SerializeField]
-		private CanvasGroupBehaviour _saveLevelCanvas;
+		private LevelEditorActionsCanvas _editorActionsCanvas;
 
 		public Material EditorTileMaterial => _editorTileMaterial;
 		public Material OutlineMaterial => _outlineMaterial;
 		public Material GhostMaterial => _ghostMaterial;
 
-		public Button Confirm => _confirm;
+		public LevelEditorActionsCanvas ActionsCanvas => _editorActionsCanvas;
 
-		public Button Cancel => _cancel;
+		public TileInsertionModeCanvas InsertionCanvas => _insertionCanvas;
 
-		public Button Delete => _delete;
-
-		public CanvasGroupBehaviour SaveLevelCanvas => _saveLevelCanvas;
-
-		public CanvasGroupBehaviour InsertionCanvas => _insertionCanvas;
+		public enum State
+		{
+			NoInterface,
+			EditorActions,
+			EditorInsertionTools,
+			EditorActionsAndInsertion,
+		}
 
 		private void Start()
 		{
@@ -76,45 +50,36 @@ namespace TilesWalk.Building.LevelEditor.UI
 
 		private void OnCustomLevelStop(LevelMap obj)
 		{
-			InsertionCanvas.Show();
-			SaveLevelCanvas.Show();
+			SetEditorInterfaceState(State.EditorActionsAndInsertion);
 		}
 
 		private void OnCustomLevelPlay(LevelMap level)
 		{
-			InsertionCanvas.Hide();
-			SaveLevelCanvas.Hide();
+			SetEditorInterfaceState(State.NoInterface);
 		}
 
-		public Button GetButton(CardinalDirection direction)
+		public void SetEditorInterfaceState(State state)
 		{
-			return _directionInsertButtons.First(x => x.Direction == direction).Button;
-		}
-
-		public Toggle GetToggle(NeighborWalkRule rule)
-		{
-			return _ruleInsertButtons.First(x => x.Rule == rule).Toggle;
-		}
-
-		public void UpdateButtons(Tile.Tile tile)
-		{
-			Cancel.interactable = true;
-			Confirm.interactable = true;
-
-			if (tile.Neighbors.Count > 0)
+			switch (state)
 			{
-				foreach (var button in _directionInsertButtons)
-				{
-					button.Button.interactable = !tile.Neighbors.Keys.Contains(button.Direction);
-				}
-			}
-			// this tile is root so it can't be deleted
-			else
-			{
-				foreach (var button in _directionInsertButtons)
-				{
-					button.Button.interactable = true;
-				}
+				case State.NoInterface:
+					InsertionCanvas.Hide();
+					ActionsCanvas.Hide();
+					break;
+				case State.EditorActions:
+					ActionsCanvas.Show();
+					InsertionCanvas.Hide();
+					break;
+				case State.EditorInsertionTools:
+					ActionsCanvas.Hide();
+					InsertionCanvas.Show();
+					break;
+				case State.EditorActionsAndInsertion:
+					InsertionCanvas.Show();
+					ActionsCanvas.Show();
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(state), state, null);
 			}
 		}
 	}

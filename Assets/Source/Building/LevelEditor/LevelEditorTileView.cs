@@ -42,19 +42,22 @@ namespace TilesWalk.Building.LevelEditor
 			_customLevelPlayer.OnPlayAsObservable().Subscribe(OnCustomLevelPlay).AddTo(this);
 			_customLevelPlayer.OnStopAsObservable().Subscribe(OnCustomLevelStop).AddTo(this);
 
-			_levelEditorToolSet.Confirm.interactable = false;
-			_levelEditorToolSet.Cancel.interactable = false;
-			_levelEditorToolSet.Delete.interactable = false;
+			_levelEditorToolSet.InsertionCanvas.Confirm.interactable = false;
+			_levelEditorToolSet.InsertionCanvas.Cancel.interactable = false;
+			_levelEditorToolSet.InsertionCanvas.Delete.interactable = false;
 
-			_levelEditorToolSet.Confirm.OnClickAsObservable().Subscribe(_ => OnConfirmClick()).AddTo(this);
-			_levelEditorToolSet.Cancel.OnClickAsObservable().Subscribe(_ => OnCancelClick()).AddTo(this);
-			_levelEditorToolSet.Delete.OnClickAsObservable().Subscribe(_ => OnDeleteClick()).AddTo(this);
+			_levelEditorToolSet.InsertionCanvas.Confirm.OnClickAsObservable().Subscribe(_ => OnConfirmClick())
+				.AddTo(this);
+			_levelEditorToolSet.InsertionCanvas.Cancel.OnClickAsObservable().Subscribe(_ => OnCancelClick())
+				.AddTo(this);
+			_levelEditorToolSet.InsertionCanvas.Delete.OnClickAsObservable().Subscribe(_ => OnDeleteClick())
+				.AddTo(this);
 
 			// subscribe to UI actions
 			foreach (var value in Enum.GetValues(typeof(NeighborWalkRule)))
 			{
 				var enumValue = (NeighborWalkRule) value;
-				var toggle = _levelEditorToolSet.GetToggle(enumValue);
+				var toggle = _levelEditorToolSet.InsertionCanvas.GetToggle(enumValue);
 				toggle.OnValueChangedAsObservable().Subscribe(val =>
 				{
 					_currentRule = val ? enumValue : _currentRule;
@@ -65,8 +68,8 @@ namespace TilesWalk.Building.LevelEditor
 						RemoveGhostNeighbor(_currentDirection);
 						InsertGhostNeighbor(_currentDirection, _currentRule);
 
-						_levelEditorToolSet.Confirm.interactable = true;
-						_levelEditorToolSet.Cancel.interactable = true;
+						_levelEditorToolSet.InsertionCanvas.Confirm.interactable = true;
+						_levelEditorToolSet.InsertionCanvas.Cancel.interactable = true;
 					}
 				}).AddTo(this);
 			}
@@ -77,7 +80,7 @@ namespace TilesWalk.Building.LevelEditor
 
 				if (enumValue == CardinalDirection.None) continue;
 
-				var button = _levelEditorToolSet.GetButton(enumValue);
+				var button = _levelEditorToolSet.InsertionCanvas.GetButton(enumValue);
 				button.OnClickAsObservable().Subscribe(_ =>
 				{
 					if (!IsSelected.Value) return;
@@ -87,8 +90,8 @@ namespace TilesWalk.Building.LevelEditor
 					_currentDirection = enumValue;
 					InsertGhostNeighbor(_currentDirection, _currentRule);
 
-					_levelEditorToolSet.Confirm.interactable = true;
-					_levelEditorToolSet.Cancel.interactable = true;
+					_levelEditorToolSet.InsertionCanvas.Confirm.interactable = true;
+					_levelEditorToolSet.InsertionCanvas.Cancel.interactable = true;
 				}).AddTo(this);
 			}
 		}
@@ -122,13 +125,14 @@ namespace TilesWalk.Building.LevelEditor
 			{
 				if (IsGhost)
 				{
-					var view = _tileLevelMap.GetTileView(_controller.Tile.Neighbors.First().Value) as LevelEditorTileView;
+					var view =
+						_tileLevelMap.GetTileView(_controller.Tile.Neighbors.First().Value) as LevelEditorTileView;
 
 					if (view != null)
 					{
 						view.OnConfirmClick();
 					}
-					
+
 					return;
 				}
 
@@ -155,7 +159,7 @@ namespace TilesWalk.Building.LevelEditor
 				RemoveGhostNeighbor(_currentDirection);
 				Destroy(_ghostTileView.gameObject);
 				_ghostTileView = null;
-				_levelEditorToolSet.UpdateButtons(_controller.Tile);
+				_levelEditorToolSet.InsertionCanvas.UpdateButtons(_controller.Tile);
 			}
 		}
 
@@ -173,7 +177,7 @@ namespace TilesWalk.Building.LevelEditor
 
 				_ghostTileView = null;
 				_currentDirection = CardinalDirection.None;
-				_levelEditorToolSet.UpdateButtons(_controller.Tile);
+				_levelEditorToolSet.InsertionCanvas.UpdateButtons(_controller.Tile);
 			}
 		}
 
@@ -182,7 +186,7 @@ namespace TilesWalk.Building.LevelEditor
 			if (isSelected)
 			{
 				// update buttons interaction
-				_levelEditorToolSet.UpdateButtons(_controller.Tile);
+				_levelEditorToolSet.InsertionCanvas.UpdateButtons(_controller.Tile);
 
 				// set outline for this tile
 				var newMaterials = new[]
@@ -193,14 +197,13 @@ namespace TilesWalk.Building.LevelEditor
 
 				Renderer.materials = newMaterials;
 				// set canvas state
-				_levelEditorToolSet.SaveLevelCanvas.Hide();
-				_levelEditorToolSet.InsertionCanvas.Show();
+				_levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorInsertionTools);
 			}
 			else
 			{
 				if (Renderer.materials.Length > 1)
 				{
-					Renderer.materials = new[] { _levelEditorToolSet.EditorTileMaterial };
+					Renderer.materials = new[] {_levelEditorToolSet.EditorTileMaterial};
 				}
 			}
 		}
@@ -213,15 +216,14 @@ namespace TilesWalk.Building.LevelEditor
 			if (tile == _controller.Tile && IsSelected.Value)
 			{
 				// set canvas state
-				_levelEditorToolSet.SaveLevelCanvas.Show();
-				_levelEditorToolSet.InsertionCanvas.Hide();
+				_levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorActions);
 			}
 
 			IsSelected.Value = (tile == _controller.Tile) && !IsSelected.Value;
 
 			if (IsSelected.Value)
 			{
-				_levelEditorToolSet.Delete.interactable = _controller.Tile.IsLeaf();
+				_levelEditorToolSet.InsertionCanvas.Delete.interactable = _controller.Tile.IsLeaf();
 			}
 		}
 
@@ -245,7 +247,7 @@ namespace TilesWalk.Building.LevelEditor
 			}
 
 			this.InsertNeighbor(direction, rule, _ghostTileView);
-			_levelEditorToolSet.UpdateButtons(_controller.Tile);
+			_levelEditorToolSet.InsertionCanvas.UpdateButtons(_controller.Tile);
 		}
 
 		private void RemoveGhostNeighbor(CardinalDirection direction)
@@ -261,7 +263,7 @@ namespace TilesWalk.Building.LevelEditor
 			if (direction == CardinalDirection.None) return;
 
 			_controller.RemoveNeighbor(direction);
-			_levelEditorToolSet.UpdateButtons(_controller.Tile);
+			_levelEditorToolSet.InsertionCanvas.UpdateButtons(_controller.Tile);
 		}
 	}
 }
