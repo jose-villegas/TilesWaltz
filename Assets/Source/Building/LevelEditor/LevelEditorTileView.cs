@@ -28,6 +28,8 @@ namespace TilesWalk.Building.LevelEditor
 		public BoolReactiveProperty IsSelected { get; } = new BoolReactiveProperty();
 		public bool IsGhost { get; private set; } = false;
 
+		public bool HasGhost => _ghostTileView != null && IsSelected.Value;
+
 		protected override void Start()
 		{
 			if (IsGhost) return;
@@ -159,7 +161,7 @@ namespace TilesWalk.Building.LevelEditor
 				RemoveGhostNeighbor(_currentDirection);
 				Destroy(_ghostTileView.gameObject);
 				_ghostTileView = null;
-				_levelEditorToolSet.InsertionCanvas.UpdateButtons(_controller.Tile);
+				_levelEditorToolSet.InsertionCanvas.UpdateButtons(this);
 			}
 		}
 
@@ -177,7 +179,7 @@ namespace TilesWalk.Building.LevelEditor
 
 				_ghostTileView = null;
 				_currentDirection = CardinalDirection.None;
-				_levelEditorToolSet.InsertionCanvas.UpdateButtons(_controller.Tile);
+				_levelEditorToolSet.InsertionCanvas.UpdateButtons(this);
 			}
 		}
 
@@ -186,7 +188,7 @@ namespace TilesWalk.Building.LevelEditor
 			if (isSelected)
 			{
 				// update buttons interaction
-				_levelEditorToolSet.InsertionCanvas.UpdateButtons(_controller.Tile);
+				_levelEditorToolSet.InsertionCanvas.UpdateButtons(this);
 
 				// set outline for this tile
 				var newMaterials = new[]
@@ -197,7 +199,7 @@ namespace TilesWalk.Building.LevelEditor
 
 				Renderer.materials = newMaterials;
 				// set canvas state
-				_levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorInsertionTools);
+				_levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorActionsAndInsertion);
 			}
 			else
 			{
@@ -247,7 +249,7 @@ namespace TilesWalk.Building.LevelEditor
 			}
 
 			this.InsertNeighbor(direction, rule, _ghostTileView);
-			_levelEditorToolSet.InsertionCanvas.UpdateButtons(_controller.Tile);
+			_levelEditorToolSet.InsertionCanvas.UpdateButtons(this);
 		}
 
 		private void RemoveGhostNeighbor(CardinalDirection direction)
@@ -263,7 +265,7 @@ namespace TilesWalk.Building.LevelEditor
 			if (direction == CardinalDirection.None) return;
 
 			_controller.RemoveNeighbor(direction);
-			_levelEditorToolSet.InsertionCanvas.UpdateButtons(_controller.Tile);
+			_levelEditorToolSet.InsertionCanvas.UpdateButtons(this);
 		}
 	}
 }

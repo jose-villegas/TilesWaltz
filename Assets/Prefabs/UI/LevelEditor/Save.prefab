@@ -1745,6 +1745,8 @@ GameObject:
   - component: {fileID: 6943305128805909815}
   - component: {fileID: 2171682871123316577}
   - component: {fileID: 1073431604041630413}
+  - component: {fileID: 3448385656064849651}
+  - component: {fileID: 3448385656064849650}
   m_Layer: 0
   m_Name: Save
   m_TagString: Untagged
@@ -1809,6 +1811,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &3448385656064849651
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4279438977408654963}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &3448385656064849650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4279438977408654963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 630a5a1792b4ee140a2edf4184d76872, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _titleField: {fileID: 1112142648285373385}
+  _targetPointsField: {fileID: 307029083700842682}
+  _movesField: {fileID: 4750290777774065110}
+  _secondsField: {fileID: 9015664600328777262}
+  _save: {fileID: 168951918783051219}
+  _cancel: {fileID: 5246468737099252876}
 --- !u!1 &4839060777458793034
 GameObject:
   m_ObjectHideFlags: 0

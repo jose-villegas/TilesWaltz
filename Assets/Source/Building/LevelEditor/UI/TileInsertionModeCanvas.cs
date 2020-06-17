@@ -61,16 +61,16 @@ namespace TilesWalk.Building.LevelEditor.UI
 			return _ruleInsertButtons.First(x => x.Rule == rule).Toggle;
 		}
 
-		public void UpdateButtons(Tile.Tile tile)
+		public void UpdateButtons(LevelEditorTileView tile)
 		{
 			Cancel.interactable = true;
 			Confirm.interactable = true;
 
-			if (tile.Neighbors.Count > 0)
+			if (tile.Controller.Tile.Neighbors.Count > 0)
 			{
 				foreach (var button in _directionInsertButtons)
 				{
-					button.Button.interactable = !tile.Neighbors.Keys.Contains(button.Direction);
+					button.Button.interactable = !tile.Controller.Tile.Neighbors.Keys.Contains(button.Direction);
 				}
 			}
 			// this tile is root so it can't be deleted
@@ -81,6 +81,8 @@ namespace TilesWalk.Building.LevelEditor.UI
 					button.Button.interactable = true;
 				}
 			}
+
+			_confirm.interactable = _cancel.interactable = tile.HasGhost;
 		}
 	}
 }

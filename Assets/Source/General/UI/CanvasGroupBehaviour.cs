@@ -18,6 +18,7 @@ namespace TilesWalk.General.UI
 		{
 			Component.alpha = 0;
 			Component.interactable = false;
+			Component.blocksRaycasts = false;
 			_onHide?.OnNext(new Unit());
 		}
 
@@ -25,6 +26,7 @@ namespace TilesWalk.General.UI
 		{
 			Component.alpha = 1;
 			Component.interactable = true;
+			Component.blocksRaycasts = true;
 			_onShow?.OnNext(new Unit());
 		}
 
