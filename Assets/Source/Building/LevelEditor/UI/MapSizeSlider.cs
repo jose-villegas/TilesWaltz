@@ -12,7 +12,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 	{
 		[Inject] private TileViewLevelMap _tileViewLevelMap;
 
-		private void Start()
+		private void Awake()
 		{
 			_tileViewLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
 		}

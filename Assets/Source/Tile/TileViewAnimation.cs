@@ -24,7 +24,7 @@ namespace TilesWalk.Tile
 				var movementSpeed = Random.Range(-1f, 1f);
 				var scaleSpeed = Random.Range(0.1f, 0.25f);
 
-				while (transform.localScale.sqrMagnitude > Mathf.Epsilon)
+				while (transform != null && transform.localScale.sqrMagnitude > Mathf.Epsilon)
 				{
 					var step = movementSpeed * Time.deltaTime;
 
@@ -39,7 +39,7 @@ namespace TilesWalk.Tile
 				movementSpeed = Random.Range(-1f, 1f);
 				scaleSpeed = Random.Range(0.1f, 0.25f);
 
-				while ((scale - transform.localScale).sqrMagnitude > Mathf.Epsilon)
+				while (transform != null && (scale - transform.localScale).sqrMagnitude > Mathf.Epsilon)
 				{
 					var step = movementSpeed * Time.deltaTime;
 
@@ -86,7 +86,7 @@ namespace TilesWalk.Tile
 					var tile = tiles[i];
 					tile.transform.position = Vector3.Lerp(backup[i].Item1, source[i].Item1,
 						t / _animationSettings.ShuffleMoveTime);
-					tile.transform.rotation = Quaternion.Lerp(backup[i].Item2, source[i].Item2,
+					tile.transform.rotation = Quaternion.Slerp(backup[i].Item2, source[i].Item2,
 						t / _animationSettings.ShuffleMoveTime);
 				}
 

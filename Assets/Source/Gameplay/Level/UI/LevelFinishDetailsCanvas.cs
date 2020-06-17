@@ -81,7 +81,6 @@ namespace TilesWalk.Gameplay.Level.UI
 		{
 			if (levelMap.FinishCondition == FinishCondition.TimeLimit)
 			{
-				var start = DateTime.Now;
 				var target = TimeSpan.FromSeconds(score.Time.Last);
 				var limit = TimeSpan.FromSeconds(_levelFinishTracker.TimeFinishCondition.Limit);
 

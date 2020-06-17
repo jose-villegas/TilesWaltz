@@ -34,7 +34,7 @@ namespace TilesWalk.Building.LevelEditor
 
 			base.Start();
 			MovementLocked = true;
-			Renderer.material = IsGhost ? _levelEditorToolSet.GhostMaterial : Materials[TileColor.None];
+			Renderer.material = IsGhost ? _levelEditorToolSet.GhostMaterial : _levelEditorToolSet.EditorTileMaterial;
 
 			_tileLevelMap.OnTileClickedAsObservable().Subscribe(OnAnyTileClicked).AddTo(this);
 			IsSelected.Subscribe(OnTileSelected).AddTo(this);
@@ -97,7 +97,7 @@ namespace TilesWalk.Building.LevelEditor
 		{
 			MovementLocked = true;
 			// return blank material
-			Renderer.material = IsGhost ? _levelEditorToolSet.GhostMaterial : Materials[TileColor.None];
+			Renderer.material = IsGhost ? _levelEditorToolSet.GhostMaterial : _levelEditorToolSet.EditorTileMaterial;
 		}
 
 		private void OnCustomLevelPlay(LevelMap obj)
@@ -120,7 +120,17 @@ namespace TilesWalk.Building.LevelEditor
 			}
 			else
 			{
-				if (IsGhost) return;
+				if (IsGhost)
+				{
+					var view = _tileLevelMap.GetTileView(_controller.Tile.Neighbors.First().Value) as LevelEditorTileView;
+
+					if (view != null)
+					{
+						view.OnConfirmClick();
+					}
+					
+					return;
+				}
 
 				_onTileClicked?.OnNext(_controller.Tile);
 			}
@@ -177,16 +187,20 @@ namespace TilesWalk.Building.LevelEditor
 				// set outline for this tile
 				var newMaterials = new[]
 				{
-					Renderer.materials[0],
+					_levelEditorToolSet.EditorTileMaterial,
 					_levelEditorToolSet.OutlineMaterial
 				};
+
 				Renderer.materials = newMaterials;
+				// set canvas state
+				_levelEditorToolSet.SaveLevelCanvas.Hide();
+				_levelEditorToolSet.InsertionCanvas.Show();
 			}
 			else
 			{
 				if (Renderer.materials.Length > 1)
 				{
-					Renderer.materials = new[] {Renderer.materials[0]};
+					Renderer.materials = new[] { _levelEditorToolSet.EditorTileMaterial };
 				}
 			}
 		}
@@ -194,6 +208,14 @@ namespace TilesWalk.Building.LevelEditor
 		private void OnAnyTileClicked(Tile.Tile tile)
 		{
 			if (_customLevelPlayer.IsPlaying) return;
+
+			// user is unselecting the tile
+			if (tile == _controller.Tile && IsSelected.Value)
+			{
+				// set canvas state
+				_levelEditorToolSet.SaveLevelCanvas.Show();
+				_levelEditorToolSet.InsertionCanvas.Hide();
+			}
 
 			IsSelected.Value = (tile == _controller.Tile) && !IsSelected.Value;
 
