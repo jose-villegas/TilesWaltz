@@ -1880,6 +1880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _insertionCanvas: {fileID: 1933042255}
+  _editorTileMaterial: {fileID: 2100000, guid: de970d94fa9e5a6488adf128c9568d01, type: 2}
   _outlineMaterial: {fileID: 2100000, guid: 3fe9cd04f357312459bc314d71476eba, type: 2}
   _ghostMaterial: {fileID: 2100000, guid: a09e49c6a98f3404392f70e7ab13de8f, type: 2}
   _directionInsertButtons:

@@ -119,7 +119,7 @@ namespace TilesWalk.Tile
 			_levelFinishTracker.OnLevelFinishAsObservable().Subscribe(_ =>
 			{
 				MovementLocked = true;
-				MainThreadDispatcher.StartUpdateMicroCoroutine(LevelFinishAnimation());
+				MainThreadDispatcher.StartEndOfFrameMicroCoroutine(LevelFinishAnimation());
 			}).AddTo(this);
 		}
 
