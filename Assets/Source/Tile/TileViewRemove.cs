@@ -59,18 +59,16 @@ namespace TilesWalk.Tile
 			var scale = lastTile.transform.localScale;
 			lastTile.transform.localScale = Vector3.zero;
 
-			StartCoroutine(ShuffleMoveAnimation(tiles, backup))
-				.GetAwaiter()
-				.OnCompleted(() =>
+			MainThreadDispatcher.StartUpdateMicroCoroutine(ShuffleMoveAnimation(tiles, backup));
+			Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ShuffleMoveTime)).Subscribe(_ => { }, () =>
+			{
+				MainThreadDispatcher.StartUpdateMicroCoroutine(lastTile.ScalePopInAnimation(scale));
+				Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime)).Subscribe(_ => { }, () =>
 				{
-					StartCoroutine(lastTile.ScalePopInAnimation(scale))
-						.GetAwaiter()
-						.OnCompleted(() =>
-						{
-							MovementLocked = false;
-							_onTileRemoved?.OnNext(shufflePath);
-						});
-				});
+					MovementLocked = false;
+					_onTileRemoved?.OnNext(shufflePath);
+				}).AddTo(this);
+			}).AddTo(this);
 		}
 
 		[Button]
@@ -99,26 +97,24 @@ namespace TilesWalk.Tile
 				var tileView = _tileLevelMap.GetTileView(shufflePath[i]);
 				var sourceScale = tileView.transform.localScale;
 
-				StartCoroutine(tileView.ScalePopInAnimation(Vector3.zero))
-					.GetAwaiter()
-					.OnCompleted(() =>
+				MainThreadDispatcher.StartUpdateMicroCoroutine(tileView.ScalePopInAnimation(Vector3.zero));
+				Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime)).Subscribe(_ => { }, () =>
+				{
+					if (index == shufflePath.Count - 1)
+					{
+						tileView.Controller.RemoveCombo();
+					}
+
+					MainThreadDispatcher.StartUpdateMicroCoroutine(tileView.ScalePopInAnimation(sourceScale));
+					Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime)).Subscribe(_ => { }, () =>
 					{
 						if (index == shufflePath.Count - 1)
 						{
-							tileView.Controller.RemoveCombo();
+							MovementLocked = false;
+							_onComboRemoval?.OnNext(shufflePath);
 						}
-
-						StartCoroutine(tileView.ScalePopInAnimation(sourceScale))
-							.GetAwaiter()
-							.OnCompleted(() =>
-							{
-								if (index == shufflePath.Count - 1)
-								{
-									MovementLocked = false;
-									_onComboRemoval?.OnNext(shufflePath);
-								}
-							});
-					});
+					}).AddTo(this);
+				}).AddTo(this);
 			}
 		}
 	}

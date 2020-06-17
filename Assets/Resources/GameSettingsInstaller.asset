@@ -20,9 +20,8 @@ MonoBehaviour:
     _oneStarRange: 0.25
     _twoStarRange: 0.65
   _animationSettings:
-    _shuffleMoveSpeed: 5
-    _shuffleMoveAngularSpeed: 60
-    _scalePopInSpeed: 10
+    _shuffleMoveTime: 0.15
+    _scalePopInTime: 0.1
   _tileColorsSettings:
     _configuration:
     - _name: 1

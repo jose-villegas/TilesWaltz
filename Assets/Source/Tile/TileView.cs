@@ -10,6 +10,7 @@ using TilesWalk.Gameplay.Display;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 using UniRx;
+using UniRx.InternalUtil;
 using UniRx.Triggers;
 using UnityEditor;
 using UnityEngine;
@@ -118,7 +119,7 @@ namespace TilesWalk.Tile
 			_levelFinishTracker.OnLevelFinishAsObservable().Subscribe(_ =>
 			{
 				MovementLocked = true;
-				StartCoroutine(LevelFinishAnimation());
+				MainThreadDispatcher.StartUpdateMicroCoroutine(LevelFinishAnimation());
 			}).AddTo(this);
 		}
 

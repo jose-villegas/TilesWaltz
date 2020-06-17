@@ -6,14 +6,11 @@ namespace TilesWalk.Gameplay.Animation
 	[Serializable]
 	public class AnimationConfiguration
 	{
-		[SerializeField] [Min(1f)] private float _shuffleMoveSpeed;
-		[SerializeField] [Min(1f)] private float _shuffleMoveAngularSpeed;
-		[SerializeField] [Min(1f)] private int _scalePopInSpeed;
+		[SerializeField] [Min(0f)] private float _shuffleMoveTime;
+		[SerializeField] [Min(0f)] private float _scalePopInTime;
 
-		public float ShuffleMoveSpeed => _shuffleMoveSpeed;
+		public float ShuffleMoveTime => _shuffleMoveTime;
 
-		public int ScalePopInSpeed => _scalePopInSpeed;
-
-		public float ShuffleMoveAngularSpeed => _shuffleMoveAngularSpeed;
+		public float ScalePopInTime => _scalePopInTime;
 	}
 }

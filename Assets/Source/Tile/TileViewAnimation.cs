@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TilesWalk.Gameplay;
 using TilesWalk.Gameplay.Animation;
 using UnityEngine;
+using UnityEngine.Timeline;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -32,7 +33,7 @@ namespace TilesWalk.Tile
 						Vector3.MoveTowards(transform.localScale, Vector3.zero, scaleSpeed * Time.deltaTime);
 
 					t += Time.deltaTime;
-					yield return new WaitForEndOfFrame();
+					yield return null;
 				}
 
 				movementSpeed = Random.Range(-1f, 1f);
@@ -47,46 +48,57 @@ namespace TilesWalk.Tile
 						Vector3.MoveTowards(transform.localScale, scale, scaleSpeed * Time.deltaTime);
 
 					t += Time.deltaTime;
-					yield return new WaitForEndOfFrame();
+					yield return null;
 				}
 			}
 		}
 
 		private IEnumerator ScalePopInAnimation(Vector3 scale)
 		{
-			while ((scale - transform.localScale).sqrMagnitude > Mathf.Epsilon)
+			var t = 0f;
+			var origin = transform.localScale;
+
+			while (t <= _animationSettings.ScalePopInTime)
 			{
-				var step = _animationSettings.ScalePopInSpeed * Time.deltaTime;
-				transform.localScale = Vector3.MoveTowards(transform.localScale, scale, step);
-				yield return new WaitForEndOfFrame();
+				transform.localScale = Vector3.Lerp(origin, scale, t / _animationSettings.ScalePopInTime);
+				t += Time.deltaTime;
+				yield return null;
 			}
+
+			transform.localScale = scale;
 		}
 
 		private IEnumerator ShuffleMoveAnimation(List<TileView> tiles, List<Tuple<Vector3, Quaternion>> source)
 		{
-			var allTransformsDone = false;
+			var t = 0f;
 
-			while (!allTransformsDone)
+			var backup = new List<Tuple<Vector3, Quaternion>>();
+
+			for (var i = 0; i < tiles.Count && i < source.Count; i++)
 			{
-				var step = _animationSettings.ShuffleMoveSpeed * Time.deltaTime;
-				allTransformsDone = true;
+				backup.Add(new Tuple<Vector3, Quaternion>(tiles[i].transform.position, tiles[i].transform.rotation));
+			}
 
-				for (var i = 0; i < tiles.Count && i < source.Count; i++)
+			while (t <= _animationSettings.ShuffleMoveTime)
+			{
+				for (var i = 0; i < tiles.Count && i < source.Count && i < backup.Count; i++)
 				{
 					var tile = tiles[i];
-
-					var offset = source[i].Item1 - tile.transform.position;
-
-					allTransformsDone &= (source[i].Item1 - tile.transform.position).sqrMagnitude <= Mathf.Epsilon &&
-					                     Quaternion.Angle(source[i].Item2, tile.transform.rotation) <= Mathf.Epsilon;
-
-					tile.transform.position = Vector3.MoveTowards(tile.transform.position, source[i].Item1, step);
-					tile.transform.rotation =
-						Quaternion.RotateTowards(tile.transform.rotation, source[i].Item2,
-							step * _animationSettings.ShuffleMoveAngularSpeed);
+					tile.transform.position = Vector3.Lerp(backup[i].Item1, source[i].Item1,
+						t / _animationSettings.ShuffleMoveTime);
+					tile.transform.rotation = Quaternion.Lerp(backup[i].Item2, source[i].Item2,
+						t / _animationSettings.ShuffleMoveTime);
 				}
 
-				yield return new WaitForEndOfFrame();
+				t += Time.deltaTime;
+				yield return null;
+			}
+
+			for (var i = 0; i < tiles.Count && i < source.Count && i < backup.Count; i++)
+			{
+				var tile = tiles[i];
+				tile.transform.position = source[i].Item1;
+				tile.transform.rotation = source[i].Item2;
 			}
 		}
 	}
