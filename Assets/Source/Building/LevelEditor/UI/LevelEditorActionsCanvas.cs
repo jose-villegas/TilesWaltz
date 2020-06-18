@@ -10,16 +10,16 @@ namespace TilesWalk.Building.LevelEditor.UI
 	{
 		[Inject] private LevelEditorToolSet _levelEditorToolSet;
 
-		[SerializeField] private Button _continue;
+		[SerializeField] private Button _edit;
 		[SerializeField] private Button _save;
 
-		public Button Continue => _continue;
+		public Button Edit => _edit;
 
 		public Button Save => _save;
 
 		public void Start()
 		{
-			_continue.onClick.AsObservable().Subscribe(_ =>
+			_edit.onClick.AsObservable().Subscribe(_ =>
 			{
 				_levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorInsertionTools);
 			}).AddTo(this);
