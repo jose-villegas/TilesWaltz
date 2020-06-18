@@ -3065,7 +3065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcef0ab97e0d24943b58ed4f76082bd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _continue: {fileID: 1289705806659409673}
+  _edit: {fileID: 1289705806659409673}
   _save: {fileID: 5440815328787726076}
 --- !u!1 &8834163690913633375
 GameObject:
