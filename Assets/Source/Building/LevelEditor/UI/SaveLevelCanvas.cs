@@ -28,6 +28,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 		[SerializeField] private TMP_InputField _secondsField;
 		[Header("Actions")] [SerializeField] private Button _save;
 		[SerializeField] private Button _cancel;
+		[SerializeField] private Button _exit;
 
 		private void Awake()
 		{
@@ -37,6 +38,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 			_levelEditorToolSet.ActionsCanvas.Save.onClick.AsObservable().Subscribe(OnSaveConfirm).AddTo(this);
 			_save.onClick.AsObservable().Subscribe(OnSaveConfirm).AddTo(this);
 			_cancel.onClick.AsObservable().Subscribe(OnCancelSave).AddTo(this);
+			_exit.onClick.AsObservable().Subscribe(OnCancelSave).AddTo(this);
 		}
 
 		private void OnCancelSave(Unit u)

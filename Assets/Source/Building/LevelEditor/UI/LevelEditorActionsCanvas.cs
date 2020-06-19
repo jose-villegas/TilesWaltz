@@ -19,10 +19,6 @@ namespace TilesWalk.Building.LevelEditor.UI
 
 		public void Start()
 		{
-			_edit.onClick.AsObservable().Subscribe(_ =>
-			{
-				_levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorInsertionTools);
-			}).AddTo(this);
 		}
 	}
 }
