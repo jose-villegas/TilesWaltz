@@ -2,6 +2,7 @@
 using ModestTree;
 using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
+using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.General.UI;
 using TilesWalk.Map.Bridge;
@@ -17,27 +18,25 @@ namespace TilesWalk.Navigation.UI
 {
 	public class LevelMapDetailsCanvas : CanvasGroupBehaviour
 	{
+		[Inject] private MapLevelBridge _mapLevelBridge;
+		[Inject] private LevelTilesHandler _levelTilesHandler;
+		[Inject] private GameScoresHelper _gameScoresHelper;
+
 		[SerializeField] private LevelNameRequestHandler _levelRequest;
-		[SerializeField] private TextMeshProUGUI _target;
-		[SerializeField] private TextMeshProUGUI _stars;
 		[SerializeField] private Button _playButton;
+		[SerializeField] private CanvasGroupBehaviour _timeConditionContainer;
+		[SerializeField] private CanvasGroupBehaviour _moveConditionContainer;
 
 		[Header("Navigation")] [SerializeField]
 		private Button _nextLevel;
 
 		[SerializeField] private Button _previousLevel;
 
-		[Inject] private List<LevelMap> _availableMaps;
-		[Inject] private MapLevelBridge _mapLevelBridge;
-		[Inject] private LevelTilesHandler _levelTilesHandler;
-		[Inject] private GameScoresHelper _gameScoresHelper;
-
 		public LevelNameRequestHandler LevelRequest => _levelRequest;
-
 
 		private void Awake()
 		{
-			_levelRequest.OnTileMapFoundAsObservable().Subscribe(level => { LoadMapData(); }).AddTo(this);
+			_levelRequest.OnTileMapFoundAsObservable().Subscribe(UpdateCanvas).AddTo(this);
 			_nextLevel.onClick.AddListener(OnNextClick);
 			_previousLevel.onClick.AddListener(OnPreviousClick);
 		}
@@ -66,18 +65,29 @@ namespace TilesWalk.Navigation.UI
 			}
 		}
 
-		private void LoadMapData()
+		private void UpdateCanvas(LevelMap map)
 		{
-			_target.text = _levelRequest.Map.Target.Localize();
-			_stars.text = $"{_gameScoresHelper.GameStars}/{_levelRequest.Map.StarsRequired}";
-			_playButton.interactable = _gameScoresHelper.GameStars >= _levelRequest.Map.StarsRequired;
+			_playButton.interactable = _gameScoresHelper.GameStars >= map.StarsRequired;
 
 			// prepare the bridge
-			_mapLevelBridge.SelectedLevel = _levelRequest.Map;
+			_mapLevelBridge.SelectedLevel = map;
+
+			//// set condition
+			if (map.FinishCondition == FinishCondition.MovesLimit)
+			{
+				_moveConditionContainer.Show();
+				_timeConditionContainer.Hide();
+			}
+			else if (map.FinishCondition == FinishCondition.TimeLimit)
+			{
+				_moveConditionContainer.Hide();
+				_timeConditionContainer.Show();
+			}
 
 			// set navigation buttons
-			var levelTile = _levelTilesHandler[_levelRequest.Map];
+			var levelTile = _levelTilesHandler[map];
 			var index = _levelTilesHandler.LevelTiles.IndexOf(levelTile);
+
 			_nextLevel.interactable = true;
 			_previousLevel.interactable = true;
 
