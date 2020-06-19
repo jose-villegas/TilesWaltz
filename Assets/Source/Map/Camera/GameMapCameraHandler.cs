@@ -33,9 +33,9 @@ namespace TilesWalk.Map.Camera
 		{
 			var levelTile = _levelTilesHandler.LevelTiles.FirstOrDefault(x =>
 			{
-				if (x.LevelMap != null && _detailsCanvas.LevelMap != null)
+				if (x.Map != null && _detailsCanvas.LevelRequest.Map != null)
 				{
-					return x.LevelMap.Id == _detailsCanvas.LevelMap.Id;
+					return x.Map.Value.Id == _detailsCanvas.LevelRequest.Map.Id;
 				}
 
 				return false;

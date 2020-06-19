@@ -11,17 +11,20 @@ using Zenject;
 
 namespace TilesWalk.Navigation.UI
 {
-	public class LevelTileStarsHandler : LevelNameRequireBehaviour
+	public class LevelTileStarsHandler : MonoBehaviour, ILevelNameRequire
 	{
+		[Inject] private GameScoresHelper _gameScoresHelper;
+
 		[SerializeField] private Sprite _starSprite;
 		[SerializeField] private Sprite _starFilledSprite;
 		[SerializeField] private Image[] _stars;
 
-		[Inject] private GameScoresHelper _gameScoresHelper;
+		public ReactiveProperty<string> Name { get; } =  new ReactiveProperty<string>();
+		public ReactiveProperty<LevelMap> Map { get; } = new ReactiveProperty<LevelMap>();
 
 		private void Awake()
 		{
-			OnTileMapFoundAsObservable().Subscribe(OnTileMapUpdated).AddTo(this);
+			Map.Subscribe(OnTileMapUpdated).AddTo(this);
 		}
 
 		protected void OnTileMapUpdated(LevelMap levelMap)
@@ -40,5 +43,6 @@ namespace TilesWalk.Navigation.UI
 				}
 			}
 		}
+
 	}
 }

@@ -137,7 +137,7 @@ namespace TilesWalk.Building.Editor
 
 				var levelName = foundMap.TileParameters[i];
 				var details = instance.GetComponentInChildren<LevelNameRequestHandler>();
-				details.LevelName = levelName;
+				details.RawName = levelName;
 			}
 
 			foreach (var instruction in foundMap.Instructions)
@@ -195,7 +195,7 @@ namespace TilesWalk.Building.Editor
 				if (!_insertRegular)
 				{
 					var details = instance.GetComponentInChildren<LevelNameRequestHandler>();
-					details.LevelName = _levelName;
+					details.RawName = _levelName;
 				}
 			}
 		}
@@ -219,7 +219,7 @@ namespace TilesWalk.Building.Editor
 				if (!_insertRegular)
 				{
 					var details = instance.GetComponentInChildren<LevelNameRequestHandler>();
-					details.LevelName = _levelName;
+					details.RawName = _levelName;
 				}
 
 				// adjust bounds

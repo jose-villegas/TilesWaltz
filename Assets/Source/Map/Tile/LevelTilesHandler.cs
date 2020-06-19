@@ -28,7 +28,7 @@ namespace TilesWalk.Map.Tile
 		{
 			get
 			{
-				return _levelTiles.FirstOrDefault(x => x.LevelMap.Id == map.Id);
+				return _levelTiles.FirstOrDefault(x => x.Map.Value.Id == map.Id);
 			}
 		}
 
@@ -49,7 +49,7 @@ namespace TilesWalk.Map.Tile
 			{
 				var index = i;
 				var levelTile = inChildren[index];
-				levelTile.OnTileMapFoundAsObservable().Subscribe(tileMap =>
+				levelTile.Map.Subscribe(tileMap =>
 				{
 					_levelTiles[index] = levelTile;
 					_readyCount.Value += 1;
@@ -70,18 +70,18 @@ namespace TilesWalk.Map.Tile
 		{
 			foreach (var level in _levelTiles)
 			{
-				if (_gameSave.Records.TryGetValue(level.LevelName, out var score))
+				if (_gameSave.Records.TryGetValue(level.Name, out var score))
 				{
-					if (score.Points.Highest < level.LevelMap.Target)
+					if (score.Points.Highest < level.Map.Value.Target)
 					{
-						_detailsCanvas.LevelName.Value = level.LevelMap.Id;
+						_detailsCanvas.LevelRequest.Name.Value = level.Map.Value.Id;
 						_detailsCanvas.Show();
 						return;
 					}
 				}
 				else
 				{
-					_detailsCanvas.LevelName.Value = level.LevelMap.Id;
+					_detailsCanvas.LevelRequest.Name.Value = level.Map.Value.Id;
 					_detailsCanvas.Show();
 					return;
 				}
