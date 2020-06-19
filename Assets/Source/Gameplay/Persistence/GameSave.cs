@@ -22,7 +22,7 @@ namespace TilesWalk.Gameplay.Persistence
 			_customRecords = new RecordsKeeper();
 			_records = new RecordsKeeper();
 			_userMaps = new CustomMaps();
-			_userMaps = new CustomMaps();
+			_importedMaps = new CustomMaps();
 		}
 
 		public void LoadFromLocal()
@@ -50,10 +50,10 @@ namespace TilesWalk.Gameplay.Persistence
 
 		public void SaveToLocal()
 		{
-			_userMaps = SaveGame.Load<CustomMaps>("UserMaps");
-			_importedMaps = SaveGame.Load<CustomMaps>("ImportedMaps");
-			_records = SaveGame.Load<RecordsKeeper>("Records");
-			_records = SaveGame.Load<RecordsKeeper>("CustomRecords");
+			SaveGame.Save("UserMaps", _userMaps);
+			SaveGame.Save("ImportedMaps", _importedMaps);
+			SaveGame.Save("Records", _records);
+			SaveGame.Save("CustomRecords", _customRecords);
 		}
 	}
 }
