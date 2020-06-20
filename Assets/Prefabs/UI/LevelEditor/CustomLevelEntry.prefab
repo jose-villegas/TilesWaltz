@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 4918340731758709449}
   - component: {fileID: 7274801146862229834}
   - component: {fileID: 3853943365904443190}
+  - component: {fileID: 611069330232011060}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -304,6 +305,18 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &611069330232011060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2364824151289199737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3485dd158a7c4fe4c8f9d90d04b00d5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3813179860938882620
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,6 +328,7 @@ GameObject:
   - component: {fileID: 7474348398522871903}
   - component: {fileID: 7522970958422899604}
   - component: {fileID: 5057003365203386518}
+  - component: {fileID: 1643750996540699919}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -460,6 +474,18 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1643750996540699919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3813179860938882620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1a06e7d1024c424a9df0b6bfdae2682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4286623669959464951
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,6 +645,7 @@ GameObject:
   - component: {fileID: 6052481484051639059}
   - component: {fileID: 2120023945278562423}
   - component: {fileID: 1990753862053210627}
+  - component: {fileID: 8781519143917450274}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -764,6 +791,18 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8781519143917450274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4634172903199297609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87393165973c255419c44cf239fb1315, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5533100990264752604
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,6 +812,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4506448276033131563}
+  - component: {fileID: 9151244941528270523}
   - component: {fileID: 807601058667093187}
   m_Layer: 5
   m_Name: CustomLevelEntry
@@ -801,6 +841,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &9151244941528270523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5533100990264752604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb03b6330256cd64a9dd6621341b2824, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _solver:
+    _mapProvider: 0
+  _levelName: 
 --- !u!114 &807601058667093187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -813,6 +868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ffe31d7fd1ea40408caef29658457b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _levelRequest: {fileID: 9151244941528270523}
 --- !u!1 &5930944616970181347
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,6 +1091,7 @@ GameObject:
   - component: {fileID: 6320515663782142172}
   - component: {fileID: 6720203171991667708}
   - component: {fileID: 7317999981363781208}
+  - component: {fileID: 5675741323955791438}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1180,6 +1237,18 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5675741323955791438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8733520232003697481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33bc12fbb96bc704fb57b3a3dec324e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &821322911011097402
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1820,22 +1889,22 @@ PrefabInstance:
     - target: {fileID: 5442493757640282507, guid: 5d2fea24bb35afe41a37261dc628df4f,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5442493757640282507, guid: 5d2fea24bb35afe41a37261dc628df4f,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5442493757640282507, guid: 5d2fea24bb35afe41a37261dc628df4f,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5442493757640282507, guid: 5d2fea24bb35afe41a37261dc628df4f,
         type: 3}
       propertyPath: m_textInfo.pageCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5442493757640282507, guid: 5d2fea24bb35afe41a37261dc628df4f,
         type: 3}
@@ -1980,22 +2049,22 @@ PrefabInstance:
     - target: {fileID: 5442493757640282507, guid: 5d2fea24bb35afe41a37261dc628df4f,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5442493757640282507, guid: 5d2fea24bb35afe41a37261dc628df4f,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5442493757640282507, guid: 5d2fea24bb35afe41a37261dc628df4f,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5442493757640282507, guid: 5d2fea24bb35afe41a37261dc628df4f,
         type: 3}
       propertyPath: m_textInfo.pageCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5442493757640282507, guid: 5d2fea24bb35afe41a37261dc628df4f,
         type: 3}

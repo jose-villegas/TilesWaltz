@@ -1,18 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TilesWalk.Map.Scaffolding;
 using UnityEngine;
 
-public class CustomLevelEntryCanvas : MonoBehaviour
+namespace TilesWalk.Building.LevelEditor.UI.Gallery
 {
-    // Start is called before the first frame update
-    void Start()
+    public class CustomLevelEntryCanvas : MonoBehaviour
     {
-        
-    }
+	    [SerializeField] private LevelNameRequestHandler _levelRequest;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+	    public LevelNameRequestHandler LevelRequest => _levelRequest;
     }
 }

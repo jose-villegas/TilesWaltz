@@ -1,22 +1,29 @@
 ﻿using System.Collections.Generic;
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Persistence;
+using TilesWalk.Map.General;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace TilesWalk.Gameplay.Score
 {
+	[RequireComponent(typeof(IMapProvider))]
 	public class GameScoresHelper : MonoBehaviour
 	{
 		[Inject] private GameSave _gameSave;
-		[Inject] private List<LevelMap> _availableMaps;
 		[Inject] private ScorePointsConfiguration _scorePointsSettings;
+
+		[SerializeField] private MapProviderSolver _solver;
 
 		public int GameStars { get; private set; }
 
 		private void Start()
 		{
+			if (_solver == null) _solver = new MapProviderSolver(gameObject);
+
+			_solver.InstanceProvider();
+
 			SceneManager.sceneLoaded += OnSceneLoaded;
 		}
 
@@ -60,7 +67,7 @@ namespace TilesWalk.Gameplay.Score
 
 		public int GetStarCount(LevelScore score)
 		{
-			var tileMap = _availableMaps.Find(x => x.Id == score.Id);
+			var tileMap = _solver.Provider.AvailableMaps.Find(x => x.Id == score.Id);
 
 			if (tileMap != null)
 			{
