@@ -4,6 +4,7 @@ using NaughtyAttributes;
 using Newtonsoft.Json;
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Condition;
+using TilesWalk.Gameplay.Persistence;
 using UnityEngine;
 using Zenject;
 
@@ -26,9 +27,7 @@ namespace TilesWalk.Gameplay.Installer
 
 		[SerializeField, Range(0, 5)] private int _mapSize;
 
-		[Header("Entries")] [SerializeField] private List<LevelMap> _availableMaps;
-		[SerializeField] private List<MovesFinishCondition> _movesFinishConditions;
-		[SerializeField] private List<TimeFinishCondition> _timeFinishConditions;
+		[Header("Entries")] [SerializeField] private GameMapCollection _gameMaps = new GameMapCollection();
 
 		[Header("Game Levels Map")] [SerializeField]
 		private GameLevelsMap _gameLevelsMap;
@@ -45,9 +44,7 @@ namespace TilesWalk.Gameplay.Installer
 
 		public override void InstallBindings()
 		{
-			Container.Bind<List<LevelMap>>().FromInstance(_availableMaps).AsSingle();
-			Container.Bind<List<MovesFinishCondition>>().FromInstance(_movesFinishConditions).AsSingle();
-			Container.Bind<List<TimeFinishCondition>>().FromInstance(_timeFinishConditions).AsSingle();
+			Container.Bind<GameMapCollection>().WithId("GameMaps").FromInstance(_gameMaps);
 		}
 
 		[Button]
@@ -57,19 +54,19 @@ namespace TilesWalk.Gameplay.Installer
 			map.Id = _name;
 			map.MapSize = _mapSize;
 			map.FinishCondition = _condition;
-			_availableMaps.Add(map);
 
 			switch (_condition)
 			{
 				case FinishCondition.TimeLimit:
 					var tCond = new TimeFinishCondition(map.Id, _seconds);
-					_timeFinishConditions.Add(tCond);
+					_gameMaps.Insert(map, tCond);
 					break;
 				case FinishCondition.MovesLimit:
 					var mCond = new MovesFinishCondition(map.Id, _moves);
-					_movesFinishConditions.Add(mCond);
+					_gameMaps.Insert(map, mCond);
 					break;
 			}
+
 		}
 	}
 }

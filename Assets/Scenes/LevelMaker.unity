@@ -1247,6 +1247,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1421120269}
     m_Modifications:
+    - target: {fileID: 1073431604041630413, guid: 502489409b7aadb4889861c743a0730a,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
     - target: {fileID: 2711267556181804836, guid: 502489409b7aadb4889861c743a0730a,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1292,10 +1297,30 @@ PrefabInstance:
       propertyPath: m_BlocksRaycasts
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3661429704109370386, guid: 502489409b7aadb4889861c743a0730a,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.2509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 3661429704109370386, guid: 502489409b7aadb4889861c743a0730a,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.2509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 3661429704109370386, guid: 502489409b7aadb4889861c743a0730a,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.2509804
+      objectReference: {fileID: 0}
     - target: {fileID: 4279438977408654963, guid: 502489409b7aadb4889861c743a0730a,
         type: 3}
       propertyPath: m_Name
       value: Save
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437931071210843737, guid: 502489409b7aadb4889861c743a0730a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4694061431457135680, guid: 502489409b7aadb4889861c743a0730a,
         type: 3}

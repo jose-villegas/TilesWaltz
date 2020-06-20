@@ -13,16 +13,13 @@ namespace TilesWalk.Gameplay.Score
 	{
 		[Inject] private GameSave _gameSave;
 		[Inject] private ScorePointsConfiguration _scorePointsSettings;
-
-		[SerializeField] private MapProviderSolver _solver;
+		[Inject] private MapProviderSolver _solver;
 
 		public int GameStars { get; private set; }
 
 		private void Start()
 		{
-			if (_solver == null) _solver = new MapProviderSolver(gameObject);
-
-			_solver.InstanceProvider();
+			_solver.InstanceProvider(gameObject);
 
 			SceneManager.sceneLoaded += OnSceneLoaded;
 		}
@@ -67,7 +64,7 @@ namespace TilesWalk.Gameplay.Score
 
 		public int GetStarCount(LevelScore score)
 		{
-			var tileMap = _solver.Provider.AvailableMaps.Find(x => x.Id == score.Id);
+			var tileMap = _solver.Provider.Collection.AvailableMaps.Find(x => x.Id == score.Id);
 
 			if (tileMap != null)
 			{

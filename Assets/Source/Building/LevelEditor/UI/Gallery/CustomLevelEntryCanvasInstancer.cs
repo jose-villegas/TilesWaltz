@@ -1,23 +1,26 @@
 ﻿using TilesWalk.Map.General;
 using UnityEngine;
+using Zenject;
 
 namespace TilesWalk.Building.LevelEditor.UI.Gallery
 {
 	[RequireComponent(typeof(IMapProvider))]
 	public class CustomLevelEntryCanvasInstancer : MonoBehaviour
 	{
-		[SerializeField] private MapProviderSolver _solver;
+		[Inject] private DiContainer _container;
+		[Inject] private MapProviderSolver _solver;
 		[SerializeField] private CustomLevelEntryCanvas _entry;
 
 		private void Start()
 		{
-			if (_solver == null) _solver = new MapProviderSolver(gameObject);
+			_solver.InstanceProvider(gameObject);
 
-			_solver.InstanceProvider();
+			if (_solver.Provider.Collection == null) return;
 
-			foreach (var map in _solver.Provider.AvailableMaps)
+			foreach (var map in _solver.Provider.Collection.AvailableMaps)
 			{
-				var canvas = Instantiate(_entry);
+				var instance = _container.InstantiatePrefab(_entry.gameObject, transform);
+				var canvas = instance.GetComponent<CustomLevelEntryCanvas>();
 				canvas.name = map.Id;
 				canvas.LevelRequest.Name.Value = map.Id;
 			}

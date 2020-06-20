@@ -1,17 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Condition;
 
 namespace TilesWalk.Gameplay.Persistence
 {
-	public class CustomMaps
+	[Serializable]
+	public class GameMapCollection
 	{
+		[JsonProperty]
 		private List<LevelMap> _availableMaps;
+		[JsonProperty]
 		private List<MovesFinishCondition> _movesFinishConditions;
+		[JsonProperty]
 		private List<TimeFinishCondition> _timeFinishConditions;
 
+		[JsonIgnore]
 		public List<LevelMap> AvailableMaps => _availableMaps;
+		[JsonIgnore]
 		public List<MovesFinishCondition> MovesFinishConditions => _movesFinishConditions;
+		[JsonIgnore]
 		public List<TimeFinishCondition> TimeFinishConditions => _timeFinishConditions;
 
 		public bool Exist(string id)

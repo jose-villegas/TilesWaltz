@@ -4,6 +4,7 @@ using TilesWalk.Map.General;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using Zenject;
 using Provider = TilesWalk.Map.General.Provider;
 
 namespace TilesWalk.Map.Scaffolding
@@ -11,7 +12,8 @@ namespace TilesWalk.Map.Scaffolding
 	[RequireComponent(typeof(IMapProvider))]
 	public class LevelNameRequestHandler : ObservableTriggerBase
 	{
-		[SerializeField] private MapProviderSolver _solver;
+		[Inject] private MapProviderSolver _solver;
+
 		[SerializeField] private string _levelName;
 
 		public ReactiveProperty<string> Name { get; } = new ReactiveProperty<string>();
@@ -27,16 +29,14 @@ namespace TilesWalk.Map.Scaffolding
 
 		private void Awake()
 		{
-			if (_solver == null) _solver = new MapProviderSolver(gameObject);
-
-			_solver.InstanceProvider();
+			_solver.InstanceProvider(gameObject);
 
 			ScaffoldRequiredNames(RawName);
 			Name.Subscribe(level =>
 			{
 				if (string.IsNullOrEmpty(level)) return;
 
-				Map = _solver.Provider.AvailableMaps.Find(x => x.Id == level);
+				Map = _solver.Provider.Collection.AvailableMaps.Find(x => x.Id == level);
 
 				if (Map != null)
 				{

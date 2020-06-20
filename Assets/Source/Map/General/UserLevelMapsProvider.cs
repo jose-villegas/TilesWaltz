@@ -10,6 +10,6 @@ namespace TilesWalk.Map.General
 	{
 		[Inject] private GameSave _gameSave;
 
-		public List<LevelMap> AvailableMaps => _gameSave.UserMaps.AvailableMaps;
+		public GameMapCollection Collection => _gameSave.UserMaps;
 	}
 }

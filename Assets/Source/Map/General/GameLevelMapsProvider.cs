@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TilesWalk.Building.Level;
+using TilesWalk.Gameplay.Persistence;
 using UnityEngine;
 using Zenject;
 
@@ -7,8 +8,8 @@ namespace TilesWalk.Map.General
 {
 	public class GameLevelMapsProvider : MonoBehaviour, IMapProvider
 	{
-		[Inject] private List<LevelMap> _availableMaps;
+		[Inject(Id = "GameMaps")] private GameMapCollection _gameMaps;
 
-		public List<LevelMap> AvailableMaps => _availableMaps;
+		public GameMapCollection Collection => _gameMaps;
 	}
 }

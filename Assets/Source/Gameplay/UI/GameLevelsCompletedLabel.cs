@@ -20,12 +20,10 @@ namespace TilesWalk.Gameplay.UI
 
 		private void Start()
 		{
-			if (_solver == null) _solver = new MapProviderSolver(gameObject);
-			
-			_solver.InstanceProvider();
+			_solver.InstanceProvider(gameObject);
 
-			var maps = _solver.Provider.AvailableMaps.Count;
-			var completed = _solver.Provider.AvailableMaps.Count(x => _gameScoresHelper.IsCompleted(x));
+			var maps = _solver.Provider.Collection.AvailableMaps.Count;
+			var completed = _solver.Provider.Collection.AvailableMaps.Count(x => _gameScoresHelper.IsCompleted(x));
 
 			Component.text = $"{completed.Localize()}/{maps.Localize()}";
 		}
