@@ -2315,6 +2315,8 @@ GameObject:
   - component: {fileID: 1581882913}
   - component: {fileID: 1581882914}
   - component: {fileID: 1581882916}
+  - component: {fileID: 1581882918}
+  - component: {fileID: 1581882917}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -2340,6 +2342,7 @@ MonoBehaviour:
   - {fileID: 1581882914}
   - {fileID: 1581882915}
   - {fileID: 1581882916}
+  - {fileID: 1581882917}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -2423,6 +2426,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelFinishTracker: {fileID: 1004141882}
+--- !u!114 &1581882917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581882910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 336ebb1ee0899a0468a9f7eb7273202d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _solver: {fileID: 1581882918}
+--- !u!114 &1581882918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581882910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05912da8fa47ad746abfe3b1e184ea82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mapProvider: 2
 --- !u!1 &1636974712
 GameObject:
   m_ObjectHideFlags: 0
@@ -2555,7 +2584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loadOption: 2
-  _instructions: 
+  _instructions: '{"StarsRequired":0,"Target":0,"MapSize":0,"FinishCondition":0,"Id":"-1","Instructions":[],"Tiles":[-93040,-93258,-93316,-93506,-93712,-93894,-94028,-94342,-94492,-94690,-94862,-95048,-95174,-95312,-95454,-95708,-95850,-95974,-96116,-96282,-96408,-96578,-96712,-96850,-97000,-97118,-97240,-97398,-97524]}'
   _levelMap:
     Id: -1
     Instructions: []

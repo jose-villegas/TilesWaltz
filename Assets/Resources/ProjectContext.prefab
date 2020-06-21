@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac85446efc68a99439e71a51e81e1131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mapLevelBridge: {fileID: 8907246539644670056}
+  _levelBridge: {fileID: 8907246539644670056}
 --- !u!114 &1392037892750433409
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Score;
+using TilesWalk.Map.General;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -13,8 +14,7 @@ namespace TilesWalk.Gameplay.Condition
 	{
 		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;
 		[Inject] private TileViewLevelMap _tileLevelMap;
-		[Inject] private List<MovesFinishCondition> _movesFinishConditions;
-		[Inject] private List<TimeFinishCondition> _timeFinishConditions;
+		[Inject] private MapProviderSolver _solver;
 
 		private TargetScorePointsCondition _targetPointsCondition;
 		private MovesFinishCondition _movesFinishCondition;
@@ -29,6 +29,7 @@ namespace TilesWalk.Gameplay.Condition
 
 		private void Awake()
 		{
+			_solver.InstanceProvider(gameObject);
 			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
 		}
 
@@ -37,8 +38,8 @@ namespace TilesWalk.Gameplay.Condition
 			_targetPointsCondition = new TargetScorePointsCondition(levelMap.Id, levelMap.Target);
 
 			// find finish conditions
-			_movesFinishCondition = _movesFinishConditions.Find(x => x.Id == levelMap.Id);
-			_timeFinishCondition = _timeFinishConditions.Find(x => x.Id == levelMap.Id);
+			_movesFinishCondition = _solver.Provider.Collection.MovesFinishConditions.Find(x => x.Id == levelMap.Id);
+			_timeFinishCondition = _solver.Provider.Collection.TimeFinishConditions.Find(x => x.Id == levelMap.Id);
 
 			if (_movesFinishCondition == null)
 			{

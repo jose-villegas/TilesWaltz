@@ -6,6 +6,7 @@ using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.General.UI;
 using TilesWalk.Map.Bridge;
+using TilesWalk.Map.General;
 using TilesWalk.Navigation.UI;
 using TMPro;
 using UniRx;
@@ -31,17 +32,18 @@ namespace TilesWalk.Gameplay.Level.UI
 
 		[Inject] private LevelFinishTracker _levelFinishTracker;
 		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;
-		[Inject] private List<LevelMap> _availableMaps;
+		[Inject] private MapProviderSolver _solver;
 		[Inject] private ScorePointsConfiguration _scorePointsConfiguration;
 
 		private void Start()
 		{
+			_solver.InstanceProvider(gameObject);
 			_levelFinishTracker.OnLevelFinishAsObservable().Subscribe(OnLevelFinish).AddTo(this);
 		}
 
 		private void OnLevelFinish(LevelScore score)
 		{
-			var tileMap = _availableMaps.Find(x => x.Id == score.Id);
+			var tileMap = _solver.Provider.Collection.AvailableMaps.Find(x => x.Id == score.Id);
 
 			// points
 			_points.text = score.Points.Last.Localize();

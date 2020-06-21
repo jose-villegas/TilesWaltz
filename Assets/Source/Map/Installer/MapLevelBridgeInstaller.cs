@@ -6,11 +6,11 @@ namespace TilesWalk.Navigation.Installer
 {
 	public class MapLevelBridgeInstaller : MonoInstaller
 	{
-		[SerializeField] private MapLevelBridge _mapLevelBridge;
+		[SerializeField] private LevelBridge _levelBridge;
 
 		public override void InstallBindings()
 		{
-			Container.Bind<MapLevelBridge>().FromInstance(_mapLevelBridge).AsSingle();
+			Container.Bind<LevelBridge>().FromInstance(_levelBridge).AsSingle();
 		}
 	}
 }

@@ -3,25 +3,20 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Condition;
+using UnityEngine;
 
 namespace TilesWalk.Gameplay.Persistence
 {
 	[Serializable]
 	public class GameMapCollection
 	{
-		[JsonProperty]
-		private List<LevelMap> _availableMaps;
-		[JsonProperty]
-		private List<MovesFinishCondition> _movesFinishConditions;
-		[JsonProperty]
-		private List<TimeFinishCondition> _timeFinishConditions;
+		[JsonProperty] [SerializeField] private List<LevelMap> _availableMaps;
+		[JsonProperty] [SerializeField] private List<MovesFinishCondition> _movesFinishConditions;
+		[JsonProperty] [SerializeField] private List<TimeFinishCondition> _timeFinishConditions;
 
-		[JsonIgnore]
-		public List<LevelMap> AvailableMaps => _availableMaps;
-		[JsonIgnore]
-		public List<MovesFinishCondition> MovesFinishConditions => _movesFinishConditions;
-		[JsonIgnore]
-		public List<TimeFinishCondition> TimeFinishConditions => _timeFinishConditions;
+		[JsonIgnore] public List<LevelMap> AvailableMaps => _availableMaps;
+		[JsonIgnore] public List<MovesFinishCondition> MovesFinishConditions => _movesFinishConditions;
+		[JsonIgnore] public List<TimeFinishCondition> TimeFinishConditions => _timeFinishConditions;
 
 		public bool Exist(string id)
 		{
@@ -36,54 +31,54 @@ namespace TilesWalk.Gameplay.Persistence
 			if (MovesFinishConditions == null) _movesFinishConditions = new List<MovesFinishCondition>();
 			if (TimeFinishConditions == null) _timeFinishConditions = new List<TimeFinishCondition>();
 
-			var indexOf = AvailableMaps.FindIndex(x => x.Id == map.Id);
+			var indexOf = _availableMaps.FindIndex(x => x.Id == map.Id);
 
 			// this means the level is already save so we are going to replace it instead
 			if (indexOf >= 0)
 			{
-				AvailableMaps[indexOf] = map;
+				_availableMaps[indexOf] = map;
 			}
 			else
 			{
-				AvailableMaps.Add(map);
+				_availableMaps.Add(map);
 			}
 
 			// look for condition
 			if (map.FinishCondition == FinishCondition.MovesLimit)
 			{
-				indexOf = MovesFinishConditions.FindIndex(x => x.Id == map.Id);
+				indexOf = _movesFinishConditions.FindIndex(x => x.Id == map.Id);
 
 				if (indexOf >= 0)
 				{
-					MovesFinishConditions[indexOf] = condition as MovesFinishCondition;
+					_movesFinishConditions[indexOf] = condition as MovesFinishCondition;
 				}
 				else
 				{
 					// check if condition exist on other structure
-					indexOf = TimeFinishConditions.FindIndex(x => x.Id == map.Id);
+					indexOf = _timeFinishConditions.FindIndex(x => x.Id == map.Id);
 
-					if (indexOf >= 0) TimeFinishConditions.RemoveAt(indexOf);
+					if (indexOf >= 0) _timeFinishConditions.RemoveAt(indexOf);
 
-					MovesFinishConditions.Add(condition as MovesFinishCondition);
+					_movesFinishConditions.Add(condition as MovesFinishCondition);
 				}
 			}
 
 			if (map.FinishCondition == FinishCondition.TimeLimit)
 			{
-				indexOf = TimeFinishConditions.FindIndex(x => x.Id == map.Id);
+				indexOf = _timeFinishConditions.FindIndex(x => x.Id == map.Id);
 
 				if (indexOf >= 0)
 				{
-					TimeFinishConditions[indexOf] = condition as TimeFinishCondition;
+					_timeFinishConditions[indexOf] = condition as TimeFinishCondition;
 				}
 				else
 				{
 					// check if condition exist on other structure
-					indexOf = MovesFinishConditions.FindIndex(x => x.Id == map.Id);
+					indexOf = _movesFinishConditions.FindIndex(x => x.Id == map.Id);
 
-					if (indexOf >= 0) MovesFinishConditions.RemoveAt(indexOf);
+					if (indexOf >= 0) _movesFinishConditions.RemoveAt(indexOf);
 
-					TimeFinishConditions.Add(condition as TimeFinishCondition);
+					_timeFinishConditions.Add(condition as TimeFinishCondition);
 				}
 			}
 		}

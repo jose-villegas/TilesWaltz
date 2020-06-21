@@ -10,9 +10,7 @@ using TilesWalk.Gameplay.Display;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 using UniRx;
-using UniRx.InternalUtil;
 using UniRx.Triggers;
-using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -23,8 +21,8 @@ namespace TilesWalk.Tile
 		[SerializeField] protected TileController _controller;
 		[Inject] protected TileViewFactory _tileFactory;
 		[Inject] protected TileViewLevelMap _tileLevelMap;
-		[Inject] protected LevelFinishTracker _levelFinishTracker;
 		[Inject] protected GameTileColorsConfiguration _tileColorsSettings;
+		[Inject(Optional = true)] protected LevelFinishTracker _levelFinishTracker;
 
 		private MeshRenderer _meshRenderer;
 		private BoxCollider _collider;
@@ -115,12 +113,16 @@ namespace TilesWalk.Tile
 					RemoveCombo();
 				}
 			}).AddTo(this);
+
 			// on level finish stop interactions
-			_levelFinishTracker.OnLevelFinishAsObservable().Subscribe(_ =>
+			if (_levelFinishTracker != null)
 			{
-				MovementLocked = true;
-				MainThreadDispatcher.StartEndOfFrameMicroCoroutine(LevelFinishAnimation());
-			}).AddTo(this);
+				_levelFinishTracker.OnLevelFinishAsObservable().Subscribe(_ =>
+				{
+					MovementLocked = true;
+					MainThreadDispatcher.StartEndOfFrameMicroCoroutine(LevelFinishAnimation());
+				}).AddTo(this);
+			}
 		}
 
 		protected virtual void OnMouseDown()

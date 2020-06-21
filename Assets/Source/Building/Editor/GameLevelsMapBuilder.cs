@@ -142,8 +142,8 @@ namespace TilesWalk.Building.Editor
 
 			foreach (var instruction in foundMap.Instructions)
 			{
-				var rootIndex = instruction.root;
-				var tileIndex = instruction.tile;
+				var rootIndex = instruction.Root;
+				var tileIndex = instruction.Tile;
 
 				var rootController = _controllers[_indexes[rootIndex]];
 				var tileController = _controllers[_indexes[tileIndex]];
@@ -151,7 +151,7 @@ namespace TilesWalk.Building.Editor
 				var tileTransform = _indexes[tileIndex].transform;
 
 				// adjust neighbor insertion
-				rootController.AddNeighbor(instruction.direction, instruction.rule, tileController.Tile,
+				rootController.AddNeighbor(instruction.Direction, instruction.Rule, tileController.Tile,
 					rootTransform.localToWorldMatrix, out var translate, out var rotate);
 
 				tileTransform.rotation = rootTransform.rotation;
@@ -159,18 +159,18 @@ namespace TilesWalk.Building.Editor
 				tileTransform.position = rootTransform.position + translate;
 
 				// join hinge points
-				var src = rootController.Tile.HingePoints[instruction.direction];
-				var dst = tileController.Tile.HingePoints[instruction.direction.Opposite()];
+				var src = rootController.Tile.HingePoints[instruction.Direction];
+				var dst = tileController.Tile.HingePoints[instruction.Direction.Opposite()];
 				src = rootTransform.position + rootTransform.rotation * src;
 				dst = tileTransform.position + tileTransform.rotation * dst;
 				tileTransform.position += src - dst;
 
 				_currentMap.Instructions.Add(new InsertionInstruction()
 				{
-					direction = instruction.direction,
-					root = rootIndex,
-					rule = instruction.rule,
-					tile = tileIndex
+					Direction = instruction.Direction,
+					Root = rootIndex,
+					Rule = instruction.Rule,
+					Tile = tileIndex
 				});
 			}
 		}
@@ -245,10 +245,10 @@ namespace TilesWalk.Building.Editor
 
 				_currentMap.Instructions.Add(new InsertionInstruction()
 				{
-					direction = _insertDirection,
-					root = rootIndex.Key,
-					rule = _insertRule,
-					tile = id
+					Direction = _insertDirection,
+					Root = rootIndex.Key,
+					Rule = _insertRule,
+					Tile = id
 				});
 			}
 		}

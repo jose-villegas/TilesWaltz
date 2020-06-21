@@ -13,7 +13,7 @@ namespace TilesWalk.Map.Tile
 	public class LevelTile : ObservableTriggerBase, ILevelNameRequire
 	{
 		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
-		[Inject] private MapLevelBridge _mapLevelBridge;
+		[Inject] private LevelBridge _levelBridge;
 
 		public ReactiveProperty<string> Name { get; } = new ReactiveProperty<string>();
 		public ReactiveProperty<LevelMap> Map { get; } = new ReactiveProperty<LevelMap>();

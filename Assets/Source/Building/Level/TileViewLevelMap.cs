@@ -22,7 +22,7 @@ namespace TilesWalk.Building.Level
 		[SerializeField] LevelMap _levelMap = new LevelMap();
 
 		[Inject] private TileViewFactory _viewFactory;
-		[Inject] private MapLevelBridge _mapLevelBridge;
+		[Inject] private LevelBridge _levelBridge;
 
 		private Dictionary<Tile.Tile, TileView> _tileView = new Dictionary<Tile.Tile, TileView>();
 
@@ -33,6 +33,7 @@ namespace TilesWalk.Building.Level
 			new Dictionary<int, List<InsertionInstruction>>();
 
 		public LevelMap LevelMap => _levelMap;
+		public LevelLoadOptions LoadOption => _loadOption;
 
 		protected Subject<LevelMap> _onLevelMapLoaded;
 
@@ -40,28 +41,39 @@ namespace TilesWalk.Building.Level
 		{
 			_viewFactory.OnNewInstanceAsObservable().Subscribe(OnNewTileInstance).AddTo(this);
 
-			if (_loadOption == LevelLoadOptions.FromInstructions)
+			switch (_loadOption)
 			{
-				BuildFromInstructions();
+				case LevelLoadOptions.FromInstructions:
+					BuildFromInstructions();
+					break;
+				case LevelLoadOptions.FromBridgeLevelMode:
+					BuildTileMap(_levelBridge.Payload.Level);
+					break;
+				case LevelLoadOptions.FromBridgeEditorMode when _levelBridge.Payload == null:
+					BuildRootMap();
+					break;
+				case LevelLoadOptions.FromBridgeEditorMode:
+					BuildTileMap(_levelBridge.Payload.Level);
+					break;
+				case LevelLoadOptions.LevelEditor:
+					BuildRootMap();
+					break;
 			}
-			else if (_loadOption == LevelLoadOptions.FromLevelBridge)
+		}
+
+		private void BuildRootMap()
+		{
+			var customLevel = new LevelMap
 			{
-				BuildTileMap(_mapLevelBridge.SelectedLevel);
-			}
-			else if (_loadOption == LevelLoadOptions.LevelEditor)
-			{
-				var customLevel = new LevelMap
-				{
-					Tiles = new List<int> {0},
-					Id = Constants.CustomLevelName,
-					Instructions = new List<InsertionInstruction>(),
-					MapSize = 3,
-					StarsRequired = 0,
-					Target = 0
-				};
-				// add the root tile
-				BuildTileMap(customLevel);
-			}
+				Tiles = new List<int> {0},
+				Id = Constants.CustomLevelName,
+				Instructions = new List<InsertionInstruction>(),
+				MapSize = 3,
+				StarsRequired = 0,
+				Target = 0
+			};
+			// add the root tile
+			BuildTileMap(customLevel);
 		}
 
 		private void OnNewTileInstance(TileView tile)
@@ -99,8 +111,8 @@ namespace TilesWalk.Building.Level
 			TileToHash.Remove(tile);
 			HashToTile.Remove(hash);
 			// remove from map
-			_levelMap.Instructions.RemoveAll(x => x.tile == hash);
-			_levelMap.Instructions.RemoveAll(x => x.root == hash);
+			_levelMap.Instructions.RemoveAll(x => x.Tile == hash);
+			_levelMap.Instructions.RemoveAll(x => x.Root == hash);
 			_levelMap.Tiles.Remove(hash);
 			// remove all instructions that refer to this tile
 
@@ -110,7 +122,7 @@ namespace TilesWalk.Building.Level
 
 			foreach (var instruction in instructions)
 			{
-				Destroy(HashToTile[instruction.tile].gameObject);
+				Destroy(HashToTile[instruction.Tile].gameObject);
 			}
 		}
 
@@ -166,9 +178,23 @@ namespace TilesWalk.Building.Level
 
 			foreach (var mapTile in map.Tiles)
 			{
-				var tile = map.Id == Constants.CustomLevelName
-					? _viewFactory.NewInstance<LevelEditorTileView>()
-					: _viewFactory.NewInstance<TileView>();
+				TileView tile = null;
+
+				switch (_loadOption)
+				{
+					case LevelLoadOptions.None:
+					case LevelLoadOptions.FromInstructions:
+					case LevelLoadOptions.FromBridgeLevelMode:
+						tile = _viewFactory.NewInstance<TileView>();
+						break;
+					case LevelLoadOptions.LevelEditor:
+					case LevelLoadOptions.FromBridgeEditorMode:
+						tile = _viewFactory.NewInstance<LevelEditorTileView>();
+						break;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
+
 				// register with the source hash
 				RegisterTile(tile, mapTile);
 			}
@@ -176,13 +202,13 @@ namespace TilesWalk.Building.Level
 			// Now execute neighbor insertion logic
 			foreach (var instruction in map.Instructions)
 			{
-				var rootTile = HashToTile[instruction.root];
-				var insert = HashToTile[instruction.tile];
+				var rootTile = HashToTile[instruction.Root];
+				var insert = HashToTile[instruction.Tile];
 				// adjust neighbor insertion
 				Vector3 translate = Vector3.zero;
 				Quaternion rotate = Quaternion.identity;
-				rootTile.InsertNeighbor(instruction.direction, instruction.rule, insert);
-				UpdateInstructions(rootTile, insert, instruction.direction, instruction.rule);
+				rootTile.InsertNeighbor(instruction.Direction, instruction.Rule, insert);
+				UpdateInstructions(rootTile, insert, instruction.Direction, instruction.Rule);
 			}
 
 			_levelMap.Id = map.Id;
@@ -204,10 +230,10 @@ namespace TilesWalk.Building.Level
 
 			insertions.Add(new InsertionInstruction()
 			{
-				tile = tileId,
-				root = rootId,
-				direction = d,
-				rule = r
+				Tile = tileId,
+				Root = rootId,
+				Direction = d,
+				Rule = r
 			});
 
 			_levelMap.Instructions.Add(insertions.Last());

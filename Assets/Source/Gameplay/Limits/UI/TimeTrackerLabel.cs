@@ -38,19 +38,27 @@ namespace TilesWalk.Gameplay.Limits.UI
 				return;
 			}
 
-			var condition = _levelFinishTracker.TimeFinishCondition;
-			var start = DateTime.Now;
-			var end = DateTime.Now + TimeSpan.FromSeconds(condition.Limit);
-
-			transform.UpdateAsObservable().SubscribeToText(Component, _ =>
+			try
 			{
-				var current = new DateTime((DateTime.Now - start).Ticks);
-				var limit = new DateTime((end - start).Ticks);
-				var currentTime = current.ToString("mm:ss");
-				var limitTime = limit.ToString("mm:ss");
+				var condition = _levelFinishTracker.TimeFinishCondition;
+				var start = DateTime.Now;
+				var end = DateTime.Now + TimeSpan.FromSeconds(condition.Limit);
 
-				return current < limit ? $"{currentTime}/{limitTime}" : $"{limitTime}/{limitTime}";
-			}).AddTo(this);
+				transform.UpdateAsObservable().SubscribeToText(Component, _ =>
+				{
+					var current = new DateTime((DateTime.Now - start).Ticks);
+					var limit = new DateTime((end - start).Ticks);
+					var currentTime = current.ToString("mm:ss");
+					var limitTime = limit.ToString("mm:ss");
+
+					return current < limit ? $"{currentTime}/{limitTime}" : $"{limitTime}/{limitTime}";
+				}).AddTo(this);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				gameObject.SetActive(false);
+			}
 		}
 	}
 }

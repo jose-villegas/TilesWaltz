@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using TilesWalk.Building.Level;
+using TilesWalk.Gameplay.Condition;
 using TilesWalk.Map.General;
 using UniRx;
 using UniRx.Triggers;
@@ -18,6 +20,7 @@ namespace TilesWalk.Map.Scaffolding
 
 		public ReactiveProperty<string> Name { get; } = new ReactiveProperty<string>();
 		public LevelMap Map { get; private set; }
+		public MapFinishCondition Condition { get; private set; }
 
 		public string RawName
 		{
@@ -37,6 +40,19 @@ namespace TilesWalk.Map.Scaffolding
 				if (string.IsNullOrEmpty(level)) return;
 
 				Map = _solver.Provider.Collection.AvailableMaps.Find(x => x.Id == level);
+				Condition = null;
+
+				switch (Map.FinishCondition)
+				{
+					case FinishCondition.TimeLimit:
+						Condition = _solver.Provider.Collection.TimeFinishConditions.Find(x => x.Id == level);
+						break;
+					case FinishCondition.MovesLimit:
+						Condition = _solver.Provider.Collection.MovesFinishConditions.Find(x => x.Id == level);
+						break;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
 
 				if (Map != null)
 				{

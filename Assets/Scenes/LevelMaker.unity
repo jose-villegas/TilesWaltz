@@ -456,7 +456,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1039857915}
-  - {fileID: 1004141881}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -689,49 +688,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56674a6c183f16346b796fde31c1d484, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1004141880
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1004141881}
-  - component: {fileID: 1004141882}
-  m_Layer: 0
-  m_Name: LevelFinishTracker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1004141881
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1004141880}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 376250602}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1004141882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1004141880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d468e845b106404680554c5971e3bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1039857914
@@ -1004,7 +960,6 @@ GameObject:
   - component: {fileID: 1581882914}
   - component: {fileID: 1581882917}
   - component: {fileID: 1581882916}
-  - component: {fileID: 1581882918}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -1031,7 +986,6 @@ MonoBehaviour:
   - {fileID: 1581882915}
   - {fileID: 1581882917}
   - {fileID: 1581882916}
-  - {fileID: 1581882918}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -1128,19 +1082,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelEditorToolSet: {fileID: 54807138}
---- !u!114 &1581882918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581882910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a123c9a4a568dd4498e3bea3ee2f59d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _levelFinishTracker: {fileID: 1004141882}
 --- !u!1 &1740610452 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2037029641379425105, guid: 60e372a502fa0864f8de35a1433bf395,
@@ -1218,7 +1159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8248d9579af4304f942e4dd4b342755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadOption: 3
+  _loadOption: 4
   _instructions: 
   _levelMap:
     Id: -1

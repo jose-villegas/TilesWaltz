@@ -13,10 +13,12 @@ namespace TilesWalk.Building.Level
 
 		public GameLevelsMap()
 		{
-			Id = "-1";
-			Instructions = new List<InsertionInstruction>();
 			TileParameters = new List<string>();
-			Tiles = new List<int>();
+		}
+
+		public GameLevelsMap(GameLevelsMap copyFrom) : base(copyFrom)
+		{
+			TileParameters = new List<string>(copyFrom.TileParameters);
 		}
 	}
 }

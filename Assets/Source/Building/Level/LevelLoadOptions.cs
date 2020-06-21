@@ -4,7 +4,8 @@
 	{
 		None,
 		FromInstructions,
-		FromLevelBridge,
+		FromBridgeLevelMode,
 		LevelEditor,
+		FromBridgeEditorMode
 	}
 }

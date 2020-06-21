@@ -18,7 +18,7 @@ namespace TilesWalk.Navigation.UI
 {
 	public class LevelMapDetailsCanvas : CanvasGroupBehaviour
 	{
-		[Inject] private MapLevelBridge _mapLevelBridge;
+		[Inject] private LevelBridge _levelBridge;
 		[Inject] private LevelTilesHandler _levelTilesHandler;
 		[Inject] private GameScoresHelper _gameScoresHelper;
 
@@ -70,7 +70,7 @@ namespace TilesWalk.Navigation.UI
 			_playButton.interactable = _gameScoresHelper.GameStars >= map.StarsRequired;
 
 			// prepare the bridge
-			_mapLevelBridge.SelectedLevel = map;
+			_levelBridge.Payload = new LevelBridgePayload(_levelRequest.Map, _levelRequest.Condition);
 
 			//// set condition
 			if (map.FinishCondition == FinishCondition.MovesLimit)

@@ -10,14 +10,18 @@ namespace TilesWalk.Building.Level
 	{
 		public int StarsRequired;
 		public int Target;
-		public int MapSize;
+
 		public FinishCondition FinishCondition;
 
-		public LevelMap()
+		public LevelMap() : base()
 		{
-			Id = "-1";
-			Instructions = new List<InsertionInstruction>();
-			Tiles = new List<int>();
+		}
+
+		public LevelMap(LevelMap copyFrom) : base(copyFrom)
+		{
+			this.StarsRequired = copyFrom.StarsRequired;
+			Target = copyFrom.Target;
+			FinishCondition = copyFrom.FinishCondition;
 		}
 	}
 }
