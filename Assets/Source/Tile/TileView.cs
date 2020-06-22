@@ -70,19 +70,6 @@ namespace TilesWalk.Tile
 
 		private void OnDestroy()
 		{
-			if (Application.isEditor)
-			{
-				foreach (var item in _controller.Tile.Neighbors)
-				{
-					item.Value.Neighbors.Remove(item.Key.Opposite());
-					item.Value.HingePoints.Remove(item.Key.Opposite());
-				}
-
-				_tileLevelMap.RefreshAllPaths();
-				// unregistered when destroyed
-				_tileLevelMap.RemoveTile(this);
-			}
-
 			MovementLocked = false;
 		}
 

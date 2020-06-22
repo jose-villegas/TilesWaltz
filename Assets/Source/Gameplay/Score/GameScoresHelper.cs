@@ -62,6 +62,33 @@ namespace TilesWalk.Gameplay.Score
 			return 0;
 		}
 
+		public int GetStarCount(LevelMap levelMap, int current)
+		{
+			if (_gameSave.Records.TryGetValue(levelMap.Id, out var score))
+			{
+				var ratio = (float)current / levelMap.Target;
+
+				if (ratio >= 1)
+				{
+					return 3;
+				}
+
+				if (ratio >= _scorePointsSettings.TwoStarRange)
+				{
+					return 2;
+				}
+
+				if (ratio >= _scorePointsSettings.OneStarRange)
+				{
+					return 1;
+				}
+
+				return 0;
+			}
+
+			return 0;
+		}
+
 		public int GetStarCount(LevelScore score)
 		{
 			var tileMap = _solver.Provider.Collection.AvailableMaps.Find(x => x.Id == score.Id);

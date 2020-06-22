@@ -30,9 +30,8 @@ namespace TilesWalk.Gameplay.Limits.UI
 
 		private void OnLevelMapLoaded(LevelMap levelMap)
 		{
-			if (levelMap.FinishCondition != FinishCondition.MovesLimit && levelMap.Id != Constants.CustomLevelName)
+			if (levelMap.FinishCondition != FinishCondition.MovesLimit)
 			{
-				transform.parent.gameObject.SetActive(false);
 				return;
 			}
 

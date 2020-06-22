@@ -17,8 +17,8 @@ MonoBehaviour:
     _comboMultiplier: 10
     _pointsPerExtraSecond: 20
     _pointsPerExtraMove: 100
-    _oneStarRange: 0.25
-    _twoStarRange: 0.65
+    _oneStarRange: 0.3
+    _twoStarRange: 0.6
   _animationSettings:
     _shuffleMoveTime: 0.15
     _scalePopInTime: 0.1

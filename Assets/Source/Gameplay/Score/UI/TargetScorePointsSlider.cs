@@ -1,4 +1,5 @@
-﻿using TilesWalk.Building.Level;
+﻿using System.Collections.Generic;
+using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.General.Patterns;
 using TilesWalk.Navigation.UI;
@@ -14,6 +15,11 @@ namespace TilesWalk.Gameplay.Score.UI
 	{
 		[Inject] private TileViewLevelMap _tileLevelMap;
 		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;
+		[Inject] private GameScoresHelper _gameScoresHelper;
+
+		[SerializeField] private Sprite _starEmpty;
+		[SerializeField] private Sprite _starFull;
+		[SerializeField] private List<Image> _stars;
 
 		private void Start()
 		{
@@ -25,6 +31,14 @@ namespace TilesWalk.Gameplay.Score.UI
 						float last = score.Points.Last;
 						float ceil = _tileLevelMap.LevelMap.Target;
 						Component.value = Mathf.Min(1f, last / ceil);
+
+						var starCount = _gameScoresHelper.GetStarCount(_tileLevelMap.LevelMap, score.Points.Last);
+						_stars.ForEach(i => i.sprite = _starEmpty);
+
+						for (int i = 0; i < starCount && i < _stars.Count; i++)
+						{
+							_stars[i].sprite = _starFull;
+						}
 					}).AddTo(this);
 		}
 	}

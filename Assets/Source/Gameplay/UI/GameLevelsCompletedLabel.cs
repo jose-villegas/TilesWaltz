@@ -15,8 +15,7 @@ namespace TilesWalk.Gameplay.UI
 	public class GameLevelsCompletedLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
 		[Inject] private GameScoresHelper _gameScoresHelper;
-
-		[SerializeField] private MapProviderSolver _solver;
+		[Inject] private MapProviderSolver _solver;
 
 		private void Start()
 		{

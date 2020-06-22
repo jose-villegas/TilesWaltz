@@ -8,7 +8,7 @@ using Zenject;
 namespace TilesWalk.Gameplay.Level.UI
 {
 	[RequireComponent(typeof(TextMeshProUGUI))]
-	public class LevelTileMapNameLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
+	public class TileViewLevelMapNameLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
 		[Inject] private TileViewLevelMap _tileViewLevelMap;
 

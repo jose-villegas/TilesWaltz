@@ -32,9 +32,8 @@ namespace TilesWalk.Gameplay.Limits.UI
 
 		private void OnLevelMapLoaded(LevelMap levelMap)
 		{
-			if (levelMap.FinishCondition != FinishCondition.TimeLimit && levelMap.Id != Constants.CustomLevelName)
+			if (levelMap.FinishCondition != FinishCondition.TimeLimit)
 			{
-				transform.parent.gameObject.SetActive(false);
 				return;
 			}
 

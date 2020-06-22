@@ -12,52 +12,158 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4db1560a02e1e48a2df94c781726ae, type: 3}
   m_Name: GameMapsInstaller
   m_EditorClassIdentifier: 
-  _name: Shady
-  _instructions: '{"StarsRequired":0,"Target":0,"MapSize":0,"FinishCondition":0,"Id":"-1","Instructions":[],"Tiles":[-93040,-93258,-93316,-93506,-93712,-93894,-94028,-94342,-94492,-94690,-94862,-95048,-95174,-95312,-95454,-95708,-95850,-95974,-96116,-96282,-96408,-96578,-96712,-96850,-97000,-97118,-97240,-97398,-97524]}'
-  _condition: 0
+  _name: Chromosome
+  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-12182,"Root":0,"Direction":4,"Rule":1},{"Tile":-12204,"Root":0,"Direction":8,"Rule":1},{"Tile":-12230,"Root":0,"Direction":1,"Rule":1},{"Tile":-12252,"Root":0,"Direction":2,"Rule":1},{"Tile":-12274,"Root":-12252,"Direction":2,"Rule":2},{"Tile":-12300,"Root":-12274,"Direction":2,"Rule":1},{"Tile":-12322,"Root":-12300,"Direction":2,"Rule":1},{"Tile":-12344,"Root":-12322,"Direction":2,"Rule":1},{"Tile":-12366,"Root":-12344,"Direction":2,"Rule":0},{"Tile":-12412,"Root":-12204,"Direction":8,"Rule":2},{"Tile":-12442,"Root":-12412,"Direction":8,"Rule":1},{"Tile":-12464,"Root":-12442,"Direction":8,"Rule":1},{"Tile":-12486,"Root":-12464,"Direction":8,"Rule":1},{"Tile":-12508,"Root":-12486,"Direction":8,"Rule":0},{"Tile":-12530,"Root":-12230,"Direction":1,"Rule":0},{"Tile":-12552,"Root":-12182,"Direction":4,"Rule":0},{"Tile":-12582,"Root":-12552,"Direction":4,"Rule":1},{"Tile":-12624,"Root":-12582,"Direction":4,"Rule":1},{"Tile":-12646,"Root":-12624,"Direction":4,"Rule":1},{"Tile":-12668,"Root":-12530,"Direction":1,"Rule":1},{"Tile":-12690,"Root":-12668,"Direction":1,"Rule":1},{"Tile":-12712,"Root":-12690,"Direction":1,"Rule":1},{"Tile":-12734,"Root":-12712,"Direction":1,"Rule":2},{"Tile":-12756,"Root":-12646,"Direction":4,"Rule":2}],"Tiles":[0,-12182,-12204,-12230,-12252,-12274,-12300,-12322,-12344,-12366,-12582,-12412,-12442,-12464,-12486,-12508,-12530,-12552,-12624,-12646,-12668,-12690,-12712,-12734,-12756],"MapSize":0}'
+  _condition: 1
   _seconds: 60
-  _moves: 10
+  _moves: 20
   _mapSize: 0
   _gameMaps:
-    _availableMaps: []
-    _movesFinishConditions: []
+    _availableMaps:
+    - Id: Chromosome
+      Instructions:
+      - Tile: -12182
+        Root: 0
+        Direction: 4
+        Rule: 1
+      - Tile: -12204
+        Root: 0
+        Direction: 8
+        Rule: 1
+      - Tile: -12230
+        Root: 0
+        Direction: 1
+        Rule: 1
+      - Tile: -12252
+        Root: 0
+        Direction: 2
+        Rule: 1
+      - Tile: -12274
+        Root: -12252
+        Direction: 2
+        Rule: 2
+      - Tile: -12300
+        Root: -12274
+        Direction: 2
+        Rule: 1
+      - Tile: -12322
+        Root: -12300
+        Direction: 2
+        Rule: 1
+      - Tile: -12344
+        Root: -12322
+        Direction: 2
+        Rule: 1
+      - Tile: -12366
+        Root: -12344
+        Direction: 2
+        Rule: 0
+      - Tile: -12412
+        Root: -12204
+        Direction: 8
+        Rule: 2
+      - Tile: -12442
+        Root: -12412
+        Direction: 8
+        Rule: 1
+      - Tile: -12464
+        Root: -12442
+        Direction: 8
+        Rule: 1
+      - Tile: -12486
+        Root: -12464
+        Direction: 8
+        Rule: 1
+      - Tile: -12508
+        Root: -12486
+        Direction: 8
+        Rule: 0
+      - Tile: -12530
+        Root: -12230
+        Direction: 1
+        Rule: 0
+      - Tile: -12552
+        Root: -12182
+        Direction: 4
+        Rule: 0
+      - Tile: -12582
+        Root: -12552
+        Direction: 4
+        Rule: 1
+      - Tile: -12624
+        Root: -12582
+        Direction: 4
+        Rule: 1
+      - Tile: -12646
+        Root: -12624
+        Direction: 4
+        Rule: 1
+      - Tile: -12668
+        Root: -12530
+        Direction: 1
+        Rule: 1
+      - Tile: -12690
+        Root: -12668
+        Direction: 1
+        Rule: 1
+      - Tile: -12712
+        Root: -12690
+        Direction: 1
+        Rule: 1
+      - Tile: -12734
+        Root: -12712
+        Direction: 1
+        Rule: 2
+      - Tile: -12756
+        Root: -12646
+        Direction: 4
+        Rule: 2
+      Tiles: 000000006ad0ffff54d0ffff3ad0ffff24d0ffff0ed0fffff4cfffffdecfffffc8cfffffb2cfffffdaceffff84cfffff66cfffff50cfffff3acfffff24cfffff0ecffffff8ceffffb0ceffff9aceffff84ceffff6eceffff58ceffff42ceffff2cceffff
+      MapSize: 2
+      StarsRequired: 0
+      Target: 1500
+      FinishCondition: 1
+    _movesFinishConditions:
+    - _id: Chromosome
+      _limit: 20
     _timeFinishConditions: []
   _gameLevelsMap:
     Id: Game Map
     Instructions:
-    - tile: 61442
-      root: 61336
-      direction: 2
-      rule: 1
-    - tile: 61922
-      root: 61442
-      direction: 2
-      rule: 2
-    - tile: 62008
-      root: 61922
-      direction: 2
-      rule: 0
-    - tile: 62158
-      root: 62008
-      direction: 8
-      rule: 1
-    - tile: 62278
-      root: 62158
-      direction: 8
-      rule: 1
-    - tile: 63098
-      root: 62278
-      direction: 2
-      rule: 1
-    - tile: 63186
-      root: 63098
-      direction: 8
-      rule: 2
-    - tile: 63304
-      root: 63186
-      direction: 8
-      rule: 0
+    - Tile: 0
+      Root: 0
+      Direction: 0
+      Rule: 0
+    - Tile: 0
+      Root: 0
+      Direction: 0
+      Rule: 0
+    - Tile: 0
+      Root: 0
+      Direction: 0
+      Rule: 0
+    - Tile: 0
+      Root: 0
+      Direction: 0
+      Rule: 0
+    - Tile: 0
+      Root: 0
+      Direction: 0
+      Rule: 0
+    - Tile: 0
+      Root: 0
+      Direction: 0
+      Rule: 0
+    - Tile: 0
+      Root: 0
+      Direction: 0
+      Rule: 0
+    - Tile: 0
+      Root: 0
+      Direction: 0
+      Rule: 0
     Tiles: 98ef000002f00000e2f1000038f20000cef2000046f300007af60000d2f6000048f70000
+    MapSize: 0
     TileParameters:
     - DNA
     - 
