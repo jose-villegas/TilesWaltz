@@ -11,13 +11,15 @@ namespace TilesWalk.Gameplay.Installer
 	{
 		[SerializeField] private ScorePointsConfiguration _scorePointsSettings;
 		[SerializeField] private AnimationConfiguration _animationSettings;
-		[SerializeField] private GameTileColorsConfiguration _tileColorsSettings;
+		[SerializeField] private GameTileColorsConfiguration _gamePalette;
+
+		public GameTileColorsConfiguration GamePalette => _gamePalette;
 
 		public override void InstallBindings()
 		{
 			Container.Bind<ScorePointsConfiguration>().FromInstance(_scorePointsSettings).AsSingle();
 			Container.Bind<AnimationConfiguration>().FromInstance(_animationSettings).AsSingle();
-			Container.Bind<GameTileColorsConfiguration>().FromInstance(_tileColorsSettings).AsSingle();
+			Container.Bind<GameTileColorsConfiguration>().FromInstance(GamePalette).AsSingle();
 		}
 	}
 }

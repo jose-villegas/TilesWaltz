@@ -119,7 +119,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4120021873712270646}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.43
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 4120021873670947519}
   - component: {fileID: 4120021873670947504}
   - component: {fileID: 4120021873670947505}
+  - component: {fileID: 240360159224038706}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -186,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2509804, g: 0.2509804, b: 0.2509804, a: 1}
+  m_Color: {r: 0.7921569, g: 0.827451, b: 0.78431374, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -232,6 +233,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &240360159224038706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4120021873670947507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc502bc4369cdf46b6d0a801f06f4d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 0
+  _color: {r: 0.7921569, g: 0.827451, b: 0.78431374, a: 1}
 --- !u!1 &4120021873712270647
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +258,7 @@ GameObject:
   - component: {fileID: 4120021873712270646}
   - component: {fileID: 4120021873712270644}
   - component: {fileID: 4120021873712270645}
+  - component: {fileID: 4835793928649087443}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -290,7 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.68235296, g: 0.7764706, b: 0.8117647, a: 1}
+  m_Color: {r: 0.972549, g: 0.9372549, b: 0.7294118, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -306,6 +322,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 30
+--- !u!114 &4835793928649087443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4120021873712270647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc502bc4369cdf46b6d0a801f06f4d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 9
+  _color: {r: 0.972549, g: 0.9372549, b: 0.7294118, a: 1}
 --- !u!1 &4120021873778747095
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,6 +347,7 @@ GameObject:
   - component: {fileID: 4120021873778747094}
   - component: {fileID: 4120021873778747092}
   - component: {fileID: 4120021873778747093}
+  - component: {fileID: 7644957293731737293}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -364,7 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.68235296, g: 0.77647066, b: 0.8117648, a: 1}
+  m_Color: {r: 0.972549, g: 0.9372549, b: 0.7294118, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -380,6 +411,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 30
+--- !u!114 &7644957293731737293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4120021873778747095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc502bc4369cdf46b6d0a801f06f4d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 9
+  _color: {r: 0.972549, g: 0.9372549, b: 0.7294118, a: 1}
 --- !u!1 &4120021873794675017
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,8 +543,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4120021873778747093}
   m_HandleRect: {fileID: 4120021873778747094}
   m_Direction: 2
-  m_Value: 0.9999966
-  m_Size: 0.928
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
