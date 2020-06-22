@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 131ce5316ca43f4408537b39d0e4117c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneToLoad: LevelMaker
+  SceneToLoad: CustomLevels
   Mode: 0
 --- !u!1 &943947846
 GameObject:

@@ -12,7 +12,7 @@ namespace TilesWalk.Navigation.UI
 		[Scene] public string SceneToLoad;
 		public LoadSceneMode Mode;
 
-		private void Start()
+		private void Awake()
 		{
 			var button = Component;
 

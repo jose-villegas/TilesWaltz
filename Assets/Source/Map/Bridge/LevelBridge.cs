@@ -2,6 +2,7 @@
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Score;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TilesWalk.Map.Bridge
 {

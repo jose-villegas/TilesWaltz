@@ -96,7 +96,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 					}
 				}).AddTo(this);
 
-			if (_tileViewLevelMap.LoadOption == LevelLoadOptions.FromBridgeEditorMode)
+			if (_tileViewLevelMap.LoadOption == LevelLoadOptions.FromBridgeEditorMode && _bridge.Payload != null)
 			{
 				FillCanvas();
 			}
