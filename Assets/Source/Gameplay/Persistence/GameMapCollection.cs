@@ -18,6 +18,17 @@ namespace TilesWalk.Gameplay.Persistence
 		[JsonIgnore] public List<MovesFinishCondition> MovesFinishConditions => _movesFinishConditions;
 		[JsonIgnore] public List<TimeFinishCondition> TimeFinishConditions => _timeFinishConditions;
 
+		public GameMapCollection(List<LevelMap> maps, List<MovesFinishCondition> moves, List<TimeFinishCondition> times)
+		{
+			_availableMaps = new List<LevelMap>(_availableMaps);
+			_movesFinishConditions = new List<MovesFinishCondition>(moves);
+			_timeFinishConditions = new List<TimeFinishCondition>(times);
+		}
+
+		public GameMapCollection()
+		{
+		}
+
 		public bool Exist(string id)
 		{
 			if (AvailableMaps == null || AvailableMaps.Count == 0) return false;

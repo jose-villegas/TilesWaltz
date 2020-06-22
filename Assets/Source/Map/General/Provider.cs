@@ -4,6 +4,6 @@ namespace TilesWalk.Map.General
 	{
 		UserMaps,
 		ImportedMaps,
-		GameMaps
+		GameMaps,
 	}
 }

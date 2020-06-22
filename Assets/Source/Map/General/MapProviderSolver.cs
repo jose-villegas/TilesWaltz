@@ -36,13 +36,19 @@ namespace TilesWalk.Map.General
 				switch (_mapProvider)
 				{
 					case General.Provider.UserMaps:
-						_provider = _container.InstantiateComponent(typeof(UserLevelMapsProvider), _reference) as UserLevelMapsProvider;
+						_provider =
+							_container.InstantiateComponent(typeof(UserLevelMapsProvider), _reference) as
+								UserLevelMapsProvider;
 						break;
 					case General.Provider.ImportedMaps:
-						// todo: add imported maps
+						_provider =
+							_container.InstantiateComponent(typeof(ImportedLevelMapsProvider), _reference) as
+								ImportedLevelMapsProvider;
 						break;
 					case General.Provider.GameMaps:
-						_provider = _container.InstantiateComponent(typeof(GameLevelMapsProvider), _reference) as GameLevelMapsProvider;
+						_provider =
+							_container.InstantiateComponent(typeof(GameLevelMapsProvider), _reference) as
+								GameLevelMapsProvider;
 						break;
 				}
 			}

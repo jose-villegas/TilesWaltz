@@ -46,6 +46,7 @@ namespace TilesWalk.Building.Gallery.UI
 
 		private void OnPlayClick(Unit u)
 		{
+			_bridge.Payload = new LevelBridgePayload(_levelRequest.Map, _levelRequest.Condition);
 		}
 
 		private void UpdateCanvas(string val)

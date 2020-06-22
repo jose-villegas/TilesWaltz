@@ -5,6 +5,7 @@ using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Persistence;
 using TilesWalk.Gameplay.Score;
+using TilesWalk.Map.General;
 using TilesWalk.Navigation.UI;
 using UniRx;
 using UniRx.Triggers;
@@ -15,7 +16,7 @@ namespace TilesWalk.Map.Tile
 	public class LevelTilesHandler : ObservableTriggerBase
 	{
 		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
-		[Inject] private GameSave _gameSave;
+		[Inject] private MapProviderSolver _solver;
 
 		private LevelTile[] _levelTiles;
 		private ReactiveProperty<int> _readyCount = new ReactiveProperty<int>();
@@ -42,6 +43,8 @@ namespace TilesWalk.Map.Tile
 
 		private void Awake()
 		{
+			_solver.InstanceProvider(gameObject);
+
 			var inChildren = GetComponentsInChildren<LevelTile>();
 			_levelTiles = new LevelTile[inChildren.Length];
 
@@ -70,7 +73,7 @@ namespace TilesWalk.Map.Tile
 		{
 			foreach (var level in _levelTiles)
 			{
-				if (_gameSave.Records.TryGetValue(level.Name, out var score))
+				if (_solver.Provider.Records.TryGetValue(level.Name, out var score))
 				{
 					if (score.Points.Highest < level.Map.Value.Target)
 					{

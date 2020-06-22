@@ -11,5 +11,6 @@ namespace TilesWalk.Map.General
 		[Inject] private GameSave _gameSave;
 
 		public GameMapCollection Collection => _gameSave.UserMaps;
+		public RecordsKeeper Records => _gameSave.UserLevelRecords;
 	}
 }

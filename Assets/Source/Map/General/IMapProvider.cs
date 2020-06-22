@@ -7,5 +7,6 @@ namespace TilesWalk.Map.General
     public interface IMapProvider
     {
         GameMapCollection Collection { get; }
+        RecordsKeeper Records { get; }
     }
 }

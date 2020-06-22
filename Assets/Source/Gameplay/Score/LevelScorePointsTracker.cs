@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Persistence;
 using TilesWalk.General;
+using TilesWalk.Map.General;
 using UniRx;
 using UniRx.Triggers;
 using Zenject;
@@ -13,7 +14,7 @@ namespace TilesWalk.Gameplay.Score
 	{
 		[Inject] private ScorePointsConfiguration _scorePointsConfiguration;
 		[Inject] private TileViewLevelMap _tileLevelMap;
-		[Inject] private GameSave _gameSave;
+		[Inject] private MapProviderSolver _solver;
 
 		private Dictionary<string, int> _scoreTracking = new Dictionary<string, int>();
 
@@ -24,17 +25,18 @@ namespace TilesWalk.Gameplay.Score
 		{
 			get
 			{
-				if (!_gameSave.Records.TryGetValue(_tileLevelMap.LevelMap.Id, out var score))
+				if (!_solver.Provider.Records.TryGetValue(_tileLevelMap.LevelMap.Id, out var score))
 				{
-					_gameSave.Records[_tileLevelMap.LevelMap.Id] = new LevelScore(_tileLevelMap.LevelMap.Id);
+					_solver.Provider.Records[_tileLevelMap.LevelMap.Id] = new LevelScore(_tileLevelMap.LevelMap.Id);
 				}
 
-				return _gameSave.Records[_tileLevelMap.LevelMap.Id];
+				return _solver.Provider.Records[_tileLevelMap.LevelMap.Id];
 			}
 		}
 
 		private void Start()
 		{
+			_solver.InstanceProvider(gameObject);
 			_tileLevelMap.OnTileRemovedAsObservable().Subscribe(OnTileRemoved).AddTo(this);
 			_tileLevelMap.OnComboRemovalAsObservable().Subscribe(OnComboRemoval).AddTo(this);
 			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
@@ -50,9 +52,9 @@ namespace TilesWalk.Gameplay.Score
 		{
 			var mapName = _tileLevelMap.LevelMap.Id;
 
-			if (_gameSave.Records.TryGetValue(mapName, out var score))
+			if (_solver.Provider.Records.TryGetValue(mapName, out var score))
 			{
-				score = _gameSave.Records[mapName];
+				score = _solver.Provider.Records[mapName];
 
 				if (_scoreTracking.TryGetValue(score.Id, out var track))
 				{
@@ -66,10 +68,10 @@ namespace TilesWalk.Gameplay.Score
 		{
 			var mapName = _tileLevelMap.LevelMap.Id;
 
-			if (!_gameSave.Records.TryGetValue(mapName, out var score))
+			if (!_solver.Provider.Records.TryGetValue(mapName, out var score))
 			{
-				_gameSave.Records[mapName] = new LevelScore(mapName);
-				score = _gameSave.Records[mapName];
+				_solver.Provider.Records[mapName] = new LevelScore(mapName);
+				score = _solver.Provider.Records[mapName];
 			}
 
 			if (!_scoreTracking.TryGetValue(score.Id, out var track))

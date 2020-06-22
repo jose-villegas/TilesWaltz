@@ -8,20 +8,23 @@ namespace TilesWalk.Gameplay.Persistence
 {
 	public class GameSave
 	{
-		private RecordsKeeper _records;
-		private RecordsKeeper _customRecords;
+		private RecordsKeeper _gameRecords;
+		private RecordsKeeper _userLevelRecords;
+		private RecordsKeeper _importedLevelRecords;
 		private GameMapCollection _userMaps;
 		private GameMapCollection _importedMaps;
 
-		public RecordsKeeper Records => _records;
-		public RecordsKeeper CustomRecords => _customRecords;
+		public RecordsKeeper GameRecords => _gameRecords;
+		public RecordsKeeper UserLevelRecords => _userLevelRecords;
+		public RecordsKeeper ImportedLevelRecords => _importedLevelRecords;
 		public GameMapCollection UserMaps => _userMaps;
 		public GameMapCollection ImportedMaps => _importedMaps;
 
+
 		public GameSave()
 		{
-			_customRecords = new RecordsKeeper();
-			_records = new RecordsKeeper();
+			_userLevelRecords = new RecordsKeeper();
+			_gameRecords = new RecordsKeeper();
 			_userMaps = new GameMapCollection();
 			_importedMaps = new GameMapCollection();
 			SaveGame.Serializer = new JsonSerializer();
@@ -39,14 +42,19 @@ namespace TilesWalk.Gameplay.Persistence
 				_importedMaps = SaveGame.Load<GameMapCollection>("ImportedMaps");
 			}
 
-			if (SaveGame.Exists("Records"))
+			if (SaveGame.Exists("GameRecords"))
 			{
-				_records = SaveGame.Load<RecordsKeeper>("Records");
+				_gameRecords = SaveGame.Load<RecordsKeeper>("GameRecords");
 			}
 
-			if (SaveGame.Exists("CustomRecords"))
+			if (SaveGame.Exists("UserLevelRecords"))
 			{
-				_records = SaveGame.Load<RecordsKeeper>("CustomRecords");
+				_userLevelRecords = SaveGame.Load<RecordsKeeper>("UserLevelRecords");
+			}
+
+			if (SaveGame.Exists("ImportedLevelRecords"))
+			{
+				_importedLevelRecords = SaveGame.Load<RecordsKeeper>("ImportedLevelRecords");
 			}
 		}
 
@@ -54,8 +62,9 @@ namespace TilesWalk.Gameplay.Persistence
 		{
 			SaveGame.Save("UserMaps", _userMaps);
 			SaveGame.Save("ImportedMaps", _importedMaps);
-			SaveGame.Save("Records", _records);
-			SaveGame.Save("CustomRecords", _customRecords);
+			SaveGame.Save("GameRecords", _gameRecords);
+			SaveGame.Save("UserLevelRecords", _userLevelRecords);
+			SaveGame.Save("ImportedLevelRecords", _importedLevelRecords);
 		}
 	}
 }
