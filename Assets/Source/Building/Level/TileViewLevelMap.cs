@@ -24,8 +24,7 @@ namespace TilesWalk.Building.Level
 		[Inject] private TileViewFactory _viewFactory;
 		[Inject] private LevelBridge _levelBridge;
 
-		private Dictionary<Tile.Tile, TileView> _tileView = new Dictionary<Tile.Tile, TileView>();
-
+		private Dictionary<Tile.Tile, TileView> TileView { get; } = new Dictionary<Tile.Tile, TileView>();
 		public Dictionary<TileView, int> TileToHash { get; } = new Dictionary<TileView, int>();
 		public Dictionary<int, TileView> HashToTile { get; } = new Dictionary<int, TileView>();
 
@@ -34,6 +33,7 @@ namespace TilesWalk.Building.Level
 
 		public LevelMap LevelMap => _levelMap;
 		public LevelLoadOptions LoadOption => _loadOption;
+
 
 		protected Subject<LevelMap> _onLevelMapLoaded;
 
@@ -47,21 +47,21 @@ namespace TilesWalk.Building.Level
 					BuildFromInstructions();
 					break;
 				case LevelLoadOptions.FromBridgeLevelMode:
-					BuildTileMap(_levelBridge.Payload.Level);
+					BuildTileMap<TileView>(_levelBridge.Payload.Level);
 					break;
 				case LevelLoadOptions.FromBridgeEditorMode when _levelBridge.Payload == null:
-					BuildRootMap();
+					BuildEditorRootMap();
 					break;
 				case LevelLoadOptions.FromBridgeEditorMode:
-					BuildTileMap(_levelBridge.Payload.Level);
+					BuildTileMap<LevelEditorTileView>(_levelBridge.Payload.Level);
 					break;
 				case LevelLoadOptions.LevelEditor:
-					BuildRootMap();
+					BuildEditorRootMap();
 					break;
 			}
 		}
 
-		private void BuildRootMap()
+		private void BuildEditorRootMap()
 		{
 			var customLevel = new LevelMap
 			{
@@ -73,7 +73,7 @@ namespace TilesWalk.Building.Level
 				Target = 0
 			};
 			// add the root tile
-			BuildTileMap(customLevel);
+			BuildTileMap<LevelEditorTileView>(customLevel);
 		}
 
 		private void OnNewTileInstance(TileView tile)
@@ -99,7 +99,7 @@ namespace TilesWalk.Building.Level
 			var id = hash ?? tile.GetHashCode();
 			TileToHash[tile] = id;
 			HashToTile[id] = tile;
-			_tileView[tile.Controller.Tile] = tile;
+			TileView[tile.Controller.Tile] = tile;
 			// register tile to the tile map
 			_levelMap.Tiles.Add(id);
 		}
@@ -128,18 +128,18 @@ namespace TilesWalk.Building.Level
 
 		public TileView GetTileView(Tile.Tile tile)
 		{
-			return _tileView[tile];
+			return TileView[tile];
 		}
 
 		public bool HasTileView(Tile.Tile tile)
 		{
-			return _tileView.ContainsKey(tile);
+			return TileView.ContainsKey(tile);
 		}
 
 		[Button]
 		public void RefreshAllPaths()
 		{
-			foreach (var viewKey in _tileView.Keys)
+			foreach (var viewKey in TileView.Keys)
 			{
 				viewKey.RefreshShortestLeafPath();
 				viewKey.RefreshMatchingColorPatch();
@@ -166,35 +166,32 @@ namespace TilesWalk.Building.Level
 		{
 			// first instance all the needed tiles
 			var map = JsonConvert.DeserializeObject<LevelMap>(_instructions);
-			BuildTileMap(map);
+
+			switch (_loadOption)
+			{
+				case LevelLoadOptions.None:
+				case LevelLoadOptions.FromInstructions:
+				case LevelLoadOptions.FromBridgeLevelMode:
+					BuildTileMap<TileView>(map);
+					break;
+				case LevelLoadOptions.LevelEditor:
+				case LevelLoadOptions.FromBridgeEditorMode:
+					BuildTileMap<LevelEditorTileView>(map);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
 		}
 
-		private void BuildTileMap(LevelMap map)
+		public void BuildTileMap<T>(LevelMap map) where T: TileView
 		{
-			// reset data structures
-			HashToTile.Clear();
-			TileToHash.Clear();
-			Insertions.Clear();
+			Reset();
 
 			foreach (var mapTile in map.Tiles)
 			{
-				TileView tile = null;
-
-				switch (_loadOption)
-				{
-					case LevelLoadOptions.None:
-					case LevelLoadOptions.FromInstructions:
-					case LevelLoadOptions.FromBridgeLevelMode:
-						tile = _viewFactory.NewInstance<TileView>();
-						break;
-					case LevelLoadOptions.LevelEditor:
-					case LevelLoadOptions.FromBridgeEditorMode:
-						tile = _viewFactory.NewInstance<LevelEditorTileView>();
-						break;
-					default:
-						throw new ArgumentOutOfRangeException();
-				}
-
+				T tile = null;
+				tile = _viewFactory.NewInstance<T>();
 				// register with the source hash
 				RegisterTile(tile, mapTile);
 			}
@@ -216,6 +213,23 @@ namespace TilesWalk.Building.Level
 			_levelMap.FinishCondition = map.FinishCondition;
 			_levelMap.MapSize = map.MapSize;
 			_onLevelMapLoaded?.OnNext(_levelMap);
+		}
+
+		public void Reset()
+		{
+			// reset data structures
+			if (TileView.Count > 0)
+			{
+				foreach (var value in TileView.Values)
+				{
+					Destroy(value.gameObject);
+				}
+			}
+
+			TileView.Clear();
+			HashToTile.Clear();
+			TileToHash.Clear();
+			Insertions.Clear();
 		}
 
 		public void UpdateInstructions(TileView root, TileView tile, CardinalDirection d, NeighborWalkRule r)

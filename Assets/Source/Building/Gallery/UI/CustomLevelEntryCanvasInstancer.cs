@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace TilesWalk.Building.LevelEditor.UI.Gallery
+namespace TilesWalk.Building.Gallery.UI
 {
 	[RequireComponent(typeof(IMapProvider))]
 	public class CustomLevelEntryCanvasInstancer : MonoBehaviour
@@ -15,7 +15,7 @@ namespace TilesWalk.Building.LevelEditor.UI.Gallery
 		{
 			_solver.InstanceProvider(gameObject);
 
-			if (_solver.Provider.Collection == null) return;
+			if (_solver.Provider.Collection == null || _solver.Provider.Collection.AvailableMaps == null) return;
 
 			foreach (var map in _solver.Provider.Collection.AvailableMaps)
 			{
