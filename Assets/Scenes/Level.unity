@@ -623,6 +623,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -648,7 +649,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 0}
+  m_BackGroundColor: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -707,6 +708,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f45486779c5e947803943fe529c0f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23529927ad5cda544a87445e96734396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 9
+  _color: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 1}
 --- !u!1 &1004141880
 GameObject:
   m_ObjectHideFlags: 0
@@ -1251,6 +1266,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408019952958090067, guid: 5252a9af4a84fba489d080c509439333,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408019952958090067, guid: 5252a9af4a84fba489d080c509439333,
+        type: 3}
+      propertyPath: _color.b
+      value: 0.9098039
       objectReference: {fileID: 0}
     - target: {fileID: 1470421969757967832, guid: 5252a9af4a84fba489d080c509439333,
         type: 3}
@@ -2414,7 +2439,7 @@ PrefabInstance:
     - target: {fileID: 4150396540983414100, guid: 5e3cc104fb2b10a4f91bd9351f1fef1d,
         type: 3}
       propertyPath: m_Alpha
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4150396540983414100, guid: 5e3cc104fb2b10a4f91bd9351f1fef1d,
         type: 3}

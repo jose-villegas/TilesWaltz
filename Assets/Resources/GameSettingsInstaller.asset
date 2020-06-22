@@ -26,7 +26,7 @@ MonoBehaviour:
     _configuration:
     - _name: 0
       _tile: 0
-      _color: {r: 0.95, g: 0.95, b: 0.8530612, a: 1}
+      _color: {r: 0.95, g: 0.95, b: 0.9098039, a: 1}
     - _name: 1
       _tile: 1
       _color: {r: 1, g: 0.4117647, b: 0.38039216, a: 1}
@@ -50,7 +50,7 @@ MonoBehaviour:
       _color: {r: 1, g: 0.81960785, b: 0.8627451, a: 1}
     - _name: 8
       _tile: 0
-      _color: {r: 0.23137255, g: 0.23137255, b: 0.59607846, a: 1}
+      _color: {r: 0.21893913, g: 0.3010825, b: 0.3773585, a: 1}
     - _name: 9
       _tile: 0
       _color: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 1}

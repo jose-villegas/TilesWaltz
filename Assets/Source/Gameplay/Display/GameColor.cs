@@ -10,7 +10,7 @@
 		Continuity,
 		Luxurious,
 		Accent,
-		Read,
+		Soft,
 		Behind,
 		Strong,
 		Target,
