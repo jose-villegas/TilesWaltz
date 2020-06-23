@@ -36,26 +36,22 @@ namespace TilesWalk.Gameplay.Score
 
 		public int GetStarCount(LevelMap levelMap)
 		{
-			if (_solver.Provider.Records.TryGetValue(levelMap.Id, out var score))
+			var score = _solver.Provider.Records[levelMap.Id];
+			var ratio = (float) score.Points.Highest / levelMap.Target;
+
+			if (ratio >= 1)
 			{
-				var ratio = (float) score.Points.Highest / levelMap.Target;
+				return 3;
+			}
 
-				if (ratio >= 1)
-				{
-					return 3;
-				}
+			if (ratio >= _scorePointsSettings.TwoStarRange)
+			{
+				return 2;
+			}
 
-				if (ratio >= _scorePointsSettings.TwoStarRange)
-				{
-					return 2;
-				}
-
-				if (ratio >= _scorePointsSettings.OneStarRange)
-				{
-					return 1;
-				}
-
-				return 0;
+			if (ratio >= _scorePointsSettings.OneStarRange)
+			{
+				return 1;
 			}
 
 			return 0;

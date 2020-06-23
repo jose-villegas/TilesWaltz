@@ -11,6 +11,7 @@ using TilesWalk.Navigation.UI;
 using TMPro;
 using UniRx;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace TilesWalk.Gameplay.Level.UI
@@ -24,6 +25,9 @@ namespace TilesWalk.Gameplay.Level.UI
 		[SerializeField] private TextMeshProUGUI _timeExtra;
 		[SerializeField] private TextMeshProUGUI _movesExtra;
 
+		[SerializeField] private Button _retry;
+		[SerializeField] private Button _continue;
+
 		[Inject] private LevelFinishTracker _levelFinishTracker;
 		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;
 		[Inject] private MapProviderSolver _solver;
@@ -33,6 +37,8 @@ namespace TilesWalk.Gameplay.Level.UI
 		{
 			_solver.InstanceProvider(gameObject);
 			_levelFinishTracker.OnLevelFinishAsObservable().Subscribe(OnLevelFinish).AddTo(this);
+			_continue.onClick.AddListener(_levelScorePointsTracker.SaveScore);
+			_retry.onClick.AddListener(_levelScorePointsTracker.SaveScore);
 		}
 
 		private void OnLevelFinish(LevelScore score)

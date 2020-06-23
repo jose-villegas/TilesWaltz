@@ -54,6 +54,7 @@ MonoBehaviour:
   _scriptableObjectInstallers:
   - {fileID: 11400000, guid: e447f1dbfd2eff140b1ace87d860ad0b, type: 2}
   - {fileID: 11400000, guid: 369d140a28a079645bb5790aac87a191, type: 2}
+  - {fileID: 11400000, guid: f5aa620c18b5b014ba25d343f6d38e93, type: 2}
   _monoInstallers:
   - {fileID: -5448892470488491830}
   - {fileID: 6928140940088044138}
@@ -215,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05912da8fa47ad746abfe3b1e184ea82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mapProvider: 0
+  _mapProvider: 2
 --- !u!114 &1369324005657707253
 MonoBehaviour:
   m_ObjectHideFlags: 0

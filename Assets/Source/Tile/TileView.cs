@@ -99,6 +99,8 @@ namespace TilesWalk.Tile
 			// check for combos
 			transform.UpdateAsObservable().Subscribe(_ =>
 			{
+				if (MovementLocked) return;
+
 				if (_controller.Tile.MatchingColorPatch != null &&
 				    _controller.Tile.MatchingColorPatch.Count > 2)
 				{

@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using UniRx;
 using UnityEngine;
 
@@ -6,13 +7,13 @@ namespace TilesWalk.Gameplay.Score
 {
 	public class Record<T> where T: IComparable<T>
 	{
-		[SerializeField] private T _highest;
-		[SerializeField] private T _lowest;
-		[SerializeField] private T _last;
+		[JsonProperty] [SerializeField] private T _highest;
+		[JsonProperty] [SerializeField] private T _lowest;
+		[JsonProperty] [SerializeField] private T _last;
 
-		public T Highest => _highest;
-		public T Lowest => _lowest;
-		public T Last => _last;
+		[JsonIgnore] public T Highest => _highest;
+		[JsonIgnore] public T Lowest => _lowest;
+		[JsonIgnore] public T Last => _last;
 
 		private Subject<Record<T>> _onRecordUpdated;
 

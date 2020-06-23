@@ -1,11 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using BayatGames.SaveGameFree;
 using BayatGames.SaveGameFree.Serializers;
+using Newtonsoft.Json;
 using TilesWalk.Gameplay.Score;
 using UnityEditor;
 
 namespace TilesWalk.Gameplay.Persistence
 {
+	[Serializable]
 	public class GameSave
 	{
 		private RecordsKeeper _gameRecords;
@@ -23,11 +26,12 @@ namespace TilesWalk.Gameplay.Persistence
 
 		public GameSave()
 		{
+			SaveGame.Serializer = new JsonSerializer();
+
 			_userLevelRecords = new RecordsKeeper();
 			_gameRecords = new RecordsKeeper();
 			_userMaps = new GameMapCollection();
 			_importedMaps = new GameMapCollection();
-			SaveGame.Serializer = new JsonSerializer();
 		}
 
 		public void LoadFromLocal()

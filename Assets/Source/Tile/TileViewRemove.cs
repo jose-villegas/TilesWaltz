@@ -1,16 +1,18 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
+using TilesWalk.Audio;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
+using Zenject;
 
 namespace TilesWalk.Tile
 {
 	public partial class TileView
 	{
+		[Inject] private GameAudioCollection _audioCollection;
+
 		private List<Tuple<Vector3, Quaternion>> ShufflePath(IReadOnlyList<TileView> shufflePath)
 		{
 			if (shufflePath == null || shufflePath.Count <= 0) return null;
@@ -59,6 +61,7 @@ namespace TilesWalk.Tile
 			var scale = lastTile.transform.localScale;
 			lastTile.transform.localScale = Vector3.zero;
 
+			_audioCollection.Play(GameAudioType.Sound, "Shuffle");
 			MainThreadDispatcher.StartUpdateMicroCoroutine(ShuffleMoveAnimation(tiles, backup));
 			Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ShuffleMoveTime)).Subscribe(_ => { }, () =>
 			{

@@ -28,22 +28,15 @@ namespace TilesWalk.Gameplay.Score
 			{
 				if (_solver != null)
 				{
-					if (!_solver.Provider.Records.TryGetValue(_tileLevelMap.LevelMap.Id, out var score))
-					{
-						_solver.Provider.Records[_tileLevelMap.LevelMap.Id] = new LevelScore(_tileLevelMap.LevelMap.Id);
-					}
-
 					return _currentScore = _solver.Provider.Records[_tileLevelMap.LevelMap.Id];
 				}
-				else
-				{
-					if (_currentScore == null)
-					{
-						_currentScore = new LevelScore(Constants.CustomLevelName);
-					}
 
-					return _currentScore;
+				if (_currentScore == null)
+				{
+					_currentScore = new LevelScore(Constants.CustomLevelName);
 				}
+
+				return _currentScore;
 			}
 		}
 
@@ -54,6 +47,16 @@ namespace TilesWalk.Gameplay.Score
 			_tileLevelMap.OnTileRemovedAsObservable().Subscribe(OnTileRemoved).AddTo(this);
 			_tileLevelMap.OnComboRemovalAsObservable().Subscribe(OnComboRemoval).AddTo(this);
 			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
+		}
+
+		public void SaveScore()
+		{
+			if (_solver != null)
+			{
+				_solver.Provider.Records[_tileLevelMap.LevelMap.Id].Points.Update(_currentScore.Points.Last);
+				_solver.Provider.Records[_tileLevelMap.LevelMap.Id].Moves.Update(_currentScore.Moves.Last);
+				_solver.Provider.Records[_tileLevelMap.LevelMap.Id].Time.Update(_currentScore.Time.Last);
+			}
 		}
 
 		private void OnLevelMapLoaded(LevelMap map)

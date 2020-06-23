@@ -73,7 +73,7 @@ namespace TilesWalk.Map.Tile
 		{
 			foreach (var level in _levelTiles)
 			{
-				if (_solver.Provider.Records.TryGetValue(level.Name, out var score))
+				if (_solver.Provider.Records.Exist(level.Name.Value, out var score))
 				{
 					if (score.Points.Highest < level.Map.Value.Target)
 					{

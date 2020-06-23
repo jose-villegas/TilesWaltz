@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace TilesWalk.Gameplay.Score
@@ -6,18 +7,18 @@ namespace TilesWalk.Gameplay.Score
 	[Serializable]
 	public class LevelScore
 	{
-		[SerializeField] private string _id;
-		[SerializeField] private Record<int> _points;
-		[SerializeField] private Record<int> _moves;
-		[SerializeField] private Record<float> _time;
+		[JsonProperty] [SerializeField] private string _id;
+		[JsonProperty] [SerializeField] private Record<int> _points;
+		[JsonProperty] [SerializeField] private Record<int> _moves;
+		[JsonProperty] [SerializeField] private Record<float> _time;
 
-		public string Id => _id;
+		[JsonIgnore] public string Id => _id;
 
-		public Record<int> Points => _points;
+		[JsonIgnore] public Record<int> Points => _points;
 
-		public Record<int> Moves => _moves;
+		[JsonIgnore] public Record<int> Moves => _moves;
 
-		public Record<float> Time => _time;
+		[JsonIgnore] public Record<float> Time => _time;
 
 		public LevelScore(string id)
 		{
