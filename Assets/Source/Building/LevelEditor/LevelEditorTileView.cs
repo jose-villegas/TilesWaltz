@@ -6,6 +6,7 @@ using TilesWalk.Building.LevelEditor.UI;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Display;
 using TilesWalk.General;
+using TilesWalk.General.UI;
 using TilesWalk.Tile;
 using TilesWalk.Tile.Rules;
 using UniRx;
@@ -18,6 +19,7 @@ namespace TilesWalk.Building.LevelEditor
 	{
 		[Inject] private LevelEditorToolSet _levelEditorToolSet;
 		[Inject] private CustomLevelPlayer _customLevelPlayer;
+		[Inject] private Notice _notice;
 
 		private Tuple<CardinalDirection, LevelEditorTileView> _ghostTileView;
 		private Bounds _ghostTileBounds = new Bounds(Vector3.zero, new Vector3(1f, 0.3f, 1f));
@@ -101,9 +103,8 @@ namespace TilesWalk.Building.LevelEditor
 
 						OnConfirmClick();
 
-						//tileView.InsertGhostNeighbor(tileView._currentDirection, tileView._currentRule);
-						tileView.IsSelected.Value = true;
 						IsSelected.Value = false;
+						tileView.IsSelected.Value = true;
 					}
 					else
 					{
@@ -281,6 +282,13 @@ namespace TilesWalk.Building.LevelEditor
 			_ghostTileView.Item2.IsGhost = true;
 			this.InsertNeighbor(direction, rule, _ghostTileView.Item2);
 			_levelEditorToolSet.InsertionCanvas.UpdateButtons(this);
+
+			// two tiles cannot share the same index
+			if (_tileLevelMap.LevelMap.Tiles.Count >= 300)
+			{
+				_notice.Configure("Maximum amount of tiles reached").Show(2f);
+				OnCancelClick();
+			}
 		}
 
 		private void RemoveGhostNeighbor(CardinalDirection direction)

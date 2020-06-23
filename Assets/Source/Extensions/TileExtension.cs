@@ -10,7 +10,7 @@ namespace TilesWalk.Extensions
 {
 	public static class TileExtension
 	{
-		public static bool IsValidInsertion(this Tile.Tile source, CardinalDirection direction, NeighborWalkRule rule)
+		public static bool IsValidInsertion(this Tile.Tile source, CardinalDirection direction, NeighborWalkRule rule) 
 		{
 			bool result = false;
 

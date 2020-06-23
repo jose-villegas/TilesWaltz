@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TilesWalk.Building.Level;
+using TilesWalk.Extensions;
 using TilesWalk.General;
 using TilesWalk.General.UI;
 using TilesWalk.Tile.Rules;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace TilesWalk.Building.LevelEditor.UI
 {
 	public class TileInsertionModeCanvas : CanvasGroupBehaviour
 	{
+		[Inject] private TileViewLevelMap _levelMap;
+
 		[Serializable]
 		private class DirectionButton
 		{
@@ -70,8 +75,9 @@ namespace TilesWalk.Building.LevelEditor.UI
 			{
 				foreach (var button in _directionInsertButtons)
 				{
-					button.Button.interactable = !tile.Controller.Tile.Neighbors.Keys.Contains(button.Direction) || 
-					                             tile.HasGhost && button.Direction == tile.GhostDirection;
+					button.Button.interactable =
+						tile.Controller.Tile.IsValidInsertion(button.Direction, tile.CurrentRule) ||
+						tile.HasGhost && button.Direction == tile.GhostDirection;
 				}
 			}
 			// this tile is root so it can't be deleted

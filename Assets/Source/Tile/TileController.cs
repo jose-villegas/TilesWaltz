@@ -105,7 +105,7 @@ namespace TilesWalk.Tile
 					break;
 			}
 
-			tile.Index += translate;
+			tile.Index += new Vector3Int((int)translate.x, (int)translate.y, (int)translate.z);
 		}
 
 		/// <summary>

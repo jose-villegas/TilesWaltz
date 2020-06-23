@@ -1,6 +1,7 @@
 ﻿using NaughtyAttributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Building;
 using TilesWalk.Building.Level;

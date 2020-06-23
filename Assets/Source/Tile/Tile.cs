@@ -20,7 +20,7 @@ namespace TilesWalk.Tile
 	[Serializable]
 	public class Tile : IModel
 	{
-		[SerializeField] private Vector3 _index;
+		[SerializeField] private Vector3Int _index;
 
 		[SerializeField] private Bounds _bounds;
 
@@ -42,7 +42,7 @@ namespace TilesWalk.Tile
 		/// it doesn't look like a series of voxels, this coordinate represents its position in voxel
 		/// space
 		/// </summary>
-		public Vector3 Index
+		public Vector3Int Index
 		{
 			get => _index;
 			set => _index = value;
@@ -83,7 +83,7 @@ namespace TilesWalk.Tile
 		{
 			_color = TileColor.None;
 			_bounds = new Bounds();
-			_index = Vector3.zero;
+			_index = Vector3Int.zero;
 			HingePoints = new Dictionary<CardinalDirection, Vector3>();
 			Neighbors = new Dictionary<CardinalDirection, Tile>();
 		}

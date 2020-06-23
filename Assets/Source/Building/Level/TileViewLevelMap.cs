@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using NaughtyAttributes;
 using Newtonsoft.Json;
 using TilesWalk.Building.LevelEditor;
@@ -33,7 +34,6 @@ namespace TilesWalk.Building.Level
 
 		public LevelMap LevelMap => _levelMap;
 		public LevelLoadOptions LoadOption => _loadOption;
-
 
 		protected Subject<LevelMap> _onLevelMapLoaded;
 
@@ -121,7 +121,10 @@ namespace TilesWalk.Building.Level
 
 			foreach (var instruction in instructions)
 			{
-				Destroy(HashToTile[instruction.Tile].gameObject);
+				if (HashToTile.TryGetValue(instruction.Tile, out var view))
+				{
+					Destroy(view.gameObject);
+				}
 			}
 		}
 
@@ -180,10 +183,9 @@ namespace TilesWalk.Building.Level
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
-
 		}
 
-		public void BuildTileMap<T>(LevelMap map) where T: TileView
+		public void BuildTileMap<T>(LevelMap map) where T : TileView
 		{
 			Reset();
 
@@ -211,6 +213,12 @@ namespace TilesWalk.Building.Level
 			_levelMap.FinishCondition = map.FinishCondition;
 			_levelMap.MapSize = map.MapSize;
 			_onLevelMapLoaded?.OnNext(_levelMap);
+		}
+
+		public bool CheckRepeatingIndex(Tile.Tile tile)
+		{
+			var tiles = HashToTile.Values.ToList();
+			return tiles.Any(x => x.Controller.Tile.Index == tile.Index);
 		}
 
 		public void Reset()
