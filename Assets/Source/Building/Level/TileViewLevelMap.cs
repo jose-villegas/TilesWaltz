@@ -215,10 +215,16 @@ namespace TilesWalk.Building.Level
 			_onLevelMapLoaded?.OnNext(_levelMap);
 		}
 
-		public bool CheckRepeatingIndex(Tile.Tile tile)
+		public bool IsBreakingDistance(TileView tile)
 		{
 			var tiles = HashToTile.Values.ToList();
-			return tiles.Any(x => x.Controller.Tile.Index == tile.Index);
+			var tileBounds = new Bounds(tile.transform.position, tile.Collider.size * 0.65f);
+
+			return tiles.Any(x =>
+			{
+				var tightBound = new Bounds(x.transform.position, x.Collider.bounds.size * 0.65f);
+				return tightBound.Intersects(tileBounds);
+			});
 		}
 
 		public void Reset()

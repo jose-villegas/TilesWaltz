@@ -283,10 +283,16 @@ namespace TilesWalk.Building.LevelEditor
 			this.InsertNeighbor(direction, rule, _ghostTileView.Item2);
 			_levelEditorToolSet.InsertionCanvas.UpdateButtons(this);
 
-			// two tiles cannot share the same index
+			// max amount of tiles reached
 			if (_tileLevelMap.LevelMap.Tiles.Count >= 300)
 			{
 				_notice.Configure("Maximum amount of tiles reached").Show(2f);
+				OnCancelClick();
+			}
+
+			if (_tileLevelMap.IsBreakingDistance(_ghostTileView.Item2))
+			{
+				_notice.Configure("Two tiles cannot share the same space").Show(2f);
 				OnCancelClick();
 			}
 		}

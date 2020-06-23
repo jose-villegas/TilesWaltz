@@ -34,7 +34,7 @@ namespace TilesWalk.Tile
 			protected set;
 		}
 
-		protected BoxCollider Collider
+		public BoxCollider Collider
 		{
 			get
 			{
