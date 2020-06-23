@@ -70,7 +70,8 @@ namespace TilesWalk.Building.LevelEditor.UI
 			{
 				foreach (var button in _directionInsertButtons)
 				{
-					button.Button.interactable = !tile.Controller.Tile.Neighbors.Keys.Contains(button.Direction);
+					button.Button.interactable = !tile.Controller.Tile.Neighbors.Keys.Contains(button.Direction) || 
+					                             tile.HasGhost && button.Direction == tile.GhostDirection;
 				}
 			}
 			// this tile is root so it can't be deleted

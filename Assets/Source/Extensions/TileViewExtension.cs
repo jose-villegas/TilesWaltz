@@ -23,11 +23,5 @@ public static class TileViewExtension
 		src = tileView.transform.position + tileView.transform.rotation * src;
 		dst = neighbor.transform.position + neighbor.transform.rotation * dst;
 		neighbor.transform.position += src - dst;
-
-#if UNITY_EDITOR
-		// keep the same rule as parent, easier building
-		neighbor.direction = direction;
-		neighbor.rule = rule;
-#endif
 	}
 }

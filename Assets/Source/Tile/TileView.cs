@@ -131,8 +131,8 @@ namespace TilesWalk.Tile
 
 #if UNITY_EDITOR
 		[Header("Editor")] 
-		public CardinalDirection direction = CardinalDirection.North;
-		public NeighborWalkRule rule = NeighborWalkRule.Plain;
+		private CardinalDirection direction = CardinalDirection.North;
+		private NeighborWalkRule rule = NeighborWalkRule.Plain;
 
 
 		[Button]
@@ -146,6 +146,10 @@ namespace TilesWalk.Tile
 
 			var tile = _tileFactory.NewInstance();
 			this.InsertNeighbor(direction, rule, tile);
+
+			// keep the same rule as parent, easier building
+			tile.direction = direction;
+			tile.rule = rule;
 			// add new insertion instruction for this tile
 			_tileLevelMap.UpdateInstructions(this, tile, direction, rule);
 		}

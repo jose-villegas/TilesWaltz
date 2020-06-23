@@ -23,8 +23,6 @@ namespace TilesWalk.Extensions
 			{
 				return true;
 			}
-
-			// todo: add rules here
 		}
 
 		/// <summary>
