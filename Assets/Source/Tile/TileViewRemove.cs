@@ -100,6 +100,7 @@ namespace TilesWalk.Tile
 				var tileView = _tileLevelMap.GetTileView(shufflePath[i]);
 				var sourceScale = tileView.transform.localScale;
 
+				_audioCollection.Play(GameAudioType.Sound, "Combo");
 				MainThreadDispatcher.StartUpdateMicroCoroutine(tileView.ScalePopInAnimation(Vector3.zero));
 				Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime)).Subscribe(_ => { }, () =>
 				{

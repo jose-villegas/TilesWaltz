@@ -16,5 +16,12 @@ MonoBehaviour:
     _gameSounds:
     - _identifier: Shuffle
       _clip: {fileID: 8300000, guid: 7eb1b74ace522654cb0fccd66107895e, type: 3}
-    _gameUISounds: []
+      volume: 0.2
+    - _identifier: Combo
+      _clip: {fileID: 8300000, guid: c6a3b2ac04ec5f74788e502ed91aa09d, type: 3}
+      volume: 0.35
+    _gameUISounds:
+    - _identifier: Click
+      _clip: {fileID: 8300000, guid: 50a2988df1c9ad54a9df0eef4ae656b4, type: 3}
+      volume: 0.1
     _gameMusic: []
