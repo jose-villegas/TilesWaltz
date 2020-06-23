@@ -1,4 +1,5 @@
-﻿using TilesWalk.Building.Level;
+﻿using System.Collections.Generic;
+using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Condition;
 using UniRx;
 using UnityEngine;
@@ -6,10 +7,12 @@ using Zenject;
 
 namespace TilesWalk.Gameplay.Level.UI
 {
-	public class DeactivateOnLevelMapFinishCondition : MonoBehaviour
+	public class EnableOnLevelMapFinishCondition : MonoBehaviour
 	{
 		[Inject] private TileViewLevelMap _tileLevelMap;
+		[SerializeField] private bool toggle = true;
 		[SerializeField] private FinishCondition _condition;
+		[SerializeField] private List<MonoBehaviour> _components;
 
 		private void Start()
 		{
@@ -23,9 +26,9 @@ namespace TilesWalk.Gameplay.Level.UI
 
 		private void OnLevelMapLoaded(LevelMap levelMap)
 		{
-			if (levelMap.FinishCondition == _condition)
+			if (levelMap.FinishCondition == _condition && _components != null && _components.Count > 0)
 			{
-				gameObject.SetActive(false);
+				_components.ForEach(x => x.enabled = toggle);
 			}
 		}
 	}
