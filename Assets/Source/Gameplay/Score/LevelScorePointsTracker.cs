@@ -14,29 +14,43 @@ namespace TilesWalk.Gameplay.Score
 	{
 		[Inject] private ScorePointsConfiguration _scorePointsConfiguration;
 		[Inject] private TileViewLevelMap _tileLevelMap;
-		[Inject] private MapProviderSolver _solver;
+		[Inject(Optional = true)] private MapProviderSolver _solver;
 
 		private Dictionary<string, int> _scoreTracking = new Dictionary<string, int>();
 
 		protected Subject<LevelScore> _onScoreUpdated;
 		protected Subject<LevelScore> _onScoresLoaded;
+		protected LevelScore _currentScore;
 
 		public LevelScore LevelScore
 		{
 			get
 			{
-				if (!_solver.Provider.Records.TryGetValue(_tileLevelMap.LevelMap.Id, out var score))
+				if (_solver != null)
 				{
-					_solver.Provider.Records[_tileLevelMap.LevelMap.Id] = new LevelScore(_tileLevelMap.LevelMap.Id);
-				}
+					if (!_solver.Provider.Records.TryGetValue(_tileLevelMap.LevelMap.Id, out var score))
+					{
+						_solver.Provider.Records[_tileLevelMap.LevelMap.Id] = new LevelScore(_tileLevelMap.LevelMap.Id);
+					}
 
-				return _solver.Provider.Records[_tileLevelMap.LevelMap.Id];
+					return _currentScore = _solver.Provider.Records[_tileLevelMap.LevelMap.Id];
+				}
+				else
+				{
+					if (_currentScore == null)
+					{
+						_currentScore = new LevelScore(Constants.CustomLevelName);
+					}
+
+					return _currentScore;
+				}
 			}
 		}
 
 		private void Start()
 		{
-			_solver.InstanceProvider(gameObject);
+			if (_solver != null) _solver.InstanceProvider(gameObject);
+
 			_tileLevelMap.OnTileRemovedAsObservable().Subscribe(OnTileRemoved).AddTo(this);
 			_tileLevelMap.OnComboRemovalAsObservable().Subscribe(OnComboRemoval).AddTo(this);
 			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
@@ -52,15 +66,10 @@ namespace TilesWalk.Gameplay.Score
 		{
 			var mapName = _tileLevelMap.LevelMap.Id;
 
-			if (_solver.Provider.Records.TryGetValue(mapName, out var score))
+			if (_scoreTracking.TryGetValue(LevelScore.Id, out var track))
 			{
-				score = _solver.Provider.Records[mapName];
-
-				if (_scoreTracking.TryGetValue(score.Id, out var track))
-				{
-					_scoreTracking[score.Id] = 0;
-					_onScoreUpdated?.OnNext(score);
-				}
+				_scoreTracking[LevelScore.Id] = 0;
+				_onScoreUpdated?.OnNext(LevelScore);
 			}
 		}
 
@@ -68,20 +77,14 @@ namespace TilesWalk.Gameplay.Score
 		{
 			var mapName = _tileLevelMap.LevelMap.Id;
 
-			if (!_solver.Provider.Records.TryGetValue(mapName, out var score))
+			if (!_scoreTracking.TryGetValue(LevelScore.Id, out var track))
 			{
-				_solver.Provider.Records[mapName] = new LevelScore(mapName);
-				score = _solver.Provider.Records[mapName];
+				_scoreTracking[LevelScore.Id] = 0;
 			}
 
-			if (!_scoreTracking.TryGetValue(score.Id, out var track))
-			{
-				_scoreTracking[score.Id] = 0;
-			}
-
-			_scoreTracking[score.Id] += points;
-			score.Points.Update(_scoreTracking[score.Id]);
-			_onScoreUpdated?.OnNext(score);
+			_scoreTracking[LevelScore.Id] += points;
+			LevelScore.Points.Update(_scoreTracking[LevelScore.Id]);
+			_onScoreUpdated?.OnNext(LevelScore);
 		}
 
 		private void OnTileRemoved(List<Tile.Tile> tile)

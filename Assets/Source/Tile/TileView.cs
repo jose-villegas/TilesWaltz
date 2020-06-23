@@ -27,7 +27,11 @@ namespace TilesWalk.Tile
 		private MeshRenderer _meshRenderer;
 		private BoxCollider _collider;
 
-		public static bool MovementLocked { get; protected set; }
+		public static bool MovementLocked 
+		{ 
+			get; 
+			protected set;
+		}
 
 		protected BoxCollider Collider
 		{

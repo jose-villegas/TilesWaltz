@@ -78,13 +78,12 @@ namespace TilesWalk.Building.Level
 
 		private void OnNewTileInstance(TileView tile)
 		{
-			RegisterTile(tile);
 			tile.OnComboRemovalAsObservable()
-				.Subscribe(path => _onComboRemoval?.OnNext(path)).AddTo(this);
+				.Subscribe(path => _onComboRemoval?.OnNext(path)).AddTo(tile);
 			tile.OnTileRemovedAsObservable()
-				.Subscribe(path => _onTileRemoved?.OnNext(path)).AddTo(this);
+				.Subscribe(path => _onTileRemoved?.OnNext(path)).AddTo(tile);
 			tile.OnTileClickedAsObservable()
-				.Subscribe(val => _onTileClicked?.OnNext(val)).AddTo(this);
+				.Subscribe(val => _onTileClicked?.OnNext(val)).AddTo(tile);
 		}
 
 		public void RegisterTile(TileView tile, int? hash = null)
@@ -192,7 +191,6 @@ namespace TilesWalk.Building.Level
 			{
 				T tile = null;
 				tile = _viewFactory.NewInstance<T>();
-				// register with the source hash
 				RegisterTile(tile, mapTile);
 			}
 

@@ -196,6 +196,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1407493272}
     m_Modifications:
+    - target: {fileID: 1740610455, guid: 60e372a502fa0864f8de35a1433bf395, type: 3}
+      propertyPath: SceneToLoad
+      value: CustomLevels
+      objectReference: {fileID: 0}
     - target: {fileID: 142855537122812296, guid: 60e372a502fa0864f8de35a1433bf395,
         type: 3}
       propertyPath: m_LocalPosition.x

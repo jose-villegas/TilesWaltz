@@ -62,7 +62,9 @@ namespace TilesWalk.Building.LevelEditor
 				var toggle = _levelEditorToolSet.InsertionCanvas.GetToggle(enumValue);
 				toggle.OnValueChangedAsObservable().Subscribe(val =>
 				{
-					_currentRule = val ? enumValue : _currentRule;
+					if (_customLevelPlayer.IsPlaying) return;
+
+						_currentRule = val ? enumValue : _currentRule;
 
 					if (val && IsSelected.Value)
 					{
@@ -239,7 +241,6 @@ namespace TilesWalk.Building.LevelEditor
 				_ghostTileView = _tileFactory.NewInstance<LevelEditorTileView>();
 				_ghostTileView.Controller.AdjustBounds(_ghostTileBounds);
 				_ghostTileView.Renderer.material = _levelEditorToolSet.GhostMaterial;
-				_ghostTileView.IsGhost = true;
 			}
 			else
 			{
@@ -249,6 +250,7 @@ namespace TilesWalk.Building.LevelEditor
 				_ghostTileView.Controller.AdjustBounds(_ghostTileBounds);
 			}
 
+			_ghostTileView.IsGhost = true;
 			this.InsertNeighbor(direction, rule, _ghostTileView);
 			_levelEditorToolSet.InsertionCanvas.UpdateButtons(this);
 		}
