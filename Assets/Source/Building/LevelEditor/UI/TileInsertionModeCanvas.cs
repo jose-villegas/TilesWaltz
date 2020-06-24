@@ -52,7 +52,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 			{
 				foreach (var button in _directionInsertButtons)
 				{
-					button.Button.interactable =
+					button.Button.image.enabled = button.Button.interactable =
 						tile.Controller.Tile.IsValidInsertion(button.Direction, tile.CurrentRule) ||
 						tile.HasGhost && button.Direction == tile.GhostDirection;
 				}
@@ -62,6 +62,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 			{
 				foreach (var button in _directionInsertButtons)
 				{
+					button.Button.image.enabled = true;
 					button.Button.interactable = true;
 				}
 			}

@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections;
+using System.Linq;
+using TilesWalk.Gameplay.Animation;
 using TilesWalk.Map.Tile;
 using TilesWalk.Navigation.UI;
 using UniRx;
@@ -14,8 +17,10 @@ namespace TilesWalk.Map.Camera
 	{
 		[Inject] private LevelTilesHandler _levelTilesHandler;
 		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
+		[Inject] private AnimationConfiguration _animationConfiguration;
 
 		private Vector3 _initialPosition;
+		private IDisposable _lookAt;
 
 		private void Awake()
 		{
@@ -63,7 +68,23 @@ namespace TilesWalk.Map.Camera
 		/// <param name="tile"></param>
 		private void LookAtLevelTile(LevelTile tile)
 		{
-			transform.position = _initialPosition + tile.transform.position;
+			_lookAt?.Dispose();
+			_lookAt = GoToPosition(_initialPosition + tile.transform.position).ToObservable().Subscribe().AddTo(this);
+		}
+
+		private IEnumerator GoToPosition(Vector3 position)
+		{
+			var initial = transform.position;
+			var t = 0f;
+
+			while (t <= _animationConfiguration.TargetTileTime)
+			{
+				transform.position = Vector3.Lerp(initial, position, t / _animationConfiguration.TargetTileTime);
+				t += Time.deltaTime;
+				yield return null;
+			}
+
+			transform.position = position;
 		}
 	}
 }

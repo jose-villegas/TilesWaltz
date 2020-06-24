@@ -122,7 +122,7 @@ MonoBehaviour:
         Rule: 2
       Tiles: 000000006ad0ffff54d0ffff3ad0ffff24d0ffff0ed0fffff4cfffffdecfffffc8cfffffb2cfffffdaceffff84cfffff66cfffff50cfffff3acfffff24cfffff0ecffffff8ceffffb0ceffff9aceffff84ceffff6eceffff58ceffff42ceffff2cceffff
       MapSize: 2
-      StarsRequired: 2
+      StarsRequired: 0
       Target: 1500
       FinishCondition: 1
     - Id: Trident
@@ -201,7 +201,7 @@ MonoBehaviour:
         Rule: 1
       Tiles: 00000000d0f2f8ffaaf2f8ff80f2f8ff5af2f8ff30f2f8ff06f2f8ffdcf1f8ffb6f1f8ff8cf1f8ff66f1f8ff0ef1f8ffe8f0f8ffbef0f8ff98f0f8ffdeeff8ffb8eff8ff8eeff8ff68eff8ff
       MapSize: 3
-      StarsRequired: 0
+      StarsRequired: 2
       Target: 2000
       FinishCondition: 1
     - Id: Columns
@@ -532,11 +532,11 @@ MonoBehaviour:
     - _id: Holders
       _limit: 60
     - _id: S
-      _limit: 4500
+      _limit: 60
   _gameLevelsMap:
     Id: Game Map
     Instructions: []
-    Tiles: c8bb0600
+    Tiles: 90e60800
     MapSize: 0
     TileParameters:
-    - Trident
+    - Chromosome

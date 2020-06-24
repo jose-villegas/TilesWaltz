@@ -22,6 +22,7 @@ MonoBehaviour:
   _animationSettings:
     _shuffleMoveTime: 0.15
     _scalePopInTime: 0.1
+    _targetTileTime: 0.15
   _gamePalette:
     _configuration:
     - _name: 0

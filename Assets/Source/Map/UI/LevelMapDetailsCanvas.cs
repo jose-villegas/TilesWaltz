@@ -77,6 +77,7 @@ namespace TilesWalk.Navigation.UI
 			for (int i = 0; i < _directionButtons.Count; i++)
 			{
 				var directionButton = _directionButtons[i];
+				directionButton.Button.image.enabled = levelTile.HasNeighbor(directionButton.Direction);
 				directionButton.Button.interactable = levelTile.HasNeighbor(directionButton.Direction);
 			}
 		}
