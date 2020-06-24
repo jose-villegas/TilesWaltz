@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TilesWalk.Building.Level;
+using TilesWalk.Gameplay.Score;
 using TilesWalk.General;
 using TilesWalk.Map.Bridge;
 using TilesWalk.Map.Scaffolding;
@@ -17,12 +18,16 @@ namespace TilesWalk.Map.Tile
 	{
 		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
 		[Inject] private LevelBridge _levelBridge;
+		[Inject] private GameScoresHelper _gameScoresHelper;
 
 		[SerializeField] private List<LevelTileLink> _links;
+		[SerializeField] private Color _toCompleteColor;
+		[SerializeField] private Color _completedColor;
 
 		public ReactiveProperty<string> Name { get; } = new ReactiveProperty<string>();
 		public ReactiveProperty<LevelMap> Map { get; } = new ReactiveProperty<LevelMap>();
 
+		private Dictionary<string, ParticleSystem> _particleFx;
 		private Subject<LevelTile> _onLevelTileClick;
 
 		public LevelTile this[CardinalDirection direction]
@@ -112,6 +117,57 @@ namespace TilesWalk.Map.Tile
 		protected override void RaiseOnCompletedOnDestroy()
 		{
 			_onLevelTileClick?.OnCompleted();
+		}
+
+		private void Start()
+		{
+			_particleFx = new Dictionary<string, ParticleSystem>();
+			var particles = GetComponentsInChildren<ParticleSystem>();
+
+			foreach (var particle in particles)
+			{
+				_particleFx[particle.name] = particle;
+			}
+
+			_detailsCanvas.LevelRequest.Name.Subscribe(mapName =>
+			{
+				if (mapName == Name.Value)
+				{
+					if (!_gameScoresHelper.IsCompleted(Map.Value))
+					{
+						_particleFx["Completed"].Stop();
+						_particleFx["ToComplete"].Play();
+					}
+					else
+					{
+						_particleFx["Completed"].Play();
+						_particleFx["ToComplete"].Stop();
+					}
+				}
+				else
+				{
+					_particleFx.Values.ToList().ForEach(system => system.Stop());
+				}
+			}).AddTo(this);
+
+			Map.Subscribe(map =>
+			{
+				if (map != null)
+				{
+					var meshRenderer = GetComponent<MeshRenderer>();
+
+					if (meshRenderer == null) return;
+
+					if (_gameScoresHelper.IsCompleted(map))
+					{
+						meshRenderer.material.color = _completedColor;
+					}
+					else
+					{
+						meshRenderer.material.color = _toCompleteColor;
+					}
+				}
+			});
 		}
 	}
 }
