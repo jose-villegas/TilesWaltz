@@ -90,6 +90,8 @@ namespace TilesWalk.Tile
 				}
 			}
 
+			// Fetch FX particle system in children
+			FetchParticleSystems();
 			// This small optimization enables us to share the material per color
 			// instead of creating a new instance per every tile that tries to
 			// change its color

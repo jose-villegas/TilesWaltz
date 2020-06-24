@@ -51,6 +51,9 @@ namespace TilesWalk.Tile
 
 			if (shufflePath == null || shufflePath.Count <= 0) return;
 
+			// play removal fx
+			_particleFx["Remove"].Play();
+
 			var tiles = shufflePath.Select(x => _tileLevelMap.GetTileView(x)).ToList();
 			// this structure with backup the origin position and rotations
 			var backup = ShufflePath(tiles);
@@ -65,6 +68,7 @@ namespace TilesWalk.Tile
 			MainThreadDispatcher.StartUpdateMicroCoroutine(ShuffleMoveAnimation(tiles, backup));
 			Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ShuffleMoveTime)).Subscribe(_ => { }, () =>
 			{
+				lastTile._particleFx["PopIn"].Play();
 				MainThreadDispatcher.StartUpdateMicroCoroutine(lastTile.ScalePopInAnimation(scale));
 				Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime)).Subscribe(_ => { }, () =>
 				{
@@ -109,6 +113,7 @@ namespace TilesWalk.Tile
 						tileView.Controller.RemoveCombo();
 					}
 
+					tileView._particleFx["PopIn"].Play();
 					MainThreadDispatcher.StartUpdateMicroCoroutine(tileView.ScalePopInAnimation(sourceScale));
 					Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime)).Subscribe(_ => { }, () =>
 					{
