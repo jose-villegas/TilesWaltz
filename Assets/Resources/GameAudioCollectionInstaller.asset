@@ -24,4 +24,10 @@ MonoBehaviour:
     - _identifier: Click
       _clip: {fileID: 8300000, guid: 50a2988df1c9ad54a9df0eef4ae656b4, type: 3}
       volume: 0.1
-    _gameMusic: []
+    _gameMusic:
+    - _identifier: Intro
+      _clip: {fileID: 8300000, guid: 294ccd1900efb7d42b44d41a0075ff46, type: 3}
+      volume: 0.15
+    - _identifier: Gameplay
+      _clip: {fileID: 8300000, guid: 2130445c39e72a0449afd2ceaa146652, type: 3}
+      volume: 0.1

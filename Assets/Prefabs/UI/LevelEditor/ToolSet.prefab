@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.68235296, g: 0.7764706, b: 0.8117647, a: 1}
+  m_Color: {r: 0.17254902, g: 0.22745098, b: 0.2784314, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -131,8 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc502bc4369cdf46b6d0a801f06f4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: 5
-  _color: {r: 0.68235296, g: 0.7764706, b: 0.8117647, a: 1}
+  _name: 10
+  _color: {r: 0.17254902, g: 0.22745098, b: 0.2784314, a: 1}
 --- !u!1 &529315292562739293
 GameObject:
   m_ObjectHideFlags: 0
@@ -1244,7 +1244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.68235296, g: 0.7764706, b: 0.8117647, a: 1}
+  m_Color: {r: 0.17254902, g: 0.22745098, b: 0.2784314, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1315,8 +1315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc502bc4369cdf46b6d0a801f06f4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: 5
-  _color: {r: 0.68235296, g: 0.7764706, b: 0.8117647, a: 1}
+  _name: 10
+  _color: {r: 0.17254902, g: 0.22745098, b: 0.2784314, a: 1}
 --- !u!1 &3788949466958638295
 GameObject:
   m_ObjectHideFlags: 0
@@ -2221,7 +2221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.68235296, g: 0.7764706, b: 0.8117647, a: 1}
+  m_Color: {r: 0.17254902, g: 0.22745098, b: 0.2784314, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2292,8 +2292,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc502bc4369cdf46b6d0a801f06f4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: 5
-  _color: {r: 0.68235296, g: 0.7764706, b: 0.8117647, a: 1}
+  _name: 10
+  _color: {r: 0.17254902, g: 0.22745098, b: 0.2784314, a: 1}
 --- !u!1 &6860376579292167737
 GameObject:
   m_ObjectHideFlags: 0
@@ -3507,7 +3507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.68235296, g: 0.7764706, b: 0.8117647, a: 1}
+  m_Color: {r: 0.17254902, g: 0.22745098, b: 0.2784314, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3578,8 +3578,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc502bc4369cdf46b6d0a801f06f4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: 5
-  _color: {r: 0.68235296, g: 0.7764706, b: 0.8117647, a: 1}
+  _name: 10
+  _color: {r: 0.17254902, g: 0.22745098, b: 0.2784314, a: 1}
 --- !u!1 &8884262550846857113
 GameObject:
   m_ObjectHideFlags: 0
