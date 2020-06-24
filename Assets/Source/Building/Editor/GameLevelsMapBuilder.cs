@@ -165,20 +165,28 @@ namespace TilesWalk.Building.Editor
 				// check if the root is a regular tile
 				var indexOfRoot = foundMap.Tiles.IndexOf(rootIndex);
 
-				if (indexOfRoot > 0 && !string.IsNullOrEmpty(foundMap.TileParameters[indexOfRoot]))
+				if (indexOfRoot >= 0 && !string.IsNullOrEmpty(foundMap.TileParameters[indexOfRoot]))
 				{
-					tileHandler = _indexes[rootIndex].GetComponent<LevelTile>();
+					tileHandler = _indexes[rootIndex].GetComponentInChildren<LevelTile>();
 				}
 
 				if (tileHandler != null)
 				{
-					LevelTileLink link = tileHandler.GetLink(_indexes[tileIndex], instruction.Direction);
+					LevelTileLink link = tileHandler.GetLink(_indexes[rootIndex], instruction.Direction);
 					var indexOfTile = foundMap.Tiles.IndexOf(tileIndex);
 
-					if (indexOfTile > 0 && !string.IsNullOrEmpty(foundMap.TileParameters[indexOfTile]))
+					if (indexOfTile >= 0 && !string.IsNullOrEmpty(foundMap.TileParameters[indexOfTile]))
 					{
-						var neighbor = _indexes[rootIndex].GetComponent<LevelTile>();
+						var neighbor = _indexes[tileIndex].GetComponentInChildren<LevelTile>();
 						link.Level = neighbor;
+						// setup opposing link
+						var opposite = link.Level.GetLink(link.Direction.Opposite());
+						// reverse path
+						var reverse = new List<GameObject>(link.Path);
+						reverse.Reverse();
+						opposite.Path.AddRange(reverse);
+						// set neighbor
+						opposite.Level = tileHandler;
 					}
 					else
 					{

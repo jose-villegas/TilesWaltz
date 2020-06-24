@@ -15,8 +15,6 @@ namespace TilesWalk.Map.Tile
 {
 	public class LevelTile : ObservableTriggerBase, ILevelNameRequire
 	{
-		
-
 		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
 		[Inject] private LevelBridge _levelBridge;
 
@@ -29,10 +27,7 @@ namespace TilesWalk.Map.Tile
 
 		public LevelTile this[CardinalDirection direction]
 		{
-			get
-			{
-				return _links.Find(x => x.Direction == direction).Level;
-			}
+			get { return _links.Find(x => x.Direction == direction).Level; }
 		}
 
 		public LevelTileLink GetLink(CardinalDirection direction)
