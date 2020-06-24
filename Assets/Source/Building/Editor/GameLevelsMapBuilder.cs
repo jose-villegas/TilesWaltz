@@ -6,10 +6,12 @@ using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Installer;
 using TilesWalk.General;
 using TilesWalk.Map.Scaffolding;
+using TilesWalk.Map.Tile;
 using TilesWalk.Tile;
 using TilesWalk.Tile.Rules;
 using UnityEditor;
 using UnityEngine;
+using Debug = System.Diagnostics.Debug;
 
 namespace TilesWalk.Building.Editor
 {
@@ -123,22 +125,30 @@ namespace TilesWalk.Building.Editor
 
 				var instance = PrefabUtility.InstantiatePrefab(isRegular ? _regularTile : _levelTile,
 					Selection.activeTransform) as GameObject;
+
+				Debug.Assert(instance != null, nameof(instance) + " != null");
 				// register the new tile
 				_controllers.Add(instance, new TileController());
 				_indexes.Add(mapTile, instance);
 				_currentMap.Tiles.Add(mapTile);
-				_currentMap.TileParameters.Add(foundMap.TileParameters[i]);
 
-				// adjust bounds
-				var boxCollider = instance.GetComponentInChildren<BoxCollider>();
-				_controllers[instance].AdjustBounds(boxCollider.bounds);
+				if (foundMap.TileParameters != null)
+				{
+					_currentMap.TileParameters.Add(foundMap.TileParameters[i]);
 
-				if (isRegular) continue;
+					// adjust bounds
+					var boxCollider = instance.GetComponentInChildren<BoxCollider>();
+					_controllers[instance].AdjustBounds(boxCollider.bounds);
 
-				var levelName = foundMap.TileParameters[i];
-				var details = instance.GetComponentInChildren<LevelNameRequestHandler>();
-				details.RawName = levelName;
+					if (isRegular) continue;
+
+					var levelName = foundMap.TileParameters[i];
+					var details = instance.GetComponentInChildren<LevelNameRequestHandler>();
+					details.RawName = levelName;
+				}
 			}
+
+			LevelTile tileHandler = null;
 
 			foreach (var instruction in foundMap.Instructions)
 			{
@@ -149,6 +159,32 @@ namespace TilesWalk.Building.Editor
 				var tileController = _controllers[_indexes[tileIndex]];
 				var rootTransform = _indexes[rootIndex].transform;
 				var tileTransform = _indexes[tileIndex].transform;
+
+				Debug.Assert(foundMap.TileParameters != null, nameof(foundMap.TileParameters) + " != null");
+				
+				// check if the root is a regular tile
+				var indexOfRoot = foundMap.Tiles.IndexOf(rootIndex);
+
+				if (indexOfRoot > 0 && !string.IsNullOrEmpty(foundMap.TileParameters[indexOfRoot]))
+				{
+					tileHandler = _indexes[rootIndex].GetComponent<LevelTile>();
+				}
+
+				if (tileHandler != null)
+				{
+					LevelTileLink link = tileHandler.GetLink(_indexes[tileIndex], instruction.Direction);
+					var indexOfTile = foundMap.Tiles.IndexOf(tileIndex);
+
+					if (indexOfTile > 0 && !string.IsNullOrEmpty(foundMap.TileParameters[indexOfTile]))
+					{
+						var neighbor = _indexes[rootIndex].GetComponent<LevelTile>();
+						link.Level = neighbor;
+					}
+					else
+					{
+						link.Path.Add(_indexes[tileIndex]);
+					}
+				}
 
 				// adjust neighbor insertion
 				rootController.AddNeighbor(instruction.Direction, instruction.Rule, tileController.Tile,
@@ -181,6 +217,8 @@ namespace TilesWalk.Building.Editor
 			{
 				var instance = PrefabUtility.InstantiatePrefab(_insertRegular ? _regularTile : _levelTile,
 					Selection.activeTransform) as GameObject;
+
+				Debug.Assert(instance != null, nameof(instance) + " != null");
 
 				var id = Mathf.Abs(instance.GetInstanceID());
 				_controllers.Add(instance, new TileController());

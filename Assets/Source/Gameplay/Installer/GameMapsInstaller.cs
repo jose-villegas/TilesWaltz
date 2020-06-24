@@ -26,6 +26,8 @@ namespace TilesWalk.Gameplay.Installer
 		private int _moves;
 
 		[SerializeField, Range(0, 5)] private int _mapSize;
+		[SerializeField] private int _starsRequired;
+		[SerializeField] private int _targetPoints;
 
 		[Header("Entries")] [SerializeField] private GameMapCollection _gameMaps = new GameMapCollection();
 
@@ -55,6 +57,8 @@ namespace TilesWalk.Gameplay.Installer
 			map.Id = _name;
 			map.MapSize = _mapSize;
 			map.FinishCondition = _condition;
+			map.StarsRequired = _starsRequired;
+			map.Target = _targetPoints;
 
 			switch (_condition)
 			{
