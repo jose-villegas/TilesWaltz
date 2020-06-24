@@ -2,7 +2,7 @@
 
 namespace TilesWalk.Extensions
 {
-	public static class CardinalDrectionExtension
+	public static class CardinalDirectionExtension
 	{
 		public static CardinalDirection Opposite(this CardinalDirection direction) 
 		{

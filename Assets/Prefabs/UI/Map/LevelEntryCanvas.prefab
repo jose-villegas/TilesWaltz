@@ -854,8 +854,15 @@ MonoBehaviour:
   _playButton: {fileID: 5643073303855581608}
   _timeConditionContainer: {fileID: 2127798481}
   _moveConditionContainer: {fileID: 471966390}
-  _nextLevel: {fileID: 469687202868383417}
-  _previousLevel: {fileID: 9050166670082394922}
+  _directionButtons:
+  - _direction: 1
+    _button: {fileID: 2898777313504446890}
+  - _direction: 4
+    _button: {fileID: 469687202868383417}
+  - _direction: 2
+    _button: {fileID: 8582138262097370185}
+  - _direction: 8
+    _button: {fileID: 9050166670082394922}
 --- !u!225 &4435396061285242756
 CanvasGroup:
   m_ObjectHideFlags: 0

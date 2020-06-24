@@ -16,7 +16,7 @@ namespace TilesWalk.Gameplay.Score
 
 		public int GameStars { get; private set; }
 
-		private void Start()
+		private void Awake()
 		{
 			_solver.InstanceProvider(gameObject);
 
