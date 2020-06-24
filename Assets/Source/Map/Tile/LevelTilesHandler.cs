@@ -17,36 +17,28 @@ namespace TilesWalk.Map.Tile
 	{
 		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
 		[Inject] private MapProviderSolver _solver;
-
-		private LevelTile[] _levelTiles;
 		private ReactiveProperty<int> _readyCount = new ReactiveProperty<int>();
 
 		private Subject<LevelTile[]> _levelTilesMapsReady;
 
-		public LevelTile[] LevelTiles => _levelTiles;
+		public LevelTile[] LevelTiles { get; private set; }
 
 		public LevelTile this[LevelMap map]
 		{
 			get
 			{
-				return _levelTiles.FirstOrDefault(x => x.Map.Value.Id == map.Id);
+				return LevelTiles.FirstOrDefault(x => x.Map.Value.Id == map.Id);
 			}
 		}
 
-		public LevelTile this[int i]
-		{
-			get
-			{
-				return _levelTiles[i];
-			}
-		}
+		public LevelTile this[int i] => LevelTiles[i];
 
 		private void Awake()
 		{
 			_solver.InstanceProvider(gameObject);
 
 			var inChildren = GetComponentsInChildren<LevelTile>();
-			_levelTiles = new LevelTile[inChildren.Length];
+			LevelTiles = new LevelTile[inChildren.Length];
 
 			for (int i = 0; i < inChildren.Length; i++)
 			{
@@ -54,16 +46,16 @@ namespace TilesWalk.Map.Tile
 				var levelTile = inChildren[index];
 				levelTile.Map.Subscribe(tileMap =>
 				{
-					_levelTiles[index] = levelTile;
+					LevelTiles[index] = levelTile;
 					_readyCount.Value += 1;
 				}).AddTo(this);
 			}
 
 			_readyCount.Subscribe(count =>
 			{
-				if (count == _levelTiles.Length)
+				if (count == LevelTiles.Length)
 				{
-					_levelTilesMapsReady?.OnNext(_levelTiles);
+					_levelTilesMapsReady?.OnNext(LevelTiles);
 					ShowNextLevelDetails();
 				}
 			}).AddTo(this);
@@ -71,7 +63,7 @@ namespace TilesWalk.Map.Tile
 
 		private void ShowNextLevelDetails()
 		{
-			foreach (var level in _levelTiles)
+			foreach (var level in LevelTiles)
 			{
 				if (_solver.Provider.Records.Exist(level.Name.Value, out var score))
 				{

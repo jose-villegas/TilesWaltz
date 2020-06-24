@@ -129,48 +129,8 @@ MonoBehaviour:
     _timeFinishConditions: []
   _gameLevelsMap:
     Id: Game Map
-    Instructions:
-    - Tile: 0
-      Root: 0
-      Direction: 0
-      Rule: 0
-    - Tile: 0
-      Root: 0
-      Direction: 0
-      Rule: 0
-    - Tile: 0
-      Root: 0
-      Direction: 0
-      Rule: 0
-    - Tile: 0
-      Root: 0
-      Direction: 0
-      Rule: 0
-    - Tile: 0
-      Root: 0
-      Direction: 0
-      Rule: 0
-    - Tile: 0
-      Root: 0
-      Direction: 0
-      Rule: 0
-    - Tile: 0
-      Root: 0
-      Direction: 0
-      Rule: 0
-    - Tile: 0
-      Root: 0
-      Direction: 0
-      Rule: 0
-    Tiles: 98ef000002f00000e2f1000038f20000cef2000046f300007af60000d2f6000048f70000
+    Instructions: []
+    Tiles: c8bb0600
     MapSize: 0
     TileParameters:
-    - DNA
-    - 
-    - 
-    - 
-    - Equalizer
-    - 
-    - 
-    - 
-    - The Chair
+    - Chromosome

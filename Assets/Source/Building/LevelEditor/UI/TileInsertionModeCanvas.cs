@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
@@ -15,28 +14,6 @@ namespace TilesWalk.Building.LevelEditor.UI
 	public class TileInsertionModeCanvas : CanvasGroupBehaviour
 	{
 		[Inject] private TileViewLevelMap _levelMap;
-
-		[Serializable]
-		private class DirectionButton
-		{
-			[SerializeField] private CardinalDirection _direction;
-			[SerializeField] private Button _button;
-
-			public Button Button => _button;
-
-			public CardinalDirection Direction => _direction;
-		}
-
-		[Serializable]
-		private class NeighborWalkRuleButton
-		{
-			[SerializeField] private NeighborWalkRule _rule;
-			[SerializeField] private Toggle _toggle;
-
-			public Toggle Toggle => _toggle;
-
-			public NeighborWalkRule Rule => _rule;
-		}
 
 		private CanvasGroupBehaviour _insertionCanvas;
 

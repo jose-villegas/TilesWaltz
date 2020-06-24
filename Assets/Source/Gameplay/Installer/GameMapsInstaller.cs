@@ -45,6 +45,7 @@ namespace TilesWalk.Gameplay.Installer
 		public override void InstallBindings()
 		{
 			Container.Bind<GameMapCollection>().WithId("GameMaps").FromInstance(_gameMaps);
+			Container.Bind<GameLevelsMap>().WithId("LevelsMap").FromInstance(_gameLevelsMap);
 		}
 
 		[Button]

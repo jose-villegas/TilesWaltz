@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ModestTree;
 using TilesWalk.Building.Level;
+using TilesWalk.Building.LevelEditor.UI;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Score;
@@ -28,40 +29,24 @@ namespace TilesWalk.Navigation.UI
 		[SerializeField] private CanvasGroupBehaviour _moveConditionContainer;
 
 		[Header("Navigation")] [SerializeField]
-		private Button _nextLevel;
-
-		[SerializeField] private Button _previousLevel;
-
+		private List<DirectionButton> _directionButtons;
+		 
 		public LevelNameRequestHandler LevelRequest => _levelRequest;
 
 		private void Awake()
 		{
 			_levelRequest.OnTileMapFoundAsObservable().Subscribe(UpdateCanvas).AddTo(this);
-			_nextLevel.onClick.AddListener(OnNextClick);
-			_previousLevel.onClick.AddListener(OnPreviousClick);
-		}
 
-		private void OnPreviousClick()
-		{
-			var levelTile = _levelTilesHandler[_levelRequest.Map];
-			var index = _levelTilesHandler.LevelTiles.IndexOf(levelTile);
-
-			if (index > 0)
+			for (int i = 0; i < _directionButtons.Count; i++)
 			{
-				levelTile = _levelTilesHandler.LevelTiles[index - 1];
-				levelTile.OnMapTileClick();
-			}
-		}
+				var directionButton = _directionButtons[i];
 
-		private void OnNextClick()
-		{
-			var levelTile = _levelTilesHandler[_levelRequest.Map];
-			var index = _levelTilesHandler.LevelTiles.IndexOf(levelTile);
-
-			if (index != _levelTilesHandler.LevelTiles.Length)
-			{
-				levelTile = _levelTilesHandler.LevelTiles[index + 1];
-				levelTile.OnMapTileClick();
+				directionButton.Button.onClick.AddListener(() =>
+				{
+					var levelTile = _levelTilesHandler[_levelRequest.Map];
+					var neighbor = levelTile[directionButton.Direction];
+					neighbor.OnMapTileClick();
+				});
 			}
 		}
 
@@ -86,21 +71,12 @@ namespace TilesWalk.Navigation.UI
 
 			// set navigation buttons
 			var levelTile = _levelTilesHandler[map];
-			var index = _levelTilesHandler.LevelTiles.IndexOf(levelTile);
 
-			_nextLevel.interactable = true;
-			_previousLevel.interactable = true;
-
-			if (index == 0)
+			for (int i = 0; i < _directionButtons.Count; i++)
 			{
-				_nextLevel.interactable = true;
-				_previousLevel.interactable = false;
-			}
+				var directionButton = _directionButtons[i];
 
-			if (index == _levelTilesHandler.LevelTiles.Length - 1)
-			{
-				_nextLevel.interactable = false;
-				_previousLevel.interactable = true;
+				directionButton.Button.interactable = levelTile.HasNeighbor(directionButton.Direction);
 			}
 		}
 	}
