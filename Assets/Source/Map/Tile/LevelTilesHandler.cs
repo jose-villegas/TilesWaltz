@@ -46,6 +46,8 @@ namespace TilesWalk.Map.Tile
 				var levelTile = inChildren[index];
 				levelTile.Map.Subscribe(tileMap =>
 				{
+					if (tileMap == null) return;
+
 					LevelTiles[index] = levelTile;
 					_readyCount.Value += 1;
 				}).AddTo(this);
