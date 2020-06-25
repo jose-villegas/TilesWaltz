@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
-using BayatGames.SaveGameFree;
-using BayatGames.SaveGameFree.Serializers;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using Newtonsoft.Json;
-using TilesWalk.Gameplay.Score;
-using UnityEditor;
+using UnityEngine;
 
 namespace TilesWalk.Gameplay.Persistence
 {
@@ -23,11 +22,8 @@ namespace TilesWalk.Gameplay.Persistence
 		public GameMapCollection UserMaps => _userMaps;
 		public GameMapCollection ImportedMaps => _importedMaps;
 
-
 		public GameSave()
 		{
-			SaveGame.Serializer = new JsonSerializer();
-
 			_userLevelRecords = new RecordsKeeper();
 			_gameRecords = new RecordsKeeper();
 			_userMaps = new GameMapCollection();
@@ -36,39 +32,87 @@ namespace TilesWalk.Gameplay.Persistence
 
 		public void LoadFromLocal()
 		{
-			if (SaveGame.Exists("UserMaps"))
+			var path = Application.persistentDataPath;
+
+			if (Exists("UserMaps", path))
 			{
-				_userMaps = SaveGame.Load<GameMapCollection>("UserMaps");
+				_userMaps = Load<GameMapCollection>("UserMaps", path);
 			}
 
-			if (SaveGame.Exists("ImportedMaps"))
+			if (Exists("ImportedMaps", path))
 			{
-				_importedMaps = SaveGame.Load<GameMapCollection>("ImportedMaps");
+				_importedMaps = Load<GameMapCollection>("ImportedMaps", path);
 			}
 
-			if (SaveGame.Exists("GameRecords"))
+			if (Exists("GameRecords", path))
 			{
-				_gameRecords = SaveGame.Load<RecordsKeeper>("GameRecords");
+				_gameRecords = Load<RecordsKeeper>("GameRecords", path);
 			}
 
-			if (SaveGame.Exists("UserLevelRecords"))
+			if (Exists("UserLevelRecords", path))
 			{
-				_userLevelRecords = SaveGame.Load<RecordsKeeper>("UserLevelRecords");
+				_userLevelRecords = Load<RecordsKeeper>("UserLevelRecords", path);
 			}
 
-			if (SaveGame.Exists("ImportedLevelRecords"))
+			if (Exists("ImportedLevelRecords", path))
 			{
-				_importedLevelRecords = SaveGame.Load<RecordsKeeper>("ImportedLevelRecords");
+				_importedLevelRecords = Load<RecordsKeeper>("ImportedLevelRecords", path);
 			}
 		}
 
 		public void SaveToLocal()
 		{
-			SaveGame.Save("UserMaps", _userMaps);
-			SaveGame.Save("ImportedMaps", _importedMaps);
-			SaveGame.Save("GameRecords", _gameRecords);
-			SaveGame.Save("UserLevelRecords", _userLevelRecords);
-			SaveGame.Save("ImportedLevelRecords", _importedLevelRecords);
+			var path = Application.persistentDataPath;
+			Save("UserMaps", _userMaps, path);
+			Save("ImportedMaps", _importedMaps, path);
+			Save("GameRecords", _gameRecords, path);
+			Save("UserLevelRecords", _userLevelRecords, path);
+			Save("ImportedLevelRecords", _importedLevelRecords, path);
+		}
+
+		public static void Save<T>(string name, T data, string path)
+		{
+			FileStream file = File.Create(path + "/" + name);
+
+			if (data != null)
+			{
+				var content = JsonConvert.SerializeObject(data);
+				byte[] info = new UTF8Encoding(true).GetBytes(content);
+				file.Write(info, 0, info.Length);
+			}
+
+			file.Close();
+		}
+
+		public static bool Exists(string name, string path)
+		{
+			return File.Exists(path + "/" + name);
+		}
+
+		public static T Load<T>(string name, string path)
+		{
+			if (File.Exists(path + "/" + name))
+			{
+				FileStream file = File.Open(path + "/" + name, FileMode.Open);
+				T save = default(T);
+
+				if (file.Length >= 0)
+				{
+					string content;
+
+					using (StreamReader reader = new StreamReader(file))
+					{
+						content = reader.ReadToEnd();
+					}
+
+					save = JsonConvert.DeserializeObject<T>(content);
+				}
+
+				file.Close();
+				return save;
+			}
+
+			return default(T);
 		}
 	}
 }

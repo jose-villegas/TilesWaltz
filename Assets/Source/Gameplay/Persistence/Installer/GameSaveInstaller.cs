@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using BayatGames.SaveGameFree;
-using TilesWalk.Gameplay.Score;
-using Zenject;
+﻿using Zenject;
 
 namespace TilesWalk.Gameplay.Persistence.Installer
 {
@@ -13,6 +10,11 @@ namespace TilesWalk.Gameplay.Persistence.Installer
 		{
 			_gameSave.LoadFromLocal();
 			Container.Bind<GameSave>().FromInstance(_gameSave).AsSingle();
+		}
+
+		private void OnApplicationPause(bool _)
+		{
+			_gameSave.SaveToLocal();
 		}
 
 		private void OnApplicationQuit()

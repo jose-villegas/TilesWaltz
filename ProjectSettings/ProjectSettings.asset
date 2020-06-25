@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: Tile's Walk
+  companyName: QRTN
+  productName: Tiles Walk
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -56,21 +56,21 @@ PlayerSettings:
   iosAllowHTTPDownload: 1
   allowedAutorotateToPortrait: 1
   allowedAutorotateToPortraitUpsideDown: 1
-  allowedAutorotateToLandscapeRight: 1
-  allowedAutorotateToLandscapeLeft: 1
+  allowedAutorotateToLandscapeRight: 0
+  allowedAutorotateToLandscapeLeft: 0
   useOSAutorotation: 1
   use32BitDisplayBuffer: 1
   preserveFramebufferAlpha: 0
   disableDepthAndStencilBuffers: 0
   androidStartInFullscreen: 1
-  androidRenderOutsideSafeArea: 1
+  androidRenderOutsideSafeArea: 0
   androidUseSwappy: 0
   androidBlitType: 0
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
   runInBackground: 1
   captureSingleScreen: 0
-  muteOtherAudioSources: 0
+  muteOtherAudioSources: 1
   Prepare IOS For Recording: 0
   Force IOS Speakers When Recording: 0
   deferSystemGesturesMode: 0
@@ -111,6 +111,8 @@ PlayerSettings:
   switchNVNShaderPoolsGranularity: 33554432
   switchNVNDefaultPoolsGranularity: 16777216
   switchNVNOtherPoolsGranularity: 16777216
+  stadiaPresentMode: 0
+  stadiaTargetFramerate: 0
   vulkanNumSwapchainBuffers: 3
   vulkanEnableSetSRGBWrite: 0
   m_SupportedAspectRatios:
