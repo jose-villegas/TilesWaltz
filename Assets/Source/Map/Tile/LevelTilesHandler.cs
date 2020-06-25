@@ -33,7 +33,7 @@ namespace TilesWalk.Map.Tile
 
 		public LevelTile this[int i] => LevelTiles[i];
 
-		private void Awake()
+		private void Start()
 		{
 			_solver.InstanceProvider(gameObject);
 

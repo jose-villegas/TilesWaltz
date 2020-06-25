@@ -14,7 +14,7 @@ namespace TilesWalk.Gameplay.Level.UI
 		[SerializeField] private FinishCondition _condition;
 		[SerializeField] private List<GameObject> _objects;
 
-		private void Start()
+		private void Awake()
 		{
 			_tileLevelMap
 				.OnLevelMapLoadedAsObservable()
