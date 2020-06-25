@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 1337317717738274532}
   - component: {fileID: 1699082091442006069}
   - component: {fileID: 8990344294387664550}
+  - component: {fileID: 2066125616360218518}
   m_Layer: 0
   m_Name: Award (1)
   m_TagString: Untagged
@@ -276,3 +277,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: 2
   _color: {r: 1, g: 0.7019608, b: 0.2784314, a: 1}
+--- !u!114 &2066125616360218518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597784972152392259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 300
+  m_EffectMaterial: {fileID: 2100000, guid: 9dc7e810a87b444ab96919f3215c2fe5, type: 2}
+  m_EffectFactor: 0
+  m_Width: 0.25
+  m_Rotation: -45
+  m_Softness: 1
+  m_Brightness: 0.5
+  m_Gloss: 0.35
+  m_EffectArea: 0
+  m_Player:
+    play: 1
+    initialPlayDelay: 0
+    duration: 3
+    loop: 1
+    loopDelay: 0
+    updateMode: 0
+  m_Play: 0
+  m_Loop: 0
+  m_Duration: 1
+  m_LoopDelay: 1
+  m_UpdateMode: 0
