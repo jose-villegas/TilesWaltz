@@ -15,10 +15,35 @@ namespace TilesWalk.Gameplay.UI
 		private void Awake()
 		{
 			Hide();
+			
+			var musicPreference = bool.Parse(PlayerPrefs.GetString("Music", true.ToString()));
+			var effectsPreference = bool.Parse(PlayerPrefs.GetString("Effects", true.ToString()));
 
-			_music.onValueChanged.AddListener(value => EazySoundManager.GlobalMusicVolume = value ? 1f : 0f);
-			_effects.onValueChanged.AddListener(value => EazySoundManager.GlobalSoundsVolume = value ? 1f : 0f);
-			_effects.onValueChanged.AddListener(value => EazySoundManager.GlobalUISoundsVolume = value ? 1f : 0f);
+			OnMusicToggle(_music.isOn = musicPreference);
+			OnEffectsToggle(_effects.isOn = effectsPreference);
+
+			_music.onValueChanged.AddListener(OnMusicToggle);
+			_effects.onValueChanged.AddListener(OnEffectsToggle);
+		}
+
+		private void OnEffectsToggle(bool value)
+		{
+			EazySoundManager.GlobalSoundsVolume = value ? 1f : 0f;
+			EazySoundManager.GlobalUISoundsVolume = value ? 1f : 0f;
+			PlayerPrefs.SetString("Effects", value.ToString());
+			PlayerPrefs.Save();
+		}
+
+		private void OnMusicToggle(bool value)
+		{
+			EazySoundManager.GlobalMusicVolume = value ? 1f : 0f;
+			PlayerPrefs.SetString("Music", value.ToString());
+			PlayerPrefs.Save();
+		}
+
+		public void ApplicationQuit()
+		{
+			Application.Quit();
 		}
 	}
 }
