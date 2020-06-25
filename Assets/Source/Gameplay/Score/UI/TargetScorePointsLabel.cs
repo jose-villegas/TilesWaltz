@@ -14,7 +14,7 @@ namespace TilesWalk.Gameplay.Score.UI
 	{
 		[Inject] private TileViewLevelMap _tileLevelMap;
 
-		private void Start()
+		private void Awake()
 		{
 			_tileLevelMap
 				.OnLevelMapLoadedAsObservable()

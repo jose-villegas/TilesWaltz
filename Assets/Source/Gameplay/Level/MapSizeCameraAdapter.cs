@@ -13,7 +13,7 @@ namespace TilesWalk.Gameplay.Level
 		[Inject] private TileViewLevelMap _tileViewLevelMap;
 		private float _originalSize;
 
-		private void Start()
+		private void Awake()
 		{
 			_originalSize = Component.orthographicSize;
 			_tileViewLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);

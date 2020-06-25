@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
+using TilesWalk.Gameplay.Score;
 using TilesWalk.General;
 using TilesWalk.General.Patterns;
 using TilesWalk.Navigation.UI;
@@ -20,23 +21,20 @@ namespace TilesWalk.Gameplay.Limits.UI
 		[Inject] private TileViewLevelMap _tileLevelMap;
 		[Inject] private LevelFinishTracker _levelFinishTracker;
 
-		private void Start()
+		private void Awake()
 		{
 			_tileLevelMap
 				.OnLevelMapLoadedAsObservable()
-				.Subscribe(
-					OnLevelMapLoaded
-				)
-				.AddTo(this);
+				.Subscribe(map =>
+				{
+					if (map.FinishCondition != FinishCondition.TimeLimit) return;
+
+					_levelFinishTracker.OnTrackersSetupFinishAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
+				}).AddTo(this);
 		}
 
-		private void OnLevelMapLoaded(LevelMap levelMap)
+		private void OnLevelMapLoaded(LevelScore score)
 		{
-			if (levelMap.FinishCondition != FinishCondition.TimeLimit)
-			{
-				return;
-			}
-
 			try
 			{
 				var condition = _levelFinishTracker.TimeFinishCondition;

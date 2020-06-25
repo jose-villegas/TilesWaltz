@@ -85,7 +85,8 @@ namespace TilesWalk.Map.Tile
 			}
 
 			// no next map found
-			_detailsCanvas.Hide();
+			_detailsCanvas.LevelRequest.Name.Value = LevelTiles[0].Map.Value.Id;
+			_detailsCanvas.Show();
 		}
 
 		protected override void RaiseOnCompletedOnDestroy()

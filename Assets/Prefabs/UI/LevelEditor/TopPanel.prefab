@@ -2859,6 +2859,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button
       objectReference: {fileID: 0}
+    - target: {fileID: 4311415853922380398, guid: 5d2fea24bb35afe41a37261dc628df4f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 17.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311415853922380398, guid: 5d2fea24bb35afe41a37261dc628df4f,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -35
+      objectReference: {fileID: 0}
     - target: {fileID: 5442493757640282507, guid: 5d2fea24bb35afe41a37261dc628df4f,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -2908,6 +2918,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontColor.b
       value: 0.9098039
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442493757640282507, guid: 5d2fea24bb35afe41a37261dc628df4f,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 513
       objectReference: {fileID: 0}
     - target: {fileID: 6150539512296673981, guid: 5d2fea24bb35afe41a37261dc628df4f,
         type: 3}
@@ -3136,6 +3151,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4311415853922380398, guid: 5d2fea24bb35afe41a37261dc628df4f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 17.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311415853922380398, guid: 5d2fea24bb35afe41a37261dc628df4f,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -34.999996
+      objectReference: {fileID: 0}
     - target: {fileID: 5442493757640282507, guid: 5d2fea24bb35afe41a37261dc628df4f,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -3185,6 +3210,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontColor.b
       value: 0.9098039
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442493757640282507, guid: 5d2fea24bb35afe41a37261dc628df4f,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 513
       objectReference: {fileID: 0}
     - target: {fileID: 6150539512296673981, guid: 5d2fea24bb35afe41a37261dc628df4f,
         type: 3}
