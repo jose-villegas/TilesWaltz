@@ -33,8 +33,8 @@ namespace TilesWalk.Gameplay.Persistence
 			return _records.TryGetValue(id, out score);
 		}
 
-		[JsonIgnore] public int Count => _records.Count;
+		[JsonIgnore] public int Count => _records?.Count ?? 0;
 
-		[JsonIgnore] public Dictionary<string, LevelScore>.ValueCollection Values => _records.Values;
+		[JsonIgnore] public Dictionary<string, LevelScore>.ValueCollection Values => _records?.Values;
 	}
 }
