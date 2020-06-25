@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using NaughtyAttributes;
 using Newtonsoft.Json;
 using TilesWalk.Building.LevelEditor;
@@ -12,7 +11,6 @@ using TilesWalk.Tile.Rules;
 using UniRx;
 using UnityEngine;
 using Zenject;
-using Random = UnityEngine.Random;
 
 namespace TilesWalk.Building.Level
 {
@@ -36,6 +34,7 @@ namespace TilesWalk.Building.Level
 		public LevelLoadOptions LoadOption => _loadOption;
 
 		protected Subject<LevelMap> _onLevelMapLoaded;
+		protected Subject<TileView> _onTileRegistered;
 
 		private void Start()
 		{
@@ -101,6 +100,8 @@ namespace TilesWalk.Building.Level
 			TileView[tile.Controller.Tile] = tile;
 			// register tile to the tile map
 			_levelMap.Tiles.Add(id);
+			// trigger event
+			_onTileRegistered?.OnNext(tile);
 		}
 
 		public void RemoveTile(TileView tile)
@@ -270,10 +271,16 @@ namespace TilesWalk.Building.Level
 			return _onLevelMapLoaded = _onLevelMapLoaded ?? new Subject<LevelMap>();
 		}
 
+		public IObservable<TileView> OnTileRegisteredAsObservable()
+		{
+			return _onTileRegistered = _onTileRegistered ?? new Subject<TileView>();
+		}
+
 		protected override void RaiseOnCompletedOnDestroy()
 		{
 			base.RaiseOnCompletedOnDestroy();
 			_onLevelMapLoaded?.OnCompleted();
+			_onTileRegistered?.OnCompleted();
 		}
 	}
 }

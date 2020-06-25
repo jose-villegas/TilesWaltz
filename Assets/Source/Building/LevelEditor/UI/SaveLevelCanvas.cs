@@ -1,7 +1,7 @@
 ﻿using System;
 using TilesWalk.Building.Level;
-using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
+using TilesWalk.Gameplay.Display;
 using TilesWalk.Gameplay.Persistence;
 using TilesWalk.General.UI;
 using TilesWalk.Map.Bridge;
@@ -19,6 +19,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 		[Inject] private LevelEditorToolSet _levelEditorToolSet;
 		[Inject] private TileViewLevelMap _tileViewLevelMap;
 		[Inject] private GameSave _gameSave;
+		[Inject] private Notice _notice;
 
 		[SerializeField] private TMP_InputField _titleField;
 
@@ -33,12 +34,12 @@ namespace TilesWalk.Building.LevelEditor.UI
 		[SerializeField] private Button _cancel;
 		[SerializeField] private Button _exit;
 
+		private Subject<LevelMap> _onLevelMapSaved;
+
 		private void Awake()
 		{
 			Hide();
 
-			_levelEditorToolSet.ActionsCanvas.Edit.onClick.AsObservable().Subscribe(OnSaveRequestClick).AddTo(this);
-			_levelEditorToolSet.ActionsCanvas.Save.onClick.AsObservable().Subscribe(OnSaveConfirm).AddTo(this);
 			_save.onClick.AsObservable().Subscribe(OnSaveConfirm).AddTo(this);
 			_cancel.onClick.AsObservable().Subscribe(OnCancelSave).AddTo(this);
 			_exit.onClick.AsObservable().Subscribe(OnCancelSave).AddTo(this);
@@ -49,7 +50,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 			Hide();
 		}
 
-		private void OnSaveConfirm(Unit u)
+		public void OnSaveConfirm(Unit u)
 		{
 			var map = new LevelMap(_tileViewLevelMap.LevelMap);
 
@@ -70,6 +71,10 @@ namespace TilesWalk.Building.LevelEditor.UI
 				));
 			}
 
+			_notice
+				.Configure("Saved Successfully", NoticePriority.Message, GameColor.Action, GameColor.Strong)
+				.Show(1f);
+			_onLevelMapSaved?.OnNext(map);
 			Hide();
 		}
 
@@ -132,6 +137,17 @@ namespace TilesWalk.Building.LevelEditor.UI
 		private void OnSaveRequestClick(Unit u)
 		{
 			Show();
+		}
+
+		public IObservable<LevelMap> OnLevelMapSavedAsObservable()
+		{
+			return _onLevelMapSaved = _onLevelMapSaved ?? new Subject<LevelMap>();
+		}
+
+		protected override void RaiseOnCompletedOnDestroy()
+		{
+			base.RaiseOnCompletedOnDestroy();
+			_onLevelMapSaved?.OnCompleted();
 		}
 	}
 }
