@@ -5,45 +5,48 @@ using TilesWalk.General.Patterns;
 using TMPro;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace TilesWalk.General.UI
 {
 	[RequireComponent(typeof(TextMeshProUGUI))]
 	public class SlidingNumber : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
-		[SerializeField] private float _animationSpeed = 5f;
+		[SerializeField] private float _animationSpeed = 2.5f;
 
 		private float _initial;
 		private float _target;
 		private float _current;
 		private bool _isRunning;
 
-		private void Awake()
+		public float AnimationSpeed
 		{
-			Component.text = 0.Localize();
-			Component.ObserveEveryValueChanged(x => x.text).Subscribe(OnValueChanged).AddTo(this);
+			get => _animationSpeed;
+			set => _animationSpeed = value;
 		}
 
-		private void OnValueChanged(string value)
+		public void Target(int value)
+		{
+			Target((float) value);
+		}
+
+		public void Target(float value)
 		{
 			if (!_isRunning)
 			{
-				Component.text = ((int)_initial).Localize(); ;
 				_current = _initial;
-				_target = float.Parse(value);
+				_target = value;
 				_isRunning = true;
 
 				StartCoroutine(NumberSlidingAnimation()).GetAwaiter().OnCompleted(() =>
 				{
-					_initial = float.Parse(value);
+					_initial = value;
 					_isRunning = false;
 				});
 			}
 			else
 			{
-				if (Math.Abs(_current - _target) > Mathf.Epsilon) return;
-
-				_target = float.Parse(value);
+				_target = value;
 			}
 		}
 
