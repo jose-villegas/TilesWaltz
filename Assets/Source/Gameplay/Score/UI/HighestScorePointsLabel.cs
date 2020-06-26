@@ -23,6 +23,11 @@ namespace TilesWalk.Gameplay.Score.UI
 
 		private void Awake()
 		{
+			if (_useSlidingNumber)
+			{
+				_slidingNumber = gameObject.AddComponent<SlidingNumber>();
+			}
+
 			_levelScorePointsTracker
 				.OnScoresLoadedAsObservable()
 				.Subscribe(
@@ -37,9 +42,14 @@ namespace TilesWalk.Gameplay.Score.UI
 				.OnScorePointsUpdatedAsObservable()
 				.SubscribeToText(Component, score =>
 				{
+					if (score.Points.Last > _initialScore)
+					{
+						Component.fontStyle = FontStyles.Bold;
+					}
+
 					if (_useSlidingNumber)
 					{
-						_slidingNumber.Target(score.Points.Last);
+						_slidingNumber.Target(score.Points.Highest);
 						return Component.text;
 					}
 

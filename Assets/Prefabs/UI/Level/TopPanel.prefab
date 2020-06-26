@@ -1173,6 +1173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf35d303439a3da408e0699aa722c8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _useSlidingNumber: 1
+  _animationSpeed: 2.5
 --- !u!114 &1408019952958090067
 MonoBehaviour:
   m_ObjectHideFlags: 0

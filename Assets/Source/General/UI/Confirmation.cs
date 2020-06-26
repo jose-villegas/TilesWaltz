@@ -8,7 +8,9 @@ namespace TilesWalk.General.UI
 {
 	public class Confirmation  : CanvasGroupBehaviour
 	{
+		[SerializeField] private GameObject _messageContainer;
 		[SerializeField] private TextMeshProUGUI _message;
+		[SerializeField] private TextMeshProUGUI _title;
 		[SerializeField] private Button _yes;
 		[SerializeField] private Button _no;
 		[SerializeField] private Button _close;
@@ -21,6 +23,8 @@ namespace TilesWalk.General.UI
 		public Confirmation Configure(string message, Action OnConfirm, Action OnCancel, Action OnClose)
 		{
 			_message.text = message;
+			_title.text = "Warning";
+			_messageContainer.SetActive(true);
 
 			_yes.onClick.RemoveAllListeners();
 			_no.onClick.RemoveAllListeners();
@@ -39,6 +43,8 @@ namespace TilesWalk.General.UI
 		public Confirmation Configure(string message, Action OnConfirm, Action OnCancel)
 		{
 			_message.text = message;
+			_title.text = "Warning";
+			_messageContainer.SetActive(true);
 
 			_yes.onClick.RemoveAllListeners();
 			_no.onClick.RemoveAllListeners();
@@ -56,7 +62,8 @@ namespace TilesWalk.General.UI
 
 		public Confirmation Configure(Action OnConfirm, Action OnCancel, Action OnClose)
 		{
-			_message.text = "Are you sure?";
+			_title.text = "Are you sure?";
+			_messageContainer.SetActive(false);
 
 			_yes.onClick.RemoveAllListeners();
 			_no.onClick.RemoveAllListeners();
@@ -74,7 +81,8 @@ namespace TilesWalk.General.UI
 
 		public Confirmation Configure(Action OnConfirm, Action OnCancel)
 		{
-			_message.text = "Are you sure?";
+			_title.text = "Are you sure?";
+			_messageContainer.SetActive(false);
 
 			_yes.onClick.RemoveAllListeners();
 			_no.onClick.RemoveAllListeners();
@@ -92,7 +100,8 @@ namespace TilesWalk.General.UI
 
 		public Confirmation Configure(Action OnConfirm)
 		{
-			_message.text = "Are you sure?";
+			_title.text = "Are you sure?";
+			_messageContainer.SetActive(false);
 
 			_yes.onClick.RemoveAllListeners();
 			_no.onClick.RemoveAllListeners();
@@ -109,6 +118,8 @@ namespace TilesWalk.General.UI
 		public Confirmation Configure(string message, Action OnConfirm)
 		{
 			_message.text = message;
+			_title.text = "Warning";
+			_messageContainer.SetActive(true);
 
 			_yes.onClick.RemoveAllListeners();
 			_no.onClick.RemoveAllListeners();
