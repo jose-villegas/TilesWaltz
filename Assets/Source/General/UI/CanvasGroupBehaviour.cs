@@ -14,7 +14,7 @@ namespace TilesWalk.General.UI
 		private Subject<Unit> _onHide;
 		private Subject<Unit> _onShow;
 
-		public void Hide()
+		public virtual void Hide()
 		{
 			Component.alpha = 0;
 			Component.interactable = false;
@@ -22,7 +22,7 @@ namespace TilesWalk.General.UI
 			_onHide?.OnNext(new Unit());
 		}
 
-		public void Show()
+		public virtual void Show()
 		{
 			Component.alpha = 1;
 			Component.interactable = true;

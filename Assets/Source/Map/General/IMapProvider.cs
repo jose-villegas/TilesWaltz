@@ -8,5 +8,7 @@ namespace TilesWalk.Map.General
     {
         GameMapCollection Collection { get; }
         RecordsKeeper Records { get; }
+
+        int MaximumLevels { get; }
     }
 }

@@ -13,5 +13,6 @@ namespace TilesWalk.Map.General
 
 		public GameMapCollection Collection => _gameMaps;
 		public RecordsKeeper Records => _gameSave.GameRecords;
+		public int MaximumLevels => int.MaxValue;
 	}
 }

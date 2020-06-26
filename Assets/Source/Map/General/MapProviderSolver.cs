@@ -23,6 +23,8 @@ namespace TilesWalk.Map.General
 			}
 		}
 
+		public Provider Source => _mapProvider;
+
 		private IMapProvider _provider;
 		private GameObject _reference;
 
@@ -33,7 +35,7 @@ namespace TilesWalk.Map.General
 
 			if (Provider == null)
 			{
-				switch (_mapProvider)
+				switch (Source)
 				{
 					case General.Provider.UserMaps:
 						_provider =

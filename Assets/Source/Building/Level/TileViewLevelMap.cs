@@ -4,6 +4,7 @@ using System.Linq;
 using NaughtyAttributes;
 using Newtonsoft.Json;
 using TilesWalk.Building.LevelEditor;
+using TilesWalk.Gameplay.Level;
 using TilesWalk.General;
 using TilesWalk.Map.Bridge;
 using TilesWalk.Tile;
@@ -16,12 +17,13 @@ namespace TilesWalk.Building.Level
 {
 	public class TileViewLevelMap : TileViewTrigger
 	{
+		[Inject] private TileViewFactory _viewFactory;
+		[Inject] private LevelBridge _levelBridge;
+		[Inject] private CustomLevelsConfiguration _customLevelsConfiguration;
+
 		[SerializeField] private LevelLoadOptions _loadOption;
 		[TextArea, SerializeField] private string _instructions;
 		[SerializeField] LevelMap _levelMap = new LevelMap();
-
-		[Inject] private TileViewFactory _viewFactory;
-		[Inject] private LevelBridge _levelBridge;
 
 		private Dictionary<Tile.Tile, TileView> TileView { get; } = new Dictionary<Tile.Tile, TileView>();
 		public Dictionary<TileView, int> TileToHash { get; } = new Dictionary<TileView, int>();
@@ -219,11 +221,19 @@ namespace TilesWalk.Building.Level
 		public bool IsBreakingDistance(TileView tile)
 		{
 			var tiles = HashToTile.Values.ToList();
-			var tileBounds = new Bounds(tile.transform.position, tile.Collider.size * 0.65f);
+			var tileBounds = new Bounds
+			(
+				tile.transform.position,
+				tile.Collider.size * _customLevelsConfiguration.TileSeparationBoundsOffset
+			);
 
 			return tiles.Any(x =>
 			{
-				var tightBound = new Bounds(x.transform.position, x.Collider.bounds.size * 0.65f);
+				var tightBound = new Bounds
+				(
+					x.transform.position,
+					x.Collider.bounds.size * _customLevelsConfiguration.TileSeparationBoundsOffset
+				);
 				return tightBound.Intersects(tileBounds);
 			});
 		}

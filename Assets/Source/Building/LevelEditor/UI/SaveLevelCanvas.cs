@@ -5,6 +5,7 @@ using TilesWalk.Gameplay.Display;
 using TilesWalk.Gameplay.Persistence;
 using TilesWalk.General.UI;
 using TilesWalk.Map.Bridge;
+using TilesWalk.Map.General;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -16,10 +17,10 @@ namespace TilesWalk.Building.LevelEditor.UI
 	public class SaveLevelCanvas : CanvasGroupBehaviour
 	{
 		[Inject] private LevelBridge _bridge;
-		[Inject] private LevelEditorToolSet _levelEditorToolSet;
 		[Inject] private TileViewLevelMap _tileViewLevelMap;
-		[Inject] private GameSave _gameSave;
+		[Inject] private MapProviderSolver _solver;
 		[Inject] private Notice _notice;
+		[Inject] private Confirmation _confirmation;
 
 		[SerializeField] private TMP_InputField _titleField;
 
@@ -35,6 +36,8 @@ namespace TilesWalk.Building.LevelEditor.UI
 		[SerializeField] private Button _exit;
 
 		private Subject<LevelMap> _onLevelMapSaved;
+		private string _originalName = string.Empty;
+		private bool _maxNoticeShown;
 
 		private void Awake()
 		{
@@ -52,11 +55,27 @@ namespace TilesWalk.Building.LevelEditor.UI
 
 		public void OnSaveConfirm(Unit u)
 		{
+			// check if the name changed
+			if (_tileViewLevelMap.LevelMap.Id != _originalName)
+			{
+				// check if another map with this name exists
+				if (_solver.Provider.Collection.Exist(_tileViewLevelMap.LevelMap.Id))
+				{
+					_confirmation.Configure("A map with the same name already exists, replace?", () =>
+					{
+						_originalName = _tileViewLevelMap.LevelMap.Id;
+						OnSaveConfirm(u);
+					}).Show();
+
+					return;
+				}
+			}
+
 			var map = new LevelMap(_tileViewLevelMap.LevelMap);
 
 			if (_movesToggle.isOn)
 			{
-				_gameSave.UserMaps.Insert(map, new MovesFinishCondition
+				_solver.Provider.Collection.Insert(map, new MovesFinishCondition
 				(
 					_tileViewLevelMap.LevelMap.Id,
 					int.Parse(_movesField.text)
@@ -64,7 +83,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 			}
 			else
 			{
-				_gameSave.UserMaps.Insert(map, new TimeFinishCondition
+				_solver.Provider.Collection.Insert(map, new TimeFinishCondition
 				(
 					_tileViewLevelMap.LevelMap.Id,
 					float.Parse(_secondsField.text)
@@ -103,6 +122,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 
 			if (_tileViewLevelMap.LoadOption == LevelLoadOptions.FromBridgeEditorMode && _bridge.Payload != null)
 			{
+				_originalName = _bridge.Payload.Level.Id;
 				FillCanvas();
 			}
 		}
@@ -110,6 +130,13 @@ namespace TilesWalk.Building.LevelEditor.UI
 		private void FillCanvas()
 		{
 			_titleField.text = _bridge.Payload.Level.Id;
+
+			// disable input for title if reached maximum amount of levels
+			if (_solver.Provider.Collection.AvailableMaps.Count >= _solver.Provider.MaximumLevels)
+			{
+				_titleField.interactable = false;
+			}
+
 			_targetPointsField.text = _bridge.Payload.Level.Target.ToString();
 
 			_movesToggle.isOn = _bridge.Payload.Level.FinishCondition == FinishCondition.MovesLimit;
@@ -131,6 +158,18 @@ namespace TilesWalk.Building.LevelEditor.UI
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		public override void Show()
+		{
+			base.Show();
+
+			if (!_maxNoticeShown && _solver.Provider.Collection.AvailableMaps.Count >= _solver.Provider.MaximumLevels)
+			{
+				_maxNoticeShown = true;
+				_titleField.interactable = false;
+				_notice.Configure("Maximum amount of custom levels reached, disabled title edit").Show(1.5f);
 			}
 		}
 

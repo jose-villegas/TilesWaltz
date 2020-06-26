@@ -1,6 +1,6 @@
 namespace TilesWalk.Map.General
 {
-	enum Provider
+	public enum Provider
 	{
 		UserMaps,
 		ImportedMaps,

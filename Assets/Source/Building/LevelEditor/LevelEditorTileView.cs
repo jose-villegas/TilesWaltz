@@ -5,6 +5,7 @@ using TilesWalk.Building.Level;
 using TilesWalk.Building.LevelEditor.UI;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Display;
+using TilesWalk.Gameplay.Level;
 using TilesWalk.General;
 using TilesWalk.General.UI;
 using TilesWalk.Tile;
@@ -19,6 +20,7 @@ namespace TilesWalk.Building.LevelEditor
 	{
 		[Inject] private LevelEditorToolSet _levelEditorToolSet;
 		[Inject] private CustomLevelPlayer _customLevelPlayer;
+		[Inject] private CustomLevelsConfiguration _customLevelsConfiguration;
 		[Inject] private Notice _notice;
 
 		private Tuple<CardinalDirection, LevelEditorTileView> _ghostTileView;
@@ -284,7 +286,7 @@ namespace TilesWalk.Building.LevelEditor
 			_levelEditorToolSet.InsertionCanvas.UpdateButtons(this);
 
 			// max amount of tiles reached
-			if (_tileLevelMap.LevelMap.Tiles.Count >= 300)
+			if (_tileLevelMap.LevelMap.Tiles.Count >= _customLevelsConfiguration.MaximumTilesPerLevel)
 			{
 				_notice.Configure("Maximum amount of tiles reached").Show(2f);
 				OnCancelClick();

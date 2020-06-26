@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Condition;
+using UniRx;
 using UnityEngine;
 
 namespace TilesWalk.Gameplay.Persistence
@@ -18,6 +19,9 @@ namespace TilesWalk.Gameplay.Persistence
 		[JsonIgnore] public List<MovesFinishCondition> MovesFinishConditions => _movesFinishConditions;
 		[JsonIgnore] public List<TimeFinishCondition> TimeFinishConditions => _timeFinishConditions;
 
+		private Subject<LevelMap> _onNewLevelInsert;
+		private Subject<LevelMap> _onLevelRemoved;
+
 		public GameMapCollection(List<LevelMap> maps, List<MovesFinishCondition> moves, List<TimeFinishCondition> times)
 		{
 			_availableMaps = new List<LevelMap>(_availableMaps);
@@ -29,11 +33,68 @@ namespace TilesWalk.Gameplay.Persistence
 		{
 		}
 
+		~GameMapCollection()
+		{
+			_onNewLevelInsert?.OnCompleted();
+			_onLevelRemoved?.OnCompleted();
+		}
+
+		public IObservable<LevelMap> OnNewLevelInsertAsObservable()
+		{
+			return _onNewLevelInsert == null ? _onNewLevelInsert = new Subject<LevelMap>() : _onNewLevelInsert;
+		}
+
+		public IObservable<LevelMap> OnLevelRemovedAsObservable()
+		{
+			return _onLevelRemoved == null ? _onLevelRemoved = new Subject<LevelMap>() : _onLevelRemoved;
+		}
+
 		public bool Exist(string id)
 		{
 			if (AvailableMaps == null || AvailableMaps.Count == 0) return false;
 
 			return AvailableMaps.Exists(x => x.Id == id);
+		}
+
+		public bool Remove(string id)
+		{
+			var indexOf = _availableMaps.FindIndex(x => x.Id == id);
+
+			if (indexOf >= 0)
+			{
+				var map = _availableMaps[indexOf];
+				var condition = map.FinishCondition;
+				_availableMaps.RemoveAt(indexOf);
+
+				switch (condition)
+				{
+					case FinishCondition.TimeLimit:
+						indexOf = _timeFinishConditions.FindIndex(x => x.Id == id);
+
+						if (indexOf >= 0)
+						{
+							_timeFinishConditions.RemoveAt(indexOf);
+						}
+
+						break;
+					case FinishCondition.MovesLimit:
+						indexOf = _movesFinishConditions.FindIndex(x => x.Id == id);
+
+						if (indexOf >= 0)
+						{
+							_movesFinishConditions.RemoveAt(indexOf);
+						}
+
+						break;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
+
+				_onLevelRemoved?.OnNext(map);
+				return true;
+			}
+
+			return false;
 		}
 
 		public void Insert<T>(LevelMap map, T condition) where T : MapFinishCondition
@@ -92,6 +153,8 @@ namespace TilesWalk.Gameplay.Persistence
 					_timeFinishConditions.Add(condition as TimeFinishCondition);
 				}
 			}
+
+			_onNewLevelInsert?.OnNext(map);
 		}
 	}
 }
