@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Linq;
 using TilesWalk.Gameplay.Animation;
+using TilesWalk.General.Camera;
+using TilesWalk.General.Patterns;
 using TilesWalk.Map.Tile;
 using TilesWalk.Navigation.UI;
 using UniRx;
@@ -11,9 +13,10 @@ using Zenject;
 namespace TilesWalk.Map.Camera
 {
 	/// <summary>
-	/// Camera ocntroller for the game map view
+	/// Camera controller for the game map view
 	/// </summary>
-	public class GameMapCameraHandler : MonoBehaviour
+	[RequireComponent(typeof(CameraDrag))]
+	public class GameMapCameraHandler : ObligatoryComponentBehaviour<CameraDrag>
 	{
 		[Inject] private LevelTilesHandler _levelTilesHandler;
 		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
@@ -27,7 +30,13 @@ namespace TilesWalk.Map.Camera
 			_initialPosition = transform.position;
 
 			_detailsCanvas.OnShowAsObservable().Subscribe(OnDetailsCanvasShown).AddTo(this);
+			_detailsCanvas.OnHideAsObservable().Subscribe(OnDetailsCanvasHiden).AddTo(this);
 			_levelTilesHandler.OnLevelTilesMapsReadyAsObservable().Subscribe(OnLevelTilesMapsReady).AddTo(this);
+		}
+
+		private void OnDetailsCanvasHiden(Unit u)
+		{
+			Component.enabled = true;
 		}
 
 		/// <summary>
@@ -46,7 +55,12 @@ namespace TilesWalk.Map.Camera
 				return false;
 			});
 
-			if (levelTile != null) LookAtLevelTile(levelTile);
+			Component.enabled = false;
+
+			if (levelTile != null)
+			{
+				LookAtLevelTile(levelTile);
+			}
 		}
 
 
