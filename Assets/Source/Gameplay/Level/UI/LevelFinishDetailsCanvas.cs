@@ -18,6 +18,11 @@ namespace TilesWalk.Gameplay.Level.UI
 {
 	public class LevelFinishDetailsCanvas : CanvasGroupBehaviour
 	{
+		[Inject] private LevelFinishTracker _levelFinishTracker;
+		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;
+		[Inject] private TileViewLevelMap _levelMap;
+		[Inject] private ScorePointsConfiguration _scorePointsConfiguration;
+
 		[Header("Points")] [SerializeField] private TextMeshProUGUI _points;
 		[SerializeField] private TextMeshProUGUI _extraPoints;
 		[SerializeField] private TextMeshProUGUI _totalPoints;
@@ -28,31 +33,23 @@ namespace TilesWalk.Gameplay.Level.UI
 		[SerializeField] private Button _retry;
 		[SerializeField] private Button _continue;
 
-		[Inject] private LevelFinishTracker _levelFinishTracker;
-		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;
-		[Inject] private MapProviderSolver _solver;
-		[Inject] private ScorePointsConfiguration _scorePointsConfiguration;
-
 		private void Start()
 		{
-			_solver.InstanceProvider(gameObject);
-			_levelFinishTracker.OnLevelFinishAsObservable().Subscribe(OnLevelFinish).AddTo(this);
+			// _levelFinishTracker.OnLevelFinishAsObservable().Subscribe(OnLevelFinish).AddTo(this);
 			_continue.onClick.AddListener(_levelScorePointsTracker.SaveScore);
 			_retry.onClick.AddListener(_levelScorePointsTracker.SaveScore);
 		}
 
 		private void OnLevelFinish(LevelScore score)
 		{
-			var tileMap = _solver.Provider.Collection.AvailableMaps.Find(x => x.Id == score.Id);
-
 			// points
 			_points.text = score.Points.Last.Localize();
 
 			// time
-			TimeDetails(score, tileMap);
+			TimeDetails(score, _levelMap.LevelMap);
 
 			// moves
-			MovesDetail(score, tileMap);
+			MovesDetail(score, _levelMap.LevelMap);
 
 			Show();
 		}

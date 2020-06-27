@@ -25,6 +25,12 @@ namespace TilesWalk.General.UI
 			set => _animationSpeed = value;
 		}
 
+		public float Current
+		{
+			get => _current;
+			set => _current = value;
+		}
+
 		public void Target(int value)
 		{
 			Target((float) value);
@@ -34,7 +40,7 @@ namespace TilesWalk.General.UI
 		{
 			if (!_isRunning)
 			{
-				_current = _initial;
+				Current = _initial;
 				_target = value;
 				_isRunning = true;
 
@@ -52,30 +58,32 @@ namespace TilesWalk.General.UI
 
 		private IEnumerator NumberSlidingAnimation()
 		{
-			while (Math.Abs(_current - _target) > Mathf.Epsilon)
+			while (Math.Abs(Current - _target) > Mathf.Epsilon)
 			{
 				if (_initial < _target)
 				{
-					_current += (_animationSpeed * Time.deltaTime) * (_target - _initial);
+					Current += (_animationSpeed * Time.deltaTime) * (_target - _initial);
 
-					if (_current >= _target)
+					if (Current >= _target)
 					{
-						_current = _target;
+						Current = _target;
 					}
 				}
 				else
 				{
-					_current -= (_animationSpeed * Time.deltaTime) * (_target - _initial);
+					Current -= (_animationSpeed * Time.deltaTime) * (_target - _initial);
 
-					if (_current <= _target)
+					if (Current <= _target)
 					{
-						_current = _target;
+						Current = _target;
 					}
 				}
 
-				Component.text = ((int) _current).Localize();
+				Component.text = ((int) Current).Localize();
 				yield return null;
 			}
+
+			Component.text = ((int)_target).Localize();
 		}
 	}
 }
