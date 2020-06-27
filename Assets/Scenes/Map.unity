@@ -507,6 +507,36 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6826628675250009674, guid: 60e372a502fa0864f8de35a1433bf395,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6826628675250009674, guid: 60e372a502fa0864f8de35a1433bf395,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6826628675250009674, guid: 60e372a502fa0864f8de35a1433bf395,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6826628675250009674, guid: 60e372a502fa0864f8de35a1433bf395,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6826628675250009674, guid: 60e372a502fa0864f8de35a1433bf395,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6826628675250009674, guid: 60e372a502fa0864f8de35a1433bf395,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7782525576062322129, guid: 60e372a502fa0864f8de35a1433bf395,
         type: 3}
       propertyPath: m_textInfo.characterCount
