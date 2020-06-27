@@ -24,6 +24,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16582c5b9d001c24ab05e0de7ae28f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animate: 0
+  _animationTime: 0.1
+  _onCanvasShown:
+    m_PersistentCalls:
+      m_Calls: []
+  _onCanvasHidden:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &915570926532507960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,6 +1190,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982853961d3463540ad0f9facef73c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animate: 1
+  _animationTime: 0.1
+  _onCanvasShown:
+    m_PersistentCalls:
+      m_Calls: []
+  _onCanvasHidden:
+    m_PersistentCalls:
+      m_Calls: []
   _levelRequest: {fileID: 0}
   _playButton: {fileID: 5643073303855581608}
   _timeConditionContainer: {fileID: 2127798481}
@@ -1947,6 +1963,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16582c5b9d001c24ab05e0de7ae28f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animate: 0
+  _animationTime: 0.1
+  _onCanvasShown:
+    m_PersistentCalls:
+      m_Calls: []
+  _onCanvasHidden:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6304917887426629738
 GameObject:
   m_ObjectHideFlags: 0

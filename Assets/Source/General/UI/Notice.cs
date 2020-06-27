@@ -55,7 +55,7 @@ namespace TilesWalk.General.UI
 		public void Show(float time)
 		{
 			Show();
-			Observable.Timer(TimeSpan.FromSeconds(time)).Subscribe(_ => { }, Hide).AddTo(this);
+			Observable.Timer(TimeSpan.FromSeconds(time)).Subscribe(_ => { }, () => Hide()).AddTo(this);
 		}
 	}
 }

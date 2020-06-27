@@ -34,9 +34,9 @@ namespace TilesWalk.General.UI
 			_no.onClick.AddListener(() => OnCancel?.Invoke());
 			_close.onClick.AddListener(() => OnClose?.Invoke());
 
-			_yes.onClick.AddListener(Hide);
-			_no.onClick.AddListener(Hide);
-			_close.onClick.AddListener(Hide);
+			_yes.onClick.AddListener(() => Hide());
+			_no.onClick.AddListener(() => Hide());
+			_close.onClick.AddListener(() => Hide());
 			return this;
 		}
 
@@ -54,9 +54,9 @@ namespace TilesWalk.General.UI
 			_no.onClick.AddListener(() => OnCancel?.Invoke());
 			_close.onClick.AddListener(() => OnCancel?.Invoke());
 
-			_yes.onClick.AddListener(Hide);
-			_no.onClick.AddListener(Hide);
-			_close.onClick.AddListener(Hide);
+			_yes.onClick.AddListener(() => Hide());
+			_no.onClick.AddListener(() => Hide());
+			_close.onClick.AddListener(() => Hide());
 			return this;
 		}
 
@@ -73,9 +73,9 @@ namespace TilesWalk.General.UI
 			_no.onClick.AddListener(() => OnCancel?.Invoke());
 			_close.onClick.AddListener(() => OnClose?.Invoke());
 
-			_yes.onClick.AddListener(Hide);
-			_no.onClick.AddListener(Hide);
-			_close.onClick.AddListener(Hide);
+			_yes.onClick.AddListener(() => Hide());
+			_no.onClick.AddListener(() => Hide());
+			_close.onClick.AddListener(() => Hide());
 			return this;
 		}
 
@@ -92,9 +92,9 @@ namespace TilesWalk.General.UI
 			_no.onClick.AddListener(() => OnCancel?.Invoke());
 			_close.onClick.AddListener(() => OnCancel?.Invoke());
 
-			_yes.onClick.AddListener(Hide);
-			_no.onClick.AddListener(Hide);
-			_close.onClick.AddListener(Hide);
+			_yes.onClick.AddListener(() => Hide());
+			_no.onClick.AddListener(() => Hide());
+			_close.onClick.AddListener(() => Hide());
 			return this;
 		}
 
@@ -109,9 +109,9 @@ namespace TilesWalk.General.UI
 
 			_yes.onClick.AddListener(() => OnConfirm?.Invoke());
 
-			_yes.onClick.AddListener(Hide);
-			_no.onClick.AddListener(Hide);
-			_close.onClick.AddListener(Hide);
+			_yes.onClick.AddListener(() => Hide());
+			_no.onClick.AddListener(() => Hide());
+			_close.onClick.AddListener(() => Hide());
 			return this;
 		}
 
@@ -127,9 +127,9 @@ namespace TilesWalk.General.UI
 
 			_yes.onClick.AddListener(() => OnConfirm?.Invoke());
 
-			_yes.onClick.AddListener(Hide);
-			_no.onClick.AddListener(Hide);
-			_close.onClick.AddListener(Hide);
+			_yes.onClick.AddListener(() => Hide());
+			_no.onClick.AddListener(() => Hide());
+			_close.onClick.AddListener(() => Hide());
 			return this;
 		}
 	}
