@@ -35,27 +35,22 @@ namespace TilesWalk.Gameplay.Limits.UI
 
 		private void OnLevelMapLoaded(LevelScore score)
 		{
-			try
-			{
-				var condition = _levelFinishTracker.TimeFinishCondition;
-				var start = DateTime.Now;
-				var end = DateTime.Now + TimeSpan.FromSeconds(condition.Limit);
+			var condition = _levelFinishTracker.TimeFinishCondition;
 
-				transform.UpdateAsObservable().SubscribeToText(Component, _ =>
-				{
-					var current = new DateTime((DateTime.Now - start).Ticks);
-					var limit = new DateTime((end - start).Ticks);
-					var currentTime = current.ToString("mm:ss");
-					var limitTime = limit.ToString("mm:ss");
+			if (condition == null) return;
 
-					return current < limit ? $"{currentTime}/{limitTime}" : $"{limitTime}/{limitTime}";
-				}).AddTo(this);
-			}
-			catch (Exception e)
+			var start = DateTime.Now;
+			var end = DateTime.Now + TimeSpan.FromSeconds(condition.Limit);
+
+			transform.UpdateAsObservable().SubscribeToText(Component, _ =>
 			{
-				Console.WriteLine(e);
-				gameObject.SetActive(false);
-			}
+				var current = new DateTime((DateTime.Now - start).Ticks);
+				var limit = new DateTime((end - start).Ticks);
+				var currentTime = current.ToString("mm:ss");
+				var limitTime = limit.ToString("mm:ss");
+
+				return current < limit ? $"{currentTime}/{limitTime}" : $"{limitTime}/{limitTime}";
+			}).AddTo(this);
 		}
 	}
 }

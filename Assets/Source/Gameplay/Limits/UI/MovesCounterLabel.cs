@@ -34,6 +34,9 @@ namespace TilesWalk.Gameplay.Limits.UI
 		private void OnLevelMapLoaded(LevelScore score)
 		{
 			var condition = _levelFinishTracker.MovesFinishCondition;
+
+			if (condition == null) return;
+
 			Component.text = $"{condition.Tracker.Value}/{condition.Limit.Localize()}";
 			condition.Tracker.SubscribeToText(Component, value => $"{value.Localize()}/{condition.Limit.Localize()}")
 				.AddTo(this);

@@ -42,6 +42,13 @@ namespace TilesWalk.Building.LevelEditor.UI
 		private void Awake()
 		{
 			Hide();
+			_solver.InstanceProvider(gameObject);
+
+			if (_solver.Provider.Collection.AvailableMaps.Count >= _solver.Provider.MaximumLevels &&
+			    _solver.Provider.Collection.AvailableMaps.FindIndex(x => x.Id == _bridge.Payload.Level.Id) < 0)
+			{
+				_save.interactable = false;
+			}
 
 			_save.onClick.AsObservable().Subscribe(OnSaveConfirm).AddTo(this);
 			_cancel.onClick.AsObservable().Subscribe(OnCancelSave).AddTo(this);
@@ -55,6 +62,8 @@ namespace TilesWalk.Building.LevelEditor.UI
 
 		public void OnSaveConfirm(Unit u)
 		{
+			if (!_save.interactable) return;
+
 			// check if the name changed
 			if (_tileViewLevelMap.LevelMap.Id != _originalName)
 			{

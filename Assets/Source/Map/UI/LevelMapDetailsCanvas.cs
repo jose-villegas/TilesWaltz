@@ -48,19 +48,19 @@ namespace TilesWalk.Navigation.UI
 					switch (directionButton.Direction)
 					{
 						case CardinalDirection.North:
-							EnterDirection = Vector2.down;
+							EnterDirection = Vector2.down * 3;
 							ExitDirection = -EnterDirection;
 							break;
 						case CardinalDirection.South:
-							EnterDirection = Vector2.up;
+							EnterDirection = Vector2.up * 3;
 							ExitDirection = -EnterDirection;
 							break;
 						case CardinalDirection.East:
-							EnterDirection = Vector2.left;
+							EnterDirection = Vector2.left * 3;
 							ExitDirection = -EnterDirection;
 							break;
 						case CardinalDirection.West:
-							EnterDirection = Vector2.right;
+							EnterDirection = Vector2.right * 3;
 							ExitDirection = -EnterDirection;
 							break;
 					}
@@ -82,7 +82,7 @@ namespace TilesWalk.Navigation.UI
 
 		private void UpdateCanvas(LevelMap map)
 		{
-			_playButton.interactable = _gameScoresHelper.GameStars >= map.StarsRequired;
+			//_playButton.interactable = _gameScoresHelper.GameStars >= map.StarsRequired;
 
 			// prepare the bridge
 			_levelBridge.Payload = new LevelBridgePayload(_levelRequest.Map, _levelRequest.Condition);

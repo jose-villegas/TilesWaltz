@@ -852,7 +852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8777a81ab4dce4e8c0570ca2a6e3a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dragSpeed: 2
+  _dragSpeed: -0.85
 --- !u!1 &1352224048 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3667716818280123408, guid: 7be02a88b20717844b69b43af1e4e891,
