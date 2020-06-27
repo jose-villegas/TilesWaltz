@@ -19,6 +19,8 @@ namespace TilesWalk.General.UI
 		private float _current;
 		private bool _isRunning;
 
+		private Subject<float> _onTargetReached;
+
 		public float AnimationSpeed
 		{
 			get => _animationSpeed;
@@ -29,6 +31,16 @@ namespace TilesWalk.General.UI
 		{
 			get => _current;
 			set => _current = value;
+		}
+
+		private void OnDestroy()
+		{
+			_onTargetReached?.OnCompleted();
+		}
+
+		public IObservable<float> OnTargetReachedAsObservable()
+		{
+			return _onTargetReached = _onTargetReached == null ? new Subject<float>() : _onTargetReached;
 		}
 
 		public void Target(int value)
@@ -84,6 +96,7 @@ namespace TilesWalk.General.UI
 			}
 
 			Component.text = ((int)_target).Localize();
+			_onTargetReached?.OnNext(_target);
 		}
 	}
 }

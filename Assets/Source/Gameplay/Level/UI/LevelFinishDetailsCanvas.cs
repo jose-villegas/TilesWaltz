@@ -33,14 +33,7 @@ namespace TilesWalk.Gameplay.Level.UI
 		[SerializeField] private Button _retry;
 		[SerializeField] private Button _continue;
 
-		private void Start()
-		{
-			// _levelFinishTracker.OnLevelFinishAsObservable().Subscribe(OnLevelFinish).AddTo(this);
-			_continue.onClick.AddListener(_levelScorePointsTracker.SaveScore);
-			_retry.onClick.AddListener(_levelScorePointsTracker.SaveScore);
-		}
-
-		private void OnLevelFinish(LevelScore score)
+		public void OnLevelFinish(LevelScore score)
 		{
 			// points
 			_points.text = score.Points.Last.Localize();
@@ -65,7 +58,6 @@ namespace TilesWalk.Gameplay.Level.UI
 
 				_extraPoints.text = extra.Localize();
 				_totalPoints.text = (score.Points.Last + extra).Localize();
-				_levelScorePointsTracker.AddPoints(extra);
 			}
 		}
 
@@ -81,7 +73,6 @@ namespace TilesWalk.Gameplay.Level.UI
 
 				_extraPoints.text = extra.Localize();
 				_totalPoints.text = (score.Points.Last + extra).Localize();
-				_levelScorePointsTracker.AddPoints(extra);
 			}
 		}
 	}
