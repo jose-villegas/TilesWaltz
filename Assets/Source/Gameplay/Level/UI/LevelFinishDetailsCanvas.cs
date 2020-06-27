@@ -11,6 +11,7 @@ using TilesWalk.Navigation.UI;
 using TMPro;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Zenject;
 
@@ -23,9 +24,9 @@ namespace TilesWalk.Gameplay.Level.UI
 		[Inject] private TileViewLevelMap _levelMap;
 		[Inject] private ScorePointsConfiguration _scorePointsConfiguration;
 
-		[Header("Points")] [SerializeField] private TextMeshProUGUI _points;
-		[SerializeField] private TextMeshProUGUI _extraPoints;
-		[SerializeField] private TextMeshProUGUI _totalPoints;
+		[Header("Points")] [SerializeField] private SlidingNumber _points;
+		[SerializeField] private SlidingNumber _extraPoints;
+		[SerializeField] private SlidingNumber _totalPoints;
 
 		[SerializeField] private TextMeshProUGUI _timeExtra;
 		[SerializeField] private TextMeshProUGUI _movesExtra;
@@ -36,13 +37,15 @@ namespace TilesWalk.Gameplay.Level.UI
 		public void OnLevelFinish(LevelScore score)
 		{
 			// points
-			_points.text = score.Points.Last.Localize();
+			_points.Current = 0;
 
 			// time
 			TimeDetails(score, _levelMap.LevelMap);
 
 			// moves
 			MovesDetail(score, _levelMap.LevelMap);
+
+			_points.Target(score.Points.Last);
 
 			Show();
 		}
@@ -56,8 +59,18 @@ namespace TilesWalk.Gameplay.Level.UI
 
 				var extra = ((limit - target) * _scorePointsConfiguration.PointsPerExtraMove);
 
-				_extraPoints.text = extra.Localize();
-				_totalPoints.text = (score.Points.Last + extra).Localize();
+				_extraPoints.Current = 0;
+				_totalPoints.Current = score.Points.Last;
+
+				_points.OnTargetReachedAsObservable().Subscribe(p =>
+				{
+					_extraPoints.OnTargetReachedAsObservable().Subscribe(e =>
+					{
+						_totalPoints.Target(score.Points.Last + extra);
+					}).AddTo(this);
+					
+					_extraPoints.Target(extra);
+				}).AddTo(this);
 			}
 		}
 
@@ -71,8 +84,18 @@ namespace TilesWalk.Gameplay.Level.UI
 				var extra = Mathf.RoundToInt((float) (limit - target).TotalSeconds) *
 				            _scorePointsConfiguration.PointsPerExtraSecond;
 
-				_extraPoints.text = extra.Localize();
-				_totalPoints.text = (score.Points.Last + extra).Localize();
+				_extraPoints.Current = 0;
+				_totalPoints.Current = score.Points.Last;
+
+				_points.OnTargetReachedAsObservable().Subscribe(p =>
+				{
+					_extraPoints.OnTargetReachedAsObservable().Subscribe(e =>
+					{
+						_totalPoints.Target(score.Points.Last + extra);
+					}).AddTo(this);
+
+					_extraPoints.Target(extra);
+				}).AddTo(this);
 			}
 		}
 	}

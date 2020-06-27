@@ -30,7 +30,11 @@ namespace TilesWalk.General.UI
 		public float Current
 		{
 			get => _current;
-			set => _current = value;
+			set
+			{
+				_current = value;
+				Component.text = ((int)_current).Localize();
+			}
 		}
 
 		private void OnDestroy()
@@ -52,7 +56,7 @@ namespace TilesWalk.General.UI
 		{
 			if (!_isRunning)
 			{
-				Current = _initial;
+				_initial = _current;
 				_target = value;
 				_isRunning = true;
 
@@ -91,11 +95,10 @@ namespace TilesWalk.General.UI
 					}
 				}
 
-				Component.text = ((int) Current).Localize();
 				yield return null;
 			}
 
-			Component.text = ((int)_target).Localize();
+			Current = _target;
 			_onTargetReached?.OnNext(_target);
 		}
 	}

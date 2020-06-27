@@ -26,6 +26,7 @@ namespace TilesWalk.Gameplay.Score.UI
 			if (_useSlidingNumber)
 			{
 				_slidingNumber = gameObject.AddComponent<SlidingNumber>();
+				_slidingNumber.Current = 0;
 			}
 
 			_tileLevelMap

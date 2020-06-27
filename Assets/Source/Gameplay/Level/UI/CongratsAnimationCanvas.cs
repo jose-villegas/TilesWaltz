@@ -74,7 +74,7 @@ namespace TilesWalk.Gameplay.Level.UI
 		{
 			_slider.maxValue = _levelMap.LevelMap.Target;
 			// initialize number at 0
-			_slidingNumber.Component.text = 0.Localize();
+			_slidingNumber.Current = 0;
 
 			// update slider with number
 			_slidingNumber.ObserveEveryValueChanged(x => x.Current).Subscribe(value =>
