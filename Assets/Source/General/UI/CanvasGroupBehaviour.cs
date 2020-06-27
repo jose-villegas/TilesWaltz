@@ -16,15 +16,25 @@ namespace TilesWalk.General.UI
 		[Header("Animation")]
 		[SerializeField] private bool _animate;
 		[SerializeField] private float _animationTime = 0.1f;
+		[SerializeField] private Vector2 _enterDirection = Vector2.up;
+		[SerializeField] private Vector2 _exitDirection = Vector2.down;
 		[Header("Events")]
 		[SerializeField] private UnityEvent _onCanvasShown;
 		[SerializeField] private UnityEvent _onCanvasHidden;
 
 		public bool IsVisible => Component.alpha > 0;
 
-		public Vector2 EnterDirection { get; set; } = Vector2.up;
+		public Vector2 EnterDirection
+		{
+			get => _enterDirection;
+			set => _enterDirection = value;
+		}
 
-		public Vector2 ExitDirection { get; set; } = Vector2.down;
+		public Vector2 ExitDirection
+		{
+			get => _exitDirection;
+			set => _exitDirection = value;
+		}
 
 		private RectTransform Rect
 		{
@@ -43,9 +53,9 @@ namespace TilesWalk.General.UI
 		private Subject<Unit> _onHide;
 		private Subject<Unit> _onShow;
 		private RectTransform _rect;
-		private IEnumerator _showCoroutine;
-		private IEnumerator _hideCouroutine;
+		private IEnumerator _animationCoroutine;
 		private Vector2 _initialAnchor;
+
 
 		private IEnumerator HideAnimation()
 		{
@@ -73,7 +83,7 @@ namespace TilesWalk.General.UI
 
 			_onCanvasHidden?.Invoke();
 			_onHide?.OnNext(new Unit());
-			_hideCouroutine = null;
+			_animationCoroutine = null;
 		}
 
 		private IEnumerator ShowAnimation()
@@ -102,25 +112,25 @@ namespace TilesWalk.General.UI
 
 			_onCanvasShown?.Invoke();
 			_onShow?.OnNext(new Unit());
-			_showCoroutine = null;
+			_animationCoroutine = null;
 		}
 
 		public virtual void Hide()
 		{
 			if (_animate)
 			{
-				if (_hideCouroutine == null)
+				if (_animationCoroutine == null)
 				{
-					_hideCouroutine = HideAnimation();
+					_animationCoroutine = HideAnimation();
 				}
 				else
 				{
-					StopCoroutine(_hideCouroutine);
-					_hideCouroutine = HideAnimation();
+					StopCoroutine(_animationCoroutine);
+					_animationCoroutine = HideAnimation();
 					Rect.anchoredPosition = _initialAnchor;
 				}
 
-				StartCoroutine(_hideCouroutine);
+				StartCoroutine(_animationCoroutine);
 			}
 			else
 			{
@@ -136,20 +146,20 @@ namespace TilesWalk.General.UI
 		{
 			if (_animate)
 			{
-				_showCoroutine = ShowAnimation();
+				_animationCoroutine = ShowAnimation();
 
-				if (_showCoroutine == null)
+				if (_animationCoroutine == null)
 				{
-					_showCoroutine = ShowAnimation();
+					_animationCoroutine = ShowAnimation();
 				}
 				else
 				{
-					StopCoroutine(_showCoroutine);
-					_showCoroutine = ShowAnimation();
+					StopCoroutine(_animationCoroutine);
+					_animationCoroutine = ShowAnimation();
 					Rect.anchoredPosition = _initialAnchor;
 				}
 
-				StartCoroutine(_showCoroutine);
+				StartCoroutine(_animationCoroutine);
 			}
 			else
 			{
@@ -160,6 +170,12 @@ namespace TilesWalk.General.UI
 				_onCanvasShown?.Invoke();
 				_onShow?.OnNext(new Unit());
 			}
+		}
+
+		public void Toggle(bool val)
+		{
+			if (val) Show();
+			else Hide();
 		}
 
 		public IObservable<Unit> OnHideAsObservable()

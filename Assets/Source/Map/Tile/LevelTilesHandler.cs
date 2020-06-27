@@ -17,6 +17,8 @@ namespace TilesWalk.Map.Tile
 	{
 		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
 		[Inject] private MapProviderSolver _solver;
+		[Inject] private GameScoresHelper _gameScoresHelper;
+
 		private ReactiveProperty<int> _readyCount = new ReactiveProperty<int>();
 
 		private Subject<LevelTile[]> _levelTilesMapsReady;
@@ -25,10 +27,7 @@ namespace TilesWalk.Map.Tile
 
 		public LevelTile this[LevelMap map]
 		{
-			get
-			{
-				return LevelTiles.FirstOrDefault(x => x.Map.Value.Id == map.Id);
-			}
+			get { return LevelTiles.FirstOrDefault(x => x.Map.Value.Id == map.Id); }
 		}
 
 		public LevelTile this[int i] => LevelTiles[i];
@@ -67,6 +66,8 @@ namespace TilesWalk.Map.Tile
 		{
 			foreach (var level in LevelTiles)
 			{
+				if (_gameScoresHelper.GameStars < level.Map.Value.StarsRequired) continue;
+
 				if (_solver.Provider.Records.Exist(level.Name.Value, out var score))
 				{
 					if (score.Points.Highest < level.Map.Value.Target)

@@ -45,7 +45,7 @@ namespace TilesWalk.Gameplay.Level.UI
 			// moves
 			MovesDetail(score, _levelMap.LevelMap);
 
-			_points.Target(score.Points.Last);
+			
 
 			Show();
 		}
@@ -60,13 +60,14 @@ namespace TilesWalk.Gameplay.Level.UI
 				var extra = ((limit - target) * _scorePointsConfiguration.PointsPerExtraMove);
 
 				_extraPoints.Current = 0;
-				_totalPoints.Current = score.Points.Last;
+				_totalPoints.Current = score.Points.Last - extra;
+				_points.Target(score.Points.Last - extra);
 
 				_points.OnTargetReachedAsObservable().Subscribe(p =>
 				{
 					_extraPoints.OnTargetReachedAsObservable().Subscribe(e =>
 					{
-						_totalPoints.Target(score.Points.Last + extra);
+						_totalPoints.Target(score.Points.Last);
 					}).AddTo(this);
 					
 					_extraPoints.Target(extra);
@@ -85,13 +86,14 @@ namespace TilesWalk.Gameplay.Level.UI
 				            _scorePointsConfiguration.PointsPerExtraSecond;
 
 				_extraPoints.Current = 0;
-				_totalPoints.Current = score.Points.Last;
+				_totalPoints.Current = score.Points.Last - extra;
+				_points.Target(score.Points.Last - extra);
 
 				_points.OnTargetReachedAsObservable().Subscribe(p =>
 				{
 					_extraPoints.OnTargetReachedAsObservable().Subscribe(e =>
 					{
-						_totalPoints.Target(score.Points.Last + extra);
+						_totalPoints.Target(score.Points.Last);
 					}).AddTo(this);
 
 					_extraPoints.Target(extra);

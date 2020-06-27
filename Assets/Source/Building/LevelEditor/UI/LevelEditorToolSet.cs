@@ -67,16 +67,16 @@ namespace TilesWalk.Building.LevelEditor.UI
 					ActionsCanvas.Hide();
 					break;
 				case State.EditorActions:
-					ActionsCanvas.Show();
+					if (!ActionsCanvas.IsVisible) ActionsCanvas.Show();
 					InsertionCanvas.Hide();
 					break;
 				case State.EditorInsertionTools:
 					ActionsCanvas.Hide();
-					InsertionCanvas.Show();
+					if (!InsertionCanvas.IsVisible) InsertionCanvas.Show();
 					break;
 				case State.EditorActionsAndInsertion:
-					InsertionCanvas.Show();
-					ActionsCanvas.Show();
+					if (!InsertionCanvas.IsVisible) InsertionCanvas.Show();
+					if (!ActionsCanvas.IsVisible) ActionsCanvas.Show();
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(state), state, null);

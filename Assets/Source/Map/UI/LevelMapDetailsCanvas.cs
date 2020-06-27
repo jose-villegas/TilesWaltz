@@ -45,6 +45,27 @@ namespace TilesWalk.Navigation.UI
 
 				directionButton.Button.onClick.AddListener(() =>
 				{
+					switch (directionButton.Direction)
+					{
+						case CardinalDirection.North:
+							EnterDirection = Vector2.down;
+							ExitDirection = -EnterDirection;
+							break;
+						case CardinalDirection.South:
+							EnterDirection = Vector2.up;
+							ExitDirection = -EnterDirection;
+							break;
+						case CardinalDirection.East:
+							EnterDirection = Vector2.left;
+							ExitDirection = -EnterDirection;
+							break;
+						case CardinalDirection.West:
+							EnterDirection = Vector2.right;
+							ExitDirection = -EnterDirection;
+							break;
+					}
+
+
 					var levelTile = _levelTilesHandler[_levelRequest.Map];
 					var neighbor = levelTile[directionButton.Direction];
 

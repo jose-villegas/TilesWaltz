@@ -535,8 +535,88 @@ MonoBehaviour:
       _limit: 60
   _gameLevelsMap:
     Id: Game Map
-    Instructions: []
-    Tiles: 90e60800
+    Instructions:
+    - Tile: 1883486
+      Root: 583312
+      Direction: 2
+      Rule: 1
+    - Tile: 1884140
+      Root: 1883486
+      Direction: 2
+      Rule: 2
+    - Tile: 1884228
+      Root: 1884140
+      Direction: 2
+      Rule: 1
+    - Tile: 1884316
+      Root: 1884228
+      Direction: 2
+      Rule: 1
+    - Tile: 1884412
+      Root: 1884316
+      Direction: 2
+      Rule: 0
+    - Tile: 1884500
+      Root: 1884412
+      Direction: 2
+      Rule: 1
+    - Tile: 1884588
+      Root: 1884500
+      Direction: 2
+      Rule: 1
+    - Tile: 1884708
+      Root: 1884588
+      Direction: 2
+      Rule: 1
+    - Tile: 1888646
+      Root: 583312
+      Direction: 4
+      Rule: 1
+    - Tile: 1890406
+      Root: 1888646
+      Direction: 4
+      Rule: 1
+    - Tile: 1890494
+      Root: 1890406
+      Direction: 4
+      Rule: 1
+    - Tile: 1890582
+      Root: 1890494
+      Direction: 4
+      Rule: 0
+    - Tile: 1890688
+      Root: 1890582
+      Direction: 4
+      Rule: 1
+    - Tile: 1890814
+      Root: 1890688
+      Direction: 4
+      Rule: 2
+    - Tile: 1890906
+      Root: 1890814
+      Direction: 4
+      Rule: 1
+    - Tile: 1891034
+      Root: 1890906
+      Direction: 4
+      Rule: 1
+    Tiles: 90e608005ebd1c00ecbf1c0044c01c009cc01c00fcc01c0054c11c00acc11c0024c21c0086d11c0066d81c00bed81c0016d91c0080d91c00fed91c005ada1c00dada1c00
     MapSize: 0
     TileParameters:
     - Chromosome
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - Trident
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - Holders

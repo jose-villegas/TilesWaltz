@@ -127,6 +127,8 @@ namespace TilesWalk.Building.Editor
 					Selection.activeTransform) as GameObject;
 
 				Debug.Assert(instance != null, nameof(instance) + " != null");
+
+				instance.name = isRegular ? instance.name : foundMap.TileParameters[i];
 				// register the new tile
 				_controllers.Add(instance, new TileController());
 				_indexes.Add(mapTile, instance);
