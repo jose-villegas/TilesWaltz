@@ -30,7 +30,11 @@ namespace TilesWalk.General.UI
 		{
 			get
 			{
-				if (_rect == null) _rect = GetComponent<RectTransform>();
+				if (_rect == null)
+				{
+					_rect = GetComponent<RectTransform>();
+					_initialAnchor = _rect.anchoredPosition;
+				}
 
 				return _rect;
 			}
@@ -39,6 +43,9 @@ namespace TilesWalk.General.UI
 		private Subject<Unit> _onHide;
 		private Subject<Unit> _onShow;
 		private RectTransform _rect;
+		private IEnumerator _showCoroutine;
+		private IEnumerator _hideCouroutine;
+		private Vector2 _initialAnchor;
 
 		private IEnumerator HideAnimation()
 		{
@@ -56,13 +63,17 @@ namespace TilesWalk.General.UI
 				yield return null;
 			}
 
-			Rect.anchoredPosition = src;
+			Rect.anchoredPosition = _initialAnchor;
 
 			Component.alpha = 0;
 			Component.interactable = false;
 			Component.blocksRaycasts = false;
+
+			yield return null;
+
 			_onCanvasHidden?.Invoke();
 			_onHide?.OnNext(new Unit());
+			_hideCouroutine = null;
 		}
 
 		private IEnumerator ShowAnimation()
@@ -81,21 +92,35 @@ namespace TilesWalk.General.UI
 				yield return null;
 			}
 
-			Rect.anchoredPosition = dst;
+			Rect.anchoredPosition = _initialAnchor;
 
 			Component.alpha = 1;
 			Component.interactable = true;
 			Component.blocksRaycasts = true;
 
+			yield return null;
+
 			_onCanvasShown?.Invoke();
 			_onShow?.OnNext(new Unit());
+			_showCoroutine = null;
 		}
 
 		public virtual void Hide()
 		{
 			if (_animate)
 			{
-				StartCoroutine(HideAnimation());
+				if (_hideCouroutine == null)
+				{
+					_hideCouroutine = HideAnimation();
+				}
+				else
+				{
+					StopCoroutine(_hideCouroutine);
+					_hideCouroutine = HideAnimation();
+					Rect.anchoredPosition = _initialAnchor;
+				}
+
+				StartCoroutine(_hideCouroutine);
 			}
 			else
 			{
@@ -111,7 +136,20 @@ namespace TilesWalk.General.UI
 		{
 			if (_animate)
 			{
-				StartCoroutine(ShowAnimation());
+				_showCoroutine = ShowAnimation();
+
+				if (_showCoroutine == null)
+				{
+					_showCoroutine = ShowAnimation();
+				}
+				else
+				{
+					StopCoroutine(_showCoroutine);
+					_showCoroutine = ShowAnimation();
+					Rect.anchoredPosition = _initialAnchor;
+				}
+
+				StartCoroutine(_showCoroutine);
 			}
 			else
 			{

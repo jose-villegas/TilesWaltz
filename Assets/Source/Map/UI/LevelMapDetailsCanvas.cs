@@ -32,7 +32,7 @@ namespace TilesWalk.Navigation.UI
 
 		[Header("Navigation")] [SerializeField]
 		private List<DirectionButton> _directionButtons;
-		 
+
 		public LevelNameRequestHandler LevelRequest => _levelRequest;
 
 		private void Awake()
@@ -47,7 +47,14 @@ namespace TilesWalk.Navigation.UI
 				{
 					var levelTile = _levelTilesHandler[_levelRequest.Map];
 					var neighbor = levelTile[directionButton.Direction];
-					neighbor.OnMapTileClick();
+
+					OnHideAsObservable().Take(1).Subscribe(u =>
+					{
+						neighbor.OnMapTileClick();
+
+					}).AddTo(this);
+		
+					Hide();
 				});
 			}
 		}
