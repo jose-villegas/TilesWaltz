@@ -653,107 +653,99 @@ MonoBehaviour:
   _gameLevelsMap:
     Id: Game Map
     Instructions:
-    - Tile: 1883486
-      Root: 583312
+    - Tile: 379684
+      Root: 375026
+      Direction: 1
+      Rule: 1
+    - Tile: 380338
+      Root: 379684
+      Direction: 1
+      Rule: 0
+    - Tile: 380426
+      Root: 380338
+      Direction: 1
+      Rule: 2
+    - Tile: 380514
+      Root: 380426
+      Direction: 1
+      Rule: 1
+    - Tile: 380618
+      Root: 380514
+      Direction: 1
+      Rule: 1
+    - Tile: 382378
+      Root: 380618
+      Direction: 8
+      Rule: 1
+    - Tile: 388994
+      Root: 375026
       Direction: 2
       Rule: 1
-    - Tile: 1884140
-      Root: 1883486
+    - Tile: 389082
+      Root: 388994
       Direction: 2
       Rule: 2
-    - Tile: 1884228
-      Root: 1884140
-      Direction: 2
-      Rule: 1
-    - Tile: 1884316
-      Root: 1884228
-      Direction: 2
-      Rule: 1
-    - Tile: 1884412
-      Root: 1884316
+    - Tile: 389170
+      Root: 389082
       Direction: 2
       Rule: 0
-    - Tile: 1884500
-      Root: 1884412
+    - Tile: 389286
+      Root: 389170
       Direction: 2
       Rule: 1
-    - Tile: 1884588
-      Root: 1884500
+    - Tile: 389406
+      Root: 389286
       Direction: 2
       Rule: 1
-    - Tile: 1884708
-      Root: 1884588
-      Direction: 2
-      Rule: 1
-    - Tile: 1888646
-      Root: 583312
+    - Tile: 389506
+      Root: 389406
       Direction: 4
       Rule: 1
-    - Tile: 1890406
-      Root: 1888646
-      Direction: 4
-      Rule: 1
-    - Tile: 1890494
-      Root: 1890406
-      Direction: 4
-      Rule: 1
-    - Tile: 1890582
-      Root: 1890494
-      Direction: 4
-      Rule: 0
-    - Tile: 1890688
-      Root: 1890582
-      Direction: 4
-      Rule: 1
-    - Tile: 1890814
-      Root: 1890688
-      Direction: 4
-      Rule: 2
-    - Tile: 1890906
-      Root: 1890814
-      Direction: 4
-      Rule: 1
-    - Tile: 1891034
-      Root: 1890906
-      Direction: 4
-      Rule: 1
-    - Tile: 348752
-      Root: 583312
+    - Tile: 399046
+      Root: 375026
       Direction: 8
       Rule: 1
-    - Tile: 351612
-      Root: 348752
+    - Tile: 401502
+      Root: 399046
       Direction: 8
       Rule: 1
-    - Tile: 351700
-      Root: 351612
+    - Tile: 401602
+      Root: 401502
       Direction: 8
       Rule: 1
-    - Tile: 351800
-      Root: 351700
-      Direction: 8
-      Rule: 2
-    - Tile: 351908
-      Root: 351800
+    - Tile: 405626
+      Root: 401602
       Direction: 8
       Rule: 1
-    - Tile: 352020
-      Root: 351908
+    - Tile: 405714
+      Root: 405626
       Direction: 8
       Rule: 1
-    - Tile: 352108
-      Root: 352020
-      Direction: 2
+    - Tile: 405830
+      Root: 405714
+      Direction: 8
       Rule: 1
-    - Tile: 352196
-      Root: 352108
-      Direction: 2
-      Rule: 2
-    - Tile: 352292
-      Root: 352196
+    - Tile: 415948
+      Root: 375026
       Direction: 4
-      Rule: 2
-    Tiles: 90e608005ebd1c00ecbf1c0044c01c009cc01c00fcc01c0054c11c00acc11c0024c21c0086d11c0066d81c00bed81c0016d91c0080d91c00fed91c005ada1c00dada1c00505205007c5d0500d45d0500385e0500a45e0500145f05006c5f0500c45f050024600500
+      Rule: 1
+    - Tile: 419300
+      Root: 415948
+      Direction: 4
+      Rule: 1
+    - Tile: 419388
+      Root: 419300
+      Direction: 4
+      Rule: 1
+    - Tile: 419476
+      Root: 419388
+      Direction: 4
+      Rule: 1
+    - Tile: 425118
+      Root: 419476
+      Direction: 4
+      Rule: 1
+    Tiles: f2b8050024cb0500b2cd05000ace050062ce0500cace0500aad5050082ef0500daef050032f00500a6f005001ef1050082f10500c61606005e200600c22006007a300600d230060046310600cc580600e46506003c660600946606009e7c0600
     MapSize: 0
     TileParameters:
     - Chromosome
@@ -762,11 +754,13 @@ MonoBehaviour:
     - 
     - 
     - 
+    - Columns
     - 
     - 
-    - Trident
     - 
     - 
+    - 
+    - S
     - 
     - 
     - 
@@ -777,8 +771,4 @@ MonoBehaviour:
     - 
     - 
     - 
-    - 
-    - 
-    - 
-    - 
-    - 
+    - Trident
