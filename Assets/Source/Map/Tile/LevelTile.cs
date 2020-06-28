@@ -4,6 +4,7 @@ using System.Linq;
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.General;
+using TilesWalk.General.FX;
 using TilesWalk.Map.Bridge;
 using TilesWalk.Map.Scaffolding;
 using TilesWalk.Navigation.UI;
@@ -24,10 +25,13 @@ namespace TilesWalk.Map.Tile
 		[SerializeField] private Color _toCompleteColor;
 		[SerializeField] private Color _completedColor;
 
+		private ParticleSystemsCollector _particleSystems;
+
 		public ReactiveProperty<string> Name { get; } = new ReactiveProperty<string>();
 		public ReactiveProperty<LevelMap> Map { get; } = new ReactiveProperty<LevelMap>();
 
-		private Dictionary<string, ParticleSystem> _particleFx;
+		public List<LevelTileLink> Links => _links;
+
 		private Subject<LevelTile> _onLevelTileClick;
 
 		public LevelTile this[CardinalDirection direction]
@@ -121,13 +125,7 @@ namespace TilesWalk.Map.Tile
 
 		private void Start()
 		{
-			_particleFx = new Dictionary<string, ParticleSystem>();
-			var particles = GetComponentsInChildren<ParticleSystem>();
-
-			foreach (var particle in particles)
-			{
-				_particleFx[particle.name] = particle;
-			}
+			_particleSystems = gameObject.AddComponent<ParticleSystemsCollector>();
 
 			_detailsCanvas.LevelRequest.Name.Subscribe(mapName =>
 			{
@@ -135,18 +133,18 @@ namespace TilesWalk.Map.Tile
 				{
 					if (!_gameScoresHelper.IsCompleted(Map.Value))
 					{
-						_particleFx["Completed"].Stop();
-						_particleFx["ToComplete"].Play();
+						_particleSystems["Completed"].Stop();
+						_particleSystems["ToComplete"].Play();
 					}
 					else
 					{
-						_particleFx["Completed"].Play();
-						_particleFx["ToComplete"].Stop();
+						_particleSystems["Completed"].Play();
+						_particleSystems["ToComplete"].Stop();
 					}
 				}
 				else
 				{
-					_particleFx.Values.ToList().ForEach(system => system.Stop());
+					_particleSystems.StopAll();
 				}
 			}).AddTo(this);
 

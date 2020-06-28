@@ -201,7 +201,7 @@ MonoBehaviour:
         Rule: 1
       Tiles: 00000000d0f2f8ffaaf2f8ff80f2f8ff5af2f8ff30f2f8ff06f2f8ffdcf1f8ffb6f1f8ff8cf1f8ff66f1f8ff0ef1f8ffe8f0f8ffbef0f8ff98f0f8ffdeeff8ffb8eff8ff8eeff8ff68eff8ff
       MapSize: 3
-      StarsRequired: 2
+      StarsRequired: 3
       Target: 2000
       FinishCondition: 1
     - Id: Columns
@@ -348,7 +348,7 @@ MonoBehaviour:
         Rule: 1
       Tiles: 00000000e8eaf8ffc2eaf8ff9ceaf8ff76eaf8ff50eaf8ff22eaf8fffce9f8ffd6e9f8ffb0e9f8ff8ae9f8ff64e9f8ff3ae9f8ff10e9f8ffe6e8f8ffc0e8f8ff96e8f8ff70e8f8ff46e8f8ff20e8f8fffae7f8ffd0e7f8ffaae7f8ff84e7f8fff8e6f8ffcae6f8ffa4e6f8ff7ae6f8ff54e6f8ff2ee6f8ffd4e5f8ffaee5f8ff88e5f8ff5ae5f8ff34e5f8ff0ee5f8ff
       MapSize: 5
-      StarsRequired: 5
+      StarsRequired: 8
       Target: 2800
       FinishCondition: 0
     - Id: S
@@ -506,7 +506,7 @@ MonoBehaviour:
         Rule: 1
       Tiles: 00000000e2e5fbffbce5fbff96e5fbff70e5fbff4ae5fbff24e5fbfffee4fbffd8e4fbffaee4fbff88e4fbff62e4fbff3ce4fbff12e4fbffe8e3fbffbee3fbff98e3fbff72e3fbff48e3fbff22e3fbfffce2fbff78e2fbff38e2fbff
       MapSize: 3
-      StarsRequired: 2
+      StarsRequired: 5
       Target: 2800
       FinishCondition: 0
     - Id: Lil Wind

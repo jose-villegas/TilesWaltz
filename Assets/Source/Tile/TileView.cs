@@ -9,6 +9,7 @@ using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Display;
 using TilesWalk.General;
+using TilesWalk.General.FX;
 using TilesWalk.Tile.Rules;
 using UniRx;
 using UniRx.Triggers;
@@ -27,6 +28,7 @@ namespace TilesWalk.Tile
 
 		private MeshRenderer _meshRenderer;
 		private BoxCollider _collider;
+		private ParticleSystemsCollector _particleSystems;
 
 		public static bool MovementLocked 
 		{ 
@@ -91,7 +93,7 @@ namespace TilesWalk.Tile
 			}
 
 			// Fetch FX particle system in children
-			FetchParticleSystems();
+			_particleSystems = gameObject.AddComponent<ParticleSystemsCollector>();
 			// This small optimization enables us to share the material per color
 			// instead of creating a new instance per every tile that tries to
 			// change its color

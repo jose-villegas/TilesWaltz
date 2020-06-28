@@ -52,7 +52,7 @@ namespace TilesWalk.Tile
 			if (shufflePath == null || shufflePath.Count <= 0) return;
 
 			// play removal fx
-			_particleFx["Remove"].Play();
+			_particleSystems["Remove"].Play();
 
 			var tiles = shufflePath.Select(x => _tileLevelMap.GetTileView(x)).ToList();
 			// this structure with backup the origin position and rotations
@@ -66,16 +66,20 @@ namespace TilesWalk.Tile
 
 			_audioCollection.Play(GameAudioType.Sound, "Shuffle");
 			MainThreadDispatcher.StartUpdateMicroCoroutine(ShuffleMoveAnimation(tiles, backup));
-			Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ShuffleMoveTime)).Subscribe(_ => { }, () =>
-			{
-				lastTile._particleFx["PopIn"].Play();
-				MainThreadDispatcher.StartUpdateMicroCoroutine(lastTile.ScalePopInAnimation(scale));
-				Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime)).Subscribe(_ => { }, () =>
+			Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ShuffleMoveTime))
+				.DelayFrame(1)
+				.Subscribe(_ => { }, () =>
 				{
-					MovementLocked = false;
-					_onTileRemoved?.OnNext(shufflePath);
+					lastTile._particleSystems["PopIn"].Play();
+					MainThreadDispatcher.StartUpdateMicroCoroutine(lastTile.ScalePopInAnimation(scale));
+					Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
+						.DelayFrame(1)
+						.Subscribe(_ => { }, () =>
+						{
+							MovementLocked = false;
+							_onTileRemoved?.OnNext(shufflePath);
+						}).AddTo(this);
 				}).AddTo(this);
-			}).AddTo(this);
 		}
 
 		[Button]
@@ -106,24 +110,29 @@ namespace TilesWalk.Tile
 
 				_audioCollection.Play(GameAudioType.Sound, "Combo");
 				MainThreadDispatcher.StartUpdateMicroCoroutine(tileView.ScalePopInAnimation(Vector3.zero));
-				Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime)).Subscribe(_ => { }, () =>
-				{
-					if (index == shufflePath.Count - 1)
-					{
-						tileView.Controller.RemoveCombo();
-					}
-
-					tileView._particleFx["PopIn"].Play();
-					MainThreadDispatcher.StartUpdateMicroCoroutine(tileView.ScalePopInAnimation(sourceScale));
-					Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime)).Subscribe(_ => { }, () =>
+				Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
+					.DelayFrame(1)
+					.Subscribe(_ => { }, () =>
 					{
 						if (index == shufflePath.Count - 1)
 						{
-							MovementLocked = false;
-							_onComboRemoval?.OnNext(shufflePath);
+							tileView.Controller.RemoveCombo();
 						}
+
+						tileView._particleSystems["PopIn"].Play();
+						MainThreadDispatcher.StartUpdateMicroCoroutine(tileView.ScalePopInAnimation(sourceScale));
+						Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
+							.DelayFrame(1)
+							.Subscribe(_ => { },
+								() =>
+								{
+									if (index == shufflePath.Count - 1)
+									{
+										MovementLocked = false;
+										_onComboRemoval?.OnNext(shufflePath);
+									}
+								}).AddTo(this);
 					}).AddTo(this);
-				}).AddTo(this);
 			}
 		}
 	}

@@ -7,8 +7,10 @@ using TilesWalk.Gameplay.Persistence;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.Map.General;
 using TilesWalk.Navigation.UI;
+using TMPro;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine;
 using Zenject;
 
 namespace TilesWalk.Map.Tile
@@ -32,7 +34,7 @@ namespace TilesWalk.Map.Tile
 
 		public LevelTile this[int i] => LevelTiles[i];
 
-		private void Start()
+		private void Awake()
 		{
 			_solver.InstanceProvider(gameObject);
 
@@ -58,8 +60,38 @@ namespace TilesWalk.Map.Tile
 				{
 					_levelTilesMapsReady?.OnNext(LevelTiles);
 					ShowNextLevelDetails();
+					HandleAnimations();
 				}
 			}).AddTo(this);
+		}
+
+		private void HandleAnimations()
+		{
+			foreach (var levelTile in LevelTiles)
+			{
+				var links = levelTile.Links;
+
+				if (links == null || links.Count == 0) continue;
+
+				foreach (var levelTileLink in links)
+				{
+					// this link is blocked by requirements, animate as such
+					if (levelTileLink.Level.Map.Value.StarsRequired > _gameScoresHelper.GameStars)
+					{
+						for (int i = 0; i < levelTileLink.Path.Count; i++)
+						{
+							var animator = levelTileLink.Path[i].GetComponent<Animator>();
+
+							if (animator != null)
+							{
+								animator.enabled = true;
+								animator.SetFloat("OffsetBlockedPath", (float) (i + 1) / levelTileLink.Path.Count);
+								animator.SetBool("IsBlocked", true);
+							}
+						}
+					}
+				}
+			}
 		}
 
 		private void ShowNextLevelDetails()

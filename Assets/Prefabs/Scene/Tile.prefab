@@ -553,6 +553,7 @@ GameObject:
   - component: {fileID: 6458534633450095524}
   - component: {fileID: 6458534633450095525}
   - component: {fileID: 6458534633450095526}
+  - component: {fileID: 3380873566190061887}
   m_Layer: 10
   m_Name: Tile
   m_TagString: Untagged
@@ -636,6 +637,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &3380873566190061887
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6458534633450095527}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 61387595c2843d840bc97574d9442ffe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6577930808030856612
 GameObject:
   m_ObjectHideFlags: 0
