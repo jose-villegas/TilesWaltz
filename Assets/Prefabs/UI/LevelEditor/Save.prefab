@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1562328957391347388}
   - component: {fileID: 1002171752520343672}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Actions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 4228971913984613300}
   - component: {fileID: 4524459697150987414}
   - component: {fileID: 4743869311617780276}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 1073431604041630413}
   - component: {fileID: 3448385656064849651}
   - component: {fileID: 3448385656064849650}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Save
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,6 +320,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 630a5a1792b4ee140a2edf4184d76872, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animate: 0
+  _animationTime: 0.1
+  _enterDirection: {x: 0, y: 1}
+  _exitDirection: {x: 0, y: -1}
+  _onCanvasShown:
+    m_PersistentCalls:
+      m_Calls: []
+  _onCanvasHidden:
+    m_PersistentCalls:
+      m_Calls: []
   _titleField: {fileID: 1112142648285373385}
   _targetPointsField: {fileID: 1807285871699223508}
   _movesToggle: {fileID: 1139571774023398241}
@@ -338,7 +348,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1375148433018378770}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -377,7 +387,7 @@ GameObject:
   - component: {fileID: 5554826344290864605}
   - component: {fileID: 384751849796618811}
   - component: {fileID: 8372199390942744876}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Options
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +464,7 @@ GameObject:
   - component: {fileID: 1138507722108649244}
   - component: {fileID: 5276447187081125136}
   - component: {fileID: 3415134024269074274}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -608,7 +618,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8768673094360473401}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Condition
   m_TagString: Untagged
   m_Icon: {fileID: 0}

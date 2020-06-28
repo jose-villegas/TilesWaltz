@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6206239517211117728}
   - component: {fileID: 2034457551765079183}
   - component: {fileID: 451976696177927339}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Error
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 3230682287182296629}
   - component: {fileID: 6049635104911665470}
   - component: {fileID: 6233299699733473673}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Warning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 2439799583626615802}
   - component: {fileID: 1195950457646602431}
   - component: {fileID: 6965657732443656658}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Notice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,6 +282,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebec935d5c06dff47b3238fb8227d69a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animate: 0
+  _animationTime: 0.1
+  _enterDirection: {x: 0, y: 1}
+  _exitDirection: {x: 0, y: 1}
+  _onCanvasShown:
+    m_PersistentCalls:
+      m_Calls: []
+  _onCanvasHidden:
+    m_PersistentCalls:
+      m_Calls: []
   _content: {fileID: 5893807951793744718}
   _panel: {fileID: 2439799583626615802}
   _message: {fileID: 7466185848064383196}
@@ -299,7 +309,7 @@ GameObject:
   - component: {fileID: 3916066809509164173}
   - component: {fileID: 7466185848064383196}
   - component: {fileID: 8803833199152463885}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,8 +397,8 @@ GameObject:
   - component: {fileID: 6129209359454803057}
   - component: {fileID: 667990014343273335}
   - component: {fileID: 5893807951793744718}
-  m_Layer: 0
-  m_Name: Text (TMP)
+  m_Layer: 31
+  m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

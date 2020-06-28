@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1823923402116499650}
   - component: {fileID: 5849294023563880063}
   - component: {fileID: 827494404524092275}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Completed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4854,7 +4854,7 @@ GameObject:
   - component: {fileID: 2678513561849888958}
   - component: {fileID: 2645413166089130785}
   - component: {fileID: 5358241240600318209}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ToComplete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9607,7 +9607,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1782906905635254893}
   - component: {fileID: 3638524560124779930}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LevelTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9656,7 +9656,7 @@ GameObject:
   - component: {fileID: 8945735414064226991}
   - component: {fileID: 7065465916232634172}
   - component: {fileID: 3192542431445619729}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LevelTile(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9813,7 +9813,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 549506425
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &8046227245122914940
@@ -9881,10 +9881,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8638118058313658461}
     m_Modifications:
+    - target: {fileID: 590557780465833365, guid: b007564f4acc02042a06fc453fc56cfc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1707470462350733270, guid: b007564f4acc02042a06fc453fc56cfc,
         type: 3}
       propertyPath: m_Name
       value: Stars
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707470462350733270, guid: b007564f4acc02042a06fc453fc56cfc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1707470462350733271, guid: b007564f4acc02042a06fc453fc56cfc,
         type: 3}
@@ -9991,6 +10001,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1707470462452482485, guid: b007564f4acc02042a06fc453fc56cfc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1707470462452482486, guid: b007564f4acc02042a06fc453fc56cfc,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -10020,6 +10035,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707470462928384003, guid: b007564f4acc02042a06fc453fc56cfc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1707470462928384004, guid: b007564f4acc02042a06fc453fc56cfc,
         type: 3}

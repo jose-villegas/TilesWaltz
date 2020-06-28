@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1310013452540960092}
   - component: {fileID: 3231732284566649750}
   - component: {fileID: 4426921912008109361}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: AwardToggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 5565999584021373057}
   - component: {fileID: 6302749814268152648}
   - component: {fileID: 6169674903938639884}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Award
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 1699082091442006069}
   - component: {fileID: 8990344294387664550}
   - component: {fileID: 2066125616360218518}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Award (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 2596813735249160750}
   - component: {fileID: 1317006698024173833}
   - component: {fileID: 6595653706205137308}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Rays
   m_TagString: Untagged
   m_Icon: {fileID: 0}

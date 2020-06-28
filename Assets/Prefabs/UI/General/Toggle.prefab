@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2847163801086366820}
   - component: {fileID: 392413450541327749}
   - component: {fileID: 2381232208185877199}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Checkmark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.34509805, g: 0.69411767, b: 0.62352943, a: 1}
+  m_Color: {r: 0.46666667, g: 0.8666667, b: 0.46666667, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: 4
-  _color: {r: 0.34509805, g: 0.69411767, b: 0.62352943, a: 1}
+  _color: {r: 0.46666667, g: 0.8666667, b: 0.46666667, a: 1}
 --- !u!1 &5003392596181452749
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 5048443701702720746}
   - component: {fileID: 647276659651163083}
   - component: {fileID: 9075078811555778267}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 5799989697675918903}
   - component: {fileID: 9055673419875340092}
   - component: {fileID: 7687953469495128031}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6039216, g: 0.9254902, b: 0.85882354, a: 1}
+  m_Color: {r: 0.95686275, g: 0.6039216, b: 0.7607843, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -283,7 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: 11
-  _color: {r: 0.6039216, g: 0.9254902, b: 0.85882354, a: 1}
+  _color: {r: 0.95686275, g: 0.6039216, b: 0.7607843, a: 1}
 --- !u!1 &7151256978864168156
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 2522672963433198198}
   - component: {fileID: 319930783805268774}
   - component: {fileID: 1050437009621346958}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4291351498
-  m_fontColor: {r: 0.7921569, g: 0.827451, b: 0.78431374, a: 1}
+  m_fontColor: {r: 0.95, g: 0.95, b: 0.9098039, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -454,4 +454,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: 0
-  _color: {r: 0.7921569, g: 0.827451, b: 0.78431374, a: 1}
+  _color: {r: 0.95, g: 0.95, b: 0.9098039, a: 1}

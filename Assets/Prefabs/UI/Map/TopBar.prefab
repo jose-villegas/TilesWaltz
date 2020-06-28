@@ -936,6 +936,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animate: 1
   _animationTime: 0.1
+  _enterDirection: {x: 0, y: 1}
+  _exitDirection: {x: 0, y: -1}
   _onCanvasShown:
     m_PersistentCalls:
       m_Calls: []

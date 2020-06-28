@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 6118499810226442956}
   - component: {fileID: 7917713492650963566}
   - component: {fileID: 8464411868363704295}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4291351498
-  m_fontColor: {r: 0.7921569, g: 0.827451, b: 0.78431374, a: 1}
+  m_fontColor: {r: 0.95, g: 0.95, b: 0.9098039, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: 0
-  _color: {r: 0.7921569, g: 0.827451, b: 0.78431374, a: 1}
+  _color: {r: 0.95, g: 0.95, b: 0.9098039, a: 1}
 --- !u!1 &6190369629298653155
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 5877732044023310570}
   - component: {fileID: 6679966532275603436}
   - component: {fileID: 3743198529721296795}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PopUpTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: 4
-  _color: {r: 0.34509805, g: 0.69411767, b: 0.62352943, a: 1}
+  _color: {r: 0.46666667, g: 0.8666667, b: 0.46666667, a: 1}
 --- !u!1001 &753069845503645047
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -436,17 +436,17 @@ PrefabInstance:
     - target: {fileID: 5407353773590922091, guid: c1351e5c05d990c4eb75eb68a424bd90,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.34509805
+      value: 0.46666667
       objectReference: {fileID: 0}
     - target: {fileID: 5407353773590922091, guid: c1351e5c05d990c4eb75eb68a424bd90,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.69411767
+      value: 0.8666667
       objectReference: {fileID: 0}
     - target: {fileID: 5407353773590922091, guid: c1351e5c05d990c4eb75eb68a424bd90,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.62352943
+      value: 0.46666667
       objectReference: {fileID: 0}
     - target: {fileID: 6449650558708273360, guid: c1351e5c05d990c4eb75eb68a424bd90,
         type: 3}

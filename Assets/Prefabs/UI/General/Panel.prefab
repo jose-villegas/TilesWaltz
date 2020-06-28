@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6670475538918905113}
   - component: {fileID: 3386180070534910581}
   - component: {fileID: 4718896513576927647}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09411765, g: 0.17254902, b: 0.38039216, a: 1}
+  m_Color: {r: 0.21893913, g: 0.3010825, b: 0.3773585, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -88,4 +88,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: 8
-  _color: {r: 0.09411765, g: 0.17254902, b: 0.38039216, a: 1}
+  _color: {r: 0.21893913, g: 0.3010825, b: 0.3773585, a: 1}

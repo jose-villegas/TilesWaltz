@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5299816711714317797}
   - component: {fileID: 6420550505642735101}
   - component: {fileID: 2135973553002977973}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 8803042350727791703}
   - component: {fileID: 9183062404827415584}
   - component: {fileID: 7129352289663580478}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 717586341508716279}
   - component: {fileID: 7383549661101163805}
   - component: {fileID: 697897872787533129}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Tab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

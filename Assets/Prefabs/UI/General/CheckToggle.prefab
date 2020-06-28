@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7124261488929003809}
   - component: {fileID: 5307633842139631024}
   - component: {fileID: 1600228076868571288}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CheckToggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 361638819395080375}
   - component: {fileID: 5244907788824104700}
   - component: {fileID: 1293160616359257046}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}

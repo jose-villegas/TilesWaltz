@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 790861667536959202}
   - component: {fileID: 462732927388120002}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Details
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 8061890963873779021}
   - component: {fileID: 488150994214838432}
   - component: {fileID: 5573163877957676358}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TMP SubMeshUI [Font Awesome 5 Free-Solid-900 SDF Material + LiberationSans
     SDF Atlas]
   m_TagString: Untagged
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 5368170975481670993}
   - component: {fileID: 5368635413620056706}
   - component: {fileID: 9149146404005581302}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,10 +172,10 @@ RectTransform:
   m_Father: {fileID: 5657794104536770043}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 38.055, y: -41}
-  m_SizeDelta: {x: 76.11, y: 82}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5368170975481670993
 CanvasRenderer:
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 1892718082903890568}
   - component: {fileID: 7293569320940980331}
   - component: {fileID: 4047356661207132826}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Limit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -531,7 +531,7 @@ GameObject:
   - component: {fileID: 2320767240252092497}
   - component: {fileID: 9012385297509260888}
   - component: {fileID: 5194101707216712895}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -715,7 +715,7 @@ GameObject:
   - component: {fileID: 847950159220369056}
   - component: {fileID: 1901535704796075757}
   - component: {fileID: 365946460486221770}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -805,7 +805,7 @@ GameObject:
   - component: {fileID: 7046969877103965807}
   - component: {fileID: 2388019365657668723}
   - component: {fileID: 5665584467061027744}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Limit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -989,7 +989,7 @@ GameObject:
   - component: {fileID: 2293761805527113741}
   - component: {fileID: 6674418235575522412}
   - component: {fileID: 3989792820606188715}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Extra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1172,7 +1172,7 @@ GameObject:
   - component: {fileID: 8663602067864944309}
   - component: {fileID: 2641352164103416024}
   - component: {fileID: 6265335428266204339}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1259,7 +1259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 760530493336404488}
   - component: {fileID: 7043724153551748902}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Details
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1375,7 +1375,7 @@ GameObject:
   - component: {fileID: 4150396540983414098}
   - component: {fileID: 4150396540983414100}
   - component: {fileID: 4150396540983414099}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LevelFinish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1429,6 +1429,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animate: 0
   _animationTime: 0.1
+  _enterDirection: {x: 0, y: 1}
+  _exitDirection: {x: 0, y: -1}
   _onCanvasShown:
     m_PersistentCalls:
       m_Calls:
@@ -1475,7 +1477,7 @@ GameObject:
   - component: {fileID: 4150396541283384002}
   - component: {fileID: 4150396541283384004}
   - component: {fileID: 4150396541283384005}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Actions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1548,7 +1550,7 @@ GameObject:
   - component: {fileID: 4150396541626185529}
   - component: {fileID: 4150396541626185528}
   - component: {fileID: 5518225527989779105}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1720,7 +1722,7 @@ GameObject:
   - component: {fileID: 4150396541861911468}
   - component: {fileID: 4150396541861911467}
   - component: {fileID: 4566048923267764146}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1890,7 +1892,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4150396541862494334}
   - component: {fileID: 4150396541862494335}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1953,7 +1955,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4150396542491279357}
   - component: {fileID: 4150396542491279358}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Moves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2018,7 +2020,7 @@ GameObject:
   - component: {fileID: 627816305089151298}
   - component: {fileID: 7052383286707609792}
   - component: {fileID: 7531816838193837691}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2190,7 +2192,7 @@ GameObject:
   - component: {fileID: 6534909013469625583}
   - component: {fileID: 5965638373922612795}
   - component: {fileID: 1166372978713204876}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2346,7 +2348,7 @@ GameObject:
   - component: {fileID: 282993545890763471}
   - component: {fileID: 7762495539206152330}
   - component: {fileID: 9146782191167899978}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2423,6 +2425,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: 4
   _color: {r: 0.46666667, g: 0.8666667, b: 0.46666667, a: 1}
+--- !u!225 &3822530559480813397
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4785484300280865548}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!95 &8604944741322957112
 Animator:
   serializedVersion: 3
@@ -2442,18 +2456,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!225 &3822530559480813397
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4785484300280865548}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!114 &4964872123780257735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2468,6 +2470,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animate: 1
   _animationTime: 0.1
+  _enterDirection: {x: 0, y: 1}
+  _exitDirection: {x: 0, y: -1}
   _onCanvasShown:
     m_PersistentCalls:
       m_Calls: []
@@ -2486,7 +2490,7 @@ GameObject:
   - component: {fileID: 1930268686744138483}
   - component: {fileID: 938368824237002345}
   - component: {fileID: 4665279845576222903}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2691,7 +2695,7 @@ GameObject:
   - component: {fileID: 8584765203052352947}
   - component: {fileID: 4628817426580743711}
   - component: {fileID: 2811831428934751447}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TMP SubMeshUI [Font Awesome 5 Free-Solid-900 SDF Material + LiberationSans
     SDF Atlas]
   m_TagString: Untagged
@@ -2764,7 +2768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5657794104536770043}
   - component: {fileID: 8573737739592668753}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ExtraPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2830,7 +2834,7 @@ GameObject:
   - component: {fileID: 9032020255445312996}
   - component: {fileID: 176876605718629943}
   - component: {fileID: 4420416473058068863}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3014,7 +3018,7 @@ GameObject:
   - component: {fileID: 3109373484558522795}
   - component: {fileID: 8891432780488088416}
   - component: {fileID: 397664937191508496}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Separator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3186,7 +3190,7 @@ GameObject:
   - component: {fileID: 8743122589110102751}
   - component: {fileID: 7112935771185637913}
   - component: {fileID: 5116184717187980775}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3207,10 +3211,10 @@ RectTransform:
   m_Father: {fileID: 5657794104536770043}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 106.055, y: -41}
-  m_SizeDelta: {x: 59.89, y: 82}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8414773930252247516
 CanvasRenderer:
@@ -3384,7 +3388,7 @@ GameObject:
   - component: {fileID: 6523349125457514258}
   - component: {fileID: 8584273936169658340}
   - component: {fileID: 7728884309410558807}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3486,7 +3490,7 @@ GameObject:
   - component: {fileID: 99372079328842491}
   - component: {fileID: 5374659525161068405}
   - component: {fileID: 3681553867265688859}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3671,7 +3675,7 @@ GameObject:
   - component: {fileID: 8897994417638493108}
   - component: {fileID: 3852432875340037109}
   - component: {fileID: 7838225585347644317}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Extra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3854,7 +3858,7 @@ GameObject:
   - component: {fileID: 3104705309703636405}
   - component: {fileID: 2838794298693571225}
   - component: {fileID: 204030284734788184}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Separator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4025,7 +4029,7 @@ GameObject:
   - component: {fileID: 3003789327381911602}
   - component: {fileID: 4632106276081045616}
   - component: {fileID: 1394937716256292619}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4152,7 +4156,7 @@ GameObject:
   - component: {fileID: 2088769041259622857}
   - component: {fileID: 4861567860952933369}
   - component: {fileID: 5309553214890541022}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}

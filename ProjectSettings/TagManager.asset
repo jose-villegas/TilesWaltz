@@ -16,6 +16,9 @@ TagManager:
   - 
   - 
   - Background
+  - Foreground
+  - Render
+  - BackgroundRender
   - 
   - 
   - 
@@ -35,11 +38,17 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Overlay
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: WorldViewUI
+    uniqueID: 549506425
+    locked: 0
+  - name: Foreground
+    uniqueID: 488377505
+    locked: 0
+  - name: FlatUI
+    uniqueID: 271553789
     locked: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6458534633450095524}
   - component: {fileID: 6458534633450095525}
   - component: {fileID: 6458534633450095526}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +107,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Remove
       objectReference: {fileID: 0}
+    - target: {fileID: 2854760300146959571, guid: c49d424baf6476640b8b529af1b14a73,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7772112817600986193, guid: c49d424baf6476640b8b529af1b14a73,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -181,6 +186,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PopIn
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978085250440585082, guid: 43bf2ef0bdc5fa345bc5582ac3640d47,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8468976694533933942, guid: 43bf2ef0bdc5fa345bc5582ac3640d47,
         type: 3}
