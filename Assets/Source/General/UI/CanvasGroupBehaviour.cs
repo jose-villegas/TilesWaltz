@@ -24,11 +24,18 @@ namespace TilesWalk.General.UI
 
 		public bool IsVisible => Component.alpha > 0;
 
+		public bool Animated
+		{
+			get => _animate;
+			set => _animate = value;
+		}
+
 		public Vector2 EnterDirection
 		{
 			get => _enterDirection;
 			set => _enterDirection = value;
 		}
+
 
 		public Vector2 ExitDirection
 		{
@@ -55,7 +62,6 @@ namespace TilesWalk.General.UI
 		private RectTransform _rect;
 		private IEnumerator _animationCoroutine;
 		private Vector2 _initialAnchor;
-
 
 		private IEnumerator HideAnimation()
 		{

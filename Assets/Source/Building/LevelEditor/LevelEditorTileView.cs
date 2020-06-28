@@ -28,6 +28,7 @@ namespace TilesWalk.Building.LevelEditor
 
 		private NeighborWalkRule _currentRule = NeighborWalkRule.Plain;
 		private CardinalDirection _currentDirection = CardinalDirection.None;
+		private CanvasGroupBehaviour _guides;
 
 		public BoolReactiveProperty IsSelected { get; } = new BoolReactiveProperty();
 		public bool IsGhost { get; private set; } = false;
@@ -42,9 +43,13 @@ namespace TilesWalk.Building.LevelEditor
 
 		protected override void Start()
 		{
+			_guides = GetComponentInChildren<CanvasGroupBehaviour>(true);
+			_guides.Hide();
+
 			if (IsGhost) return;
 
 			base.Start();
+
 			MovementLocked = true;
 			Renderer.material = IsGhost ? _levelEditorToolSet.GhostMaterial : _levelEditorToolSet.EditorTileMaterial;
 
@@ -214,6 +219,8 @@ namespace TilesWalk.Building.LevelEditor
 			{
 				// update buttons interaction
 				_levelEditorToolSet.InsertionCanvas.UpdateButtons(this);
+				_guides.gameObject.SetActive(true);
+				_guides.Show();
 
 				// set outline for this tile
 				var newMaterials = new[]
@@ -228,6 +235,7 @@ namespace TilesWalk.Building.LevelEditor
 			}
 			else
 			{
+				_guides.Hide();
 				if (Renderer.materials.Length > 1)
 				{
 					Renderer.materials = new[] {_levelEditorToolSet.EditorTileMaterial};
