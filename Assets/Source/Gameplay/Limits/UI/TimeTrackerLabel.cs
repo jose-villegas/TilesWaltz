@@ -23,14 +23,7 @@ namespace TilesWalk.Gameplay.Limits.UI
 
 		private void Awake()
 		{
-			_tileLevelMap
-				.OnLevelMapLoadedAsObservable()
-				.Subscribe(map =>
-				{
-					if (map.FinishCondition != FinishCondition.TimeLimit) return;
-
-					_levelFinishTracker.OnTrackersSetupFinishAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
-				}).AddTo(this);
+			_levelFinishTracker.OnTrackersSetupFinishAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
 		}
 
 		private void OnLevelMapLoaded(LevelScore score)

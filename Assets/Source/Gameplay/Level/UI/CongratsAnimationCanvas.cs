@@ -26,8 +26,7 @@ namespace TilesWalk.Gameplay.Level.UI
 
 		[SerializeField] private LevelFinishDetailsCanvas _detailsCanvas;
 
-		[Header("Points")]
-		[SerializeField] private SlidingNumber _slidingNumber;
+		[Header("Points")] [SerializeField] private SlidingNumber _slidingNumber;
 		[SerializeField] private Slider _slider;
 		[SerializeField] private Button _retry;
 		[SerializeField] private Button _summary;
@@ -143,14 +142,17 @@ namespace TilesWalk.Gameplay.Level.UI
 
 			_animator.SetTrigger("ShowTimeExtra");
 
-			_timeLabel.text = $"{new DateTime(limit.Ticks):mm:ss} / {new DateTime(last.Ticks):mm:ss}";
+			_timeLabel.text = $"{new DateTime(limit.Ticks).ToString("mm:ss")} / " +
+			                  $"{new DateTime(last.Ticks).ToString("mm:ss")}";
+
+			var end = new DateTime(limit.Ticks);
 
 			_timeSlidingNumber.ObserveEveryValueChanged(x => x.Current).Subscribe(value =>
 			{
-				var add = (int) value / _scorePointsConfiguration.PointsPerExtraSecond;
-				_timeLabel.text =
-					$"{new DateTime(new TimeSpan((int) last.TotalSeconds + add).Ticks):mm:ss} / " +
-					$"{new DateTime(new TimeSpan((int) limit.TotalSeconds).Ticks):mm:ss}";
+				var add = Mathf.Ceil(value / _scorePointsConfiguration.PointsPerExtraSecond);
+				var current = new DateTime((last + TimeSpan.FromSeconds(add)).Ticks);
+
+				_timeLabel.text = $"{current.ToString("mm:ss")} / " + $"{end.ToString("mm:ss")}";
 			}).AddTo(this);
 
 			_timeSlidingNumber.OnTargetReachedAsObservable().Subscribe(reached =>
@@ -186,7 +188,7 @@ namespace TilesWalk.Gameplay.Level.UI
 			_movesSlidingNumber.OnTargetReachedAsObservable().Subscribe(reached =>
 			{
 				Observable.Timer(TimeSpan.FromSeconds(1.5f))
-					.Subscribe(_ => {}, () => _animator.SetTrigger("HideExtras"))
+					.Subscribe(_ => { }, () => _animator.SetTrigger("HideExtras"))
 					.AddTo(this);
 			}).AddTo(this);
 
