@@ -53,12 +53,15 @@ namespace TilesWalk.Building
 
 			// Instantiate first tile
 			var instance = Instantiate(Asset, Vector3.zero, Quaternion.identity, transform);
-			var view = _container.InstantiateComponent(typeof(T1), instance) as T1;
+
+			// find model children to instance the tile view there
+			var mesh = instance.GetComponentInChildren<MeshRenderer>();
+			var view = _container.InstantiateComponent(typeof(T1), mesh.gameObject) as T1;
 
 			// Obtain proper boundaries from collider
 			if (view == null) return null;
 
-			var boxCollider = view.GetComponent<BoxCollider>();
+			var boxCollider = view.Collider;
 			view.Controller.AdjustBounds(boxCollider.bounds);
 			view.Controller.Tile.ShuffleColor();
 

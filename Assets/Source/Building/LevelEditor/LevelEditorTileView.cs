@@ -44,7 +44,6 @@ namespace TilesWalk.Building.LevelEditor
 		protected override void Start()
 		{
 			_guides = GetComponentInChildren<CanvasGroupBehaviour>(true);
-			_guides.Hide();
 
 			if (IsGhost) return;
 

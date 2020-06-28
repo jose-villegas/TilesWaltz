@@ -42,7 +42,7 @@ namespace TilesWalk.Tile
 			{
 				if (_collider == null)
 				{
-					_collider = GetComponent<BoxCollider>();
+					_collider = GetComponentInChildren<BoxCollider>();
 				}
 
 				return _collider;
@@ -55,7 +55,7 @@ namespace TilesWalk.Tile
 			{
 				if (_meshRenderer == null)
 				{
-					_meshRenderer = GetComponent<MeshRenderer>();
+					_meshRenderer = GetComponentInChildren<MeshRenderer>();
 				}
 
 				return _meshRenderer;

@@ -65,13 +65,13 @@ namespace TilesWalk.Tile
 			lastTile.transform.localScale = Vector3.zero;
 
 			_audioCollection.Play(GameAudioType.Sound, "Shuffle");
-			MainThreadDispatcher.StartUpdateMicroCoroutine(ShuffleMoveAnimation(tiles, backup));
+			MainThreadDispatcher.StartEndOfFrameMicroCoroutine(ShuffleMoveAnimation(tiles, backup));
 			Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ShuffleMoveTime))
 				.DelayFrame(1)
 				.Subscribe(_ => { }, () =>
 				{
 					lastTile._particleSystems["PopIn"].Play();
-					MainThreadDispatcher.StartUpdateMicroCoroutine(lastTile.ScalePopInAnimation(scale));
+					MainThreadDispatcher.StartEndOfFrameMicroCoroutine(lastTile.ScalePopInAnimation(scale));
 					Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
 						.DelayFrame(1)
 						.Subscribe(_ => { }, () =>
@@ -109,7 +109,7 @@ namespace TilesWalk.Tile
 				var sourceScale = tileView.transform.localScale;
 
 				_audioCollection.Play(GameAudioType.Sound, "Combo");
-				MainThreadDispatcher.StartUpdateMicroCoroutine(tileView.ScalePopInAnimation(Vector3.zero));
+				MainThreadDispatcher.StartEndOfFrameMicroCoroutine(tileView.ScalePopInAnimation(Vector3.zero));
 				Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
 					.DelayFrame(1)
 					.Subscribe(_ => { }, () =>
@@ -120,7 +120,7 @@ namespace TilesWalk.Tile
 						}
 
 						tileView._particleSystems["PopIn"].Play();
-						MainThreadDispatcher.StartUpdateMicroCoroutine(tileView.ScalePopInAnimation(sourceScale));
+						MainThreadDispatcher.StartEndOfFrameMicroCoroutine(tileView.ScalePopInAnimation(sourceScale));
 						Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
 							.DelayFrame(1)
 							.Subscribe(_ => { },

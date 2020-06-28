@@ -44,7 +44,8 @@ namespace TilesWalk.Building.LevelEditor.UI
 			Hide();
 			_solver.InstanceProvider(gameObject);
 
-			if (_solver.Provider.Collection.AvailableMaps.Count >= _solver.Provider.MaximumLevels &&
+			if (_solver.Provider.Collection.AvailableMaps != null &&
+			    _solver.Provider.Collection.AvailableMaps.Count >= _solver.Provider.MaximumLevels &&
 			    _solver.Provider.Collection.AvailableMaps.FindIndex(x => x.Id == _bridge.Payload.Level.Id) < 0)
 			{
 				_save.interactable = false;
@@ -158,12 +159,14 @@ namespace TilesWalk.Building.LevelEditor.UI
 					{
 						_secondsField.text = t.Limit.ToString();
 					}
+
 					break;
 				case FinishCondition.MovesLimit:
 					if (_bridge.Payload.Condition is MovesFinishCondition m)
 					{
 						_movesField.text = m.Limit.ToString();
 					}
+
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
