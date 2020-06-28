@@ -98,7 +98,6 @@ namespace TilesWalk.Building.Editor
 				if (_gameMaps != null)
 				{
 					_currentMap.Id = _mapName;
-
 					_gameMaps.LevelsMap = _currentMap;
 				}
 			}

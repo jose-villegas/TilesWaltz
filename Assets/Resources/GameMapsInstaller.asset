@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4db1560a02e1e48a2df94c781726ae, type: 3}
   m_Name: GameMapsInstaller
   m_EditorClassIdentifier: 
-  _name: S
-  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-468646,"Root":0,"Direction":4,"Rule":1},{"Tile":-468764,"Root":0,"Direction":8,"Rule":1},{"Tile":-468684,"Root":-468646,"Direction":4,"Rule":1},{"Tile":-468722,"Root":-468684,"Direction":4,"Rule":1},{"Tile":-468802,"Root":-468764,"Direction":8,"Rule":1},{"Tile":-468840,"Root":-468802,"Direction":8,"Rule":1},{"Tile":-468878,"Root":-468840,"Direction":2,"Rule":1},{"Tile":-468916,"Root":-468878,"Direction":2,"Rule":1},{"Tile":-468954,"Root":-468916,"Direction":4,"Rule":1},{"Tile":-468992,"Root":-468954,"Direction":4,"Rule":1},{"Tile":-469034,"Root":-468722,"Direction":1,"Rule":1},{"Tile":-469072,"Root":-469034,"Direction":1,"Rule":1},{"Tile":-469110,"Root":-469072,"Direction":8,"Rule":1},{"Tile":-469148,"Root":-469110,"Direction":8,"Rule":1}],"Tiles":[0,-468646,-468684,-468722,-468764,-468802,-468840,-468878,-468916,-468954,-468992,-469034,-469072,-469110,-469148],"MapSize":0}'
-  _condition: 0
-  _seconds: 4500
-  _moves: 20
-  _mapSize: 5
+  _name: Lil Wind
+  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-336910,"Root":0,"Direction":1,"Rule":1},{"Tile":-337712,"Root":0,"Direction":8,"Rule":2},{"Tile":-336948,"Root":-336910,"Direction":4,"Rule":1},{"Tile":-336986,"Root":-336948,"Direction":4,"Rule":1},{"Tile":-337024,"Root":-336986,"Direction":2,"Rule":1},{"Tile":-337062,"Root":-337024,"Direction":2,"Rule":1},{"Tile":-337100,"Root":-337062,"Direction":8,"Rule":1},{"Tile":-337138,"Root":-337100,"Direction":2,"Rule":1},{"Tile":-337176,"Root":-337138,"Direction":8,"Rule":1},{"Tile":-337214,"Root":-337176,"Direction":8,"Rule":1},{"Tile":-337252,"Root":-337214,"Direction":1,"Rule":1},{"Tile":-337290,"Root":-337252,"Direction":8,"Rule":1},{"Tile":-337328,"Root":-337290,"Direction":1,"Rule":1},{"Tile":-337366,"Root":-337328,"Direction":1,"Rule":1},{"Tile":-337404,"Root":-337366,"Direction":1,"Rule":1},{"Tile":-337442,"Root":-337404,"Direction":4,"Rule":1},{"Tile":-337480,"Root":-337442,"Direction":1,"Rule":1},{"Tile":-337518,"Root":-337480,"Direction":4,"Rule":1},{"Tile":-337556,"Root":-337518,"Direction":4,"Rule":1},{"Tile":-337594,"Root":-337556,"Direction":4,"Rule":2},{"Tile":-337632,"Root":-337594,"Direction":4,"Rule":0},{"Tile":-337670,"Root":-337632,"Direction":4,"Rule":1},{"Tile":-337750,"Root":-337712,"Direction":8,"Rule":1},{"Tile":-337788,"Root":-337750,"Direction":8,"Rule":2},{"Tile":-337826,"Root":-337788,"Direction":8,"Rule":0},{"Tile":-337864,"Root":-337826,"Direction":8,"Rule":1},{"Tile":-337902,"Root":-337864,"Direction":8,"Rule":0},{"Tile":-337940,"Root":-337902,"Direction":8,"Rule":2},{"Tile":-337978,"Root":-337940,"Direction":8,"Rule":1},{"Tile":-338016,"Root":-337978,"Direction":8,"Rule":1}],"Tiles":[0,-336910,-336948,-336986,-337024,-337062,-337100,-337138,-337176,-337214,-337252,-337290,-337328,-337366,-337404,-337442,-337480,-337518,-337556,-337594,-337632,-337670,-337712,-337750,-337788,-337826,-337864,-337902,-337940,-337978,-338016],"MapSize":0}'
+  _condition: 1
+  _seconds: 60
+  _moves: 30
+  _mapSize: 4
   _starsRequired: 2
-  _targetPoints: 3500
+  _targetPoints: 2250
   _gameMaps:
     _availableMaps:
     - Id: Chromosome
@@ -351,113 +351,6 @@ MonoBehaviour:
       StarsRequired: 5
       Target: 2800
       FinishCondition: 0
-    - Id: Holders
-      Instructions:
-      - Tile: -466616
-        Root: 0
-        Direction: 4
-        Rule: 1
-      - Tile: -466886
-        Root: 0
-        Direction: 1
-        Rule: 1
-      - Tile: -466654
-        Root: -466616
-        Direction: 4
-        Rule: 2
-      - Tile: -466692
-        Root: -466654
-        Direction: 4
-        Rule: 1
-      - Tile: -466730
-        Root: -466692
-        Direction: 4
-        Rule: 2
-      - Tile: -466768
-        Root: -466730
-        Direction: 4
-        Rule: 1
-      - Tile: -466806
-        Root: -466768
-        Direction: 4
-        Rule: 2
-      - Tile: -466844
-        Root: -466806
-        Direction: 4
-        Rule: 1
-      - Tile: -466924
-        Root: -466886
-        Direction: 1
-        Rule: 0
-      - Tile: -466962
-        Root: -466924
-        Direction: 1
-        Rule: 1
-      - Tile: -467000
-        Root: -466962
-        Direction: 1
-        Rule: 0
-      - Tile: -467038
-        Root: -467000
-        Direction: 1
-        Rule: 1
-      - Tile: -467156
-        Root: -467000
-        Direction: 4
-        Rule: 1
-      - Tile: -467076
-        Root: -467038
-        Direction: 1
-        Rule: 0
-      - Tile: -467114
-        Root: -467076
-        Direction: 1
-        Rule: 1
-      - Tile: -467194
-        Root: -467156
-        Direction: 4
-        Rule: 2
-      - Tile: -467232
-        Root: -467194
-        Direction: 4
-        Rule: 1
-      - Tile: -467270
-        Root: -467232
-        Direction: 4
-        Rule: 2
-      - Tile: -467308
-        Root: -467270
-        Direction: 4
-        Rule: 1
-      - Tile: -467346
-        Root: -467308
-        Direction: 4
-        Rule: 1
-      - Tile: -467384
-        Root: -467346
-        Direction: 4
-        Rule: 1
-      - Tile: -467422
-        Root: -467384
-        Direction: 4
-        Rule: 2
-      - Tile: -467460
-        Root: -467422
-        Direction: 4
-        Rule: 1
-      - Tile: -467498
-        Root: -467460
-        Direction: 4
-        Rule: 2
-      - Tile: -467536
-        Root: -467498
-        Direction: 4
-        Rule: 1
-      Tiles: 0000000048e1f8ff22e1f8fffce0f8ffd6e0f8ffb0e0f8ff8ae0f8ff3ae0f8ff14e0f8ffeedff8ffc8dff8ffa2dff8ff7cdff8ff2cdff8ff06dff8ffe0def8ffbadef8ff94def8ff6edef8ff48def8ff22def8fffcddf8ffd6ddf8ff
-      MapSize: 5
-      StarsRequired: 9
-      Target: 3500
-      FinishCondition: 0
     - Id: S
       Instructions:
       - Tile: -468646
@@ -517,21 +410,245 @@ MonoBehaviour:
         Direction: 8
         Rule: 1
       Tiles: 000000005ad9f8ff34d9f8ff0ed9f8ffe4d8f8ffbed8f8ff98d8f8ff72d8f8ff4cd8f8ff26d8f8ff00d8f8ffd6d7f8ffb0d7f8ff8ad7f8ff64d7f8ff
-      MapSize: 5
+      MapSize: 1
       StarsRequired: 2
       Target: 3500
       FinishCondition: 0
+    - Id: Holders
+      Instructions:
+      - Tile: -268830
+        Root: 0
+        Direction: 4
+        Rule: 1
+      - Tile: -269138
+        Root: 0
+        Direction: 1
+        Rule: 2
+      - Tile: -268868
+        Root: -268830
+        Direction: 1
+        Rule: 1
+      - Tile: -268906
+        Root: -268868
+        Direction: 1
+        Rule: 1
+      - Tile: -268944
+        Root: -268906
+        Direction: 8
+        Rule: 1
+      - Tile: -268982
+        Root: -268944
+        Direction: 8
+        Rule: 1
+      - Tile: -269020
+        Root: -268982
+        Direction: 8
+        Rule: 1
+      - Tile: -269058
+        Root: -269020
+        Direction: 2
+        Rule: 1
+      - Tile: -269096
+        Root: -269058
+        Direction: 2
+        Rule: 1
+      - Tile: -269176
+        Root: -269138
+        Direction: 1
+        Rule: 2
+      - Tile: -269214
+        Root: -269176
+        Direction: 1
+        Rule: 1
+      - Tile: -269252
+        Root: -269214
+        Direction: 1
+        Rule: 2
+      - Tile: -269294
+        Root: -269214
+        Direction: 8
+        Rule: 1
+      - Tile: -269336
+        Root: -269214
+        Direction: 4
+        Rule: 1
+      - Tile: -269378
+        Root: -269294
+        Direction: 8
+        Rule: 0
+      - Tile: -269768
+        Root: -269294
+        Direction: 2
+        Rule: 2
+      - Tile: -269416
+        Root: -269378
+        Direction: 8
+        Rule: 1
+      - Tile: -269454
+        Root: -269416
+        Direction: 8
+        Rule: 1
+      - Tile: -269496
+        Root: -269336
+        Direction: 4
+        Rule: 0
+      - Tile: -269704
+        Root: -269336
+        Direction: 2
+        Rule: 2
+      - Tile: -269534
+        Root: -269496
+        Direction: 4
+        Rule: 1
+      - Tile: -269572
+        Root: -269534
+        Direction: 4
+        Rule: 1
+      Tiles: 00000000e2e5fbffbce5fbff96e5fbff70e5fbff4ae5fbff24e5fbfffee4fbffd8e4fbffaee4fbff88e4fbff62e4fbff3ce4fbff12e4fbffe8e3fbffbee3fbff98e3fbff72e3fbff48e3fbff22e3fbfffce2fbff78e2fbff38e2fbff
+      MapSize: 3
+      StarsRequired: 2
+      Target: 2800
+      FinishCondition: 0
+    - Id: Lil Wind
+      Instructions:
+      - Tile: -336910
+        Root: 0
+        Direction: 1
+        Rule: 1
+      - Tile: -337712
+        Root: 0
+        Direction: 8
+        Rule: 2
+      - Tile: -336948
+        Root: -336910
+        Direction: 4
+        Rule: 1
+      - Tile: -336986
+        Root: -336948
+        Direction: 4
+        Rule: 1
+      - Tile: -337024
+        Root: -336986
+        Direction: 2
+        Rule: 1
+      - Tile: -337062
+        Root: -337024
+        Direction: 2
+        Rule: 1
+      - Tile: -337100
+        Root: -337062
+        Direction: 8
+        Rule: 1
+      - Tile: -337138
+        Root: -337100
+        Direction: 2
+        Rule: 1
+      - Tile: -337176
+        Root: -337138
+        Direction: 8
+        Rule: 1
+      - Tile: -337214
+        Root: -337176
+        Direction: 8
+        Rule: 1
+      - Tile: -337252
+        Root: -337214
+        Direction: 1
+        Rule: 1
+      - Tile: -337290
+        Root: -337252
+        Direction: 8
+        Rule: 1
+      - Tile: -337328
+        Root: -337290
+        Direction: 1
+        Rule: 1
+      - Tile: -337366
+        Root: -337328
+        Direction: 1
+        Rule: 1
+      - Tile: -337404
+        Root: -337366
+        Direction: 1
+        Rule: 1
+      - Tile: -337442
+        Root: -337404
+        Direction: 4
+        Rule: 1
+      - Tile: -337480
+        Root: -337442
+        Direction: 1
+        Rule: 1
+      - Tile: -337518
+        Root: -337480
+        Direction: 4
+        Rule: 1
+      - Tile: -337556
+        Root: -337518
+        Direction: 4
+        Rule: 1
+      - Tile: -337594
+        Root: -337556
+        Direction: 4
+        Rule: 2
+      - Tile: -337632
+        Root: -337594
+        Direction: 4
+        Rule: 0
+      - Tile: -337670
+        Root: -337632
+        Direction: 4
+        Rule: 1
+      - Tile: -337750
+        Root: -337712
+        Direction: 8
+        Rule: 1
+      - Tile: -337788
+        Root: -337750
+        Direction: 8
+        Rule: 2
+      - Tile: -337826
+        Root: -337788
+        Direction: 8
+        Rule: 0
+      - Tile: -337864
+        Root: -337826
+        Direction: 8
+        Rule: 1
+      - Tile: -337902
+        Root: -337864
+        Direction: 8
+        Rule: 0
+      - Tile: -337940
+        Root: -337902
+        Direction: 8
+        Rule: 2
+      - Tile: -337978
+        Root: -337940
+        Direction: 8
+        Rule: 1
+      - Tile: -338016
+        Root: -337978
+        Direction: 8
+        Rule: 1
+      Tiles: 00000000f2dbfaffccdbfaffa6dbfaff80dbfaff5adbfaff34dbfaff0edbfaffe8dafaffc2dafaff9cdafaff76dafaff50dafaff2adafaff04dafaffded9faffb8d9faff92d9faff6cd9faff46d9faff20d9fafffad8faffd0d8faffaad8faff84d8faff5ed8faff38d8faff12d8faffecd7faffc6d7faffa0d7faff
+      MapSize: 4
+      StarsRequired: 2
+      Target: 2250
+      FinishCondition: 1
     _movesFinishConditions:
     - _id: Chromosome
       _limit: 20
     - _id: Trident
       _limit: 20
+    - _id: Lil Wind
+      _limit: 30
     _timeFinishConditions:
     - _id: Columns
       _limit: 60
-    - _id: Holders
-      _limit: 60
     - _id: S
+      _limit: 60
+    - _id: Holders
       _limit: 60
   _gameLevelsMap:
     Id: Game Map
@@ -600,7 +717,43 @@ MonoBehaviour:
       Root: 1890906
       Direction: 4
       Rule: 1
-    Tiles: 90e608005ebd1c00ecbf1c0044c01c009cc01c00fcc01c0054c11c00acc11c0024c21c0086d11c0066d81c00bed81c0016d91c0080d91c00fed91c005ada1c00dada1c00
+    - Tile: 348752
+      Root: 583312
+      Direction: 8
+      Rule: 1
+    - Tile: 351612
+      Root: 348752
+      Direction: 8
+      Rule: 1
+    - Tile: 351700
+      Root: 351612
+      Direction: 8
+      Rule: 1
+    - Tile: 351800
+      Root: 351700
+      Direction: 8
+      Rule: 2
+    - Tile: 351908
+      Root: 351800
+      Direction: 8
+      Rule: 1
+    - Tile: 352020
+      Root: 351908
+      Direction: 8
+      Rule: 1
+    - Tile: 352108
+      Root: 352020
+      Direction: 2
+      Rule: 1
+    - Tile: 352196
+      Root: 352108
+      Direction: 2
+      Rule: 2
+    - Tile: 352292
+      Root: 352196
+      Direction: 4
+      Rule: 2
+    Tiles: 90e608005ebd1c00ecbf1c0044c01c009cc01c00fcc01c0054c11c00acc11c0024c21c0086d11c0066d81c00bed81c0016d91c0080d91c00fed91c005ada1c00dada1c00505205007c5d0500d45d0500385e0500a45e0500145f05006c5f0500c45f050024600500
     MapSize: 0
     TileParameters:
     - Chromosome
@@ -620,3 +773,12 @@ MonoBehaviour:
     - 
     - 
     - Holders
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 

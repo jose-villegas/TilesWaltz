@@ -35,7 +35,7 @@ namespace TilesWalk.Gameplay.Limits.UI
 			var start = DateTime.Now;
 			var end = DateTime.Now + TimeSpan.FromSeconds(condition.Limit);
 
-			transform.UpdateAsObservable().SubscribeToText(Component, _ =>
+			Observable.EveryUpdate().Timeout(TimeSpan.FromSeconds(condition.Limit)).SubscribeToText(Component, _ =>
 			{
 				var current = new DateTime((DateTime.Now - start).Ticks);
 				var limit = new DateTime((end - start).Ticks);
