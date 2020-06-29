@@ -57,10 +57,11 @@ namespace TilesWalk.Tile
 		{
 			var t = 0f;
 			var origin = transform.localScale;
-
+			
 			while (t <= _animationSettings.ScalePopInTime)
 			{
-				transform.localScale = Vector3.Lerp(origin, scale, t / _animationSettings.ScalePopInTime);
+				var norm = t / _animationSettings.ScalePopInTime;
+				transform.localScale = Vector3.Lerp(origin, scale, _animationSettings.ScalePopInCurve.Evaluate(norm));
 				t += Time.deltaTime;
 				yield return null;
 			}
@@ -84,10 +85,11 @@ namespace TilesWalk.Tile
 				for (var i = 0; i < tiles.Count && i < source.Count && i < backup.Count; i++)
 				{
 					var tile = tiles[i];
+					var norm = t / _animationSettings.ShuffleMoveTime;
 					tile.transform.position = Vector3.Lerp(backup[i].Item1, source[i].Item1,
-						t / _animationSettings.ShuffleMoveTime);
+						_animationSettings.ShuffleCurve.Evaluate(norm));
 					tile.transform.rotation = Quaternion.Slerp(backup[i].Item2, source[i].Item2,
-						t / _animationSettings.ShuffleMoveTime);
+						_animationSettings.ShuffleCurve.Evaluate(norm));
 				}
 
 				t += Time.deltaTime;
