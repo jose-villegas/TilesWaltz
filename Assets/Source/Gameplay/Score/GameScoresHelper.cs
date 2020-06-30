@@ -20,12 +20,6 @@ namespace TilesWalk.Gameplay.Score
 		private void Awake()
 		{
 			_solver.InstanceProvider(gameObject);
-
-			SceneManager.sceneLoaded += OnSceneLoaded;
-		}
-
-		private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-		{
 			CalculateAllGameStars();
 		}
 
@@ -33,6 +27,28 @@ namespace TilesWalk.Gameplay.Score
 		{
 			var count = GetHighestScoreStarCount(levelMap);
 			return count == 3;
+		}
+
+		public LevelMapState State(LevelMap map)
+		{
+			var exists = _solver.Provider.Records.Exist(map.Id, out var score);
+			var state = LevelMapState.None;
+
+			if (!exists || score.Points.Highest < map.Target)
+			{
+				state = LevelMapState.ToComplete;
+			}
+			else if (score.Points.Highest > map.Target)
+			{
+				state = LevelMapState.Completed;
+			}
+
+			if (map.StarsRequired > GameStars)
+			{
+				state = LevelMapState.Locked;
+			}
+
+			return state;
 		}
 
 		public int GetStarCount(int target, int current)

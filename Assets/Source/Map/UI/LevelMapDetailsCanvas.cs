@@ -84,26 +84,9 @@ namespace TilesWalk.Navigation.UI
 		{
 			//_playButton.interactable = _gameScoresHelper.GameStars >= map.StarsRequired;
 
-			//var map = _levelRequest.Map;
-			//var exists = _solver.Provider.Records.Exist(map.Id, out var score);
-			//var state = LevelMapState.None;
-
-			//if (!exists || score.Points.Highest < map.Target)
-			//{
-			//	state = LevelMapState.ToComplete;
-			//}
-			//else if (score.Points.Highest > map.Target)
-			//{
-			//	state = LevelMapState.Completed;
-			//}
-
-			//if (map.StarsRequired > _gameScoresHelper.GameStars)
-			//{
-			//	state = LevelMapState.Locked;
-			//}
-
 			// prepare the bridge
-			_levelBridge.Payload = new LevelBridgePayload(_levelRequest.Map, _levelRequest.Condition);
+			_levelBridge.Payload = new LevelBridgePayload(_levelRequest.Map, _levelRequest.Condition,
+				_gameScoresHelper.State(_levelRequest.Map));
 
 			//// set condition
 			if (map.FinishCondition == FinishCondition.MovesLimit)

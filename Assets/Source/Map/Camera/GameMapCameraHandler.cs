@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using TilesWalk.Gameplay.Animation;
 using TilesWalk.General.Camera;
@@ -68,7 +69,7 @@ namespace TilesWalk.Map.Camera
 		/// Subscribes tile click action
 		/// </summary>
 		/// <param name="levelTiles"></param>
-		private void OnLevelTilesMapsReady(LevelTile[] levelTiles)
+		private void OnLevelTilesMapsReady(List<LevelTile> levelTiles)
 		{
 			foreach (var tile in levelTiles)
 			{
