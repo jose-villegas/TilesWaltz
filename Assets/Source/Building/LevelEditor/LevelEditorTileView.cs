@@ -174,12 +174,24 @@ namespace TilesWalk.Building.LevelEditor
 		{
 			if (IsSelected.Value)
 			{
-				var neighbor = _controller.Tile.Neighbors.First();
-				neighbor.Value.Neighbors.Remove(neighbor.Key.Opposite());
-				neighbor.Value.HingePoints.Remove(neighbor.Key.Opposite());
-				TileController.ChainRefreshPaths(neighbor.Value);
+				//var neighbor = _controller.Tile.Neighbors.First();
+				//neighbor.Value.Neighbors.Remove(neighbor.Key.Opposite());
+				//neighbor.Value.HingePoints.Remove(neighbor.Key.Opposite());
+				//TileController.ChainRefreshPaths(neighbor.Value);
+				//_tileLevelMap.RemoveTile(this);
+				//Destroy(this.gameObject);
+
+				var neighbors = _controller.Tile.Neighbors;
+
+				foreach (var neighbor in neighbors)
+				{
+					neighbor.Value.Neighbors.Remove(neighbor.Key.Opposite());
+					neighbor.Value.HingePoints.Remove(neighbor.Key.Opposite());
+					TileController.ChainRefreshPaths(neighbor.Value);
+				}
+
 				_tileLevelMap.RemoveTile(this);
-				Destroy(this.gameObject);
+				Destroy(gameObject);
 			}
 		}
 
@@ -257,7 +269,7 @@ namespace TilesWalk.Building.LevelEditor
 
 			if (IsSelected.Value)
 			{
-				_levelEditorToolSet.InsertionCanvas.Delete.interactable = _controller.Tile.IsLeaf();
+				_levelEditorToolSet.InsertionCanvas.Delete.interactable = _controller.Tile.Neighbors.Count > 0;
 			}
 		}
 

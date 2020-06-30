@@ -2,6 +2,7 @@
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Persistence;
 using TilesWalk.Map.General;
+using TilesWalk.Map.Tile;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -30,79 +31,63 @@ namespace TilesWalk.Gameplay.Score
 
 		public bool IsCompleted(LevelMap levelMap)
 		{
-			var count = GetStarCount(levelMap);
+			var count = GetHighestScoreStarCount(levelMap);
 			return count == 3;
 		}
 
-		public int GetStarCount(LevelMap levelMap)
+		public int GetStarCount(int target, int current)
+		{
+			var ratio = (float)current / target;
+
+			if (ratio >= 1)
+			{
+				return 3;
+			}
+
+			if (ratio >= _scorePointsSettings.TwoStarRange)
+			{
+				return 2;
+			}
+
+			if (ratio >= _scorePointsSettings.OneStarRange)
+			{
+				return 1;
+			}
+
+			return 0;
+		}
+
+		public int GetHighestScoreStarCount(LevelMap levelMap)
 		{
 			var score = _solver.Provider.Records[levelMap.Id];
-			var ratio = (float) score.Points.Highest / levelMap.Target;
-
-			if (ratio >= 1)
-			{
-				return 3;
-			}
-
-			if (ratio >= _scorePointsSettings.TwoStarRange)
-			{
-				return 2;
-			}
-
-			if (ratio >= _scorePointsSettings.OneStarRange)
-			{
-				return 1;
-			}
-
-			return 0;
+			return GetStarCount(levelMap.Target, score.Points.Highest);
 		}
 
-		public int GetStarCount(LevelMap levelMap, int current)
+		public int GetLastScoreStarCount(LevelMap levelMap)
 		{
-			var ratio = (float) current / levelMap.Target;
-
-			if (ratio >= 1)
-			{
-				return 3;
-			}
-
-			if (ratio >= _scorePointsSettings.TwoStarRange)
-			{
-				return 2;
-			}
-
-			if (ratio >= _scorePointsSettings.OneStarRange)
-			{
-				return 1;
-			}
-
-			return 0;
+			var score = _solver.Provider.Records[levelMap.Id];
+			return GetStarCount(levelMap.Target, score.Points.Last);
 		}
 
-		public int GetStarCount(LevelScore score)
+		public int GetHighestScoreStarCount(LevelScore score)
 		{
 			var tileMap = _solver.Provider.Collection.AvailableMaps.Find(x => x.Id == score.Id);
 
 			if (tileMap != null)
 			{
-				var ratio = (float) score.Points.Highest / tileMap.Target;
+				return GetStarCount(tileMap.Target, score.Points.Highest);
+			}
 
-				if (ratio >= 1)
-				{
-					return 3;
-				}
+			return 0;
+		}
 
-				if (ratio >= _scorePointsSettings.TwoStarRange)
-				{
-					return 2;
-				}
+		public int GetLastScoreStarCount(LevelScore score)
+		{
+			var tileMap = _solver.Provider.Collection.AvailableMaps.Find(x => x.Id == score.Id);
 
-				if (ratio >= _scorePointsSettings.OneStarRange)
-				{
-					return 1;
-				}
-
-				return 0;
+			if (tileMap != null)
+			{
+				return GetStarCount(tileMap.Target, score.Points.Last);
 			}
 
 			return 0;
@@ -116,7 +101,7 @@ namespace TilesWalk.Gameplay.Score
 
 			foreach (var scoreRecord in _solver.Provider.Records.Values)
 			{
-				GameStars += GetStarCount(scoreRecord);
+				GameStars += GetHighestScoreStarCount(scoreRecord);
 			}
 		}
 	}

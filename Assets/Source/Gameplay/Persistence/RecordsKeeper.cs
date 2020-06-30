@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using TilesWalk.Gameplay.Score;
+using TilesWalk.Map.Tile;
 
 namespace TilesWalk.Gameplay.Persistence
 {
@@ -31,6 +32,13 @@ namespace TilesWalk.Gameplay.Persistence
 			if (_records == null) return false;
 
 			return _records.TryGetValue(id, out score);
+		}
+
+		public bool Exist(string id)
+		{
+			if (_records == null) return false;
+
+			return _records.ContainsKey(id);
 		}
 
 		[JsonIgnore] public int Count => _records?.Count ?? 0;

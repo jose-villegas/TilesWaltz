@@ -112,6 +112,7 @@ namespace TilesWalk.Building.Level
 
 			TileToHash.Remove(tile);
 			HashToTile.Remove(hash);
+			TileView.Remove(tile.Controller.Tile);
 			// remove from map
 			_levelMap.Instructions.RemoveAll(x => x.Tile == hash);
 			_levelMap.Instructions.RemoveAll(x => x.Root == hash);
@@ -121,14 +122,6 @@ namespace TilesWalk.Building.Level
 			if (!Insertions.TryGetValue(hash, out var instructions)) return;
 
 			Insertions.Remove(hash);
-
-			foreach (var instruction in instructions)
-			{
-				if (HashToTile.TryGetValue(instruction.Tile, out var view))
-				{
-					Destroy(view.gameObject);
-				}
-			}
 		}
 
 		public TileView GetTileView(Tile.Tile tile)

@@ -23,10 +23,8 @@ namespace TilesWalk.Building.Gallery.UI
 		{
 			_solver.InstanceProvider(gameObject);
 
-			if (_solver.Provider.Collection == null || _solver.Provider.Collection.AvailableMaps == null) return;
-
 			_maximum = _solver.Provider.MaximumLevels;
-			_current = _solver.Provider.Collection.AvailableMaps.Count;
+			_current = _solver.Provider.Collection.AvailableMaps?.Count ?? 0;
 			Component.text = $"({_current}/{_maximum})";
 
 			_solver.Provider.Collection.OnLevelRemovedAsObservable().Subscribe(OnCollectionUpdated).AddTo(this);

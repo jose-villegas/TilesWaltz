@@ -123,7 +123,7 @@ namespace TilesWalk.General.UI
 
 		public virtual void Hide()
 		{
-			if (_animate)
+			if (_animate && gameObject.activeInHierarchy)
 			{
 				if (_animationCoroutine == null)
 				{
@@ -150,7 +150,7 @@ namespace TilesWalk.General.UI
 
 		public virtual void Show()
 		{
-			if (_animate)
+			if (_animate && gameObject.activeInHierarchy)
 			{
 				_animationCoroutine = ShowAnimation();
 

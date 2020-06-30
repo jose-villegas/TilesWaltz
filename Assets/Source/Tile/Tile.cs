@@ -21,10 +21,10 @@ namespace TilesWalk.Tile
 	public class Tile : IModel
 	{
 		[SerializeField] private Vector3Int _index;
-
 		[SerializeField] private Bounds _bounds;
-
 		[SerializeField] private TileColor _color;
+
+		private Subject<Tuple<Tile, TileColor>> _onTileColorChanged;
 
 		/// <summary>
 		/// This structure contains a reference to the neighbor tiles, useful for indexing
@@ -57,7 +57,12 @@ namespace TilesWalk.Tile
 		public TileColor TileColor
 		{
 			get => _color;
-			set => _color = value;
+			set
+			{
+				var sourceColor = _color;
+				_color = value;
+				_onTileColorChanged?.OnNext(new Tuple<Tile, TileColor>(this, sourceColor));
+			}
 		}
 
 		public List<Tile> ShortestPathToLeaf { get; private set; }
@@ -65,7 +70,7 @@ namespace TilesWalk.Tile
 
 		public void ShuffleColor()
 		{
-			_color = TileColorExtension.RandomColor(this.Neighbors.Select(x => x.Value.TileColor).ToArray());
+			TileColor = TileColorExtension.RandomColor(this.Neighbors.Select(x => x.Value.TileColor).ToArray());
 		}
 
 		public void RefreshShortestLeafPath()
@@ -86,6 +91,13 @@ namespace TilesWalk.Tile
 			_index = Vector3Int.zero;
 			HingePoints = new Dictionary<CardinalDirection, Vector3>();
 			Neighbors = new Dictionary<CardinalDirection, Tile>();
+		}
+
+		public IObservable<Tuple<Tile, TileColor>> OnTileColorChangedAsObservable()
+		{
+			return _onTileColorChanged = _onTileColorChanged == null
+				? new Subject<Tuple<Tile, TileColor>>()
+				: _onTileColorChanged;
 		}
 	}
 }

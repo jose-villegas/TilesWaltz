@@ -22,7 +22,7 @@ namespace TilesWalk.Navigation.UI
 		public ReactiveProperty<string> Name { get; } =  new ReactiveProperty<string>();
 		public ReactiveProperty<LevelMap> Map { get; } = new ReactiveProperty<LevelMap>();
 
-		private void Awake()
+		private void Start()
 		{
 			Map.Subscribe(OnTileMapUpdated).AddTo(this);
 		}
@@ -31,7 +31,7 @@ namespace TilesWalk.Navigation.UI
 		{
 			if (levelMap == null) return;
 
-			var stars = _gameScoresHelper.GetStarCount(levelMap);
+			var stars = _gameScoresHelper.GetHighestScoreStarCount(levelMap);
 
 			for (int i = 0; i < _stars.Length; i++)
 			{

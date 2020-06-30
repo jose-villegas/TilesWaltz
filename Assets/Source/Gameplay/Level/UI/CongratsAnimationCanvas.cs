@@ -80,7 +80,7 @@ namespace TilesWalk.Gameplay.Level.UI
 			{
 				if (value <= _levelMap.LevelMap.Target)
 				{
-					var starCount = _gameScoresHelper.GetStarCount(_levelMap.LevelMap, (int) value);
+					var starCount = _gameScoresHelper.GetStarCount(_levelMap.LevelMap.Target, (int) value);
 
 					if (starCount >= 1)
 					{
@@ -99,7 +99,7 @@ namespace TilesWalk.Gameplay.Level.UI
 				}
 
 				_basePointsDone = true;
-				var starCount = _gameScoresHelper.GetStarCount(_levelMap.LevelMap, score.Points.Last);
+				var starCount = _gameScoresHelper.GetLastScoreStarCount(_levelMap.LevelMap);
 
 				if (starCount < 3)
 				{

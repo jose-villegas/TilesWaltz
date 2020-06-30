@@ -565,6 +565,96 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 220369800}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &467060967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 467060972}
+  - component: {fileID: 467060968}
+  - component: {fileID: 467060971}
+  - component: {fileID: 467060970}
+  - component: {fileID: 467060969}
+  m_Layer: 0
+  m_Name: ScoresHelper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &467060968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467060967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fdf747b47eef78449a7fad0329cf352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &467060969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467060967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 336ebb1ee0899a0468a9f7eb7273202d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _solver: {fileID: 467060970}
+--- !u!114 &467060970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467060967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05912da8fa47ad746abfe3b1e184ea82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mapProvider: 2
+--- !u!114 &467060971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467060967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 467060969}
+  _installerPrefabs: []
+  _autoRun: 1
+  _kernel: {fileID: 0}
+--- !u!4 &467060972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467060967}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1099174538}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &527838916 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7531039593963685063, guid: 60e372a502fa0864f8de35a1433bf395,
@@ -665,6 +755,7 @@ GameObject:
   - component: {fileID: 1099174540}
   - component: {fileID: 1099174542}
   - component: {fileID: 1099174541}
+  - component: {fileID: 1099174543}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -686,6 +777,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 1099174543}
   - {fileID: 1099174541}
   - {fileID: 1099174539}
   - {fileID: 1099174540}
@@ -716,7 +808,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 467060972}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -772,6 +865,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mapProvider: 2
+--- !u!114 &1099174543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099174536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f38a7f87f0270e4eabbad6cc7504ae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameScoresHelper: {fileID: 467060968}
 --- !u!1 &1182444394
 GameObject:
   m_ObjectHideFlags: 0

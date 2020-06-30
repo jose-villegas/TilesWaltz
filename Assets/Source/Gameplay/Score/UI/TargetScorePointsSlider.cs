@@ -32,7 +32,7 @@ namespace TilesWalk.Gameplay.Score.UI
 						float ceil = _tileLevelMap.LevelMap.Target;
 						Component.value = Mathf.Min(1f, last / ceil);
 
-						var starCount = _gameScoresHelper.GetStarCount(_tileLevelMap.LevelMap, score.Points.Last);
+						var starCount = _gameScoresHelper.GetLastScoreStarCount(_tileLevelMap.LevelMap);
 						_stars.ForEach(i => i.sprite = _starEmpty);
 
 						for (int i = 0; i < starCount && i < _stars.Count; i++)

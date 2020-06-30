@@ -20,6 +20,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 
 		private void Start()
 		{
+			Component.text = 0.Localize();
 			_condition = new MovesFinishCondition(Constants.CustomLevelName, Int32.MaxValue);
 			_tileViewLevelMap.OnTileRemovedAsObservable()
 				.SubscribeToText(Component, _ => _condition.Update(1).Localize());

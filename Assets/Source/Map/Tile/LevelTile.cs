@@ -22,8 +22,6 @@ namespace TilesWalk.Map.Tile
 		[Inject] private GameScoresHelper _gameScoresHelper;
 
 		[SerializeField] private List<LevelTileLink> _links;
-		[SerializeField] private Color _toCompleteColor;
-		[SerializeField] private Color _completedColor;
 
 		private ParticleSystemsCollector _particleSystems;
 
@@ -147,25 +145,6 @@ namespace TilesWalk.Map.Tile
 					_particleSystems.StopAll();
 				}
 			}).AddTo(this);
-
-			Map.Subscribe(map =>
-			{
-				if (map != null)
-				{
-					var meshRenderer = GetComponent<MeshRenderer>();
-
-					if (meshRenderer == null) return;
-
-					if (_gameScoresHelper.IsCompleted(map))
-					{
-						meshRenderer.material.color = _completedColor;
-					}
-					else
-					{
-						meshRenderer.material.color = _toCompleteColor;
-					}
-				}
-			});
 		}
 	}
 }

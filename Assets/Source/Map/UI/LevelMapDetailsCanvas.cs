@@ -9,6 +9,7 @@ using TilesWalk.Gameplay.Score;
 using TilesWalk.General;
 using TilesWalk.General.UI;
 using TilesWalk.Map.Bridge;
+using TilesWalk.Map.General;
 using TilesWalk.Map.Scaffolding;
 using TilesWalk.Map.Tile;
 using TMPro;
@@ -24,6 +25,7 @@ namespace TilesWalk.Navigation.UI
 		[Inject] private LevelBridge _levelBridge;
 		[Inject] private LevelTilesHandler _levelTilesHandler;
 		[Inject] private GameScoresHelper _gameScoresHelper;
+		[Inject] private MapProviderSolver _solver;
 
 		[SerializeField] private LevelNameRequestHandler _levelRequest;
 		[SerializeField] private Button _playButton;
@@ -37,6 +39,7 @@ namespace TilesWalk.Navigation.UI
 
 		private void Awake()
 		{
+			_solver.InstanceProvider(gameObject);
 			_levelRequest.OnTileMapFoundAsObservable().Subscribe(UpdateCanvas).AddTo(this);
 
 			for (int i = 0; i < _directionButtons.Count; i++)
@@ -69,20 +72,35 @@ namespace TilesWalk.Navigation.UI
 					var levelTile = _levelTilesHandler[_levelRequest.Map];
 					var neighbor = levelTile[directionButton.Direction];
 
-					OnHideAsObservable().Take(1).Subscribe(u =>
-					{
-						neighbor.OnMapTileClick();
+					OnHideAsObservable().Take(1).Subscribe(u => { neighbor.OnMapTileClick(); }).AddTo(this);
 
-					}).AddTo(this);
-		
 					Hide();
 				});
 			}
 		}
 
+
 		private void UpdateCanvas(LevelMap map)
 		{
 			//_playButton.interactable = _gameScoresHelper.GameStars >= map.StarsRequired;
+
+			//var map = _levelRequest.Map;
+			//var exists = _solver.Provider.Records.Exist(map.Id, out var score);
+			//var state = LevelMapState.None;
+
+			//if (!exists || score.Points.Highest < map.Target)
+			//{
+			//	state = LevelMapState.ToComplete;
+			//}
+			//else if (score.Points.Highest > map.Target)
+			//{
+			//	state = LevelMapState.Completed;
+			//}
+
+			//if (map.StarsRequired > _gameScoresHelper.GameStars)
+			//{
+			//	state = LevelMapState.Locked;
+			//}
 
 			// prepare the bridge
 			_levelBridge.Payload = new LevelBridgePayload(_levelRequest.Map, _levelRequest.Condition);

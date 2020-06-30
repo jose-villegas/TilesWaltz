@@ -5,6 +5,7 @@ using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Persistence;
 using TilesWalk.Gameplay.Score;
+using TilesWalk.Map.Bridge;
 using TilesWalk.Map.General;
 using TilesWalk.Navigation.UI;
 using TMPro;
@@ -20,6 +21,7 @@ namespace TilesWalk.Map.Tile
 		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
 		[Inject] private MapProviderSolver _solver;
 		[Inject] private GameScoresHelper _gameScoresHelper;
+		[Inject] private LevelBridge _bridge;
 
 		private ReactiveProperty<int> _readyCount = new ReactiveProperty<int>();
 
@@ -60,7 +62,6 @@ namespace TilesWalk.Map.Tile
 				{
 					_levelTilesMapsReady?.OnNext(LevelTiles);
 					ShowNextLevelDetails();
-					HandleAnimations();
 				}
 			}).AddTo(this);
 		}
@@ -96,6 +97,13 @@ namespace TilesWalk.Map.Tile
 
 		private void ShowNextLevelDetails()
 		{
+			// check if we are coming from a recently played game
+			if (_bridge.Payload != null)
+			{
+				ShowPayloadLevel(_bridge.Payload.Level);
+				return;
+			}
+
 			foreach (var level in LevelTiles)
 			{
 				if (_gameScoresHelper.GameStars < level.Map.Value.StarsRequired) continue;
@@ -120,6 +128,15 @@ namespace TilesWalk.Map.Tile
 			// no next map found
 			_detailsCanvas.LevelRequest.Name.Value = LevelTiles[0].Map.Value.Id;
 			_detailsCanvas.Show();
+		}
+
+		private void ShowPayloadLevel(LevelMap payloadLevel)
+		{
+			if (_solver.Provider.Records.Exist(payloadLevel.Id, out var score))
+			{
+				_detailsCanvas.LevelRequest.Name.Value = payloadLevel.Id;
+				_detailsCanvas.Show();
+			}
 		}
 
 		protected override void RaiseOnCompletedOnDestroy()
