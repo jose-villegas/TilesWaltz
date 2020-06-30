@@ -202,6 +202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tileColorMaterialHandler: {fileID: 3118086410451478814}
   _levelStateMaterialHandler: {fileID: 4785305407540693984}
+  _levelStarsMaterialHandler: {fileID: 7309916728727420634}
 --- !u!1 &1518040959170830651
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +232,7 @@ Transform:
   m_Children:
   - {fileID: 662444824112344001}
   - {fileID: 4446296215490753969}
+  - {fileID: 5491071248322238105}
   m_Father: {fileID: 5623318300424798064}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -275,6 +277,50 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9104104f5c41e944893a2598839370f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sourceMaterial: {fileID: 2100000, guid: 570c58975fda4f24798e452021b162f0, type: 2}
+--- !u!1 &4096158219209549138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5491071248322238105}
+  - component: {fileID: 7309916728727420634}
+  m_Layer: 0
+  m_Name: LevelStars
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5491071248322238105
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4096158219209549138}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1180521610247908324}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7309916728727420634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4096158219209549138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ad2551ffed76ec44abe208f03e18cb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _sourceMaterial: {fileID: 2100000, guid: 570c58975fda4f24798e452021b162f0, type: 2}

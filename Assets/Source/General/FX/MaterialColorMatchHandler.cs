@@ -8,21 +8,21 @@ using Zenject;
 
 namespace TilesWalk.General.FX
 {
-	public class MaterialColorMatchHandler<T> : MonoBehaviour
+	public abstract class MaterialColorMatchHandler<T1, T2> : MonoBehaviour
 	{
-		[Inject] private GameTileColorsConfiguration _colorsConfiguration;
+		[Inject] protected GameTileColorsConfiguration _colorsConfiguration;
 
-		[SerializeField] private Material _sourceMaterial;
+		[SerializeField] protected Material _sourceMaterial;
 
-		private static readonly Dictionary<T, Material> Materials = new Dictionary<T, Material>();
+		protected static readonly Dictionary<T1, Material> Materials = new Dictionary<T1, Material>();
 
-		private void Awake()
+		protected virtual void Awake()
 		{
 			if (Materials.Count == 0)
 			{
-				var colors = Enum.GetValues(typeof(T));
+				var colors = Enum.GetValues(typeof(T1));
 
-				foreach (T match in colors)
+				foreach (T1 match in colors)
 				{
 					if (match is TileColor tileColor)
 					{
@@ -45,7 +45,12 @@ namespace TilesWalk.General.FX
 			}
 		}
 
-		public Material GetMaterial(T match)
+		public abstract Material GetMaterial(T2 match);
+	}
+
+	public class MaterialColorMatchHandler<T1> : MaterialColorMatchHandler<T1, T1>
+	{
+		public override Material GetMaterial(T1 match)
 		{
 			return Materials[match];
 		}

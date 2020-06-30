@@ -122,4 +122,8 @@ MonoBehaviour:
       _match: 3
     _mapStarsConfiguration:
     - _color: {r: 0.68235296, g: 0.7764706, b: 0.8117647, a: 1}
-      _match: 0
+      _match: 10
+    - _color: {r: 0.67715997, g: 0.8326799, b: 0.891, a: 1}
+      _match: 20
+    - _color: {r: 0.62656003, g: 0.88110006, b: 0.97900003, a: 1}
+      _match: 30

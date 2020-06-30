@@ -21,6 +21,7 @@ namespace TilesWalk.Map.Tile
 		[Inject] private LevelBridge _levelBridge;
 		[Inject] private GameScoresHelper _gameScoresHelper;
 		[Inject] private LevelStateTileMaterialHandler _colorHandler;
+		[Inject] private LevelStarsTileMaterialHandler _starsColorHandler;
 
 		[SerializeField] private List<LevelTileLink> _links;
 
@@ -167,7 +168,7 @@ namespace TilesWalk.Map.Tile
 				{
 					if (_gameScoresHelper.IsCompleted(map))
 					{
-						Renderer.material = _colorHandler.GetMaterial(LevelMapState.Completed);
+						Renderer.material = _starsColorHandler.GetMaterial(Map.Value.StarsRequired);
 					}
 					else
 					{

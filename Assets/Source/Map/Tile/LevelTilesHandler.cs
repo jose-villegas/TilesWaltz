@@ -21,6 +21,9 @@ namespace TilesWalk.Map.Tile
 		[Inject] private GameScoresHelper _gameScoresHelper;
 		[Inject] private LevelBridge _bridge;
 
+		[Inject] private LevelStateTileMaterialHandler _colorHandler;
+		[Inject] private LevelStarsTileMaterialHandler _starsColorHandler;
+
 		private ReactiveProperty<int> _readyCount = new ReactiveProperty<int>();
 
 		private Subject<List<LevelTile>> _levelTilesMapsReady;
@@ -72,6 +75,8 @@ namespace TilesWalk.Map.Tile
 			HashSet<Animator> blocked = new HashSet<Animator>();
 			HashSet<Animator> incomplete = new HashSet<Animator>();
 			HashSet<Animator> justUnlocked = new HashSet<Animator>();
+			HashSet<Animator> completed = new HashSet<Animator>();
+			Dictionary<Animator, int> maxStars = new Dictionary<Animator, int>();
 			List<KeyValuePair<LevelTile, LevelTile>> linksDone = new List<KeyValuePair<LevelTile, LevelTile>>();
 
 			foreach (var levelTile in LevelTiles)
@@ -100,12 +105,33 @@ namespace TilesWalk.Map.Tile
 					{
 						foreach (var o in levelTileLink.Path)
 						{
-							blocked.Add(o.GetComponent<Animator>());
+							if (blocked.Add(o.GetComponent<Animator>()))
+							{
+								// get model renderer
+								var meshRenderer = o.GetComponentInChildren<MeshRenderer>();
+								meshRenderer.material = _colorHandler.GetMaterial(LevelMapState.Locked);
+							}
+						}
+					}
+
+					if (sourceState == LevelMapState.Completed && linkState == LevelMapState.Completed)
+					{
+						foreach (var o in levelTileLink.Path)
+						{
+							if (completed.Add(o.GetComponent<Animator>()))
+							{
+								// get model renderer
+								var meshRenderer = o.GetComponentInChildren<MeshRenderer>();
+								meshRenderer.material = _starsColorHandler.GetMaterial(Mathf.Max(
+									levelTile.Map.Value.StarsRequired,
+									levelTileLink.Level.Map.Value.StarsRequired));
+							}
 						}
 					}
 
 					// from incomplete to incomplete
-					if (sourceState == LevelMapState.ToComplete && linkState == LevelMapState.ToComplete)
+					if (sourceState == LevelMapState.ToComplete && linkState == LevelMapState.ToComplete ||
+					    sourceState == LevelMapState.Completed && linkState == LevelMapState.ToComplete)
 					{
 						// check if this tile was just completed
 						if (_bridge.Payload != null &&
@@ -114,35 +140,30 @@ namespace TilesWalk.Map.Tile
 						{
 							foreach (var o in levelTileLink.Path)
 							{
-								justUnlocked.Add(o.GetComponent<Animator>());
+								if (justUnlocked.Add(o.GetComponent<Animator>()))
+								{
+									// get model renderer
+									var meshRenderer = o.GetComponentInChildren<MeshRenderer>();
+									meshRenderer.material = _colorHandler.GetMaterial(LevelMapState.Locked);
+
+									maxStars[justUnlocked.Last()] = Mathf.Max(
+										levelTile.Map.Value.StarsRequired,
+										levelTileLink.Level.Map.Value.StarsRequired);
+								}
 							}
 						}
 						else
 						{
 							foreach (var o in levelTileLink.Path)
 							{
-								incomplete.Add(o.GetComponent<Animator>());
-							}
-						}
-					}
-					// from completed to incomplete
-					else if (sourceState == LevelMapState.Completed && linkState == LevelMapState.ToComplete)
-					{
-						// check if this tile was just completed
-						if (_bridge.Payload != null &&
-						    _bridge.Payload.State == LevelMapState.ToComplete &&
-						    levelTile.Map.Value.Id == _bridge.Payload.Level.Id)
-						{
-							foreach (var o in levelTileLink.Path)
-							{
-								justUnlocked.Add(o.GetComponent<Animator>());
-							}
-						}
-						else
-						{
-							foreach (var o in levelTileLink.Path)
-							{
-								incomplete.Add(o.GetComponent<Animator>());
+								if (incomplete.Add(o.GetComponent<Animator>()))
+								{
+									// get model renderer
+									var meshRenderer = o.GetComponentInChildren<MeshRenderer>();
+									meshRenderer.material = _starsColorHandler.GetMaterial(
+										Mathf.Max(levelTile.Map.Value.StarsRequired,
+											levelTileLink.Level.Map.Value.StarsRequired));
+								}
 							}
 						}
 					}
@@ -177,7 +198,15 @@ namespace TilesWalk.Map.Tile
 				// now animate appear
 				var time = .1f + (i + 1) * .15f;
 				Observable.Timer(TimeSpan.FromSeconds(time)).Subscribe(_ => { },
-					() => { animator.SetTrigger("IsNowAvailable"); }).AddTo(this);
+					() =>
+					{
+						{
+							animator.SetTrigger("IsNowAvailable");
+
+							var meshRenderer = animator.GetComponentInChildren<MeshRenderer>();
+							meshRenderer.material = _starsColorHandler.GetMaterial(maxStars[animator]);
+						}
+					}).AddTo(this);
 
 				// restore to original transform
 				Observable.Timer(TimeSpan.FromSeconds(time + .5f)).Subscribe(_ => { },
