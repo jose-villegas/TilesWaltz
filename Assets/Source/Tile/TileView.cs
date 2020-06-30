@@ -24,17 +24,15 @@ namespace TilesWalk.Tile
 		[Inject] protected TileViewFactory _tileFactory;
 		[Inject] protected TileViewLevelMap _tileLevelMap;
 		[Inject] protected GameTileColorsConfiguration _tileColorsSettings;
+		[Inject] protected DiContainer _container;
+		[Inject] protected TileColorMaterialColorMatchHandler _colorHandler;
 		[Inject(Optional = true)] protected LevelFinishTracker _levelFinishTracker;
 
 		private MeshRenderer _meshRenderer;
 		private BoxCollider _collider;
 		private ParticleSystemsCollector _particleSystems;
 
-		public static bool MovementLocked 
-		{ 
-			get; 
-			protected set;
-		}
+		public static bool MovementLocked { get; protected set; }
 
 		public BoxCollider Collider
 		{
@@ -68,8 +66,6 @@ namespace TilesWalk.Tile
 			set => _controller = value;
 		}
 
-		private protected static readonly Dictionary<TileColor, Material> Materials = new Dictionary<TileColor, Material>();
-
 		public TileView()
 		{
 			_controller = new TileController();
@@ -82,22 +78,12 @@ namespace TilesWalk.Tile
 
 		protected virtual void Start()
 		{
-			if (Materials.Count == 0)
-			{
-				var colors = Enum.GetValues(typeof(TileColor));
-
-				foreach (TileColor tileColor in colors)
-				{
-					Materials[tileColor] = new Material(Renderer.material) {color = _tileColorsSettings[tileColor]};
-				}
-			}
-
 			// Fetch FX particle system in children
 			_particleSystems = gameObject.AddComponent<ParticleSystemsCollector>();
 			// This small optimization enables us to share the material per color
 			// instead of creating a new instance per every tile that tries to
 			// change its color
-			Renderer.material = Materials[_controller.Tile.TileColor];
+			Renderer.material = _colorHandler.GetMaterial(_controller.Tile.TileColor);
 			// update material on color update
 			_controller.Tile.ObserveEveryValueChanged(x => x.TileColor).Subscribe(UpdateColor).AddTo(this);
 			// check for combos
@@ -131,14 +117,13 @@ namespace TilesWalk.Tile
 
 		protected virtual void UpdateColor(TileColor color)
 		{
-			Renderer.material = Materials[color];
+			Renderer.material = _colorHandler.GetMaterial(color);
 		}
 
 		#region Debug
 
 #if UNITY_EDITOR
-		[Header("Editor")] 
-		private CardinalDirection direction = CardinalDirection.North;
+		[Header("Editor")] private CardinalDirection direction = CardinalDirection.North;
 		private NeighborWalkRule rule = NeighborWalkRule.Plain;
 
 

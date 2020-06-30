@@ -20,9 +20,11 @@ namespace TilesWalk.Map.Tile
 		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
 		[Inject] private LevelBridge _levelBridge;
 		[Inject] private GameScoresHelper _gameScoresHelper;
+		[Inject] private LevelStateTileMaterialHandler _colorHandler;
 
 		[SerializeField] private List<LevelTileLink> _links;
 
+		private MeshRenderer _meshRenderer;
 		private ParticleSystemsCollector _particleSystems;
 
 		public ReactiveProperty<string> Name { get; } = new ReactiveProperty<string>();
@@ -35,6 +37,19 @@ namespace TilesWalk.Map.Tile
 		public LevelTile this[CardinalDirection direction]
 		{
 			get { return _links.Find(x => x.Direction == direction).Level; }
+		}
+
+		protected MeshRenderer Renderer
+		{
+			get
+			{
+				if (_meshRenderer == null)
+				{
+					_meshRenderer = GetComponentInChildren<MeshRenderer>();
+				}
+
+				return _meshRenderer;
+			}
 		}
 
 		public LevelTileLink GetLink(CardinalDirection direction)
@@ -145,6 +160,28 @@ namespace TilesWalk.Map.Tile
 					_particleSystems.StopAll();
 				}
 			}).AddTo(this);
+
+			Map.Subscribe(map =>
+			{
+				if (map != null)
+				{
+					if (_gameScoresHelper.IsCompleted(map))
+					{
+						Renderer.material = _colorHandler.GetMaterial(LevelMapState.Completed);
+					}
+					else
+					{
+						if (_gameScoresHelper.GameStars < map.StarsRequired)
+						{
+							Renderer.material = _colorHandler.GetMaterial(LevelMapState.Locked);
+						}
+						else
+						{
+							Renderer.material = _colorHandler.GetMaterial(LevelMapState.ToComplete);
+						}
+					}
+				}
+			});
 		}
 	}
 }

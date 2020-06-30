@@ -141,7 +141,7 @@ namespace TilesWalk.Building.LevelEditor
 			if (IsSelected.Value) OnTileSelected(false);
 			// assign a color and update render
 			_controller.Tile.ShuffleColor();
-			Renderer.material = Materials[_controller.Tile.TileColor];
+			Renderer.material = _colorHandler.GetMaterial(_controller.Tile.TileColor);
 			MovementLocked = false;
 		}
 

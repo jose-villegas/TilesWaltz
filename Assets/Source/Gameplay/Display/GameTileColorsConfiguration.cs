@@ -9,18 +9,52 @@ namespace TilesWalk.Gameplay.Display
 	[Serializable]
 	public class GameTileColorsConfiguration
 	{
-		[SerializeField] private List<GameColorMatch> _configuration;
-		
+		[Serializable]
+		public class GameColorMatch : GameColorMatch<GameColor>
+		{
+		}
+
+		[Serializable]
+		private class TileColorMatch : GameColorMatch<TileColor>
+		{
+		}
+
+		[Serializable]
+		private class LevelMapStateMatch : GameColorMatch<LevelMapState>
+		{
+		}
+
+		[Serializable]
+		private class LevelMapStarsMatch : GameColorMatch<int>
+		{
+		}
+
+		[SerializeField] private List<GameColorMatch> _colorConfiguration;
+		[SerializeField] private List<TileColorMatch> _tileConfiguration;
+		[SerializeField] private List<LevelMapStateMatch> _mapStateConfiguration;
+		[SerializeField] private List<LevelMapStarsMatch> _mapStarsConfiguration;
+
+		public Color GetMapStarsColor(int stars)
+		{
+			if (_mapStarsConfiguration == null) return Color.black;
+
+			var indexOf = _mapStarsConfiguration.FindIndex(x => x.Match > stars);
+
+			if (indexOf < 0) return Color.black;
+
+			return _mapStarsConfiguration[indexOf].Color;
+		}
+
 		public Color this[TileColor color]
 		{
 			get
 			{
-				GameColorMatch first = null;
+				TileColorMatch first = null;
 
-				foreach (var x in _configuration)
+				foreach (var x in _tileConfiguration)
 				{
-					if (x.Tile != color) continue;
-					
+					if (x.Match != color) continue;
+
 					first = x;
 					break;
 				}
@@ -37,9 +71,9 @@ namespace TilesWalk.Gameplay.Display
 			{
 				GameColorMatch first = null;
 
-				foreach (var x in _configuration)
+				foreach (var x in _colorConfiguration)
 				{
-					if (x.Name != color) continue;
+					if (x.Match != color) continue;
 
 					first = x;
 					break;
@@ -49,18 +83,17 @@ namespace TilesWalk.Gameplay.Display
 
 				return Color.black;
 			}
-
 		}
 
 		public Color this[LevelMapState state]
 		{
 			get
 			{
-				GameColorMatch first = null;
+				LevelMapStateMatch first = null;
 
-				foreach (var x in _configuration)
+				foreach (var x in _mapStateConfiguration)
 				{
-					if (x.LevelMapState != state) continue;
+					if (x.Match != state) continue;
 
 					first = x;
 					break;
@@ -70,7 +103,6 @@ namespace TilesWalk.Gameplay.Display
 
 				return Color.black;
 			}
-
 		}
 	}
 }

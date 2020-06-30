@@ -9656,7 +9656,6 @@ GameObject:
   - component: {fileID: 8945735414064226991}
   - component: {fileID: 7065465916232634172}
   - component: {fileID: 3192542431445619729}
-  - component: {fileID: 3372520758831090636}
   m_Layer: 10
   m_Name: LevelTile(Clone)
   m_TagString: Untagged
@@ -9753,21 +9752,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _links: []
---- !u!114 &3372520758831090636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3786277928631288638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9104104f5c41e944893a2598839370f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _toCompleteColor: {r: 0.68235296, g: 0.7764706, b: 0.8117647, a: 1}
-  _completedColor: {r: 0.99215686, g: 0.99215686, b: 0.5882353, a: 1}
-  _lockedColor: {r: 0.21893913, g: 0.3010825, b: 0.3773585, a: 1}
 --- !u!1 &5536155092589433250
 GameObject:
   m_ObjectHideFlags: 0
