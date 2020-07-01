@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TilesWalk.Building.Level;
+using TilesWalk.Gameplay.Input;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.General;
 using TilesWalk.General.FX;
@@ -22,6 +23,7 @@ namespace TilesWalk.Map.Tile
 		[Inject] private GameScoresHelper _gameScoresHelper;
 		[Inject] private LevelStateTileMaterialHandler _colorHandler;
 		[Inject] private LevelStarsTileMaterialHandler _starsColorHandler;
+		[Inject] private GameEventsHandler _gameEvents;
 
 		[SerializeField] private List<LevelTileLink> _links;
 
@@ -34,6 +36,7 @@ namespace TilesWalk.Map.Tile
 		public List<LevelTileLink> Links => _links;
 
 		private Subject<LevelTile> _onLevelTileClick;
+		private bool _disabledClick;
 
 		public LevelTile this[CardinalDirection direction]
 		{
@@ -109,6 +112,8 @@ namespace TilesWalk.Map.Tile
 
 		private void OnMouseDown()
 		{
+			if (_disabledClick) return;
+
 			OnMapTileClick();
 		}
 
@@ -139,6 +144,9 @@ namespace TilesWalk.Map.Tile
 
 		private void Start()
 		{
+			_gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed).AddTo(this);
+			_gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused).AddTo(this);
+
 			_particleSystems = gameObject.AddComponent<ParticleSystemsCollector>();
 
 			_detailsCanvas.LevelRequest.Name.Subscribe(mapName =>
@@ -183,6 +191,16 @@ namespace TilesWalk.Map.Tile
 					}
 				}
 			});
+		}
+
+		private void OnGamePaused(Unit obj)
+		{
+			_disabledClick = true;
+		}
+
+		private void OnGameResumed(Unit obj)
+		{
+			_disabledClick = false;
 		}
 	}
 }

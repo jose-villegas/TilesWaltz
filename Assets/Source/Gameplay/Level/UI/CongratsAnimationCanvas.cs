@@ -28,6 +28,7 @@ namespace TilesWalk.Gameplay.Level.UI
 
 		[Header("Points")] [SerializeField] private SlidingNumber _slidingNumber;
 		[SerializeField] private Slider _slider;
+		[Header("Actions")] [SerializeField] private Button _continue;
 		[SerializeField] private Button _retry;
 		[SerializeField] private Button _summary;
 
@@ -71,6 +72,12 @@ namespace TilesWalk.Gameplay.Level.UI
 
 		private void OnLevelFinish(LevelScore score)
 		{
+			// disabled interaction
+			_retry.interactable = false;
+			_continue.interactable = false;
+			_summary.interactable = false;
+
+
 			_slider.maxValue = _levelMap.LevelMap.Target;
 			// initialize number at 0
 			_slidingNumber.Current = 0;
@@ -104,6 +111,12 @@ namespace TilesWalk.Gameplay.Level.UI
 				if (starCount < 3)
 				{
 					_animator.SetTrigger("LevelFailed");
+
+					// restore interaction
+					_retry.interactable = true;
+					_continue.interactable = true;
+					_summary.interactable = true;
+
 					return;
 				}
 
@@ -142,17 +155,36 @@ namespace TilesWalk.Gameplay.Level.UI
 
 			_animator.SetTrigger("ShowTimeExtra");
 
-			_timeLabel.text = $"{new DateTime(limit.Ticks).ToString("mm:ss")} / " +
-			                  $"{new DateTime(last.Ticks).ToString("mm:ss")}";
+			var extraTime = (limit - last);
+			var ticks = extraTime.Ticks;
 
-			var end = new DateTime(limit.Ticks);
+			if (extraTime.Ticks >= DateTime.MaxValue.Ticks)
+			{
+				ticks = DateTime.MaxValue.Ticks;
+			}
+			else if (extraTime.Ticks <= DateTime.MinValue.Ticks)
+			{
+				ticks = DateTime.MinValue.Ticks;
+			}
+
+			_timeLabel.text = new DateTime(ticks).ToString("mm:ss");
 
 			_timeSlidingNumber.ObserveEveryValueChanged(x => x.Current).Subscribe(value =>
 			{
 				var add = Mathf.Ceil(value / _scorePointsConfiguration.PointsPerExtraSecond);
-				var current = new DateTime((last + TimeSpan.FromSeconds(add)).Ticks);
+				var seconds = TimeSpan.FromSeconds(add);
+				var iTicks = (extraTime - seconds).Ticks;
 
-				_timeLabel.text = $"{current.ToString("mm:ss")} / " + $"{end.ToString("mm:ss")}";
+				if (iTicks >= DateTime.MaxValue.Ticks)
+				{
+					iTicks = DateTime.MaxValue.Ticks;
+				}
+				else if (iTicks <= DateTime.MinValue.Ticks)
+				{
+					iTicks = DateTime.MinValue.Ticks;
+				}
+
+				_timeLabel.text = new DateTime(iTicks).ToString("mm:ss");
 			}).AddTo(this);
 
 			_timeSlidingNumber.OnTargetReachedAsObservable().Subscribe(reached =>
@@ -160,6 +192,14 @@ namespace TilesWalk.Gameplay.Level.UI
 				Observable.Timer(TimeSpan.FromSeconds(1.5f))
 					.Subscribe(_ => { }, () => _animator.SetTrigger("HideExtras"))
 					.AddTo(this);
+			}).AddTo(this);
+
+			_slidingNumber.OnTargetReachedAsObservable().Subscribe(_ =>
+			{
+				// restore interaction
+				_retry.interactable = true;
+				_continue.interactable = true;
+				_summary.interactable = true;
 			}).AddTo(this);
 
 			_timeSlidingNumber.Target(extra);
@@ -177,12 +217,12 @@ namespace TilesWalk.Gameplay.Level.UI
 
 			_animator.SetTrigger("ShowMovesExtra");
 
-			_movesLabel.text = $"{limit.Localize()} / {last.Localize()}";
+			_movesLabel.text = $"{limit.Localize()}/{last.Localize()}";
 
 			_movesSlidingNumber.ObserveEveryValueChanged(x => x.Current).Subscribe(value =>
 			{
 				var add = value / _scorePointsConfiguration.PointsPerExtraMove;
-				_movesLabel.text = $"{(last + add).Localize()} / {limit.Localize()}";
+				_movesLabel.text = $"{(last + add).Localize()}/{limit.Localize()}";
 			}).AddTo(this);
 
 			_movesSlidingNumber.OnTargetReachedAsObservable().Subscribe(reached =>
@@ -190,6 +230,14 @@ namespace TilesWalk.Gameplay.Level.UI
 				Observable.Timer(TimeSpan.FromSeconds(1.5f))
 					.Subscribe(_ => { }, () => _animator.SetTrigger("HideExtras"))
 					.AddTo(this);
+			}).AddTo(this);
+
+			_slidingNumber.OnTargetReachedAsObservable().Subscribe(_ =>
+			{
+				// restore interaction
+				_retry.interactable = true;
+				_continue.interactable = true;
+				_summary.interactable = true;
 			}).AddTo(this);
 
 			_levelScorePointsTracker.AddPoints(extra);

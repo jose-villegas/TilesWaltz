@@ -45,7 +45,8 @@ namespace TilesWalk.Gameplay.Level.UI
 			// moves
 			MovesDetail(score, _levelMap.LevelMap);
 
-			
+			_retry.interactable = false;
+			_continue.interactable = false;
 
 			Show();
 		}
@@ -68,8 +69,14 @@ namespace TilesWalk.Gameplay.Level.UI
 					_extraPoints.OnTargetReachedAsObservable().Subscribe(e =>
 					{
 						_totalPoints.Target(score.Points.Last);
+
+						_totalPoints.OnTargetReachedAsObservable().Subscribe(_ =>
+						{
+							_retry.interactable = true;
+							_continue.interactable = true;
+						}).AddTo(this);
 					}).AddTo(this);
-					
+
 					_extraPoints.Target(extra);
 				}).AddTo(this);
 			}
@@ -94,6 +101,12 @@ namespace TilesWalk.Gameplay.Level.UI
 					_extraPoints.OnTargetReachedAsObservable().Subscribe(e =>
 					{
 						_totalPoints.Target(score.Points.Last);
+
+						_totalPoints.OnTargetReachedAsObservable().Subscribe(_ =>
+						{
+							_retry.interactable = true;
+							_continue.interactable = true;
+						}).AddTo(this);
 					}).AddTo(this);
 
 					_extraPoints.Target(extra);

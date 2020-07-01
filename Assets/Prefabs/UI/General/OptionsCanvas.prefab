@@ -391,9 +391,14 @@ MonoBehaviour:
   _animationTime: 0.1
   _enterDirection: {x: 0, y: 1}
   _exitDirection: {x: 0, y: -1}
+  _triggerGameEvents: 0
+  _showTriggersPause: 0
+  _showTriggersResume: 0
   _onCanvasShown:
     m_PersistentCalls:
       m_Calls: []
+  _hideTriggersPause: 0
+  _hideTriggersResume: 0
   _onCanvasHidden:
     m_PersistentCalls:
       m_Calls: []
@@ -425,6 +430,9 @@ MonoBehaviour:
   _animationTime: 0.1
   _enterDirection: {x: 0, y: 1}
   _exitDirection: {x: 0, y: -1}
+  _triggerGameEvents: 1
+  _showTriggersPause: 1
+  _showTriggersResume: 0
   _onCanvasShown:
     m_PersistentCalls:
       m_Calls:
@@ -439,6 +447,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _hideTriggersPause: 0
+  _hideTriggersResume: 1
   _onCanvasHidden:
     m_PersistentCalls:
       m_Calls:

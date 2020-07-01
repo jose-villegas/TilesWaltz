@@ -8,6 +8,8 @@ using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Display;
+using TilesWalk.Gameplay.Input;
+using TilesWalk.Gameplay.Score;
 using TilesWalk.General;
 using TilesWalk.General.FX;
 using TilesWalk.Tile.Rules;
@@ -21,11 +23,13 @@ namespace TilesWalk.Tile
 	public partial class TileView : TileViewTrigger, IView
 	{
 		[SerializeField] protected TileController _controller;
+
+		[Inject] protected DiContainer _container;
 		[Inject] protected TileViewFactory _tileFactory;
 		[Inject] protected TileViewLevelMap _tileLevelMap;
 		[Inject] protected GameTileColorsConfiguration _tileColorsSettings;
-		[Inject] protected DiContainer _container;
 		[Inject] protected TileColorMaterialColorMatchHandler _colorHandler;
+		[Inject] protected GameEventsHandler _gameEvents;
 		[Inject(Optional = true)] protected LevelFinishTracker _levelFinishTracker;
 
 		private MeshRenderer _meshRenderer;
@@ -80,38 +84,68 @@ namespace TilesWalk.Tile
 		{
 			// Fetch FX particle system in children
 			_particleSystems = gameObject.AddComponent<ParticleSystemsCollector>();
+
 			// This small optimization enables us to share the material per color
 			// instead of creating a new instance per every tile that tries to
 			// change its color
 			Renderer.material = _colorHandler.GetMaterial(_controller.Tile.TileColor);
+
 			// update material on color update
 			_controller.Tile.ObserveEveryValueChanged(x => x.TileColor).Subscribe(UpdateColor).AddTo(this);
-			// check for combos
-			transform.UpdateAsObservable().Subscribe(_ =>
-			{
-				if (MovementLocked) return;
 
-				if (_controller.Tile.MatchingColorPatch != null &&
-				    _controller.Tile.MatchingColorPatch.Count > 2)
-				{
-					RemoveCombo();
-				}
-			}).AddTo(this);
+			// check for combos
+			OnTileRemovedAsObservable().Subscribe(OnTileRemoved).AddTo(this);
+
+			_gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused);
+			_gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed);
 
 			// on level finish stop interactions
 			if (_levelFinishTracker != null)
 			{
-				_levelFinishTracker.OnLevelFinishAsObservable().Subscribe(_ =>
-				{
-					MovementLocked = true;
-					MainThreadDispatcher.StartEndOfFrameMicroCoroutine(LevelFinishAnimation());
-				}).AddTo(this);
+				_levelFinishTracker.OnLevelFinishAsObservable().Subscribe(OnLevelFinish).AddTo(this);
 			}
+		}
+
+		private void OnTileRemoved(List<Tile> _)
+		{
+			// check for combos
+			if (_controller.Tile.MatchingColorPatch != null && _controller.Tile.MatchingColorPatch.Count > 2)
+			{
+				RemoveCombo();
+			}
+		}
+
+		private void OnGameResumed(Unit _)
+		{
+			if (_levelFinishTracker != null && _levelFinishTracker.IsFinished) return;
+
+			MovementLocked = false;
+		}
+
+		private void OnGamePaused(Unit _)
+		{
+			MovementLocked = true;
+		}
+
+		private void OnLevelFinish(LevelScore _)
+		{
+			// check if there is any combo left
+			if (_controller.Tile.MatchingColorPatch != null && _controller.Tile.MatchingColorPatch.Count > 2)
+			{
+				RemoveCombo();
+			}
+
+			MovementLocked = true;
+
+			MainThreadDispatcher.StartEndOfFrameMicroCoroutine(LevelFinishAnimation());
 		}
 
 		protected virtual void OnMouseDown()
 		{
 			_onTileClicked?.OnNext(_controller.Tile);
+
+			if (MovementLocked) return;
+
 			Remove();
 		}
 

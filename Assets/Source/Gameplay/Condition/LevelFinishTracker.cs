@@ -27,6 +27,8 @@ namespace TilesWalk.Gameplay.Condition
 		public MovesFinishCondition MovesFinishCondition => _movesFinishCondition;
 		public TimeFinishCondition TimeFinishCondition => _timeFinishCondition;
 
+		public bool IsFinished { get; private set; } = false;
+
 		private void Awake()
 		{
 			_solver.InstanceProvider(gameObject);
@@ -101,6 +103,7 @@ namespace TilesWalk.Gameplay.Condition
 						}
 					}
 
+					IsFinished = true;
 					_onLevelFinish?.OnNext(_levelScorePointsTracker.LevelScore);
 				}).AddTo(this);
 			}
@@ -131,6 +134,7 @@ namespace TilesWalk.Gameplay.Condition
 						}
 					}
 
+					IsFinished = true;
 					_onLevelFinish?.OnNext(_levelScorePointsTracker.LevelScore);
 				}).AddTo(this);
 			}

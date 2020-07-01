@@ -1,26 +1,45 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
+using TilesWalk.Gameplay.Input;
 using TilesWalk.General.Patterns;
 using TilesWalk.Navigation.UI;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Zenject;
 
 namespace TilesWalk.General.UI
 {
 	[RequireComponent(typeof(CanvasGroup))]
 	public class CanvasGroupBehaviour : ObligatoryComponentBehaviour<CanvasGroup>
 	{
-		[Header("Animation")]
-		[SerializeField] private bool _animate;
+		[Inject] private GameEventsHandler _gameEvents;
+
+		[Header("Animation")] [SerializeField] private bool _animate;
 		[SerializeField] private float _animationTime = 0.1f;
 		[SerializeField] private Vector2 _enterDirection = Vector2.up;
 		[SerializeField] private Vector2 _exitDirection = Vector2.down;
-		[Header("Events")]
-		[SerializeField] private UnityEvent _onCanvasShown;
+		[Header("Events")] [SerializeField] private UnityEvent _onCanvasShown;
 		[SerializeField] private UnityEvent _onCanvasHidden;
+
+		[Header("Game Events"), SerializeField]
+		private bool _triggerGameEvents;
+
+		[SerializeField, ShowIf("_triggerGameEvents"), DisableIf("_showTriggersResume")]
+		private bool _showTriggersPause;
+
+		[SerializeField, ShowIf("_triggerGameEvents"), DisableIf("_showTriggersPause")]
+		private bool _showTriggersResume;
+
+		[SerializeField, ShowIf("_triggerGameEvents"), DisableIf("_hideTriggersResume")]
+		private bool _hideTriggersPause;
+
+		[SerializeField, ShowIf("_triggerGameEvents"), DisableIf("_hideTriggersPause")]
+		private bool _hideTriggersResume;
+
 
 		public bool IsVisible => Component.alpha > 0;
 
@@ -123,6 +142,13 @@ namespace TilesWalk.General.UI
 
 		public virtual void Hide()
 		{
+			if (_triggerGameEvents)
+			{
+				if (_hideTriggersPause) _gameEvents.Pause();
+
+				if (_hideTriggersResume) _gameEvents.Resume();
+			}
+
 			if (_animate && gameObject.activeInHierarchy)
 			{
 				if (_animationCoroutine == null)
@@ -150,6 +176,13 @@ namespace TilesWalk.General.UI
 
 		public virtual void Show()
 		{
+			if (_triggerGameEvents)
+			{
+				if (_showTriggersPause) _gameEvents.Pause();
+
+				if (_showTriggersResume) _gameEvents.Resume();
+			}
+
 			if (_animate && gameObject.activeInHierarchy)
 			{
 				_animationCoroutine = ShowAnimation();
