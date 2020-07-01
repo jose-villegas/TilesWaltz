@@ -156,7 +156,7 @@ namespace TilesWalk.Gameplay.Level.UI
 			_animator.SetTrigger("ShowTimeExtra");
 
 			var extraTime = (limit - last);
-			_timeLabel.text = string.Format("{0:mm\\:ss}", extraTime); ;
+			_timeLabel.text = string.Format("{0:mm\\:ss}", extraTime);
 
 			_timeSlidingNumber.ObserveEveryValueChanged(x => x.Current).Subscribe(value =>
 			{

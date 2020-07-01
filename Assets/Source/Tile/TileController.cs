@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Extensions;
+using TilesWalk.Gameplay.Display;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
-using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace TilesWalk.Tile
 {
@@ -105,7 +104,7 @@ namespace TilesWalk.Tile
 					break;
 			}
 
-			tile.Index += new Vector3Int((int)translate.x, (int)translate.y, (int)translate.z);
+			tile.Index += new Vector3Int((int) translate.x, (int) translate.y, (int) translate.z);
 		}
 
 		/// <summary>
@@ -283,6 +282,53 @@ namespace TilesWalk.Tile
 			ChainRefreshPaths(_tile, updateShortestPath: false);
 		}
 
+		public void HandleTilePowerUp()
+		{
+			switch (_tile.PowerUp)
+			{
+				case TilePowerUp.None:
+					break;
+				case TilePowerUp.NorthSouthLine:
+					HandleDirectionalPowerUp(CardinalDirection.North, CardinalDirection.South);
+					break;
+				case TilePowerUp.EastWestLine:
+					HandleDirectionalPowerUp(CardinalDirection.East, CardinalDirection.West);
+					break;
+				case TilePowerUp.ColorMatch:
+					HandleColorMatchPowerUp(_tile, _tile.TileColor);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
+			_tile.PowerUp = TilePowerUp.None;
+		}
+
+		private void HandleColorMatchPowerUp(Tile source, TileColor color,
+			CardinalDirection ignore = CardinalDirection.None)
+		{
+			if (_tile.TileColor == color) _tile.ShuffleColor();
+
+			foreach (var neighbor in _tile.Neighbors)
+			{
+				if (neighbor.Key == ignore) continue;
+
+				HandleColorMatchPowerUp(neighbor.Value, color, neighbor.Key.Opposite());
+			}
+		}
+
+		private void HandleDirectionalPowerUp(CardinalDirection forward, CardinalDirection backward)
+		{
+			var path = _tile.GetStraightPath(true, forward, backward);
+
+			foreach (var tile in path)
+			{
+				tile.ShuffleColor();
+			}
+
+			ChainRefreshPaths(_tile, updateShortestPath: false);
+		}
+
 		/// <summary>
 		/// Combo removal works by changing the colors for all the tiles within a matching
 		/// color patch
@@ -296,12 +342,65 @@ namespace TilesWalk.Tile
 				return;
 			}
 
+			FindColorMatchPowerUp();
+
 			foreach (var tile in _tile.MatchingColorPatch)
 			{
 				tile.ShuffleColor();
 			}
 
 			ChainRefreshPaths(_tile, updateShortestPath: false);
+		}
+
+		private void FindColorMatchPowerUp()
+		{
+			var powerUp = TilePowerUp.None;
+
+			// check for combo power-ups
+			if (_tile.MatchingColorPatch.Count >= 5)
+			{
+				// color match power-up
+				powerUp = TilePowerUp.ColorMatch;
+			}
+
+			if (_tile.MatchingColorPatch.Count >= 4)
+			{
+				var cardinalDirection = CardinalDirection.None;
+				var directionPowerUp = true;
+
+				var first = _tile.MatchingColorPatch[0];
+				// find its neighbor matching color
+				var second = first.Neighbors.First(x => x.Value.TileColor == first.TileColor);
+				// now we follow this direction to see if all the tiles match
+				cardinalDirection = second.Key;
+
+				for (int i = 1; i < _tile.MatchingColorPatch.Count; i++)
+				{
+					first = _tile.MatchingColorPatch[i];
+					// find its neighbor matching color
+					second = first.Neighbors.First(x => x.Value.TileColor == first.TileColor);
+
+					if (second.Key != cardinalDirection && second.Key != cardinalDirection.Opposite())
+					{
+						cardinalDirection = CardinalDirection.None;
+						break;
+					}
+				}
+
+				if (directionPowerUp && cardinalDirection == CardinalDirection.South ||
+				    cardinalDirection == CardinalDirection.North)
+				{
+					powerUp = TilePowerUp.NorthSouthLine;
+				}
+				else if (directionPowerUp && cardinalDirection == CardinalDirection.West ||
+				         cardinalDirection == CardinalDirection.East)
+				{
+					powerUp = TilePowerUp.EastWestLine;
+				}
+
+				// assign to a tile randomly
+				_tile.MatchingColorPatch[Random.Range(0, _tile.MatchingColorPatch.Count)].PowerUp = powerUp;
+			}
 		}
 
 		/// <summary>

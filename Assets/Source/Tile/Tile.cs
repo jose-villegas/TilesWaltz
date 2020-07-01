@@ -23,8 +23,10 @@ namespace TilesWalk.Tile
 		[SerializeField] private Vector3Int _index;
 		[SerializeField] private Bounds _bounds;
 		[SerializeField] private TileColor _color;
+		[SerializeField] private TilePowerUp _powerUp;
 
 		private Subject<Tuple<Tile, TileColor>> _onTileColorChanged;
+		private Subject<Tuple<Tile, TilePowerUp>> onTilePowerUpChanged;
 
 		/// <summary>
 		/// This structure contains a reference to the neighbor tiles, useful for indexing
@@ -68,6 +70,17 @@ namespace TilesWalk.Tile
 		public List<Tile> ShortestPathToLeaf { get; private set; }
 		public List<Tile> MatchingColorPatch { get; private set; }
 
+		public TilePowerUp PowerUp
+		{
+			get => _powerUp;
+			set
+			{
+				var sourcePower = _powerUp;
+				_powerUp = value;
+				onTilePowerUpChanged?.OnNext(new Tuple<Tile, TilePowerUp>(this, _powerUp));
+			}
+		}
+
 		public void ShuffleColor()
 		{
 			TileColor = TileColorExtension.RandomColor(this.Neighbors.Select(x => x.Value.TileColor).ToArray());
@@ -98,6 +111,56 @@ namespace TilesWalk.Tile
 			return _onTileColorChanged = _onTileColorChanged == null
 				? new Subject<Tuple<Tile, TileColor>>()
 				: _onTileColorChanged;
+		}
+
+		public IObservable<Tuple<Tile, TilePowerUp>> OnTilePowerUpChangedAsObservable()
+		{
+			return onTilePowerUpChanged = onTilePowerUpChanged == null
+				? new Subject<Tuple<Tile, TilePowerUp>>()
+				: onTilePowerUpChanged;
+		}
+
+		public List<Tile> GetStraightPath(bool applyPowerModifier, params CardinalDirection[] direction)
+		{
+			var sourceTile = this;
+			var result = new List<Tile>() {sourceTile};
+
+			foreach (var cardinalDirection in direction)
+			{
+				sourceTile = this;
+				while (sourceTile.Neighbors.TryGetValue(cardinalDirection, out var currentTile))
+				{
+					sourceTile = currentTile;
+					result.Add(currentTile);
+				}
+			}
+
+			result.Sort((t1, t2) =>
+			{
+				var dst1 = (Index - t1.Index).sqrMagnitude;
+				var dst2 = (Index - t2.Index).sqrMagnitude;
+				return dst1 - dst2;
+			});
+
+			if (applyPowerModifier)
+			{
+				float numberOFColors = Neighbors.Count(x => x.Value.TileColor == TileColor);
+
+				// neighboring colors manage the potency of the powerup
+				if (numberOFColors < 1)
+				{
+					var percent = result.Count - Mathf.CeilToInt(result.Count * 0.33f);
+					result.RemoveRange(result.Count - percent, percent);
+				}
+				else if (numberOFColors >= 1 && numberOFColors < 2)
+				{
+					var percent = result.Count - Mathf.CeilToInt(result.Count * 0.66f);
+					result.RemoveRange(result.Count - percent, percent);
+				}
+			}
+
+
+			return result;
 		}
 	}
 }

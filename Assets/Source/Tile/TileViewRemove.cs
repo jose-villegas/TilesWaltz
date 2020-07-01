@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
 using TilesWalk.Audio;
+using TilesWalk.General;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -76,10 +77,83 @@ namespace TilesWalk.Tile
 						.DelayFrame(1)
 						.Subscribe(_ => { }, () =>
 						{
-							MovementLocked = false;
-							_onTileRemoved?.OnNext(shufflePath);
+							// finally the remove animation is done, check for power-ups
+							if (_controller.Tile.PowerUp != TilePowerUp.None)
+							{
+								HandlePowerUp(() =>
+								{
+									MovementLocked = false;
+									_onTileRemoved?.OnNext(shufflePath);
+								});
+							}
+							else
+							{
+								MovementLocked = false;
+								_onTileRemoved?.OnNext(shufflePath);
+							}
 						}).AddTo(this);
 				}).AddTo(this);
+		}
+
+		private void HandlePowerUp(Action onFinish)
+		{
+			List<Tile> path = null;
+
+			switch (_controller.Tile.PowerUp)
+			{
+				case TilePowerUp.None:
+					break;
+				case TilePowerUp.NorthSouthLine:
+					path = _controller.Tile.GetStraightPath(true, CardinalDirection.North, CardinalDirection.South);
+					break;
+				case TilePowerUp.EastWestLine:
+					path = _controller.Tile.GetStraightPath(true, CardinalDirection.East, CardinalDirection.West);
+					break;
+				case TilePowerUp.ColorMatch:
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
+			if (path != null)
+			{
+				for (int i = 0; i < path.Count; i++)
+				{
+					var factor = (i + 1) * .4f + 1;
+					var index = i;
+					var tileView = _tileLevelMap.GetTileView(path[i]);
+					var sourceScale = tileView.transform.localScale;
+
+					_audioCollection.Play(GameAudioType.Sound, "Combo");
+					MainThreadDispatcher.StartEndOfFrameMicroCoroutine(
+						tileView.ScalePopInAnimation(Vector3.zero, factor));
+
+					var i1 = i;
+					Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime * factor))
+						.DelayFrame(1)
+						.Subscribe(_ => { }, () =>
+						{
+							if (index == path.Count - 1)
+							{
+								_controller.HandleTilePowerUp();
+							}
+
+							tileView._particleSystems["PopIn"].Play();
+							MainThreadDispatcher.StartEndOfFrameMicroCoroutine(
+								tileView.ScalePopInAnimation(sourceScale, factor));
+							Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime * factor))
+								.DelayFrame(1)
+								.Subscribe(_ => { },
+									() =>
+									{
+										if (index == path.Count - 1)
+										{
+											onFinish?.Invoke();
+										}
+									}).AddTo(this);
+						}).AddTo(this);
+				}
+			}
 		}
 
 		[Button]
@@ -101,6 +175,8 @@ namespace TilesWalk.Tile
 
 			MovementLocked = true;
 			var shufflePath = _controller.Tile.MatchingColorPatch;
+			var indexOf = shufflePath.FindIndex(x => x.PowerUp != TilePowerUp.None);
+
 
 			for (int i = 0; i < shufflePath.Count; i++)
 			{
@@ -128,8 +204,20 @@ namespace TilesWalk.Tile
 								{
 									if (index == shufflePath.Count - 1)
 									{
-										MovementLocked = false;
-										_onComboRemoval?.OnNext(shufflePath);
+										if (indexOf >= 0)
+										{
+											var view = _tileLevelMap.GetTileView(shufflePath[indexOf]);
+											view.HandlePowerUp(() =>
+											{
+												MovementLocked = false;
+												_onComboRemoval?.OnNext(shufflePath);
+											});
+										}
+										else
+										{
+											MovementLocked = false;
+											_onComboRemoval?.OnNext(shufflePath);
+										}
 									}
 								}).AddTo(this);
 					}).AddTo(this);

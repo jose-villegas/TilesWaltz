@@ -91,7 +91,10 @@ namespace TilesWalk.Tile
 			Renderer.material = _colorHandler.GetMaterial(_controller.Tile.TileColor);
 
 			// update material on color update
-			_controller.Tile.ObserveEveryValueChanged(x => x.TileColor).Subscribe(UpdateColor).AddTo(this);
+			_controller.Tile.OnTileColorChangedAsObservable().Subscribe(UpdateColor).AddTo(this);
+
+			// update particles on power up
+			_controller.Tile.OnTilePowerUpChangedAsObservable().Subscribe(UpdatePowerUpFX).AddTo(this);
 
 			_gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused);
 			_gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed);
@@ -100,6 +103,33 @@ namespace TilesWalk.Tile
 			if (_levelFinishTracker != null)
 			{
 				_levelFinishTracker.OnLevelFinishAsObservable().Subscribe(OnLevelFinish).AddTo(this);
+			}
+		}
+
+		private void UpdatePowerUpFX(Tuple<Tile, TilePowerUp> power)
+		{
+			if (_particleSystems.ParticleFX == null || _particleSystems.ParticleFX.Count == 0) return;
+
+			switch (power.Item1.PowerUp)
+			{
+				case TilePowerUp.None:
+					_particleSystems["North"].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+					_particleSystems["South"].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+					_particleSystems["East"].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+					_particleSystems["West"].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+					break;
+				case TilePowerUp.NorthSouthLine:
+					_particleSystems["North"].Play();
+					_particleSystems["South"].Play();
+					break;
+				case TilePowerUp.EastWestLine:
+					_particleSystems["East"].Play();
+					_particleSystems["West"].Play();
+					break;
+				case TilePowerUp.ColorMatch:
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(power), power, null);
 			}
 		}
 
@@ -141,9 +171,9 @@ namespace TilesWalk.Tile
 			Remove();
 		}
 
-		protected virtual void UpdateColor(TileColor color)
+		protected virtual void UpdateColor(Tuple<Tile, TileColor> color)
 		{
-			Renderer.material = _colorHandler.GetMaterial(color);
+			Renderer.material = _colorHandler.GetMaterial(color.Item1.TileColor);
 		}
 
 		#region Debug
