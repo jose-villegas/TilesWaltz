@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
+using TilesWalk.Gameplay.Input;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.General;
 using TilesWalk.General.Patterns;
@@ -20,10 +21,24 @@ namespace TilesWalk.Gameplay.Limits.UI
 	{
 		[Inject] private TileViewLevelMap _tileLevelMap;
 		[Inject] private LevelFinishTracker _levelFinishTracker;
+		[Inject] private GameEventsHandler _gameEvents;
+		private bool _gamePaused;
 
 		private void Awake()
 		{
+			_gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused).AddTo(this);
+			_gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed).AddTo(this);
 			_levelFinishTracker.OnTrackersSetupFinishAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
+		}
+
+		private void OnGameResumed(Unit obj)
+		{
+			_gamePaused = false;
+		}
+
+		private void OnGamePaused(Unit obj)
+		{
+			_gamePaused = true;
 		}
 
 		private void OnLevelMapLoaded(LevelScore score)
@@ -32,17 +47,23 @@ namespace TilesWalk.Gameplay.Limits.UI
 
 			if (condition == null) return;
 
-			var start = DateTime.Now;
-			var end = DateTime.Now + TimeSpan.FromSeconds(condition.Limit);
+			var end = TimeSpan.FromSeconds(condition.Limit);
+			var seconds = 0f;
 
-			Observable.EveryUpdate().Timeout(TimeSpan.FromSeconds(condition.Limit)).SubscribeToText(Component, _ =>
+			Component.text = $"00:00/{new DateTime(end.Ticks).ToString("mm:ss")}";
+
+			Observable.Interval(TimeSpan.FromSeconds(1)).SubscribeToText(Component, l =>
 			{
-				var current = new DateTime((DateTime.Now - start).Ticks);
-				var limit = new DateTime((end - start).Ticks);
-				var currentTime = current.ToString("mm:ss");
-				var limitTime = limit.ToString("mm:ss");
+				var current = new DateTime(TimeSpan.FromSeconds(seconds).Ticks).ToString("mm:ss");
+				var limit = new DateTime(end.Ticks).ToString("mm:ss");
 
-				return current < limit ? $"{currentTime}/{limitTime}" : $"{limitTime}/{limitTime}";
+				if (_levelFinishTracker.IsFinished) return $"{limit}/{limit}";
+
+				if (_gamePaused) return $"{current}/{limit}";
+
+				seconds++;
+
+				return seconds < condition.Limit ? $"{current}/{limit}" : $"{limit}/{limit}";
 			}).AddTo(this);
 		}
 	}

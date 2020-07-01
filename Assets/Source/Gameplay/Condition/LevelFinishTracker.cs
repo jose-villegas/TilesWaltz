@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TilesWalk.Building.Level;
+using TilesWalk.Gameplay.Input;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.Map.General;
 using UniRx;
@@ -15,6 +16,7 @@ namespace TilesWalk.Gameplay.Condition
 		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;
 		[Inject] private TileViewLevelMap _tileLevelMap;
 		[Inject] private MapProviderSolver _solver;
+		[Inject] private GameEventsHandler _gameEvents;
 
 		private TargetScorePointsCondition _targetPointsCondition;
 		private MovesFinishCondition _movesFinishCondition;
@@ -23,6 +25,7 @@ namespace TilesWalk.Gameplay.Condition
 		private Subject<LevelScore> _onLevelFinish;
 		private Subject<LevelScore> _onTrackersSetupFinish;
 		private Subject<LevelScore> _onScorePointsTargetReached;
+		private bool _gamePaused;
 
 		public MovesFinishCondition MovesFinishCondition => _movesFinishCondition;
 		public TimeFinishCondition TimeFinishCondition => _timeFinishCondition;
@@ -33,6 +36,18 @@ namespace TilesWalk.Gameplay.Condition
 		{
 			_solver.InstanceProvider(gameObject);
 			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
+			_gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused).AddTo(this);
+			_gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed).AddTo(this);
+		}
+
+		private void OnGameResumed(Unit obj)
+		{
+			_gamePaused = false;
+		}
+
+		private void OnGamePaused(Unit obj)
+		{
+			_gamePaused = true;
 		}
 
 		private void OnLevelMapLoaded(LevelMap levelMap)
@@ -111,14 +126,12 @@ namespace TilesWalk.Gameplay.Condition
 
 		private void TimeTracking()
 		{
-			transform.UpdateAsObservable().Subscribe(_ =>
-				{
-					if (!_timeFinishCondition.IsConditionMeet.Value)
-					{
-						_timeFinishCondition?.Update(Time.deltaTime);
-					}
-				})
-				.AddTo(this);
+			Observable.Interval(TimeSpan.FromSeconds(1)).Subscribe(l =>
+			{
+				if (_gamePaused) return;
+
+				_timeFinishCondition?.Update(1f);
+			}).AddTo(this);
 
 			if (_tileLevelMap.LevelMap.FinishCondition == FinishCondition.TimeLimit)
 			{
