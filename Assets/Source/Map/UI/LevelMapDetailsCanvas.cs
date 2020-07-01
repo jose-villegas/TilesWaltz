@@ -82,11 +82,15 @@ namespace TilesWalk.Navigation.UI
 
 		private void UpdateCanvas(LevelMap map)
 		{
-			//_playButton.interactable = _gameScoresHelper.GameStars >= map.StarsRequired;
+			_playButton.interactable = _gameScoresHelper.GameStars >= map.StarsRequired;
 
-			// prepare the bridge
-			_levelBridge.Payload = new LevelBridgePayload(_levelRequest.Map, _levelRequest.Condition,
-				_gameScoresHelper.State(_levelRequest.Map));
+			// setup the bridge before loading scene
+			_playButton.onClick.AddListener(() =>
+			{
+				// prepare the bridge
+				_levelBridge.Payload = new LevelBridgePayload(_levelRequest.Map, _levelRequest.Condition,
+					_gameScoresHelper.State(_levelRequest.Map));
+			});
 
 			//// set condition
 			if (map.FinishCondition == FinishCondition.MovesLimit)

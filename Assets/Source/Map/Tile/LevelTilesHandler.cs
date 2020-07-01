@@ -133,6 +133,9 @@ namespace TilesWalk.Map.Tile
 					if (sourceState == LevelMapState.ToComplete && linkState == LevelMapState.ToComplete ||
 					    sourceState == LevelMapState.Completed && linkState == LevelMapState.ToComplete)
 					{
+						Debug.Log(_bridge.Payload);
+						Debug.Log(_bridge.Payload.State);
+						Debug.Log(_bridge.Payload.Level.Id);
 						// check if this tile was just completed
 						if (_bridge.Payload != null &&
 						    _bridge.Payload.State == LevelMapState.ToComplete &&
@@ -176,7 +179,6 @@ namespace TilesWalk.Map.Tile
 			for (int i = 0; i < blocked.Count; i++)
 			{
 				var animator = blocked.ElementAt(i);
-				animator.enabled = true;
 				animator.SetFloat("Offset", (float) (i + 1) / blocked.Count);
 				animator.SetBool("IsBlocked", true);
 			}
@@ -188,21 +190,22 @@ namespace TilesWalk.Map.Tile
 				var rot = animator.transform.rotation;
 				var sca = animator.transform.localScale;
 
-				animator.enabled = true;
 				animator.SetFloat("Offset", (float) (i + 1) / justUnlocked.Count);
 				animator.SetBool("IsBlocked", true);
 
 				// first stop blocked path anim
 				Observable.Timer(TimeSpan.FromSeconds(.1f)).Subscribe(_ => { },
-					() => { animator.SetBool("IsBlocked", false); }).AddTo(this);
+					() =>
+					{
+						animator.SetBool("IsBlocked", false);
+					}).AddTo(this);
 				// now animate appear
-				var time = .1f + (i + 1) * .15f;
+				var time = .1f + (i + 1) * .3f;
 				Observable.Timer(TimeSpan.FromSeconds(time)).Subscribe(_ => { },
 					() =>
 					{
 						{
 							animator.SetTrigger("IsNowAvailable");
-
 							var meshRenderer = animator.GetComponentInChildren<MeshRenderer>();
 							meshRenderer.material = _starsColorHandler.GetMaterial(maxStars[animator]);
 						}
@@ -230,7 +233,7 @@ namespace TilesWalk.Map.Tile
 			while (t <= time)
 			{
 				tr.position = Vector3.Lerp(srPos, pos, t / time);
-				tr.rotation = Quaternion.Lerp(srRot, rot, t / time);
+				tr.rotation = Quaternion.Slerp(srRot, rot, t / time);
 				tr.localScale = Vector3.Lerp(srSca, sca, t / time);
 
 				t += Time.deltaTime;
