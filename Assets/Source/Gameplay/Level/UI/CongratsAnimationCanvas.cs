@@ -156,35 +156,15 @@ namespace TilesWalk.Gameplay.Level.UI
 			_animator.SetTrigger("ShowTimeExtra");
 
 			var extraTime = (limit - last);
-			var ticks = extraTime.Ticks;
-
-			if (extraTime.Ticks >= DateTime.MaxValue.Ticks)
-			{
-				ticks = DateTime.MaxValue.Ticks;
-			}
-			else if (extraTime.Ticks <= DateTime.MinValue.Ticks)
-			{
-				ticks = DateTime.MinValue.Ticks;
-			}
-
-			_timeLabel.text = new DateTime(ticks).ToString("mm:ss");
+			_timeLabel.text = string.Format("{0:mm\\:ss}", extraTime); ;
 
 			_timeSlidingNumber.ObserveEveryValueChanged(x => x.Current).Subscribe(value =>
 			{
 				var add = Mathf.Ceil(value / _scorePointsConfiguration.PointsPerExtraSecond);
 				var seconds = TimeSpan.FromSeconds(add);
-				var iTicks = (extraTime - seconds).Ticks;
+				var timeLeft = (extraTime - seconds);
 
-				if (iTicks >= DateTime.MaxValue.Ticks)
-				{
-					iTicks = DateTime.MaxValue.Ticks;
-				}
-				else if (iTicks <= DateTime.MinValue.Ticks)
-				{
-					iTicks = DateTime.MinValue.Ticks;
-				}
-
-				_timeLabel.text = new DateTime(iTicks).ToString("mm:ss");
+				_timeLabel.text = string.Format("{0:mm\\:ss}", timeLeft); ;
 			}).AddTo(this);
 
 			_timeSlidingNumber.OnTargetReachedAsObservable().Subscribe(reached =>

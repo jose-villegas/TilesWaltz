@@ -23,18 +23,8 @@ namespace TilesWalk.Gameplay.Level.UI
 		{
 			var target = TimeSpan.FromSeconds(score.Time.Last);
 			var limit = TimeSpan.FromSeconds(_finishTracker.TimeFinishCondition.Limit);
-			var ticks = (limit - target).Ticks;
-
-			if (ticks >= DateTime.MaxValue.Ticks)
-			{
-				ticks = DateTime.MaxValue.Ticks;
-			}
-			else if (ticks <= DateTime.MinValue.Ticks)
-			{
-				ticks = DateTime.MinValue.Ticks;
-			}
-
-			Component.text = new DateTime(ticks).ToString("mm:ss");
+			var extra = (limit - target);
+			Component.text = string.Format("{0:mm\\:ss}", extra);
 		}
 	}
 }

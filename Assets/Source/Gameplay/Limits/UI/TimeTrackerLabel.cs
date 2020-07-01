@@ -50,20 +50,21 @@ namespace TilesWalk.Gameplay.Limits.UI
 			var end = TimeSpan.FromSeconds(condition.Limit);
 			var seconds = 0f;
 
-			Component.text = $"00:00/{new DateTime(end.Ticks).ToString("mm:ss")}";
+			Component.text = string.Format("00:00/{0:mm\\:ss}", end); ;
 
 			Observable.Interval(TimeSpan.FromSeconds(1)).SubscribeToText(Component, l =>
 			{
-				var current = new DateTime(TimeSpan.FromSeconds(seconds).Ticks).ToString("mm:ss");
-				var limit = new DateTime(end.Ticks).ToString("mm:ss");
+				var current = TimeSpan.FromSeconds(seconds);
 
-				if (_levelFinishTracker.IsFinished) return $"{limit}/{limit}";
+				if (_levelFinishTracker.IsFinished) return string.Format("{0:mm\\:ss}/{0:mm\\:ss}", end);
 
-				if (_gamePaused) return $"{current}/{limit}";
+				if (_gamePaused) return string.Format("{0:mm\\:ss}/{1:mm\\:ss}", current, end);
 
 				seconds++;
 
-				return seconds < condition.Limit ? $"{current}/{limit}" : $"{limit}/{limit}";
+				return seconds < condition.Limit
+					? string.Format("{0:mm\\:ss}/{1:mm\\:ss}", current, end)
+					: string.Format("{0:mm\\:ss}/{0:mm\\:ss}", end);
 			}).AddTo(this);
 		}
 	}

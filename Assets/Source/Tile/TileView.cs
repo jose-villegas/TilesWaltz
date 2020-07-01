@@ -93,9 +93,6 @@ namespace TilesWalk.Tile
 			// update material on color update
 			_controller.Tile.ObserveEveryValueChanged(x => x.TileColor).Subscribe(UpdateColor).AddTo(this);
 
-			// check for combos
-			OnTileRemovedAsObservable().Subscribe(OnTileRemoved).AddTo(this);
-
 			_gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused);
 			_gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed);
 
@@ -106,10 +103,11 @@ namespace TilesWalk.Tile
 			}
 		}
 
-		private void OnTileRemoved(List<Tile> _)
+		// check for combos
+		private void Update()
 		{
 			// check for combos
-			if (_controller.Tile.MatchingColorPatch != null && _controller.Tile.MatchingColorPatch.Count > 2)
+			if (Controller.Tile.MatchingColorPatch != null && Controller.Tile.MatchingColorPatch.Count > 2)
 			{
 				RemoveCombo();
 			}
@@ -129,12 +127,6 @@ namespace TilesWalk.Tile
 
 		private void OnLevelFinish(LevelScore _)
 		{
-			// check if there is any combo left
-			if (_controller.Tile.MatchingColorPatch != null && _controller.Tile.MatchingColorPatch.Count > 2)
-			{
-				RemoveCombo();
-			}
-
 			MovementLocked = true;
 
 			MainThreadDispatcher.StartEndOfFrameMicroCoroutine(LevelFinishAnimation());

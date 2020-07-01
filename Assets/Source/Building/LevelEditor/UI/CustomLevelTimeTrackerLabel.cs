@@ -37,11 +37,12 @@ namespace TilesWalk.Building.LevelEditor.UI
 			Component.text = "00:00";
 			_condition.Reset(0);
 
-			_update = transform.UpdateAsObservable().Subscribe(_ =>
+			_update = Observable.Interval(TimeSpan.FromSeconds(1)).SubscribeToText(Component, tick =>
 			{
-				_condition.Update(Time.deltaTime);
-				Component.text = new DateTime(TimeSpan.FromSeconds(_condition.Tracker.Value).Ticks).ToString(("mm:ss"));
-			});
+				_condition.Update(1f);
+				var current = TimeSpan.FromSeconds(_condition.Tracker.Value);
+				return string.Format("{0:mm\\:ss}", current);
+			}).AddTo(this);
 		}
 	}
 }

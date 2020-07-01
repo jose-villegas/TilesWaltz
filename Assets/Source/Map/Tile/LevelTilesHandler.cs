@@ -133,9 +133,6 @@ namespace TilesWalk.Map.Tile
 					if (sourceState == LevelMapState.ToComplete && linkState == LevelMapState.ToComplete ||
 					    sourceState == LevelMapState.Completed && linkState == LevelMapState.ToComplete)
 					{
-						Debug.Log(_bridge.Payload);
-						Debug.Log(_bridge.Payload.State);
-						Debug.Log(_bridge.Payload.Level.Id);
 						// check if this tile was just completed
 						if (_bridge.Payload != null &&
 						    _bridge.Payload.State == LevelMapState.ToComplete &&

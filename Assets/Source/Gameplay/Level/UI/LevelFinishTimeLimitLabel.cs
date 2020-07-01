@@ -22,7 +22,7 @@ namespace TilesWalk.Gameplay.Level.UI
 		private void OnLevelFinish(LevelScore score)
 		{
 			var limit = TimeSpan.FromSeconds(_finishTracker.TimeFinishCondition.Limit);
-			Component.text = new DateTime(limit.Ticks).ToString("mm:ss");
+			Component.text = string.Format("{0:mm\\:ss}", limit);
 		}
 	}
 }
