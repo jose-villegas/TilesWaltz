@@ -161,7 +161,7 @@ namespace TilesWalk.Tile
 		private void OnLevelFinish(LevelScore _)
 		{
 			MovementLocked = true;
-			StartCoroutine(LevelFinishAnimation());
+			// StartCoroutine(LevelFinishAnimation());
 		}
 
 		protected virtual void OnMouseDown()

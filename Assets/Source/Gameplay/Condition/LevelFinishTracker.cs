@@ -18,7 +18,6 @@ namespace TilesWalk.Gameplay.Condition
 		[Inject] private MapProviderSolver _solver;
 		[Inject] private GameEventsHandler _gameEvents;
 
-		private TargetScorePointsCondition _targetPointsCondition;
 		private MovesFinishCondition _movesFinishCondition;
 		private TimeFinishCondition _timeFinishCondition;
 
@@ -52,23 +51,6 @@ namespace TilesWalk.Gameplay.Condition
 
 		private void OnLevelMapLoaded(LevelMap levelMap)
 		{
-			_targetPointsCondition = new TargetScorePointsCondition(levelMap.Id, levelMap.Target);
-
-			// track score points
-			_levelScorePointsTracker.OnScorePointsUpdatedAsObservable().Subscribe(score =>
-				{
-					_targetPointsCondition.Update(score.Points.Last);
-				})
-				.AddTo(this);
-
-			// track target points completion
-			_targetPointsCondition.IsConditionMeet.Subscribe(meet =>
-			{
-				if (!meet) return;
-
-				_onScorePointsTargetReached?.OnNext(_levelScorePointsTracker.LevelScore);
-			}).AddTo(this);
-
 			if (levelMap.FinishCondition == FinishCondition.MovesLimit)
 			{
 				// find finish conditions
@@ -93,7 +75,7 @@ namespace TilesWalk.Gameplay.Condition
 		{
 			_tileLevelMap.OnTileRemovedAsObservable().Subscribe(l =>
 				{
-					if (_gamePaused || _timeFinishCondition.IsConditionMeet.Value) return;
+					if (_gamePaused || _movesFinishCondition.IsConditionMeet.Value) return;
 
 					_movesFinishCondition?.Update(1);
 				})
@@ -151,11 +133,6 @@ namespace TilesWalk.Gameplay.Condition
 		public IObservable<LevelScore> OnLevelFinishAsObservable()
 		{
 			return _onLevelFinish = _onLevelFinish ?? new Subject<LevelScore>();
-		}
-
-		public IObservable<LevelScore> OnScorePointsTargetReachedAsObservable()
-		{
-			return _onScorePointsTargetReached = _onScorePointsTargetReached ?? new Subject<LevelScore>();
 		}
 	}
 }

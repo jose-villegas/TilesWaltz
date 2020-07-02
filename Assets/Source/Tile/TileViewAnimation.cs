@@ -33,7 +33,7 @@ namespace TilesWalk.Tile
 						Vector3.MoveTowards(transform.localScale, Vector3.zero, scaleSpeed * Time.deltaTime);
 
 					t += Time.deltaTime;
-					yield return null;
+					yield return new WaitForEndOfFrame();
 				}
 
 				movementSpeed = Random.Range(-1f, 1f);
@@ -48,7 +48,7 @@ namespace TilesWalk.Tile
 						Vector3.MoveTowards(transform.localScale, scale, scaleSpeed * Time.deltaTime);
 
 					t += Time.deltaTime;
-					yield return null;
+					yield return new WaitForEndOfFrame();
 				}
 			}
 		}
