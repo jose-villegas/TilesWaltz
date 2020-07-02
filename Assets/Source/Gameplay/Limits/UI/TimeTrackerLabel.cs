@@ -48,11 +48,10 @@ namespace TilesWalk.Gameplay.Limits.UI
 			if (condition == null) return;
 
 			var end = TimeSpan.FromSeconds(condition.Limit);
-			var seconds = 0f;
 
 			Component.text = string.Format("00:00/{0:mm\\:ss}", end); ;
 
-			Observable.Interval(TimeSpan.FromSeconds(1)).SubscribeToText(Component, l =>
+			condition.Tracker.SubscribeToText(Component, seconds =>
 			{
 				var current = TimeSpan.FromSeconds(seconds);
 
@@ -65,6 +64,7 @@ namespace TilesWalk.Gameplay.Limits.UI
 				return seconds < condition.Limit
 					? string.Format("{0:mm\\:ss}/{1:mm\\:ss}", current, end)
 					: string.Format("{0:mm\\:ss}/{0:mm\\:ss}", end);
+
 			}).AddTo(this);
 		}
 	}

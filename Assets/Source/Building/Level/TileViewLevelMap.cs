@@ -85,6 +85,8 @@ namespace TilesWalk.Building.Level
 				.Subscribe(path => _onTileRemoved?.OnNext(path)).AddTo(tile);
 			tile.OnTileClickedAsObservable()
 				.Subscribe(val => _onTileClicked?.OnNext(val)).AddTo(tile);
+			tile.OnPowerUpRemovalAsObservable()
+				.Subscribe(path => _onPowerUpRemoval?.OnNext(path)).AddTo(tile);
 		}
 
 		public void RegisterTile(TileView tile, int? hash = null)

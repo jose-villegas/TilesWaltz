@@ -97,11 +97,11 @@ namespace TilesWalk.Gameplay.Condition
 
 		private void TimeTracking()
 		{
-			Observable.Interval(TimeSpan.FromSeconds(1)).Subscribe(l =>
+			Observable.Interval(TimeSpan.FromMilliseconds(10)).Subscribe(l =>
 			{
 				if (_gamePaused || _timeFinishCondition.IsConditionMeet.Value) return;
 
-				_timeFinishCondition?.Update(1f);
+				_timeFinishCondition?.Update(10f / 1000f);
 			}).AddTo(this);
 
 			_timeFinishCondition.IsConditionMeet.Subscribe(meet =>

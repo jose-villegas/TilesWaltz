@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ColorPower
-  m_Shader: {fileID: 10720, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: Cut
+  m_Shader: {fileID: 10723, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -40,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3cadd62e458e00443b70607e786f04ae, type: 3}
+        m_Texture: {fileID: 2800000, guid: 21bf9efbdbbbd4e34af72f1de5e334f6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -74,5 +74,5 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmisColor: {r: 1, g: 0.7019608, b: 0.2784314, a: 1}
+    - _EmisColor: {r: 0.7019608, g: 0.61960787, b: 0.70980394, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
