@@ -15,6 +15,8 @@ MonoBehaviour:
   _scorePointsSettings:
     _pointsPerTile: 10
     _comboMultiplier: 10
+    _directionalPowerUpMultiplier: 7
+    _colorMatchPowerUpMultiplier: 7
     _pointsPerExtraSecond: 20
     _pointsPerExtraMove: 100
     _oneStarRange: 0.3
@@ -73,8 +75,8 @@ MonoBehaviour:
     _powerUpPopInSequenceFactor: 0.5
     _targetTileTime: 0.15
   _customLevelsSettings:
-    _maximumUserMaps: 1
-    _maximumImportedMaps: 1
+    _maximumUserMaps: 3
+    _maximumImportedMaps: 3
     _maximumTilesPerLevel: 200
     _tileSeparationBoundsOffset: 0.65
   _gamePalette:

@@ -2072,6 +2072,11 @@ MonoBehaviour:
   _onCanvasHidden:
     m_PersistentCalls:
       m_Calls: []
+  _triggerGameEvents: 0
+  _showTriggersPause: 0
+  _showTriggersResume: 0
+  _hideTriggersPause: 0
+  _hideTriggersResume: 0
 --- !u!1 &3170418317102763106
 GameObject:
   m_ObjectHideFlags: 0
@@ -4915,6 +4920,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Slider
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786897438064478980, guid: f272e4263643aa94ba73f166d06dc15d,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6786897438064478981, guid: f272e4263643aa94ba73f166d06dc15d,
         type: 3}
