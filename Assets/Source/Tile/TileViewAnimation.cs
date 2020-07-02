@@ -53,14 +53,14 @@ namespace TilesWalk.Tile
 			}
 		}
 
-		private IEnumerator ScalePopInAnimation(Vector3 scale, float tFactor = 1f)
+		private IEnumerator ScalePopInAnimation(Vector3 scale)
 		{
 			var t = 0f;
 			var origin = transform.localScale;
 			
-			while (t <= _animationSettings.ScalePopInTime * tFactor)
+			while (t <= _animationSettings.ScalePopInTime)
 			{
-				var norm = t / _animationSettings.ScalePopInTime * tFactor;
+				var norm = t / _animationSettings.ScalePopInTime;
 				transform.localScale = Vector3.Lerp(origin, scale, _animationSettings.ScalePopInCurve.Evaluate(norm));
 				t += Time.deltaTime;
 				yield return null;

@@ -81,9 +81,13 @@ namespace TilesWalk.Tile
 			}
 		}
 
-		public void ShuffleColor()
+		public void ShuffleColor(bool self = false)
 		{
-			TileColor = TileColorExtension.RandomColor(this.Neighbors.Select(x => x.Value.TileColor).ToArray());
+			var distinct = Neighbors.Select(x => x.Value.TileColor).ToList();
+			
+			if (self) distinct.Add(TileColor);
+
+			TileColor = TileColorExtension.RandomColor(distinct.ToArray());
 		}
 
 		public void RefreshShortestLeafPath()
@@ -120,6 +124,68 @@ namespace TilesWalk.Tile
 				: onTilePowerUpChanged;
 		}
 
+		public List<Tile> GetAllOfColor()
+		{
+			var result = new List<Tile>() {this};
+
+			foreach (var neighbor in Neighbors)
+			{
+				result.AddRange(GetAllOfColor(neighbor.Value, TileColor, neighbor.Key.Opposite()));
+			}
+
+			result.Sort((t1, t2) =>
+			{
+				var dst1 = (Index - t1.Index).sqrMagnitude;
+				var dst2 = (Index - t2.Index).sqrMagnitude;
+				return dst1 - dst2;
+			});
+
+			//if (applyPowerModifier)
+			//{
+			//	float numberOfColors = Neighbors.Count(x => x.Value.TileColor == TileColor);
+
+			//	// neighboring colors manage the potency of the power up
+			//	if (numberOfColors < 1)
+			//	{
+			//		var percent = result.Count - Mathf.CeilToInt(result.Count * 0.33f);
+			//		result.RemoveRange(result.Count - percent, percent);
+			//	}
+			//	else if (numberOfColors >= 1 && numberOfColors < 2)
+			//	{
+			//		var percent = result.Count - Mathf.CeilToInt(result.Count * 0.66f);
+			//		result.RemoveRange(result.Count - percent, percent);
+			//	}
+			//}
+
+			return result;
+		}
+
+		private static List<Tile> GetAllOfColor(Tile source, TileColor color, CardinalDirection ignore)
+		{
+			if (source.IsLeaf())
+			{
+				return null;
+			}
+
+			var result = new List<Tile>();
+
+			foreach (var neighbor in source.Neighbors)
+			{
+				if (neighbor.Key == ignore) continue;
+
+				if (neighbor.Value.TileColor == color) result.Add(neighbor.Value);
+
+				var neighborColors = GetAllOfColor(neighbor.Value, color, neighbor.Key.Opposite());
+
+				if (neighborColors != null && neighborColors.Count > 0)
+				{
+					result.AddRange(neighborColors);
+				}
+			}
+
+			return result;
+		}
+
 		public List<Tile> GetStraightPath(bool applyPowerModifier, params CardinalDirection[] direction)
 		{
 			var sourceTile = this;
@@ -144,15 +210,15 @@ namespace TilesWalk.Tile
 
 			if (applyPowerModifier)
 			{
-				float numberOFColors = Neighbors.Count(x => x.Value.TileColor == TileColor);
+				float numberOfColors = Neighbors.Count(x => x.Value.TileColor == TileColor);
 
-				// neighboring colors manage the potency of the powerup
-				if (numberOFColors < 1)
+				// neighboring colors manage the potency of the power up
+				if (numberOfColors < 1)
 				{
 					var percent = result.Count - Mathf.CeilToInt(result.Count * 0.33f);
 					result.RemoveRange(result.Count - percent, percent);
 				}
-				else if (numberOFColors >= 1 && numberOFColors < 2)
+				else if (numberOfColors >= 1 && numberOfColors < 2)
 				{
 					var percent = result.Count - Mathf.CeilToInt(result.Count * 0.66f);
 					result.RemoveRange(result.Count - percent, percent);

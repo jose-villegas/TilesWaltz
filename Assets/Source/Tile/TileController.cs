@@ -262,7 +262,12 @@ namespace TilesWalk.Tile
 				shufflePath.Reverse();
 			}
 
-			// update the path
+			var sourcePowerUp = _tile.PowerUp;
+			var sourceColor = _tile.TileColor;
+			_tile.PowerUp = TilePowerUp.None;
+
+
+				// update the path
 			for (int i = 0; i < shufflePath.Count; i++)
 			{
 				var source = shufflePath[i];
@@ -277,6 +282,18 @@ namespace TilesWalk.Tile
 				var nextTo = shufflePath[i + 1];
 
 				source.TileColor = nextTo.TileColor;
+				source.PowerUp = nextTo.PowerUp;
+			}
+
+			// ignore otherwise as this should be handled by HandleTilePowerUp
+			if (sourcePowerUp != TilePowerUp.None)
+			{
+				_tile.PowerUp = sourcePowerUp;
+
+				if (sourcePowerUp == TilePowerUp.ColorMatch)
+				{
+					_tile.TileColor = sourceColor;
+				}
 			}
 
 			ChainRefreshPaths(_tile, updateShortestPath: false);
@@ -301,15 +318,16 @@ namespace TilesWalk.Tile
 					throw new ArgumentOutOfRangeException();
 			}
 
+			ChainRefreshPaths(_tile, updateShortestPath: false);
 			_tile.PowerUp = TilePowerUp.None;
 		}
 
-		private void HandleColorMatchPowerUp(Tile source, TileColor color,
+		private static void HandleColorMatchPowerUp(Tile source, TileColor color,
 			CardinalDirection ignore = CardinalDirection.None)
 		{
-			if (_tile.TileColor == color) _tile.ShuffleColor();
+			if (source.TileColor == color) source.ShuffleColor(true);
 
-			foreach (var neighbor in _tile.Neighbors)
+			foreach (var neighbor in source.Neighbors)
 			{
 				if (neighbor.Key == ignore) continue;
 
@@ -325,8 +343,6 @@ namespace TilesWalk.Tile
 			{
 				tile.ShuffleColor();
 			}
-
-			ChainRefreshPaths(_tile, updateShortestPath: false);
 		}
 
 		/// <summary>
@@ -360,10 +376,10 @@ namespace TilesWalk.Tile
 			if (_tile.MatchingColorPatch.Count >= 5)
 			{
 				// color match power-up
-				powerUp = TilePowerUp.ColorMatch;
+				_tile.MatchingColorPatch[Random.Range(0, _tile.MatchingColorPatch.Count)].PowerUp =
+					TilePowerUp.ColorMatch;
 			}
-
-			if (_tile.MatchingColorPatch.Count >= 4)
+			else if (_tile.MatchingColorPatch.Count >= 4)
 			{
 				var cardinalDirection = CardinalDirection.None;
 				var directionPowerUp = true;
@@ -388,12 +404,12 @@ namespace TilesWalk.Tile
 				}
 
 				if (directionPowerUp && cardinalDirection == CardinalDirection.South ||
-				    cardinalDirection == CardinalDirection.North)
+					cardinalDirection == CardinalDirection.North)
 				{
 					powerUp = TilePowerUp.NorthSouthLine;
 				}
 				else if (directionPowerUp && cardinalDirection == CardinalDirection.West ||
-				         cardinalDirection == CardinalDirection.East)
+						 cardinalDirection == CardinalDirection.East)
 				{
 					powerUp = TilePowerUp.EastWestLine;
 				}

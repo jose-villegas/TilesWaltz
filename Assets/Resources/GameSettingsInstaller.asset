@@ -70,6 +70,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     _scalePopInTime: 0.1
+    _powerUpPopInSequenceFactor: 0.5
     _targetTileTime: 0.15
   _customLevelsSettings:
     _maximumUserMaps: 1

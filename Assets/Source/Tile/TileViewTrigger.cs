@@ -9,12 +9,14 @@ namespace TilesWalk.Tile
 	{
 		protected Subject<List<Tile>> _onTileRemoved;
 		protected Subject<List<Tile>> _onComboRemoval;
+		protected Subject<Tuple<List<Tile>, TilePowerUp>> _onPowerUpRemoval;
 		protected Subject<Tile> _onTileClicked;
 
 		protected override void RaiseOnCompletedOnDestroy()
 		{
 			_onTileRemoved?.OnCompleted();
 			_onComboRemoval?.OnCompleted();
+			_onPowerUpRemoval?.OnCompleted();
 			_onTileClicked?.OnCompleted();
 		}
 
@@ -31,6 +33,11 @@ namespace TilesWalk.Tile
 		public IObservable<Tile> OnTileClickedAsObservable()
 		{
 			return _onTileClicked = _onTileClicked ?? new Subject<Tile>();
+		}
+
+		public IObservable<Tuple<List<Tile>, TilePowerUp>> OnPowerUpRemovalAsObservable()
+		{
+			return _onPowerUpRemoval = _onPowerUpRemoval ?? new Subject<Tuple<List<Tile>, TilePowerUp>>();
 		}
 	}
 }

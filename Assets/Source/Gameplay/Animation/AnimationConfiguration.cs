@@ -10,6 +10,7 @@ namespace TilesWalk.Gameplay.Animation
 		[SerializeField] [Min(0f)] private float _shuffleMoveTime;
 		[SerializeField] private AnimationCurve _scalePopInCurve;
 		[SerializeField] [Min(0f)] private float _scalePopInTime;
+		[SerializeField] private float _powerUpPopInSequenceFactor;
 
 		[Header("Map Camera")] [SerializeField, Min(0f)]
 		private float _targetTileTime;
@@ -23,5 +24,7 @@ namespace TilesWalk.Gameplay.Animation
 		public AnimationCurve ShuffleCurve => _shuffleCurve;
 
 		public AnimationCurve ScalePopInCurve => _scalePopInCurve;
+
+		public float PowerUpPopInSequenceFactor => _powerUpPopInSequenceFactor;
 	}
 }

@@ -4,6 +4,7 @@ using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Persistence;
 using TilesWalk.General;
 using TilesWalk.Map.General;
+using TilesWalk.Tile;
 using UniRx;
 using UniRx.Triggers;
 using Zenject;
@@ -46,7 +47,29 @@ namespace TilesWalk.Gameplay.Score
 
 			_tileLevelMap.OnTileRemovedAsObservable().Subscribe(OnTileRemoved).AddTo(this);
 			_tileLevelMap.OnComboRemovalAsObservable().Subscribe(OnComboRemoval).AddTo(this);
+			_tileLevelMap.OnPowerUpRemovalAsObservable().Subscribe(OnPowerUpRemoval).AddTo(this);
 			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
+		}
+
+		private void OnPowerUpRemoval(Tuple<List<Tile.Tile>, TilePowerUp> power)
+		{
+			switch (power.Item2)
+			{
+				case TilePowerUp.None:
+					break;
+				case TilePowerUp.NorthSouthLine:
+				case TilePowerUp.EastWestLine:
+					AddPoints(_scorePointsConfiguration.PointsPerTile *
+					          _scorePointsConfiguration.DirectionalPowerUpMultiplier * power.Item1.Count);
+					break;
+				case TilePowerUp.ColorMatch:
+					AddPoints(_scorePointsConfiguration.PointsPerTile *
+					          _scorePointsConfiguration.ColorMatchPowerUpMultiplier * power.Item1.Count);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
 		}
 
 		public void SaveScore()

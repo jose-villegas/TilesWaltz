@@ -78,6 +78,7 @@ namespace TilesWalk.Tile
 		private void OnDestroy()
 		{
 			MovementLocked = false;
+			StopAllCoroutines();
 		}
 
 		protected virtual void Start()
@@ -117,6 +118,7 @@ namespace TilesWalk.Tile
 					_particleSystems["South"].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 					_particleSystems["East"].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 					_particleSystems["West"].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+					_particleSystems["Color"].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 					break;
 				case TilePowerUp.NorthSouthLine:
 					_particleSystems["North"].Play();
@@ -127,6 +129,7 @@ namespace TilesWalk.Tile
 					_particleSystems["West"].Play();
 					break;
 				case TilePowerUp.ColorMatch:
+					_particleSystems["Color"].Play();
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(power), power, null);
@@ -158,8 +161,7 @@ namespace TilesWalk.Tile
 		private void OnLevelFinish(LevelScore _)
 		{
 			MovementLocked = true;
-
-			MainThreadDispatcher.StartEndOfFrameMicroCoroutine(LevelFinishAnimation());
+			StartCoroutine(LevelFinishAnimation());
 		}
 
 		protected virtual void OnMouseDown()
@@ -167,6 +169,8 @@ namespace TilesWalk.Tile
 			_onTileClicked?.OnNext(_controller.Tile);
 
 			if (MovementLocked) return;
+
+			if (_levelFinishTracker != null && _levelFinishTracker.IsFinished) return;
 
 			Remove();
 		}

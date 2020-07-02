@@ -20,6 +20,12 @@ MonoBehaviour:
     - _identifier: Combo
       _clip: {fileID: 8300000, guid: c6a3b2ac04ec5f74788e502ed91aa09d, type: 3}
       volume: 0.35
+    - _identifier: LinePower
+      _clip: {fileID: 8300000, guid: f6742c31bc2a8eb498c86f3b10d4ca9e, type: 3}
+      volume: 0.25
+    - _identifier: ColorPower
+      _clip: {fileID: 8300000, guid: 9607f063607800b469fb28ce85204fe0, type: 3}
+      volume: 0.25
     _gameUISounds:
     - _identifier: Click
       _clip: {fileID: 8300000, guid: 50a2988df1c9ad54a9df0eef4ae656b4, type: 3}

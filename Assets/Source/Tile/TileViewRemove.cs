@@ -97,7 +97,10 @@ namespace TilesWalk.Tile
 
 		private void HandlePowerUp(Action onFinish)
 		{
+			MovementLocked = true;
 			List<Tile> path = null;
+			var audioToPlay = "";
+			var powerUp = _controller.Tile.PowerUp;
 
 			switch (_controller.Tile.PowerUp)
 			{
@@ -105,11 +108,15 @@ namespace TilesWalk.Tile
 					break;
 				case TilePowerUp.NorthSouthLine:
 					path = _controller.Tile.GetStraightPath(true, CardinalDirection.North, CardinalDirection.South);
+					audioToPlay = "LinePower";
 					break;
 				case TilePowerUp.EastWestLine:
 					path = _controller.Tile.GetStraightPath(true, CardinalDirection.East, CardinalDirection.West);
+					audioToPlay = "LinePower";
 					break;
 				case TilePowerUp.ColorMatch:
+					path = _controller.Tile.GetAllOfColor();
+					audioToPlay = "ColorPower";
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -119,17 +126,16 @@ namespace TilesWalk.Tile
 			{
 				for (int i = 0; i < path.Count; i++)
 				{
-					var factor = (i + 1) * .4f + 1;
 					var index = i;
 					var tileView = _tileLevelMap.GetTileView(path[i]);
 					var sourceScale = tileView.transform.localScale;
 
-					_audioCollection.Play(GameAudioType.Sound, "Combo");
-					MainThreadDispatcher.StartEndOfFrameMicroCoroutine(
-						tileView.ScalePopInAnimation(Vector3.zero, factor));
+					_audioCollection.Play(GameAudioType.Sound, audioToPlay);
 
-					var i1 = i;
-					Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime * factor))
+					MainThreadDispatcher.StartEndOfFrameMicroCoroutine(
+						tileView.ScalePopInAnimation(Vector3.zero));
+
+					Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
 						.DelayFrame(1)
 						.Subscribe(_ => { }, () =>
 						{
@@ -140,14 +146,16 @@ namespace TilesWalk.Tile
 
 							tileView._particleSystems["PopIn"].Play();
 							MainThreadDispatcher.StartEndOfFrameMicroCoroutine(
-								tileView.ScalePopInAnimation(sourceScale, factor));
-							Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime * factor))
+								tileView.ScalePopInAnimation(sourceScale));
+							Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
 								.DelayFrame(1)
 								.Subscribe(_ => { },
 									() =>
 									{
 										if (index == path.Count - 1)
 										{
+											MovementLocked = false;
+											_onPowerUpRemoval?.OnNext(new Tuple<List<Tile>, TilePowerUp>(path, powerUp));
 											onFinish?.Invoke();
 										}
 									}).AddTo(this);
@@ -177,6 +185,16 @@ namespace TilesWalk.Tile
 			var shufflePath = _controller.Tile.MatchingColorPatch;
 			var indexOf = shufflePath.FindIndex(x => x.PowerUp != TilePowerUp.None);
 
+			if (indexOf >= 0)
+			{
+				var view = _tileLevelMap.GetTileView(shufflePath[indexOf]);
+				view.HandlePowerUp(() =>
+				{
+					MovementLocked = false;
+					_onComboRemoval?.OnNext(shufflePath);
+				});
+				return;
+			}
 
 			for (int i = 0; i < shufflePath.Count; i++)
 			{
@@ -204,20 +222,8 @@ namespace TilesWalk.Tile
 								{
 									if (index == shufflePath.Count - 1)
 									{
-										if (indexOf >= 0)
-										{
-											var view = _tileLevelMap.GetTileView(shufflePath[indexOf]);
-											view.HandlePowerUp(() =>
-											{
-												MovementLocked = false;
-												_onComboRemoval?.OnNext(shufflePath);
-											});
-										}
-										else
-										{
-											MovementLocked = false;
-											_onComboRemoval?.OnNext(shufflePath);
-										}
+										MovementLocked = false;
+										_onComboRemoval?.OnNext(shufflePath);
 									}
 								}).AddTo(this);
 					}).AddTo(this);
