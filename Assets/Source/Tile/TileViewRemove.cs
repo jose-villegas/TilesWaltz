@@ -100,6 +100,7 @@ namespace TilesWalk.Tile
 			MovementLocked = true;
 			List<Tile> path = null;
 			var audioToPlay = "";
+			var audioPerTileToPlay = "";
 			var powerUp = _controller.Tile.PowerUp;
 
 			switch (_controller.Tile.PowerUp)
@@ -117,6 +118,7 @@ namespace TilesWalk.Tile
 				case TilePowerUp.ColorMatch:
 					path = _controller.Tile.GetAllOfColor();
 					audioToPlay = "ColorPower";
+					audioPerTileToPlay = "Water";
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -132,19 +134,21 @@ namespace TilesWalk.Tile
 
 					_audioCollection.Play(GameAudioType.Sound, audioToPlay);
 
-					MainThreadDispatcher.StartEndOfFrameMicroCoroutine(
-						tileView.ScalePopInAnimation(Vector3.zero));
+					if (index == 0)
+					{
+						_controller.HandleTilePowerUp();
+						_onPowerUpRemoval?.OnNext(new Tuple<List<Tile>, TilePowerUp>(path, powerUp));
+					}
 
-					Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
+					MainThreadDispatcher.StartEndOfFrameMicroCoroutine(
+						tileView.ScalePopInAnimation(Vector3.zero, i * 0.1f));
+
+					Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime + i * 0.1f))
 						.DelayFrame(1)
 						.Subscribe(_ => { }, () =>
 						{
-							if (index == path.Count - 1)
-							{
-								_controller.HandleTilePowerUp();
-							}
-
 							tileView._particleSystems["PopIn"].Play();
+							_audioCollection.Play(GameAudioType.Sound, audioPerTileToPlay);
 							MainThreadDispatcher.StartEndOfFrameMicroCoroutine(
 								tileView.ScalePopInAnimation(sourceScale));
 							Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
@@ -155,7 +159,6 @@ namespace TilesWalk.Tile
 										if (index == path.Count - 1)
 										{
 											MovementLocked = false;
-											_onPowerUpRemoval?.OnNext(new Tuple<List<Tile>, TilePowerUp>(path, powerUp));
 											onFinish?.Invoke();
 										}
 									}).AddTo(this);

@@ -25,7 +25,10 @@ MonoBehaviour:
       volume: 0.25
     - _identifier: ColorPower
       _clip: {fileID: 8300000, guid: 9607f063607800b469fb28ce85204fe0, type: 3}
-      volume: 0.25
+      volume: 0.05
+    - _identifier: Water
+      _clip: {fileID: 8300000, guid: fff6630e974eb3c4ebf88e0ebbbd0eee, type: 3}
+      volume: 0.7
     _gameUISounds:
     - _identifier: Click
       _clip: {fileID: 8300000, guid: 50a2988df1c9ad54a9df0eef4ae656b4, type: 3}

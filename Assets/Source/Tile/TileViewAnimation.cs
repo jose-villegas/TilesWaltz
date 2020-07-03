@@ -53,10 +53,18 @@ namespace TilesWalk.Tile
 			}
 		}
 
-		private IEnumerator ScalePopInAnimation(Vector3 scale)
+		private IEnumerator ScalePopInAnimation(Vector3 scale, float delay = 0f)
 		{
 			var t = 0f;
 			var origin = transform.localScale;
+
+			while (t <= delay)
+			{
+				t += Time.deltaTime;
+				yield return null;
+			}
+
+			t = 0f;
 			
 			while (t <= _animationSettings.ScalePopInTime)
 			{

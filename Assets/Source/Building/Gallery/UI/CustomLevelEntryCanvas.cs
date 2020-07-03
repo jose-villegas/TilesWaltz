@@ -16,8 +16,7 @@ namespace TilesWalk.Building.Gallery.UI
 	public class CustomLevelEntryCanvas : MonoBehaviour
 	{
 		[Inject] private LevelBridge _bridge;
-
-		// Used for rendering the map preview
+		[Inject] private ShareLevelCanvas _shareCanvas;
 		[Inject] private TileViewLevelMap _levelMap;
 		[Inject] private LevelMapPreviewRenderCamera _previewCamera;
 		[Inject] private MapProviderSolver _solver;
@@ -30,6 +29,7 @@ namespace TilesWalk.Building.Gallery.UI
 		[SerializeField] private Button _delete;
 		[SerializeField] private Button _edit;
 		[SerializeField] private Button _play;
+		[SerializeField] private Button _share;
 
 		public LevelNameRequestHandler LevelRequest => _levelRequest;
 
@@ -39,6 +39,7 @@ namespace TilesWalk.Building.Gallery.UI
 			_edit.onClick.AsObservable().Subscribe(OnEditClick).AddTo(this);
 			_play.onClick.AsObservable().Subscribe(OnPlayClick).AddTo(this);
 			_delete.onClick.AsObservable().Subscribe(OnDeleteClick).AddTo(this);
+			_share.onClick.AsObservable().Subscribe(OnShareClick).AddTo(this);
 
 			_levelMap.BuildTileMap<TileView>(_levelRequest.Map);
 			_mapPreview.texture = _previewCamera.GetCurrentRender();
@@ -62,6 +63,11 @@ namespace TilesWalk.Building.Gallery.UI
 				_solver.Provider.Collection.Remove(_levelRequest.Name.Value);
 				Destroy(gameObject);
 			}).Show();
+		}
+
+		private void OnShareClick(Unit u)
+		{
+			_shareCanvas.Configure(_mapPreview.texture, _levelRequest.Map).Show();
 		}
 
 		private void UpdateCanvas(string val)
