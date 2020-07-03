@@ -37,6 +37,10 @@ namespace TilesWalk.Building.Gallery.UI
 		[SerializeField] private CanvasGroupBehaviour _movesCanvas;
 		[SerializeField] private TextMeshProUGUI _moves;
 
+		[SerializeField] private TMP_InputField _codeInput;
+		[SerializeField] private Toggle _qrToggle;
+		[SerializeField] private Toggle _codeToggle;
+
 		private WebCamTexture _cameraTexture;
 
 		private LevelMap _map;
@@ -44,17 +48,89 @@ namespace TilesWalk.Building.Gallery.UI
 		private bool _isMapRead;
 		private bool _cameraAvailable;
 		private bool _askingPermission;
-		private IDisposable _qrCheck;
+		private IDisposable _qrCheck = null;
+
+		private void Awake()
+		{
+			_qrToggle.onValueChanged.AsObservable().Subscribe(OnQRToggle).AddTo(this);
+			_codeInput.onEndEdit.AsObservable().Subscribe(OnCodeEntered).AddTo(this);
+		}
+
+		private void OnCodeEntered(string code)
+		{
+			if (_isMapRead) return;
+
+			if (!_codeToggle.isOn) return;
+
+			try
+			{
+				LevelMap.FromQRString(code, out _map, out _condition);
+				_animator.SetTrigger("ScanningDone");
+				_isMapRead = true;
+				_cameraTexture.Stop();
+				_codeInput.readOnly = true;
+
+				UpdateCanvas();
+			}
+			catch (Exception e)
+			{
+				Debug.LogWarning(e.Message);
+			}
+		}
+
+		private void OnQRToggle(bool val)
+		{
+			if (_isMapRead) return;
+
+			if (!_cameraAvailable && val)
+			{
+				InitializeCamera();
+				_cameraTexture.Play();
+
+				if (_qrCheck == null)
+				{
+					_qrCheck = Observable.Interval(TimeSpan.FromMilliseconds(250)).Subscribe(_ => ReadQR());
+				}
+			}
+			else if (_cameraAvailable && val)
+			{
+				_cameraTexture.Play();
+				if (_qrCheck == null)
+				{
+					_qrCheck = Observable.Interval(TimeSpan.FromMilliseconds(250)).Subscribe(_ => ReadQR());
+				}
+			}
+			else if (!val)
+			{
+				_cameraTexture.Stop();
+				_qrCheck?.Dispose();
+				_qrCheck = null;
+			}
+		}
 
 		private void OnEnable()
 		{
-			// check qr data
-			_qrCheck = Observable.Interval(TimeSpan.FromMilliseconds(100)).Subscribe(_ => ReadQR());
+			if (_qrToggle.isOn && _qrCheck == null)
+			{
+				if (_cameraAvailable)
+				{
+					_cameraTexture.Play();
+				}
+
+				// check qr data
+				_qrCheck = Observable.Interval(TimeSpan.FromMilliseconds(250)).Subscribe(_ => ReadQR());
+			}
 		}
 
 		private void OnDisable()
 		{
 			_qrCheck?.Dispose();
+			_qrCheck = null;
+
+			_isMapRead = false;
+			_cameraTexture.Stop();
+			_codeInput.readOnly = false;
+			_animator.SetTrigger("ScanningMode");
 		}
 
 		private void InitializeCamera()
@@ -77,19 +153,14 @@ namespace TilesWalk.Building.Gallery.UI
 			_cameraAvailable = true;
 		}
 
-		public override void Hide()
-		{
-			base.Hide();
-
-			_cameraTexture.Stop();
-		}
-
 		public override void Show()
 		{
+			if (_qrToggle.isOn)
+			{
 #if UNITY_EDITOR
-			if (!_cameraAvailable) InitializeCamera();
+				if (!_cameraAvailable) InitializeCamera();
 
-			base.Show();
+				base.Show();
 #elif PLATFORM_ANDROID
 			if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
 			{
@@ -103,33 +174,38 @@ namespace TilesWalk.Building.Gallery.UI
 				if (!_cameraAvailable) InitializeCamera();
 			}
 #endif
-			if (_cameraAvailable) _cameraTexture.Play();
+				if (_cameraAvailable) _cameraTexture.Play();
+			}
 		}
 
 		private void OnApplicationFocus(bool val)
 		{
-			if (_askingPermission && val)
+			if (_qrToggle.isOn)
 			{
-				if (Permission.HasUserAuthorizedPermission(Permission.Camera))
+				if (_askingPermission && val)
 				{
-					if (!_cameraAvailable) InitializeCamera();
+					if (Permission.HasUserAuthorizedPermission(Permission.Camera))
+					{
+						if (!_cameraAvailable) InitializeCamera();
 
-					_notice.Configure("Close and reopen this popup if not rendering.")
-						.Show(2f);
+						_notice.Configure("Close and reopen this popup if not rendering.")
+							.Show(2f);
 
-					base.Show();
-				}
-				else
-				{
-					_notice.Configure("Needs camera permission to scan new maps from QR codes.", NoticePriority.Error)
-						.Show(3f);
+						base.Show();
+					}
+					else
+					{
+						_notice.Configure("Needs camera permission to scan new maps from QR codes.",
+								NoticePriority.Error)
+							.Show(3f);
+					}
 				}
 			}
 		}
 
 		private void Update()
 		{
-			if (!_cameraAvailable)
+			if (!_cameraAvailable || !_qrToggle.isOn)
 				return;
 
 			float scaleY = _cameraTexture.videoVerticallyMirrored ? -1f : 1f; // Find if the camera is mirrored or not
