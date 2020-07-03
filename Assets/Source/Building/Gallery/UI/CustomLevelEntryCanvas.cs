@@ -28,22 +28,58 @@ namespace TilesWalk.Building.Gallery.UI
 		[SerializeField] private RawImage _mapPreview;
 		[SerializeField] private Button _delete;
 		[SerializeField] private Button _edit;
+		[SerializeField] private Button _addToUser;
 		[SerializeField] private Button _play;
 		[SerializeField] private Button _share;
+		[SerializeField] private UserLevelMapsProvider _userMaps;
 
 		public LevelNameRequestHandler LevelRequest => _levelRequest;
 
 		private void Start()
 		{
+			if (_solver.Source == Provider.UserMaps)
+			{
+				_edit.gameObject.SetActive(true);
+				_addToUser.gameObject.SetActive(false);
+			}
+			else if (_solver.Source == Provider.ImportedMaps)
+			{
+				_edit.gameObject.SetActive(false);
+				_addToUser.gameObject.SetActive(true);
+			}
+
+			if (_userMaps.Collection.AvailableMaps.Count >= _userMaps.MaximumLevels)
+			{
+				_addToUser.interactable = false;
+			}
+
 			_levelRequest.Name.Subscribe(UpdateCanvas).AddTo(this);
 			_edit.onClick.AsObservable().Subscribe(OnEditClick).AddTo(this);
 			_play.onClick.AsObservable().Subscribe(OnPlayClick).AddTo(this);
 			_delete.onClick.AsObservable().Subscribe(OnDeleteClick).AddTo(this);
 			_share.onClick.AsObservable().Subscribe(OnShareClick).AddTo(this);
+			_addToUser.onClick.AsObservable().Subscribe(OnAddToUserMapsClicked).AddTo(this);
 
 			_levelMap.BuildTileMap<TileView>(_levelRequest.Map);
 			_mapPreview.texture = _previewCamera.GetCurrentRender();
 			_levelMap.Reset();
+		}
+
+		private void OnAddToUserMapsClicked(Unit u)
+		{
+			var alreadyExisting = _userMaps.Collection.Exist(_levelRequest.Map.Id);
+
+			if (!alreadyExisting)
+			{
+				_confirmation.Configure("Add this map to user maps?",
+					() => { _userMaps.Collection.Insert(_levelRequest.Map, _levelRequest.Condition); }).Show();
+			}
+			else
+			{
+				_confirmation.Configure(
+					$"This will replace your map named {_levelRequest.Map.Id}, continue?",
+					() => { _userMaps.Collection.Insert(_levelRequest.Map, _levelRequest.Condition); }).Show();
+			}
 		}
 
 		private void OnEditClick(Unit u)

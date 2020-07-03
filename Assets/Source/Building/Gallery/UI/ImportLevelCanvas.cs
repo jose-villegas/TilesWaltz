@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO.MemoryMappedFiles;
 using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
@@ -41,6 +42,8 @@ namespace TilesWalk.Building.Gallery.UI
 		[SerializeField] private Toggle _qrToggle;
 		[SerializeField] private Toggle _codeToggle;
 
+		[Header("Actions")] [SerializeField] private Button _add;
+
 		private WebCamTexture _cameraTexture;
 
 		private LevelMap _map;
@@ -50,10 +53,35 @@ namespace TilesWalk.Building.Gallery.UI
 		private bool _askingPermission;
 		private IDisposable _qrCheck = null;
 
+		private Subject<Tuple<LevelMap, MapFinishCondition>> _onNewLevelImported;
+
 		private void Awake()
 		{
+			_add.interactable = false;
 			_qrToggle.onValueChanged.AsObservable().Subscribe(OnQRToggle).AddTo(this);
 			_codeInput.onEndEdit.AsObservable().Subscribe(OnCodeEntered).AddTo(this);
+			_add.onClick.AsObservable().Subscribe(OnSaveClick).AddTo(this);
+		}
+
+		private void OnSaveClick(Unit obj)
+		{
+			if (_isMapRead && _map != null && _condition != null)
+			{
+				_solver.Provider.Collection.Insert(_map, _condition);
+				_onNewLevelImported?.OnNext(new Tuple<LevelMap, MapFinishCondition>(_map, _condition));
+			}
+		}
+
+		public IObservable<Tuple<LevelMap, MapFinishCondition>> OnNewLevelImportedAsObservable()
+		{
+			return _onNewLevelImported = _onNewLevelImported == null
+				? new Subject<Tuple<LevelMap, MapFinishCondition>>()
+				: _onNewLevelImported;
+		}
+
+		private void OnDestroy()
+		{
+			_onNewLevelImported?.OnCompleted();
 		}
 
 		private void OnCodeEntered(string code)
@@ -67,6 +95,7 @@ namespace TilesWalk.Building.Gallery.UI
 				LevelMap.FromQRString(code, out _map, out _condition);
 				_animator.SetTrigger("ScanningDone");
 				_isMapRead = true;
+				_add.interactable = true;
 				_cameraTexture.Stop();
 				_codeInput.readOnly = true;
 
@@ -108,27 +137,17 @@ namespace TilesWalk.Building.Gallery.UI
 			}
 		}
 
-		private void OnEnable()
-		{
-			if (_qrToggle.isOn && _qrCheck == null)
-			{
-				if (_cameraAvailable)
-				{
-					_cameraTexture.Play();
-				}
-
-				// check qr data
-				_qrCheck = Observable.Interval(TimeSpan.FromMilliseconds(250)).Subscribe(_ => ReadQR());
-			}
-		}
-
 		private void OnDisable()
 		{
 			_qrCheck?.Dispose();
 			_qrCheck = null;
 
+			if (_cameraTexture != null)
+			{
+				_cameraTexture.Stop();
+			}
+
 			_isMapRead = false;
-			_cameraTexture.Stop();
 			_codeInput.readOnly = false;
 			_animator.SetTrigger("ScanningMode");
 		}
@@ -174,7 +193,16 @@ namespace TilesWalk.Building.Gallery.UI
 				if (!_cameraAvailable) InitializeCamera();
 			}
 #endif
-				if (_cameraAvailable) _cameraTexture.Play();
+				if (_qrCheck == null)
+				{
+					// check qr data
+					_qrCheck = Observable.Interval(TimeSpan.FromMilliseconds(250)).Subscribe(_ => ReadQR());
+				}
+
+				if (_cameraAvailable)
+				{
+					_cameraTexture.Play();
+				}
 			}
 		}
 
@@ -234,6 +262,7 @@ namespace TilesWalk.Building.Gallery.UI
 					LevelMap.FromQRString(result.Text, out _map, out _condition);
 					_animator.SetTrigger("ScanningDone");
 					_isMapRead = true;
+					_add.interactable = true;
 					_cameraTexture.Stop();
 
 					UpdateCanvas();
