@@ -5,6 +5,7 @@ using TilesWalk.General.QR;
 using TilesWalk.General.UI;
 using TilesWalk.Map.General;
 using TilesWalk.Map.Scaffolding;
+using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,11 +19,10 @@ namespace TilesWalk.Building.Gallery.UI
 	{
 		[Inject] private MapProviderSolver _solver;
 
-		[SerializeField] private Color _background;
-		[SerializeField] private Color _values;
 		[SerializeField] private LevelNameRequestHandler _levelRequest;
 		[SerializeField] private RawImage _mapPreview;
 		[SerializeField] private RawImage _qrCode;
+		[SerializeField] private TMP_InputField _code;
 		[SerializeField] private CanvasGroupBehaviour _timeCanvas;
 		[SerializeField] private CanvasGroupBehaviour _movesCanvas;
 
@@ -71,6 +71,7 @@ namespace TilesWalk.Building.Gallery.UI
 
 			var parsedToQR = _levelRequest.Map.ToQRString(limit);
 			_qrCode.texture = TextQRConverter.GenerateTexture(parsedToQR);
+			_code.text = parsedToQR;
 		}
 	}
 }

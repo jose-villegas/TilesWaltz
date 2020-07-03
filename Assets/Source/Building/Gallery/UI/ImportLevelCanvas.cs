@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
@@ -10,6 +9,7 @@ using TilesWalk.Tile;
 using TMPro;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.UI;
 using Zenject;
 using ZXing;
@@ -21,9 +21,10 @@ namespace TilesWalk.Building.Gallery.UI
 		[Inject] private TileViewLevelMap _levelMap;
 		[Inject] private LevelMapPreviewRenderCamera _previewCamera;
 		[Inject] private MapProviderSolver _solver;
+		[Inject] private Notice _notice;
 
 		[SerializeField] private Animator _animator;
-		[SerializeField] private Image _cameraRenderer;
+		[SerializeField] private RawImage _cameraRenderer;
 
 		[Header("Content")] [SerializeField] private TextMeshProUGUI _title;
 		[SerializeField] private TextMeshProUGUI _points;
@@ -41,49 +42,101 @@ namespace TilesWalk.Building.Gallery.UI
 		private LevelMap _map;
 		private MapFinishCondition _condition;
 		private bool _isMapRead;
+		private bool _cameraAvailable;
+		private bool _askingPermission;
+		private IDisposable _qrCheck;
 
-
-		private void Start()
+		private void OnEnable()
 		{
-			StartCoroutine(RequestCamera()).GetAwaiter().OnCompleted(() =>
-			{
-				Observable.Interval(TimeSpan.FromMilliseconds(100)).Subscribe(_ => ReadQR()).AddTo(this);
-			});
+			// check qr data
+			_qrCheck = Observable.Interval(TimeSpan.FromMilliseconds(100)).Subscribe(_ => ReadQR());
 		}
 
-		private IEnumerator RequestCamera()
+		private void OnDisable()
 		{
-#if UNITY_ANDROID && !UNITY_EDITOR
-			yield return Application.RequestUserAuthorization(UserAuthorization.WebCam);
+			_qrCheck?.Dispose();
+		}
 
-			if (Application.HasUserAuthorization(UserAuthorization.WebCam))
+		private void InitializeCamera()
+		{
+			WebCamDevice[] devices = WebCamTexture.devices;
+
+			if (devices.Length == 0)
 			{
-				_cameraTexture = new WebCamTexture();
-				_cameraTexture.requestedHeight = 512;
-				_cameraTexture.requestedWidth = 512;
-
-				if (_cameraTexture != null)
-				{
-					_cameraTexture.Play();
-					_cameraRenderer.material = new Material(_cameraRenderer.material) {mainTexture = _cameraTexture};
-				}
+				return;
 			}
-#elif UNITY_EDITOR
-			_cameraTexture = new WebCamTexture {requestedHeight = 512, requestedWidth = 512};
 
-			if (_cameraTexture != null)
+			_cameraTexture = new WebCamTexture(Screen.width, Screen.height);
+
+			if (_cameraTexture == null)
 			{
-				_cameraTexture.Play();
-				_cameraRenderer.material = new Material(_cameraRenderer.material) {mainTexture = _cameraTexture};
-				yield break;
+				return;
 			}
-#endif
+
+			_cameraRenderer.texture = _cameraTexture;
+			_cameraAvailable = true;
+		}
+
+		public override void Hide()
+		{
+			base.Hide();
+
+			_cameraTexture.Stop();
 		}
 
 		public override void Show()
 		{
+#if UNITY_EDITOR
+			if (!_cameraAvailable) InitializeCamera();
+
 			base.Show();
-			StartCoroutine(RequestCamera());
+#elif PLATFORM_ANDROID
+			if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
+			{
+				_askingPermission = true;
+				Permission.RequestUserPermission(Permission.Camera);
+			}
+			else
+			{
+				base.Show();
+
+				if (!_cameraAvailable) InitializeCamera();
+			}
+#endif
+			if (_cameraAvailable) _cameraTexture.Play();
+		}
+
+		private void OnApplicationFocus(bool val)
+		{
+			if (_askingPermission && val)
+			{
+				if (Permission.HasUserAuthorizedPermission(Permission.Camera))
+				{
+					if (!_cameraAvailable) InitializeCamera();
+
+					_notice.Configure("Close and reopen this popup if not rendering.")
+						.Show(2f);
+
+					base.Show();
+				}
+				else
+				{
+					_notice.Configure("Needs camera permission to scan new maps from QR codes.", NoticePriority.Error)
+						.Show(3f);
+				}
+			}
+		}
+
+		private void Update()
+		{
+			if (!_cameraAvailable)
+				return;
+
+			float scaleY = _cameraTexture.videoVerticallyMirrored ? -1f : 1f; // Find if the camera is mirrored or not
+			_cameraRenderer.rectTransform.localScale = new Vector3(1f, scaleY, 1f); // Swap the mirrored camera
+
+			int orient = -_cameraTexture.videoRotationAngle;
+			_cameraRenderer.rectTransform.localEulerAngles = new Vector3(0, 0, orient);
 		}
 
 		private void ReadQR()
@@ -92,11 +145,7 @@ namespace TilesWalk.Building.Gallery.UI
 
 			try
 			{
-				if (_cameraTexture == null || !_cameraTexture.isPlaying)
-				{
-					StartCoroutine(RequestCamera());
-					return;
-				}
+				if (!_cameraTexture.isPlaying) return;
 
 				IBarcodeReader barcodeReader = new BarcodeReader();
 
@@ -110,6 +159,8 @@ namespace TilesWalk.Building.Gallery.UI
 					_animator.SetTrigger("ScanningDone");
 					_isMapRead = true;
 					_cameraTexture.Stop();
+
+					UpdateCanvas();
 				}
 			}
 			catch (Exception ex)
@@ -157,7 +208,7 @@ namespace TilesWalk.Building.Gallery.UI
 			_qr.texture = TextQRConverter.GenerateTexture(parsedToQR);
 
 			_levelMap.BuildTileMap<TileView>(_map);
-			_mapPreview.texture = _previewCamera.GetCurrentRender();
+			_mapPreview.texture = _previewCamera.GetCurrentRender(512, 512);
 			_levelMap.Reset();
 		}
 	}
