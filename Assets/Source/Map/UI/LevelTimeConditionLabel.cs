@@ -34,8 +34,8 @@ namespace TilesWalk.Map.UI
 
 			if (condition != null)
 			{
-				var time = new DateTime(TimeSpan.FromSeconds(condition.Limit).Ticks);
-				return time.ToString("mm:ss");
+				var time = TimeSpan.FromSeconds(condition.Limit);
+				return string.Format("{0:mm\\:ss}", time);
 			}
 
 			return string.Empty;

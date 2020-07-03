@@ -1,6 +1,7 @@
 ﻿using System;
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Condition;
+using TilesWalk.General.QR;
 using TilesWalk.General.UI;
 using TilesWalk.Map.General;
 using TilesWalk.Map.Scaffolding;
@@ -38,30 +39,6 @@ namespace TilesWalk.Building.Gallery.UI
 			return this;
 		}
 
-		private static Color32[] Encode(string textForEncoding, int width, int height)
-		{
-			var writer = new BarcodeWriter
-			{
-				Format = BarcodeFormat.QR_CODE,
-				Options = new QrCodeEncodingOptions
-				{
-					Height = height,
-					Width = width,
-				}
-			};
-
-			return writer.Write(textForEncoding);
-		}
-
-		private Texture2D GenerateQR(string text)
-		{
-			var encoded = new Texture2D(256, 256);
-			var color32 = Encode(text, encoded.width, encoded.height);
-			encoded.SetPixels32(color32);
-			encoded.Apply();
-			return encoded;
-		}
-
 		private void UpdateCanvas(string val)
 		{
 			if (_levelRequest.Map == null) return;
@@ -93,10 +70,7 @@ namespace TilesWalk.Building.Gallery.UI
 			}
 
 			var parsedToQR = _levelRequest.Map.ToQRString(limit);
-			_qrCode.texture = GenerateQR(parsedToQR);
-
-			LevelMap.FromQRString(parsedToQR, out var testLevelMap, out var testCondition);
-			Debug.Log("Here");
+			_qrCode.texture = TextQRConverter.GenerateTexture(parsedToQR);
 		}
 	}
 }

@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
-using TilesWalk.BaseInterfaces;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
-using UnityEditor.Build.Pipeline;
-using UnityEngine.Windows.WebCam;
 
 namespace TilesWalk.Building.Level
 {
