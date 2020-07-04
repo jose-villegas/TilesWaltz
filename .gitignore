@@ -58,3 +58,8 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# sensitive data
+/[Kk]eys/
+/[Aa]ssets/GPGSIds.cs
+/[Aa]ssets/GPGSIds.cs.meta
+
