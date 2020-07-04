@@ -23,7 +23,6 @@ namespace TilesWalk.Gameplay.Condition
 
 		private Subject<LevelScore> _onLevelFinish;
 		private Subject<LevelScore> _onTrackersSetupFinish;
-		private Subject<LevelScore> _onScorePointsTargetReached;
 		private bool _gamePaused;
 
 		public MovesFinishCondition MovesFinishCondition => _movesFinishCondition;
@@ -90,9 +89,29 @@ namespace TilesWalk.Gameplay.Condition
 					_levelScorePointsTracker.LevelScore.Moves.Update(_movesFinishCondition.Tracker.Value);
 				}
 
-				IsFinished = true;
-				_onLevelFinish?.OnNext(_levelScorePointsTracker.LevelScore);
+				TriggerLevelFinish();
 			}).AddTo(this);
+		}
+
+		private void TriggerLevelFinish()
+		{
+			IsFinished = true;
+
+			if (_tileLevelMap.IsAnyComboLeft())
+			{
+				_levelScorePointsTracker.OnScorePointsUpdatedAsObservable().Take(1).Subscribe(score =>
+				{
+					if (_tileLevelMap.State == TileViewLevelMapState.FreeMove)
+					{
+						_onLevelFinish?.OnNext(_levelScorePointsTracker.LevelScore);
+					}
+
+				}).AddTo(this);
+			}
+			else
+			{
+				_onLevelFinish?.OnNext(_levelScorePointsTracker.LevelScore);
+			}
 		}
 
 		private void TimeTracking()
@@ -113,15 +132,13 @@ namespace TilesWalk.Gameplay.Condition
 					_levelScorePointsTracker.LevelScore.Time.Update(_timeFinishCondition.Tracker.Value);
 				}
 
-				IsFinished = true;
-				_onLevelFinish?.OnNext(_levelScorePointsTracker.LevelScore);
+				TriggerLevelFinish();
 			}).AddTo(this);
 		}
 
 		protected override void RaiseOnCompletedOnDestroy()
 		{
 			_onLevelFinish?.OnCompleted();
-			_onScorePointsTargetReached?.OnCompleted();
 			_onTrackersSetupFinish?.OnCompleted();
 		}
 

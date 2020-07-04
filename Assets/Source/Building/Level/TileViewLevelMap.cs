@@ -15,6 +15,10 @@ using Zenject;
 
 namespace TilesWalk.Building.Level
 {
+	/// <summary>
+	/// This class holds the currently running level map and all its <see cref="TileView"/>
+	/// instances
+	/// </summary>
 	public class TileViewLevelMap : TileViewTrigger
 	{
 		[Inject] private TileViewFactory _viewFactory;
@@ -32,11 +36,41 @@ namespace TilesWalk.Building.Level
 		public Dictionary<int, List<InsertionInstruction>> Insertions { get; } =
 			new Dictionary<int, List<InsertionInstruction>>();
 
+		/// <summary>
+		/// This property handles the current map state, useful for locking movement
+		/// or seeing what is actually happening with the tiles
+		/// </summary>
+		public TileViewLevelMapState State
+		{
+			get => _state;
+			set
+			{
+				_state = value;
+				_onMapStateChanged?.OnNext(_state);
+			}
+		}
+
 		public LevelMap LevelMap => _levelMap;
 		public LevelLoadOptions LoadOption => _loadOption;
 
 		protected Subject<LevelMap> _onLevelMapLoaded;
 		protected Subject<TileView> _onTileRegistered;
+		protected Subject<TileViewLevelMapState> _onMapStateChanged;
+
+		private TileViewLevelMapState _state;
+
+		/// <summary>
+		/// Checks if any of the current states for the map is locking movement
+		/// </summary>
+		/// <returns></returns>
+		public bool IsMovementLocked()
+		{
+			return State == TileViewLevelMapState.RemovingTile ||
+			       State == TileViewLevelMapState.OnComboRemoval ||
+			       State == TileViewLevelMapState.OnPowerUpRemoval ||
+				   State == TileViewLevelMapState.EditorMode ||
+			       State == TileViewLevelMapState.Locked;
+		}
 
 		private void Start()
 		{
@@ -62,6 +96,9 @@ namespace TilesWalk.Building.Level
 			}
 		}
 
+		/// <summary>
+		/// This creates a single tile map, with a 'root' tile
+		/// </summary>
 		private void BuildEditorRootMap()
 		{
 			var customLevel = new LevelMap
@@ -77,6 +114,12 @@ namespace TilesWalk.Building.Level
 			BuildTileMap<LevelEditorTileView>(customLevel);
 		}
 
+		/// <summary>
+		/// Get tile callbacks and generalize them for the whole map,
+		/// the callbacks are subscribed to the tile, so when they are disposed
+		/// with the tile instance
+		/// </summary>
+		/// <param name="tile"></param>
 		private void OnNewTileInstance(TileView tile)
 		{
 			tile.OnComboRemovalAsObservable()
@@ -89,6 +132,12 @@ namespace TilesWalk.Building.Level
 				.Subscribe(path => _onPowerUpRemoval?.OnNext(path)).AddTo(tile);
 		}
 
+		/// <summary>
+		/// This method finally registers a <see cref="TileView"/> to this the internal
+		/// map structure, use this to confirm that a tile instance is part of the map
+		/// </summary>
+		/// <param name="tile"></param>
+		/// <param name="hash"></param>
 		public void RegisterTile(TileView tile, int? hash = null)
 		{
 			if (TileToHash.ContainsKey(tile))
@@ -108,6 +157,24 @@ namespace TilesWalk.Building.Level
 			_onTileRegistered?.OnNext(tile);
 		}
 
+		/// <summary>
+		/// This method check if any color matching combo existing within all the tiles
+		/// This is useful for preventing level finish from getting the last combo points
+		/// </summary>
+		/// <returns></returns>
+		public bool IsAnyComboLeft()
+		{
+			foreach (var value in TileView.Values)
+			{
+				if (value.Controller.Tile.MatchingColorPatch.Count > 2)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		public void RemoveTile(TileView tile)
 		{
 			if (!TileToHash.TryGetValue(tile, out var hash)) return;
@@ -119,8 +186,8 @@ namespace TilesWalk.Building.Level
 			_levelMap.Instructions.RemoveAll(x => x.Tile == hash);
 			_levelMap.Instructions.RemoveAll(x => x.Root == hash);
 			_levelMap.Tiles.Remove(hash);
+			
 			// remove all instructions that refer to this tile
-
 			if (!Insertions.TryGetValue(hash, out var instructions)) return;
 
 			Insertions.Remove(hash);
@@ -281,11 +348,17 @@ namespace TilesWalk.Building.Level
 			return _onTileRegistered = _onTileRegistered ?? new Subject<TileView>();
 		}
 
+		public IObservable<TileViewLevelMapState> OnMapStateChangedAsObservable()
+		{
+			return _onMapStateChanged = _onMapStateChanged ?? new Subject<TileViewLevelMapState>();
+		}
+
 		protected override void RaiseOnCompletedOnDestroy()
 		{
 			base.RaiseOnCompletedOnDestroy();
 			_onLevelMapLoaded?.OnCompleted();
 			_onTileRegistered?.OnCompleted();
+			_onMapStateChanged?.OnCompleted();
 		}
 	}
 }

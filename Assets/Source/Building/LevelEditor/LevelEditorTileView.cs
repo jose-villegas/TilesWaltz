@@ -49,7 +49,7 @@ namespace TilesWalk.Building.LevelEditor
 
 			base.Start();
 
-			MovementLocked = true;
+			_tileLevelMap.State = TileViewLevelMapState.EditorMode;
 			Renderer.material = IsGhost ? _levelEditorToolSet.GhostMaterial : _levelEditorToolSet.EditorTileMaterial;
 
 			_tileLevelMap.OnTileClickedAsObservable().Subscribe(OnAnyTileClicked).AddTo(this);
@@ -128,7 +128,7 @@ namespace TilesWalk.Building.LevelEditor
 
 		private void OnCustomLevelStop(LevelMap obj)
 		{
-			MovementLocked = true;
+			_tileLevelMap.State = TileViewLevelMapState.EditorMode;
 			// return blank material
 			Renderer.material = IsGhost ? _levelEditorToolSet.GhostMaterial : _levelEditorToolSet.EditorTileMaterial;
 		}
@@ -142,7 +142,7 @@ namespace TilesWalk.Building.LevelEditor
 			// assign a color and update render
 			_controller.Tile.ShuffleColor();
 			Renderer.material = _colorHandler.GetMaterial(_controller.Tile.TileColor);
-			MovementLocked = false;
+			_tileLevelMap.State = TileViewLevelMapState.FreeMove;
 		}
 
 		protected override void OnMouseDown()

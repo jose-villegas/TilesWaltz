@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
 using TilesWalk.Audio;
+using TilesWalk.Building.Level;
 using TilesWalk.General;
 using UniRx;
 using UnityEngine;
@@ -38,14 +39,14 @@ namespace TilesWalk.Tile
 		[Button]
 		private void Remove()
 		{
-			if (MovementLocked)
+			if (_tileLevelMap.IsMovementLocked())
 			{
-				Debug.LogWarning(
-					"Tile movement is currently locked, wait for unlock for removal to be available again");
+				Debug.LogWarning("Tile movement is currently locked, wait for unlock " +
+				                 "for removal to be available again");
 				return;
 			}
 
-			MovementLocked = true;
+			_tileLevelMap.State = TileViewLevelMapState.RemovingTile;
 
 			_controller.Remove();
 			var shufflePath = _controller.Tile.ShortestPathToLeaf;
@@ -82,13 +83,12 @@ namespace TilesWalk.Tile
 							{
 								HandlePowerUp(() =>
 								{
-									MovementLocked = false;
 									_onTileRemoved?.OnNext(shufflePath);
 								});
 							}
 							else
 							{
-								MovementLocked = false;
+								_tileLevelMap.State = TileViewLevelMapState.FreeMove;
 								_onTileRemoved?.OnNext(shufflePath);
 							}
 						}).AddTo(this);
@@ -97,7 +97,8 @@ namespace TilesWalk.Tile
 
 		private void HandlePowerUp(Action onFinish)
 		{
-			MovementLocked = true;
+			_tileLevelMap.State = TileViewLevelMapState.OnPowerUpRemoval;
+
 			List<Tile> path = null;
 			var audioToPlay = "";
 			var audioPerTileToPlay = "";
@@ -158,7 +159,7 @@ namespace TilesWalk.Tile
 									{
 										if (index == path.Count - 1)
 										{
-											MovementLocked = false;
+											_tileLevelMap.State = TileViewLevelMapState.FreeMove;
 											onFinish?.Invoke();
 										}
 									}).AddTo(this);
@@ -170,7 +171,7 @@ namespace TilesWalk.Tile
 		[Button]
 		private void RemoveCombo()
 		{
-			if (MovementLocked)
+			if (_tileLevelMap.IsMovementLocked())
 			{
 				Debug.LogWarning(
 					"Tile movement is currently locked, wait for unlock for removal to be available again");
@@ -184,7 +185,7 @@ namespace TilesWalk.Tile
 				return;
 			}
 
-			MovementLocked = true;
+			_tileLevelMap.State = TileViewLevelMapState.OnComboRemoval;
 			var shufflePath = _controller.Tile.MatchingColorPatch;
 			var indexOf = shufflePath.FindIndex(x => x.PowerUp != TilePowerUp.None);
 
@@ -193,7 +194,6 @@ namespace TilesWalk.Tile
 				var view = _tileLevelMap.GetTileView(shufflePath[indexOf]);
 				view.HandlePowerUp(() =>
 				{
-					MovementLocked = false;
 					_onComboRemoval?.OnNext(shufflePath);
 				});
 				return;
@@ -225,7 +225,7 @@ namespace TilesWalk.Tile
 								{
 									if (index == shufflePath.Count - 1)
 									{
-										MovementLocked = false;
+										_tileLevelMap.State = TileViewLevelMapState.FreeMove;
 										_onComboRemoval?.OnNext(shufflePath);
 									}
 								}).AddTo(this);

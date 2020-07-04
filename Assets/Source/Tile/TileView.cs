@@ -32,11 +32,11 @@ namespace TilesWalk.Tile
 		[Inject] protected GameEventsHandler _gameEvents;
 		[Inject(Optional = true)] protected LevelFinishTracker _levelFinishTracker;
 
+		private TileViewLevelMapState _backupState;
+
 		private MeshRenderer _meshRenderer;
 		private BoxCollider _collider;
 		private ParticleSystemsCollector _particleSystems;
-
-		public static bool MovementLocked { get; protected set; }
 
 		public BoxCollider Collider
 		{
@@ -77,7 +77,7 @@ namespace TilesWalk.Tile
 
 		private void OnDestroy()
 		{
-			MovementLocked = false;
+			_tileLevelMap.State = TileViewLevelMapState.FreeMove;
 			StopAllCoroutines();
 		}
 
@@ -150,17 +150,18 @@ namespace TilesWalk.Tile
 		{
 			if (_levelFinishTracker != null && _levelFinishTracker.IsFinished) return;
 
-			MovementLocked = false;
+			_tileLevelMap.State = _backupState;
 		}
 
 		private void OnGamePaused(Unit _)
 		{
-			MovementLocked = true;
+			_backupState = _tileLevelMap.State;
+			_tileLevelMap.State = TileViewLevelMapState.Locked;
 		}
 
 		private void OnLevelFinish(LevelScore _)
 		{
-			MovementLocked = true;
+			_tileLevelMap.State = TileViewLevelMapState.Locked;
 			// StartCoroutine(LevelFinishAnimation());
 		}
 
@@ -168,7 +169,7 @@ namespace TilesWalk.Tile
 		{
 			_onTileClicked?.OnNext(_controller.Tile);
 
-			if (MovementLocked) return;
+			if (_tileLevelMap.IsMovementLocked()) return;
 
 			if (_levelFinishTracker != null && _levelFinishTracker.IsFinished) return;
 
