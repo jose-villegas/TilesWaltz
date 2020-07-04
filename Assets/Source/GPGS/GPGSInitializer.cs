@@ -8,8 +8,10 @@ namespace TilesWalk.GPGS
 	{
 		private void Start()
 		{
+			// Create client configuration with saved games enabled
 			PlayGamesClientConfiguration config = new
 					PlayGamesClientConfiguration.Builder()
+				.EnableSavedGames()
 				.Build();
 
 			// Enable debugging output (recommended)
