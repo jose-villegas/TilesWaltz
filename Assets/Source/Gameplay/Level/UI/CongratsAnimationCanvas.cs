@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Score;
-using TilesWalk.General.Patterns;
 using TilesWalk.General.UI;
+using TilesWalk.GPGS;
+using TilesWalk.Map.General;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -23,6 +24,10 @@ namespace TilesWalk.Gameplay.Level.UI
 		[Inject] private GameScoresHelper _gameScoresHelper;
 		[Inject] private TileViewLevelMap _levelMap;
 		[Inject] private ScorePointsConfiguration _scorePointsConfiguration;
+		[Inject] private MapProviderSolver _solver;
+
+		[Inject] private GPGSAchievementHandler _achievement;
+		[Inject] private GPGSLeaderbardsHandler _leaderbards;
 
 		[SerializeField] private LevelFinishDetailsCanvas _detailsCanvas;
 
@@ -51,9 +56,6 @@ namespace TilesWalk.Gameplay.Level.UI
 			{
 				_currentScore = score;
 				OnLevelFinish(_currentScore);
-
-				_summary.onClick.AsObservable().Subscribe(_ => _levelScorePointsTracker.SaveScore()).AddTo(this);
-				_retry.onClick.AsObservable().Subscribe(_ => _levelScorePointsTracker.SaveScore()).AddTo(this);
 
 				_retry.onClick.AsObservable().Subscribe(_ => OnRetryClicked(_currentScore)).AddTo(this);
 				_summary.onClick.AsObservable().Subscribe(_ => OnSummaryClicked(_currentScore)).AddTo(this);
@@ -116,6 +118,8 @@ namespace TilesWalk.Gameplay.Level.UI
 					_retry.interactable = true;
 					_continue.interactable = true;
 					_summary.interactable = true;
+					_levelScorePointsTracker.SaveScore();
+					UpdateSocial();
 
 					return;
 				}
@@ -146,6 +150,37 @@ namespace TilesWalk.Gameplay.Level.UI
 			Show();
 		}
 
+		private void UpdateSocial()
+		{
+			var collection = _solver.Provider.Collection;
+			var records = _solver.Provider.Records;
+
+			if (collection.AvailableMaps == null || collection.AvailableMaps.Count == 0) return;
+
+			// check achievements
+			switch (_solver.Source)
+			{
+				case Provider.GameMaps:
+					var levelsCompleted = collection.AvailableMaps.Count(map => _gameScoresHelper.IsCompleted(map));
+					_achievement.GameLevelCompletionAchievements(levelsCompleted);
+
+					var totalScore = 0;
+
+					foreach (var map in collection.AvailableMaps)
+					{
+						if (records.Exist(map.Id, out var score))
+						{
+							totalScore += score.Points.Highest;
+						}
+					}
+
+					_leaderbards.ReportGameLevelsScore(totalScore);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+
 		private IEnumerator AnimateTimesExtra(TimeSpan last, TimeSpan limit)
 		{
 			var extra = Mathf.RoundToInt((float) (limit - last).TotalSeconds) *
@@ -164,7 +199,8 @@ namespace TilesWalk.Gameplay.Level.UI
 				var seconds = TimeSpan.FromSeconds(add);
 				var timeLeft = (extraTime - seconds);
 
-				_timeLabel.text = string.Format("{0:mm\\:ss}", timeLeft); ;
+				_timeLabel.text = string.Format("{0:mm\\:ss}", timeLeft);
+				;
 			}).AddTo(this);
 
 			_timeSlidingNumber.OnTargetReachedAsObservable().Subscribe(reached =>
@@ -185,6 +221,8 @@ namespace TilesWalk.Gameplay.Level.UI
 			_timeSlidingNumber.Target(extra);
 			_slidingNumber.Target(_currentScore.Points.Last);
 			_levelScorePointsTracker.AddPoints(extra);
+			_levelScorePointsTracker.SaveScore();
+			UpdateSocial();
 
 			yield return null;
 		}
@@ -223,6 +261,8 @@ namespace TilesWalk.Gameplay.Level.UI
 			_levelScorePointsTracker.AddPoints(extra);
 			_slidingNumber.Target(_currentScore.Points.Last);
 			_movesSlidingNumber.Target(extra);
+			_levelScorePointsTracker.SaveScore();
+			UpdateSocial();
 
 			yield return null;
 		}

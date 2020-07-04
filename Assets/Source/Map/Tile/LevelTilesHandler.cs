@@ -20,7 +20,6 @@ namespace TilesWalk.Map.Tile
 		[Inject] private MapProviderSolver _solver;
 		[Inject] private GameScoresHelper _gameScoresHelper;
 		[Inject] private LevelBridge _bridge;
-
 		[Inject] private LevelStateTileMaterialHandler _colorHandler;
 		[Inject] private LevelStarsTileMaterialHandler _starsColorHandler;
 
@@ -64,6 +63,7 @@ namespace TilesWalk.Map.Tile
 				{
 					LevelTiles.Sort((p1, p2) => p1.Map.Value.StarsRequired - p2.Map.Value.StarsRequired);
 					_levelTilesMapsReady?.OnNext(LevelTiles);
+
 					ShowNextLevelDetails();
 					HandleAnimations();
 				}
@@ -192,10 +192,7 @@ namespace TilesWalk.Map.Tile
 
 				// first stop blocked path anim
 				Observable.Timer(TimeSpan.FromSeconds(.1f)).Subscribe(_ => { },
-					() =>
-					{
-						animator.SetBool("IsBlocked", false);
-					}).AddTo(this);
+					() => { animator.SetBool("IsBlocked", false); }).AddTo(this);
 				// now animate appear
 				var time = .1f + (i + 1) * .3f;
 				Observable.Timer(TimeSpan.FromSeconds(time)).Subscribe(_ => { },

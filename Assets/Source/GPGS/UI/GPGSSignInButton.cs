@@ -1,6 +1,4 @@
 ﻿using GooglePlayGames;
-using GooglePlayGames.BasicApi;
-using System;
 using TilesWalk.General.Patterns;
 using TilesWalk.General.UI;
 using TMPro;
@@ -9,10 +7,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace TilesWalk.GPS.UI
+namespace TilesWalk.GPGS.UI
 {
 	[RequireComponent(typeof(Button))]
-	public class GPSSignInButton : ObligatoryComponentBehaviour<Button>
+	public class GPGSSignInButton : ObligatoryComponentBehaviour<Button>
 	{
 		[Inject] private Confirmation _confirmation;
 

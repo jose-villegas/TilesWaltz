@@ -6,27 +6,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace TilesWalk.GPS.UI
+namespace TilesWalk.GPGS.UI
 {
 	[RequireComponent(typeof(Button))]
-	public class GPSAchievementsButton : ObligatoryComponentBehaviour<Button>
+	public class GPGSStandardLeaderboardButton : ObligatoryComponentBehaviour<Button>
 	{
 		[Inject] private Notice _notice;
 
 		private void Start()
 		{
-			Component.onClick.AsObservable().Subscribe(ShowAchievements).AddTo(this);
+			Component.onClick.AsObservable().Subscribe(ShowLeaderboard).AddTo(this);
 		}
 
-		private void ShowAchievements(Unit u)
+		private void ShowLeaderboard(Unit u)
 		{
 			if (PlayGamesPlatform.Instance.localUser.authenticated)
 			{
-				PlayGamesPlatform.Instance.ShowAchievementsUI();
+				PlayGamesPlatform.Instance.ShowLeaderboardUI();
 			}
 			else
 			{
-				_notice.Configure("Cannot show Achievements, not logged in").Show(2f);
+				_notice.Configure("Cannot show leaderboard, not logged in").Show(2f);
 			}
 		}
 	}

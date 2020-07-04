@@ -259,6 +259,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: OptionsCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 144683395322567671, guid: 60e372a502fa0864f8de35a1433bf395,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 163880416273160594, guid: 60e372a502fa0864f8de35a1433bf395,
         type: 3}
       propertyPath: m_IsActive

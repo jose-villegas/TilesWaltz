@@ -2,9 +2,9 @@
 using GooglePlayGames.BasicApi;
 using UnityEngine;
 
-namespace TilesWalk.GPS
+namespace TilesWalk.GPGS
 {
-	public class GPSInitializer : MonoBehaviour
+	public class GPGSInitializer : MonoBehaviour
 	{
 		private void Start()
 		{
