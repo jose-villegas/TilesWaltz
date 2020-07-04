@@ -15,6 +15,7 @@ namespace TilesWalk.Gameplay.Score
 	{
 		[Inject] private ScorePointsConfiguration _scorePointsConfiguration;
 		[Inject] private TileViewLevelMap _tileLevelMap;
+		[Inject] private GameSave _gameSave;
 		[Inject(Optional = true)] private MapProviderSolver _solver;
 
 		private Dictionary<string, int> _scoreTracking = new Dictionary<string, int>();
@@ -53,18 +54,25 @@ namespace TilesWalk.Gameplay.Score
 
 		private void OnPowerUpRemoval(Tuple<List<Tile.Tile>, TilePowerUp> power)
 		{
+			var points = 0;
 			switch (power.Item2)
 			{
 				case TilePowerUp.None:
 					break;
 				case TilePowerUp.NorthSouthLine:
 				case TilePowerUp.EastWestLine:
-					AddPoints(_scorePointsConfiguration.PointsPerTile *
-					          _scorePointsConfiguration.DirectionalPowerUpMultiplier * power.Item1.Count);
+					points = _scorePointsConfiguration.PointsPerTile *
+					         _scorePointsConfiguration.DirectionalPowerUpMultiplier * power.Item1.Count;
+					AddPoints(points);
+					_gameSave.Statistics.PointsFromPowerUp(points);
+					_gameSave.Statistics.PowerUpUsed();
 					break;
 				case TilePowerUp.ColorMatch:
-					AddPoints(_scorePointsConfiguration.PointsPerTile *
-					          _scorePointsConfiguration.ColorMatchPowerUpMultiplier * power.Item1.Count);
+					points = _scorePointsConfiguration.PointsPerTile *
+					             _scorePointsConfiguration.ColorMatchPowerUpMultiplier * power.Item1.Count;
+					AddPoints(points);
+					_gameSave.Statistics.PointsFromPowerUp(points);
+					_gameSave.Statistics.PowerUpUsed();
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -110,6 +118,7 @@ namespace TilesWalk.Gameplay.Score
 
 			_scoreTracking[LevelScore.Id] += points;
 			LevelScore.Points.Update(_scoreTracking[LevelScore.Id]);
+			_gameSave.Statistics.Points(points);
 			_onScoreUpdated?.OnNext(LevelScore);
 		}
 
@@ -120,8 +129,13 @@ namespace TilesWalk.Gameplay.Score
 
 		private void OnComboRemoval(List<Tile.Tile> tile)
 		{
-			AddPoints(_scorePointsConfiguration.PointsPerTile *
-			          _scorePointsConfiguration.ComboMultiplier * tile.Count);
+			var points = _scorePointsConfiguration.PointsPerTile *
+			             _scorePointsConfiguration.ComboMultiplier * tile.Count;
+			
+			_gameSave.Statistics.PointsFromCombo(points);
+			_gameSave.Statistics.ComboDone();
+
+			AddPoints(points);
 		}
 
 		protected override void RaiseOnCompletedOnDestroy()

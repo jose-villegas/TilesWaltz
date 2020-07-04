@@ -8,6 +8,9 @@ using UnityEngine;
 
 namespace TilesWalk.Gameplay.Persistence
 {
+	/// <summary>
+	/// This serves as a collection of <see cref="LevelMap"/> and <see cref="MapFinishCondition"/>
+	/// </summary>
 	[Serializable]
 	public class GameMapCollection
 	{
@@ -15,8 +18,19 @@ namespace TilesWalk.Gameplay.Persistence
 		[JsonProperty] [SerializeField] private List<MovesFinishCondition> _movesFinishConditions;
 		[JsonProperty] [SerializeField] private List<TimeFinishCondition> _timeFinishConditions;
 
+		/// <summary>
+		/// The maps within this collection
+		/// </summary>
 		[JsonIgnore] public List<LevelMap> AvailableMaps => _availableMaps;
+		/// <summary>
+		/// The finishing conditions for the <see cref="AvailableMaps"/> that have a
+		/// <see cref="FinishCondition.MovesLimit"/> condition
+		/// </summary>
 		[JsonIgnore] public List<MovesFinishCondition> MovesFinishConditions => _movesFinishConditions;
+		/// <summary>
+		/// The finishing conditions for the <see cref="AvailableMaps"/> that have a
+		/// <see cref="FinishCondition.TimeLimit"/> condition
+		/// </summary>
 		[JsonIgnore] public List<TimeFinishCondition> TimeFinishConditions => _timeFinishConditions;
 
 		private Subject<LevelMap> _onNewLevelInsert;
@@ -39,16 +53,29 @@ namespace TilesWalk.Gameplay.Persistence
 			_onLevelRemoved?.OnCompleted();
 		}
 
+		/// <summary>
+		/// Triggered when a new level is inserted in the collection
+		/// </summary>
+		/// <returns></returns>
 		public IObservable<LevelMap> OnNewLevelInsertAsObservable()
 		{
 			return _onNewLevelInsert == null ? _onNewLevelInsert = new Subject<LevelMap>() : _onNewLevelInsert;
 		}
 
+		/// <summary>
+		/// Triggered when a level is removed from the collection
+		/// </summary>
+		/// <returns></returns>
 		public IObservable<LevelMap> OnLevelRemovedAsObservable()
 		{
 			return _onLevelRemoved == null ? _onLevelRemoved = new Subject<LevelMap>() : _onLevelRemoved;
 		}
 
+		/// <summary>
+		/// Checks if a level with the given id exists within the <see cref="AvailableMaps"/> structure
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		public bool Exist(string id)
 		{
 			if (AvailableMaps == null || AvailableMaps.Count == 0) return false;
@@ -56,6 +83,13 @@ namespace TilesWalk.Gameplay.Persistence
 			return AvailableMaps.Exists(x => x.Id == id);
 		}
 
+		/// <summary>
+		/// Removes a level from <see cref="AvailableMaps"/>, the method will also remove
+		/// its matching <see cref="MapFinishCondition"/> stored within <see cref="MovesFinishConditions"/>
+		/// or <see cref="TimeFinishConditions"/>
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		public bool Remove(string id)
 		{
 			var indexOf = _availableMaps.FindIndex(x => x.Id == id);
@@ -97,6 +131,13 @@ namespace TilesWalk.Gameplay.Persistence
 			return false;
 		}
 
+		/// <summary>
+		/// Inserts a new map to the <see cref="AvailableMaps"/> and adds its matching
+		/// <see cref="MapFinishCondition"/>
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="map"></param>
+		/// <param name="condition"></param>
 		public void Insert<T>(LevelMap map, T condition) where T : MapFinishCondition
 		{
 			if (AvailableMaps == null) _availableMaps = new List<LevelMap>();

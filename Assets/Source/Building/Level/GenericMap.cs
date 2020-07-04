@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TilesWalk.BaseInterfaces;
 
 namespace TilesWalk.Building.Level
 {
+	[Serializable]
 	public class GenericMap : IModel
 	{
 		public string Id;

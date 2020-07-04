@@ -4,6 +4,7 @@ using System.Linq;
 using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
+using TilesWalk.Gameplay.Persistence;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.General.UI;
 using TilesWalk.GPGS;
@@ -25,6 +26,7 @@ namespace TilesWalk.Gameplay.Level.UI
 		[Inject] private TileViewLevelMap _levelMap;
 		[Inject] private ScorePointsConfiguration _scorePointsConfiguration;
 		[Inject] private MapProviderSolver _solver;
+		[Inject] private GameSave _gameSave;
 
 		[Inject] private GPGSAchievementHandler _achievement;
 		[Inject] private GPGSLeaderbardsHandler _leaderbards;
@@ -79,7 +81,6 @@ namespace TilesWalk.Gameplay.Level.UI
 			_continue.interactable = false;
 			_summary.interactable = false;
 
-
 			_slider.maxValue = _levelMap.LevelMap.Target;
 			// initialize number at 0
 			_slidingNumber.Current = 0;
@@ -119,12 +120,14 @@ namespace TilesWalk.Gameplay.Level.UI
 					_continue.interactable = true;
 					_summary.interactable = true;
 					_levelScorePointsTracker.SaveScore();
+					_gameSave.Statistics.MapFailed(_solver.Source);
 					UpdateSocial();
 
 					return;
 				}
 
 				_animator.SetTrigger("LevelCompleted");
+				_gameSave.Statistics.MapFailed(_solver.Source);
 
 				switch (_levelMap.LevelMap.FinishCondition)
 				{
@@ -200,7 +203,6 @@ namespace TilesWalk.Gameplay.Level.UI
 				var timeLeft = (extraTime - seconds);
 
 				_timeLabel.text = string.Format("{0:mm\\:ss}", timeLeft);
-				;
 			}).AddTo(this);
 
 			_timeSlidingNumber.OnTargetReachedAsObservable().Subscribe(reached =>
