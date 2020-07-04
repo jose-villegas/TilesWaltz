@@ -24,6 +24,7 @@ namespace TilesWalk.Gameplay.Condition
 		private Subject<LevelScore> _onLevelFinish;
 		private Subject<LevelScore> _onTrackersSetupFinish;
 		private bool _gamePaused;
+		private bool _recordSet;
 
 		public MovesFinishCondition MovesFinishCondition => _movesFinishCondition;
 		public TimeFinishCondition TimeFinishCondition => _timeFinishCondition;
@@ -48,6 +49,10 @@ namespace TilesWalk.Gameplay.Condition
 			_gamePaused = true;
 		}
 
+		/// <summary>
+		/// Initializes tracking logic
+		/// </summary>
+		/// <param name="levelMap"></param>
 		private void OnLevelMapLoaded(LevelMap levelMap)
 		{
 			if (levelMap.FinishCondition == FinishCondition.MovesLimit)
@@ -70,6 +75,9 @@ namespace TilesWalk.Gameplay.Condition
 			_onTrackersSetupFinish?.OnNext(_levelScorePointsTracker.LevelScore);
 		}
 
+		/// <summary>
+		/// Handles level finish on moves limit condition
+		/// </summary>
 		private void MovesTracking()
 		{
 			_tileLevelMap.OnTileRemovedAsObservable().Subscribe(l =>
@@ -80,32 +88,41 @@ namespace TilesWalk.Gameplay.Condition
 				})
 				.AddTo(this);
 
+			_levelScorePointsTracker.OnScorePointsUpdatedAsObservable().Subscribe(score =>
+			{
+				if (score.Points.Last < _tileLevelMap.LevelMap.Target) return;
+
+				if (_movesFinishCondition != null && !_recordSet)
+				{
+					_recordSet = true;
+					_levelScorePointsTracker.LevelScore.Moves.Update(_movesFinishCondition.Tracker.Value);
+				}
+			});
+
 			_movesFinishCondition.IsConditionMeet.Subscribe(meet =>
 			{
 				if (!meet) return;
-
-				if (_movesFinishCondition != null)
-				{
-					_levelScorePointsTracker.LevelScore.Moves.Update(_movesFinishCondition.Tracker.Value);
-				}
-
 				TriggerLevelFinish();
 			}).AddTo(this);
 		}
 
+		/// <summary>
+		/// Handles level finishing logic, since some combos may still on level finish
+		/// its important to handle this properly
+		/// </summary>
 		private void TriggerLevelFinish()
 		{
 			IsFinished = true;
 
 			if (_tileLevelMap.IsAnyComboLeft())
 			{
-				_levelScorePointsTracker.OnScorePointsUpdatedAsObservable().Take(1).Subscribe(score =>
+				_levelScorePointsTracker.OnScorePointsUpdatedAsObservable().Subscribe(score =>
 				{
+					// wait till the map is unlocked
 					if (_tileLevelMap.State == TileViewLevelMapState.FreeMove)
 					{
 						_onLevelFinish?.OnNext(_levelScorePointsTracker.LevelScore);
 					}
-
 				}).AddTo(this);
 			}
 			else
@@ -114,6 +131,9 @@ namespace TilesWalk.Gameplay.Condition
 			}
 		}
 
+		/// <summary>
+		/// Handles level finish on time limit logic
+		/// </summary>
 		private void TimeTracking()
 		{
 			Observable.Interval(TimeSpan.FromMilliseconds(10)).Subscribe(l =>
@@ -123,15 +143,22 @@ namespace TilesWalk.Gameplay.Condition
 				_timeFinishCondition?.Update(10f / 1000f);
 			}).AddTo(this);
 
+			// this could be done using TakeWhile, when UniRX supports inclusive last value
+			_levelScorePointsTracker.OnScorePointsUpdatedAsObservable().Subscribe(score =>
+			{
+				if (score.Points.Last < _tileLevelMap.LevelMap.Target) return;
+
+				if (_movesFinishCondition != null && !_recordSet)
+				{
+					_recordSet = true;
+					_levelScorePointsTracker.LevelScore.Time.Update(_timeFinishCondition.Tracker.Value);
+				}
+			}).AddTo(this);
+
+
 			_timeFinishCondition.IsConditionMeet.Subscribe(meet =>
 			{
 				if (!meet) return;
-
-				if (_timeFinishCondition != null)
-				{
-					_levelScorePointsTracker.LevelScore.Time.Update(_timeFinishCondition.Tracker.Value);
-				}
-
 				TriggerLevelFinish();
 			}).AddTo(this);
 		}
