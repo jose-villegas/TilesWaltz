@@ -148,7 +148,7 @@ namespace TilesWalk.Gameplay.Condition
 			{
 				if (score.Points.Last < _tileLevelMap.LevelMap.Target) return;
 
-				if (_movesFinishCondition != null && !_recordSet)
+				if (_timeFinishCondition != null && !_recordSet)
 				{
 					_recordSet = true;
 					_levelScorePointsTracker.LevelScore.Time.Update(_timeFinishCondition.Tracker.Value);

@@ -1032,6 +1032,8 @@ GameObject:
   - component: {fileID: 1118400372}
   - component: {fileID: 1118400375}
   - component: {fileID: 1118400376}
+  - component: {fileID: 1118400378}
+  - component: {fileID: 1118400377}
   m_Layer: 5
   m_Name: ImportedMaps
   m_TagString: Untagged
@@ -1056,7 +1058,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -40.000015}
+  m_AnchoredPosition: {x: 0, y: -40}
   m_SizeDelta: {x: 0, y: -79.99994}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1118400372
@@ -1102,6 +1104,7 @@ MonoBehaviour:
   - {fileID: 1118400372}
   - {fileID: 1118400375}
   - {fileID: 1118400376}
+  - {fileID: 1118400378}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -1131,6 +1134,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _importCanvas: {fileID: 2418490808540581384}
+--- !u!114 &1118400377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118400370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fdf747b47eef78449a7fad0329cf352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1118400378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118400370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f38a7f87f0270e4eabbad6cc7504ae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameScoresHelper: {fileID: 1118400377}
 --- !u!1 &1121240761
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,6 +1172,8 @@ GameObject:
   - component: {fileID: 1121240764}
   - component: {fileID: 1121240763}
   - component: {fileID: 1121240766}
+  - component: {fileID: 1121240768}
+  - component: {fileID: 1121240767}
   m_Layer: 5
   m_Name: UserMaps
   m_TagString: Untagged
@@ -1168,7 +1198,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -40.000015}
+  m_AnchoredPosition: {x: 0, y: -40}
   m_SizeDelta: {x: 0, y: -79.99994}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1121240763
@@ -1213,6 +1243,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 1121240763}
   - {fileID: 1121240766}
+  - {fileID: 1121240768}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -1229,6 +1260,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shareCanvas: {fileID: 4315720343251010564}
+--- !u!114 &1121240767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121240761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fdf747b47eef78449a7fad0329cf352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1121240768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121240761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f38a7f87f0270e4eabbad6cc7504ae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameScoresHelper: {fileID: 1121240767}
 --- !u!114 &1162835416 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8471707324570589811, guid: 7e63a4b57bde15a44b798774c44b5a34,
@@ -4635,7 +4691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd057d5dcdf81cc41ad9c79d939a65ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _entry: {fileID: 807601058667093187, guid: 9344cdab5e3d4d240b1e6b661228d2cc, type: 3}
+  _entry: {fileID: 807601058667093187, guid: 5ea8c15ae87d3e2438de91762455621c, type: 3}
 --- !u!224 &4120021872851251722 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4120021874029557728, guid: 3e1d7b87fab623b48b899c7f9ec5e247,

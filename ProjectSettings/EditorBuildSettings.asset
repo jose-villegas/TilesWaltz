@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UserLevel.unity
     guid: d665988a71f45ac4080d2fccecfcb650
+  - enabled: 1
+    path: Assets/Scenes/ImportedLevel.unity
+    guid: 17d0988e300b29f418fb1e96c77f720c
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: ce0c96fae0c5ea2418df9466758dd26b,
       type: 2}
