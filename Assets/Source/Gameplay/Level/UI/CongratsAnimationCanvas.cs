@@ -127,7 +127,7 @@ namespace TilesWalk.Gameplay.Level.UI
 				}
 
 				_animator.SetTrigger("LevelCompleted");
-				_gameSave.Statistics.MapFailed(_solver.Source);
+				_gameSave.Statistics.MapCompleted(_solver.Source);
 
 				switch (_levelMap.LevelMap.FinishCondition)
 				{
