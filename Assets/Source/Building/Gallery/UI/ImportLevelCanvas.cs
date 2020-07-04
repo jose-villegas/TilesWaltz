@@ -23,6 +23,7 @@ namespace TilesWalk.Building.Gallery.UI
 		[Inject] private LevelMapPreviewRenderCamera _previewCamera;
 		[Inject] private MapProviderSolver _solver;
 		[Inject] private Notice _notice;
+		[Inject] private Confirmation _confirmation;
 
 		[SerializeField] private Animator _animator;
 		[SerializeField] private RawImage _cameraRenderer;
@@ -67,8 +68,21 @@ namespace TilesWalk.Building.Gallery.UI
 		{
 			if (_isMapRead && _map != null && _condition != null)
 			{
-				_solver.Provider.Collection.Insert(_map, _condition);
-				_onNewLevelImported?.OnNext(new Tuple<LevelMap, MapFinishCondition>(_map, _condition));
+				if (_solver.Provider.Collection.Exist(_map.Id))
+				{
+					_confirmation.Configure("There is another map with the same name, replace?", () =>
+					{
+						_solver.Provider.Collection.Insert(_map, _condition);
+						_onNewLevelImported?.OnNext(new Tuple<LevelMap, MapFinishCondition>(_map, _condition));
+						gameObject.SetActive(false);
+					}).Show();
+				}
+				else
+				{
+					_solver.Provider.Collection.Insert(_map, _condition);
+					_onNewLevelImported?.OnNext(new Tuple<LevelMap, MapFinishCondition>(_map, _condition));
+					gameObject.SetActive(false);
+				}
 			}
 		}
 
@@ -303,7 +317,7 @@ namespace TilesWalk.Building.Gallery.UI
 					if (_condition is MovesFinishCondition moveCond)
 					{
 						limit = moveCond.Limit;
-						_time.text = moveCond.Limit.Localize();
+						_moves.text = moveCond.Limit.Localize();
 					}
 
 					break;
