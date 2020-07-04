@@ -82,7 +82,7 @@ Canvas:
   m_GameObject: {fileID: 983141781171388833}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -91,7 +91,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: 271553789
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &983141781171388844
@@ -288,12 +288,12 @@ PrefabInstance:
     - target: {fileID: 142855537463345098, guid: 60e372a502fa0864f8de35a1433bf395,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 142855537463345098, guid: 60e372a502fa0864f8de35a1433bf395,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -0.0000076293945
       objectReference: {fileID: 0}
     - target: {fileID: 142855537463345098, guid: 60e372a502fa0864f8de35a1433bf395,
         type: 3}
@@ -308,6 +308,16 @@ PrefabInstance:
     - target: {fileID: 142855537463345098, guid: 60e372a502fa0864f8de35a1433bf395,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 142855537463345098, guid: 60e372a502fa0864f8de35a1433bf395,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.00016391277
+      objectReference: {fileID: 0}
+    - target: {fileID: 163880416273160594, guid: 60e372a502fa0864f8de35a1433bf395,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1246556841085386923, guid: 60e372a502fa0864f8de35a1433bf395,
@@ -1601,7 +1611,7 @@ PrefabInstance:
     - target: {fileID: 4854165571986171869, guid: 5e3cc104fb2b10a4f91bd9351f1fef1d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -15.000122
+      value: -15.000061
       objectReference: {fileID: 0}
     - target: {fileID: 5317845509204767826, guid: 5e3cc104fb2b10a4f91bd9351f1fef1d,
         type: 3}
@@ -1661,6 +1671,11 @@ PrefabInstance:
     - target: {fileID: 5344171884068198454, guid: 5e3cc104fb2b10a4f91bd9351f1fef1d,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5874091512617462643, guid: 5e3cc104fb2b10a4f91bd9351f1fef1d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7099542552459209693, guid: 5e3cc104fb2b10a4f91bd9351f1fef1d,
@@ -1860,6 +1875,16 @@ PrefabInstance:
       propertyPath: _detailsCanvas
       value: 
       objectReference: {fileID: 983141780930965717}
+    - target: {fileID: 3351108586874051574, guid: 5f7690b511ec148419f28ce5b11a1cfd,
+        type: 3}
+      propertyPath: _triggerGameEvents
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351108586874051574, guid: 5f7690b511ec148419f28ce5b11a1cfd,
+        type: 3}
+      propertyPath: _showTriggersPause
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3678629211158947858, guid: 5f7690b511ec148419f28ce5b11a1cfd,
         type: 3}
       propertyPath: m_AnchorMin.y
