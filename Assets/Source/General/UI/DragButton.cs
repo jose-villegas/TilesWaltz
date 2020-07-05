@@ -1,104 +1,89 @@
 ﻿using System.Collections;
+using TilesWalk.Extensions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace TilesWalk.General.UI
 {
-	public class DragButton : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+	public class DragButton : UIBehaviour, IBeginDragHandler, IDragHandler
 	{
-		[SerializeField] private RectTransform _dragContainer;
+		/// <summary>
+		/// The RectTransform that we are able to drag around.
+		/// if null: the transform this Component is attatched to is used.
+		/// </summary>
+		public RectTransform dragObject;
 
-		private Vector2 halfSize;
-		private IEnumerator _moveToPosCoroutine;
+		/// <summary>
+		/// The area in which we are able to move the dragObject around.
+		/// if null: canvas is used
+		/// </summary>
+		public RectTransform dragArea;
 
-		void Start()
+		private Vector2 originalLocalPointerPosition;
+		private Vector3 originalPanelLocalPosition;
+
+		private RectTransform dragObjectInternal
 		{
-			halfSize = _dragContainer.sizeDelta * 0.5f * _dragContainer.root.localScale.x;
+			get
+			{
+				if (dragObject == null)
+					return (transform as RectTransform);
+				else
+					return dragObject;
+			}
+		}
+
+		private RectTransform dragAreaInternal
+		{
+			get
+			{
+				if (dragArea == null)
+				{
+					RectTransform canvas = transform as RectTransform;
+					while (canvas.parent != null && canvas.parent is RectTransform)
+					{
+						canvas = canvas.parent as RectTransform;
+					}
+
+					return canvas;
+				}
+				else
+					return dragArea;
+			}
 		}
 
 		public void OnBeginDrag(PointerEventData data)
 		{
-			// If a smooth movement animation is in progress, cancel it
-			if (_moveToPosCoroutine != null)
-			{
-				StopCoroutine(_moveToPosCoroutine);
-				_moveToPosCoroutine = null;
-			}
+			originalPanelLocalPosition = dragObjectInternal.localPosition;
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(dragAreaInternal, data.position,
+				data.pressEventCamera, out originalLocalPointerPosition);
 		}
 
 		public void OnDrag(PointerEventData data)
 		{
-			_dragContainer.position = data.position;
+			Vector2 localPointerPosition;
+			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(dragAreaInternal, data.position,
+				data.pressEventCamera, out localPointerPosition))
+			{
+				Vector3 offsetToOriginal = localPointerPosition - originalLocalPointerPosition;
+				dragObjectInternal.localPosition = originalPanelLocalPosition + offsetToOriginal;
+			}
+
+			ClampToArea();
 		}
 
-		public void OnEndDrag(PointerEventData data)
+		// Clamp panel to dragArea
+		private void ClampToArea()
 		{
-			var screenWidth = Screen.width;
-			var screenHeight = Screen.height;
+			Vector3 pos = dragObjectInternal.localPosition;
 
-			Vector3 pos = _dragContainer.position;
+			Vector3 minPosition = dragAreaInternal.rect.min - dragObjectInternal.rect.min;
+			Vector3 maxPosition = dragAreaInternal.rect.max - dragObjectInternal.rect.max;
 
-			// Find distances to all four edges
-			var distToLeft = pos.x;
-			var distToRight = Mathf.Abs(pos.x - screenWidth);
+			pos.x = Mathf.Clamp(dragObjectInternal.localPosition.x, minPosition.x, maxPosition.x);
+			pos.y = Mathf.Clamp(dragObjectInternal.localPosition.y, minPosition.y, maxPosition.y);
 
-			var distToBottom = Mathf.Abs(pos.y);
-			var distToTop = Mathf.Abs(pos.y - screenHeight);
-
-			var horDistance = Mathf.Min(distToLeft, distToRight);
-			var vertDistance = Mathf.Min(distToBottom, distToTop);
-
-			// Find the nearest edge's coordinates
-			if (horDistance < vertDistance)
-			{
-				if (distToLeft < distToRight)
-				{
-					pos = new Vector3(halfSize.x, pos.y, 0f);
-				}
-				else
-				{
-					pos = new Vector3(screenWidth - halfSize.x, pos.y, 0f);
-				}
-
-				pos.y = Mathf.Clamp(pos.y, halfSize.y, screenHeight - halfSize.y);
-			}
-			else
-			{
-				if (distToBottom < distToTop)
-				{
-					pos = new Vector3(pos.x, halfSize.y, 0f);
-				}
-				else
-				{
-					pos = new Vector3(pos.x, screenHeight - halfSize.y, 0f);
-				}
-
-				pos.x = Mathf.Clamp(pos.x, halfSize.x, screenWidth - halfSize.x);
-			}
-
-			// If another smooth movement animation is in progress, cancel it
-			if (_moveToPosCoroutine != null)
-			{
-				StopCoroutine(_moveToPosCoroutine);
-			}
-
-			// Smoothly translate the popup to the specified position
-			_moveToPosCoroutine = MoveToPosAnimation(pos);
-			StartCoroutine(_moveToPosCoroutine);
-		}
-
-		private IEnumerator MoveToPosAnimation(Vector3 targetPos)
-		{
-			var modifier = 0f;
-			var initialPos = _dragContainer.position;
-
-			while (modifier < 1f)
-			{
-				modifier += 4f * Time.unscaledDeltaTime;
-				_dragContainer.position = Vector3.Lerp(initialPos, targetPos, modifier);
-
-				yield return null;
-			}
+			dragObjectInternal.localPosition = pos;
 		}
 	}
 }

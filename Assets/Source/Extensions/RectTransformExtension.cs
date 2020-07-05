@@ -49,5 +49,36 @@ namespace TilesWalk.Extensions
 			}
 			return bounds;
 		}
+
+
+		/// <summary>
+		/// This methods will check is the rect transform is inside the screen or not
+		/// </summary>
+		/// <param name="rectTransform">Rect Trasform</param>
+		/// <returns></returns>
+		public static bool IsRectTransformInsideSreen(this RectTransform rectTransform)
+		{
+			var isInside = false;
+			var corners = new Vector3[4];
+			var visibleCorners = 0;
+
+			rectTransform.GetWorldCorners(corners);
+			var rect = new Rect(0, 0, Screen.width, Screen.height);
+
+			foreach (Vector3 corner in corners)
+			{
+				if (rect.Contains(corner))
+				{
+					visibleCorners++;
+				}
+			}
+
+			if (visibleCorners == 4)
+			{
+				isInside = true;
+			}
+
+			return isInside;
+		}
 	}
 }

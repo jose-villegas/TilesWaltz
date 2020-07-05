@@ -267,7 +267,7 @@ namespace TilesWalk.Tile
 			_tile.PowerUp = TilePowerUp.None;
 
 
-				// update the path
+			// update the path
 			for (int i = 0; i < shufflePath.Count; i++)
 			{
 				var source = shufflePath[i];
@@ -404,12 +404,12 @@ namespace TilesWalk.Tile
 				}
 
 				if (directionPowerUp && cardinalDirection == CardinalDirection.South ||
-					cardinalDirection == CardinalDirection.North)
+				    cardinalDirection == CardinalDirection.North)
 				{
 					powerUp = TilePowerUp.NorthSouthLine;
 				}
 				else if (directionPowerUp && cardinalDirection == CardinalDirection.West ||
-						 cardinalDirection == CardinalDirection.East)
+				         cardinalDirection == CardinalDirection.East)
 				{
 					powerUp = TilePowerUp.EastWestLine;
 				}
