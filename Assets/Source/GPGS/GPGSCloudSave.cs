@@ -8,9 +8,9 @@ using UnityEngine;
 
 namespace TilesWalk.GPGS
 {
-	public class GPGSCloudSave
+	public static class GPGSCloudSave
 	{
-		private bool ProcessCloudData(byte[] cloudData, out string processedData)
+		private static bool ProcessCloudData(byte[] cloudData, out string processedData)
 		{
 			processedData = string.Empty;
 
@@ -24,9 +24,13 @@ namespace TilesWalk.GPGS
 			return true;
 		}
 
-		public void SaveToCloud(string fileName, string data, Action onComplete = null, Action onFailure = null)
+		public static void SaveToCloud(string fileName, string data, Action onComplete = null, Action onFailure = null)
 		{
-			if (!PlayGamesPlatform.Instance.IsAuthenticated()) return;
+			if (!PlayGamesPlatform.Instance.IsAuthenticated())
+			{
+				onFailure?.Invoke();
+				return;
+			}
 
 			PlayGamesPlatform.Instance.SavedGame.OpenWithAutomaticConflictResolution
 			(
@@ -65,9 +69,13 @@ namespace TilesWalk.GPGS
 			);
 		}
 
-		public void LoadFromCloud(string fileName, Action<string> result, Action onFailure = null)
+		public static void LoadFromCloud(string fileName, Action<string> result, Action onFailure = null)
 		{
-			if (!PlayGamesPlatform.Instance.IsAuthenticated()) return;
+			if (!PlayGamesPlatform.Instance.IsAuthenticated())
+			{
+				onFailure?.Invoke();
+				return;
+			}
 
 			PlayGamesPlatform.Instance.SavedGame.OpenWithAutomaticConflictResolution
 			(

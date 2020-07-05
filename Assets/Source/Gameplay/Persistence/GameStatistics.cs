@@ -50,6 +50,8 @@ namespace TilesWalk.Gameplay.Persistence
 		[JsonProperty] [SerializeField] private DateTime _lastSessionBegin;
 		[JsonProperty] [SerializeField] private DateTime _lastSessionEnd;
 
+		public DateTime LastSaveTimestamp => _lastSaveTimestamp;
+
 		public void TimestampSave()
 		{
 			_lastSaveTimestamp = DateTime.Now;
