@@ -26,9 +26,12 @@ MonoBehaviour:
     - _identifier: ColorPower
       _clip: {fileID: 8300000, guid: 9607f063607800b469fb28ce85204fe0, type: 3}
       volume: 0.05
-    - _identifier: Water
-      _clip: {fileID: 8300000, guid: fff6630e974eb3c4ebf88e0ebbbd0eee, type: 3}
-      volume: 0.7
+    - _identifier: Wind
+      _clip: {fileID: 8300000, guid: 7d1b0bb739c8eeb48943b31df29cfc3b, type: 3}
+      volume: 0.25
+    - _identifier: Clank
+      _clip: {fileID: 8300000, guid: 095f3f1d4c1cd3c4fabd28f98c56f93a, type: 3}
+      volume: 0.25
     _gameUISounds:
     - _identifier: Click
       _clip: {fileID: 8300000, guid: 50a2988df1c9ad54a9df0eef4ae656b4, type: 3}

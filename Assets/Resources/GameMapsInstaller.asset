@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4db1560a02e1e48a2df94c781726ae, type: 3}
   m_Name: GameMapsInstaller
   m_EditorClassIdentifier: 
-  _name: Lil Wind
-  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-336910,"Root":0,"Direction":1,"Rule":1},{"Tile":-337712,"Root":0,"Direction":8,"Rule":2},{"Tile":-336948,"Root":-336910,"Direction":4,"Rule":1},{"Tile":-336986,"Root":-336948,"Direction":4,"Rule":1},{"Tile":-337024,"Root":-336986,"Direction":2,"Rule":1},{"Tile":-337062,"Root":-337024,"Direction":2,"Rule":1},{"Tile":-337100,"Root":-337062,"Direction":8,"Rule":1},{"Tile":-337138,"Root":-337100,"Direction":2,"Rule":1},{"Tile":-337176,"Root":-337138,"Direction":8,"Rule":1},{"Tile":-337214,"Root":-337176,"Direction":8,"Rule":1},{"Tile":-337252,"Root":-337214,"Direction":1,"Rule":1},{"Tile":-337290,"Root":-337252,"Direction":8,"Rule":1},{"Tile":-337328,"Root":-337290,"Direction":1,"Rule":1},{"Tile":-337366,"Root":-337328,"Direction":1,"Rule":1},{"Tile":-337404,"Root":-337366,"Direction":1,"Rule":1},{"Tile":-337442,"Root":-337404,"Direction":4,"Rule":1},{"Tile":-337480,"Root":-337442,"Direction":1,"Rule":1},{"Tile":-337518,"Root":-337480,"Direction":4,"Rule":1},{"Tile":-337556,"Root":-337518,"Direction":4,"Rule":1},{"Tile":-337594,"Root":-337556,"Direction":4,"Rule":2},{"Tile":-337632,"Root":-337594,"Direction":4,"Rule":0},{"Tile":-337670,"Root":-337632,"Direction":4,"Rule":1},{"Tile":-337750,"Root":-337712,"Direction":8,"Rule":1},{"Tile":-337788,"Root":-337750,"Direction":8,"Rule":2},{"Tile":-337826,"Root":-337788,"Direction":8,"Rule":0},{"Tile":-337864,"Root":-337826,"Direction":8,"Rule":1},{"Tile":-337902,"Root":-337864,"Direction":8,"Rule":0},{"Tile":-337940,"Root":-337902,"Direction":8,"Rule":2},{"Tile":-337978,"Root":-337940,"Direction":8,"Rule":1},{"Tile":-338016,"Root":-337978,"Direction":8,"Rule":1}],"Tiles":[0,-336910,-336948,-336986,-337024,-337062,-337100,-337138,-337176,-337214,-337252,-337290,-337328,-337366,-337404,-337442,-337480,-337518,-337556,-337594,-337632,-337670,-337712,-337750,-337788,-337826,-337864,-337902,-337940,-337978,-338016],"MapSize":0}'
-  _condition: 1
-  _seconds: 60
-  _moves: 30
-  _mapSize: 4
-  _starsRequired: 2
-  _targetPoints: 2250
+  _name: Bird
+  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-3327196,"Root":0,"Direction":4,"Rule":1},{"Tile":-3327620,"Root":0,"Direction":8,"Rule":1},{"Tile":-3328044,"Root":0,"Direction":2,"Rule":1},{"Tile":-3328258,"Root":0,"Direction":1,"Rule":1},{"Tile":-3327406,"Root":-3327196,"Direction":4,"Rule":2},{"Tile":-3327830,"Root":-3327620,"Direction":8,"Rule":0},{"Tile":-3328472,"Root":-3328044,"Direction":2,"Rule":2},{"Tile":-3328686,"Root":-3328258,"Direction":1,"Rule":0},{"Tile":-3328900,"Root":-3328472,"Direction":2,"Rule":1},{"Tile":-3329114,"Root":-3328686,"Direction":1,"Rule":1},{"Tile":-3329324,"Root":-3329114,"Direction":1,"Rule":0},{"Tile":-3329534,"Root":-3329324,"Direction":1,"Rule":0},{"Tile":-3329748,"Root":-3328900,"Direction":2,"Rule":2},{"Tile":-3329958,"Root":-3329748,"Direction":2,"Rule":2},{"Tile":-3330168,"Root":-3329958,"Direction":2,"Rule":0},{"Tile":-3330382,"Root":-3329534,"Direction":1,"Rule":2},{"Tile":-3330800,"Root":-3327830,"Direction":8,"Rule":2},{"Tile":-3331014,"Root":-3327406,"Direction":4,"Rule":0}],"Tiles":[0,-3327196,-3327406,-3327620,-3327830,-3328044,-3328258,-3328472,-3328686,-3328900,-3329114,-3329324,-3329534,-3329748,-3329958,-3330168,-3330382,-3330800,-3331014],"MapSize":0}'
+  _condition: 0
+  _seconds: 30
+  _moves: 20
+  _mapSize: 3
+  _starsRequired: 9
+  _targetPoints: 2500
   _gameMaps:
     _availableMaps:
     - Id: Chromosome
@@ -348,10 +348,10 @@ MonoBehaviour:
         Rule: 1
       Tiles: 00000000e8eaf8ffc2eaf8ff9ceaf8ff76eaf8ff50eaf8ff22eaf8fffce9f8ffd6e9f8ffb0e9f8ff8ae9f8ff64e9f8ff3ae9f8ff10e9f8ffe6e8f8ffc0e8f8ff96e8f8ff70e8f8ff46e8f8ff20e8f8fffae7f8ffd0e7f8ffaae7f8ff84e7f8fff8e6f8ffcae6f8ffa4e6f8ff7ae6f8ff54e6f8ff2ee6f8ffd4e5f8ffaee5f8ff88e5f8ff5ae5f8ff34e5f8ff0ee5f8ff
       MapSize: 5
-      StarsRequired: 8
+      StarsRequired: 15
       Target: 2800
       FinishCondition: 0
-    - Id: S
+    - Id: The S
       Instructions:
       - Tile: -468646
         Root: 0
@@ -506,7 +506,7 @@ MonoBehaviour:
         Rule: 1
       Tiles: 00000000e2e5fbffbce5fbff96e5fbff70e5fbff4ae5fbff24e5fbfffee4fbffd8e4fbffaee4fbff88e4fbff62e4fbff3ce4fbff12e4fbffe8e3fbffbee3fbff98e3fbff72e3fbff48e3fbff22e3fbfffce2fbff78e2fbff38e2fbff
       MapSize: 3
-      StarsRequired: 5
+      StarsRequired: 12
       Target: 2800
       FinishCondition: 0
     - Id: Lil Wind
@@ -636,6 +636,132 @@ MonoBehaviour:
       StarsRequired: 2
       Target: 2250
       FinishCondition: 1
+    - Id: Jumpers
+      Instructions:
+      - Tile: -3317732
+        Root: 0
+        Direction: 1
+        Rule: 1
+      - Tile: -3319004
+        Root: 0
+        Direction: 2
+        Rule: 1
+      - Tile: -3319638
+        Root: 0
+        Direction: 4
+        Rule: 0
+      - Tile: -3317942
+        Root: -3317732
+        Direction: 4
+        Rule: 1
+      - Tile: -3318790
+        Root: -3317732
+        Direction: 8
+        Rule: 0
+      - Tile: -3318152
+        Root: -3317942
+        Direction: 4
+        Rule: 1
+      - Tile: -3318362
+        Root: -3318152
+        Direction: 4
+        Rule: 2
+      - Tile: -3318576
+        Root: -3318152
+        Direction: 1
+        Rule: 0
+      - Tile: -3319214
+        Root: -3319004
+        Direction: 2
+        Rule: 1
+      - Tile: -3319424
+        Root: -3319214
+        Direction: 8
+        Rule: 2
+      Tiles: 000000001c60cdff4a5fcdff785ecdffa65dcdffd05ccdfffa5bcdff245bcdff525acdff8059cdffaa58cdff
+      MapSize: 1
+      StarsRequired: 2
+      Target: 2000
+      FinishCondition: 1
+    - Id: Bird
+      Instructions:
+      - Tile: -3327196
+        Root: 0
+        Direction: 4
+        Rule: 1
+      - Tile: -3327620
+        Root: 0
+        Direction: 8
+        Rule: 1
+      - Tile: -3328044
+        Root: 0
+        Direction: 2
+        Rule: 1
+      - Tile: -3328258
+        Root: 0
+        Direction: 1
+        Rule: 1
+      - Tile: -3327406
+        Root: -3327196
+        Direction: 4
+        Rule: 2
+      - Tile: -3327830
+        Root: -3327620
+        Direction: 8
+        Rule: 0
+      - Tile: -3328472
+        Root: -3328044
+        Direction: 2
+        Rule: 2
+      - Tile: -3328686
+        Root: -3328258
+        Direction: 1
+        Rule: 0
+      - Tile: -3328900
+        Root: -3328472
+        Direction: 2
+        Rule: 1
+      - Tile: -3329114
+        Root: -3328686
+        Direction: 1
+        Rule: 1
+      - Tile: -3329324
+        Root: -3329114
+        Direction: 1
+        Rule: 0
+      - Tile: -3329534
+        Root: -3329324
+        Direction: 1
+        Rule: 0
+      - Tile: -3329748
+        Root: -3328900
+        Direction: 2
+        Rule: 2
+      - Tile: -3329958
+        Root: -3329748
+        Direction: 2
+        Rule: 2
+      - Tile: -3330168
+        Root: -3329958
+        Direction: 2
+        Rule: 0
+      - Tile: -3330382
+        Root: -3329534
+        Direction: 1
+        Rule: 2
+      - Tile: -3330800
+        Root: -3327830
+        Direction: 8
+        Rule: 2
+      - Tile: -3331014
+        Root: -3327406
+        Direction: 4
+        Rule: 0
+      Tiles: 00000000243bcdff523acdff7c39cdffaa38cdffd437cdfffe36cdff2836cdff5235cdff7c34cdffa633cdffd432cdff0232cdff2c31cdff5a30cdff882fcdffb22ecdff102dcdff3a2ccdff
+      MapSize: 2
+      StarsRequired: 9
+      Target: 2500
+      FinishCondition: 0
     _movesFinishConditions:
     - _id: Chromosome
       _limit: 20
@@ -643,6 +769,8 @@ MonoBehaviour:
       _limit: 20
     - _id: Lil Wind
       _limit: 30
+    - _id: Jumpers
+      _limit: 20
     _timeFinishConditions:
     - _id: Columns
       _limit: 60
@@ -650,6 +778,8 @@ MonoBehaviour:
       _limit: 60
     - _id: Holders
       _limit: 60
+    - _id: Bird
+      _limit: 30
   _gameLevelsMap:
     Id: Game Map
     Instructions:
