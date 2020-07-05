@@ -14,7 +14,7 @@ namespace TilesWalk.General.FX
 
 		[SerializeField] protected Material _sourceMaterial;
 
-		protected static readonly Dictionary<T1, Material> Materials = new Dictionary<T1, Material>();
+		protected readonly Dictionary<T1, Material> Materials = new Dictionary<T1, Material>();
 
 		protected virtual void Awake()
 		{

@@ -243,7 +243,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 1
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{inproject}: Keys/tileswaltz.keystore'
+  AndroidKeystoreName: '{inproject}: Keys/tilewaltz.keystore'
   AndroidKeyaliasName: tileswaltz
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0

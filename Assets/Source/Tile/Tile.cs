@@ -77,7 +77,7 @@ namespace TilesWalk.Tile
 			{
 				var sourcePower = _powerUp;
 				_powerUp = value;
-				onTilePowerUpChanged?.OnNext(new Tuple<Tile, TilePowerUp>(this, _powerUp));
+				onTilePowerUpChanged?.OnNext(new Tuple<Tile, TilePowerUp>(this, sourcePower));
 			}
 		}
 

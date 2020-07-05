@@ -1857,6 +1857,26 @@ PrefabInstance:
       propertyPath: m_textAlignment
       value: 513
       objectReference: {fileID: 0}
+    - target: {fileID: 8079200298574286621, guid: 5d2fea24bb35afe41a37261dc628df4f,
+        type: 3}
+      propertyPath: _name
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079200298574286621, guid: 5d2fea24bb35afe41a37261dc628df4f,
+        type: 3}
+      propertyPath: _color.r
+      value: 0.68235296
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079200298574286621, guid: 5d2fea24bb35afe41a37261dc628df4f,
+        type: 3}
+      propertyPath: _color.g
+      value: 0.7764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079200298574286621, guid: 5d2fea24bb35afe41a37261dc628df4f,
+        type: 3}
+      propertyPath: _color.b
+      value: 0.8117647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d2fea24bb35afe41a37261dc628df4f, type: 3}
 --- !u!224 &1525623572 stripped
@@ -1868,12 +1888,6 @@ RectTransform:
 --- !u!1 &1525623573 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1595196396924472427, guid: 5d2fea24bb35afe41a37261dc628df4f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1525623571}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1525623574 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7808430309305419849, guid: 5d2fea24bb35afe41a37261dc628df4f,
     type: 3}
   m_PrefabInstance: {fileID: 1525623571}
   m_PrefabAsset: {fileID: 0}
@@ -1897,20 +1911,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: 10
   _color: {r: 0.17254902, g: 0.22745098, b: 0.2784314, a: 1}
---- !u!114 &1525623577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525623574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecc502bc4369cdf46b6d0a801f06f4d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _name: 5
-  _color: {r: 0.68235296, g: 0.7764706, b: 0.8117647, a: 1}
 --- !u!114 &1525623578
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TilesWalk.Gameplay.Display;
+using TilesWalk.General.FX;
 using TilesWalk.Tile;
 using UniRx;
 using UnityEngine;
@@ -11,10 +12,11 @@ namespace TilesWalk.Building.Level
 	public class LevelMapEffectsHelper : MonoBehaviour
 	{
 		[Inject] private TileViewLevelMap _levelMap;
+		[Inject] protected GameTileColorsConfiguration _colorsConfiguration;
 
-		[SerializeField] private ParticleSystem _colorMatch;
-		[SerializeField] private ParticleSystem _verticalCut;
-		[SerializeField] private ParticleSystem _horizontalCut;
+		[SerializeField] private ParticleSystemsCollector _particleSystems;
+
+		private ParticleSystemRenderer _colorMatchRenderer;
 
 		private void Awake()
 		{
@@ -28,16 +30,20 @@ namespace TilesWalk.Building.Level
 				case TilePowerUp.None:
 					break;
 				case TilePowerUp.NorthSouthLine:
-					_verticalCut.Stop();
-					_verticalCut.Play();
+					_particleSystems["CutVertical"].Stop();
+					_particleSystems["CutVertical"].Play();
 					break;
 				case TilePowerUp.EastWestLine:
-					_horizontalCut.Stop();
-					_horizontalCut.Play();
+					_particleSystems["CutHorizontal"].Stop();
+					_particleSystems["CutHorizontal"].Play();
 					break;
 				case TilePowerUp.ColorMatch:
-					_colorMatch.Stop();
-					_colorMatch.Play();
+					var color = _colorsConfiguration[power.Item1[0].TileColor];
+					ParticleSystem.MainModule settings = _particleSystems["ColorPower"].main;
+					settings.startColor = color;
+
+					_particleSystems["ColorPower"].Stop();
+					_particleSystems["ColorPower"].Play();
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

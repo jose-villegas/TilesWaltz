@@ -373,50 +373,50 @@ namespace TilesWalk.Tile
 			var powerUp = TilePowerUp.None;
 
 			// check for combo power-ups
-			if (_tile.MatchingColorPatch.Count >= 5)
+			if (_tile.MatchingColorPatch.Count >= 3)
 			{
 				// color match power-up
 				_tile.MatchingColorPatch[Random.Range(0, _tile.MatchingColorPatch.Count)].PowerUp =
 					TilePowerUp.ColorMatch;
 			}
-			else if (_tile.MatchingColorPatch.Count >= 4)
-			{
-				var cardinalDirection = CardinalDirection.None;
-				var directionPowerUp = true;
+			//else if (_tile.MatchingColorPatch.Count >= 4)
+			//{
+			//	var cardinalDirection = CardinalDirection.None;
+			//	var directionPowerUp = true;
 
-				var first = _tile.MatchingColorPatch[0];
-				// find its neighbor matching color
-				var second = first.Neighbors.First(x => x.Value.TileColor == first.TileColor);
-				// now we follow this direction to see if all the tiles match
-				cardinalDirection = second.Key;
+			//	var first = _tile.MatchingColorPatch[0];
+			//	// find its neighbor matching color
+			//	var second = first.Neighbors.First(x => x.Value.TileColor == first.TileColor);
+			//	// now we follow this direction to see if all the tiles match
+			//	cardinalDirection = second.Key;
 
-				for (int i = 1; i < _tile.MatchingColorPatch.Count; i++)
-				{
-					first = _tile.MatchingColorPatch[i];
-					// find its neighbor matching color
-					second = first.Neighbors.First(x => x.Value.TileColor == first.TileColor);
+			//	for (int i = 1; i < _tile.MatchingColorPatch.Count; i++)
+			//	{
+			//		first = _tile.MatchingColorPatch[i];
+			//		// find its neighbor matching color
+			//		second = first.Neighbors.First(x => x.Value.TileColor == first.TileColor);
 
-					if (second.Key != cardinalDirection && second.Key != cardinalDirection.Opposite())
-					{
-						cardinalDirection = CardinalDirection.None;
-						break;
-					}
-				}
+			//		if (second.Key != cardinalDirection && second.Key != cardinalDirection.Opposite())
+			//		{
+			//			cardinalDirection = CardinalDirection.None;
+			//			break;
+			//		}
+			//	}
 
-				if (directionPowerUp && cardinalDirection == CardinalDirection.South ||
-					cardinalDirection == CardinalDirection.North)
-				{
-					powerUp = TilePowerUp.NorthSouthLine;
-				}
-				else if (directionPowerUp && cardinalDirection == CardinalDirection.West ||
-						 cardinalDirection == CardinalDirection.East)
-				{
-					powerUp = TilePowerUp.EastWestLine;
-				}
+			//	if (directionPowerUp && cardinalDirection == CardinalDirection.South ||
+			//		cardinalDirection == CardinalDirection.North)
+			//	{
+			//		powerUp = TilePowerUp.NorthSouthLine;
+			//	}
+			//	else if (directionPowerUp && cardinalDirection == CardinalDirection.West ||
+			//			 cardinalDirection == CardinalDirection.East)
+			//	{
+			//		powerUp = TilePowerUp.EastWestLine;
+			//	}
 
-				// assign to a tile randomly
-				_tile.MatchingColorPatch[Random.Range(0, _tile.MatchingColorPatch.Count)].PowerUp = powerUp;
-			}
+			//	// assign to a tile randomly
+			//	_tile.MatchingColorPatch[Random.Range(0, _tile.MatchingColorPatch.Count)].PowerUp = powerUp;
+			//}
 		}
 
 		/// <summary>

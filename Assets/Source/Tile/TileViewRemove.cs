@@ -57,6 +57,7 @@ namespace TilesWalk.Tile
 			_particleSystems["Remove"].Play();
 
 			var tiles = shufflePath.Select(x => _tileLevelMap.GetTileView(x)).ToList();
+			
 			// this structure with backup the origin position and rotations
 			var backup = ShufflePath(tiles);
 
@@ -103,6 +104,7 @@ namespace TilesWalk.Tile
 			var audioToPlay = "";
 			var audioPerTileToPlay = "";
 			var powerUp = _controller.Tile.PowerUp;
+			var particlePerTile = "";
 
 			switch (_controller.Tile.PowerUp)
 			{
@@ -111,15 +113,20 @@ namespace TilesWalk.Tile
 				case TilePowerUp.NorthSouthLine:
 					path = _controller.Tile.GetStraightPath(true, CardinalDirection.North, CardinalDirection.South);
 					audioToPlay = "LinePower";
+					particlePerTile = "SwooshNS";
+					audioPerTileToPlay = "Clank";
 					break;
 				case TilePowerUp.EastWestLine:
 					path = _controller.Tile.GetStraightPath(true, CardinalDirection.East, CardinalDirection.West);
 					audioToPlay = "LinePower";
+					particlePerTile = "SwooshEW";
+					audioPerTileToPlay = "Clank";
 					break;
 				case TilePowerUp.ColorMatch:
 					path = _controller.Tile.GetAllOfColor();
 					audioToPlay = "ColorPower";
-					audioPerTileToPlay = "Water";
+					audioPerTileToPlay = "Wind";
+					particlePerTile = "ColorPop";
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -137,8 +144,8 @@ namespace TilesWalk.Tile
 
 					if (index == 0)
 					{
-						_controller.HandleTilePowerUp();
 						_onPowerUpRemoval?.OnNext(new Tuple<List<Tile>, TilePowerUp>(path, powerUp));
+						_controller.HandleTilePowerUp();
 					}
 
 					MainThreadDispatcher.StartEndOfFrameMicroCoroutine(
@@ -149,7 +156,9 @@ namespace TilesWalk.Tile
 						.Subscribe(_ => { }, () =>
 						{
 							tileView._particleSystems["PopIn"].Play();
+							tileView._particleSystems[particlePerTile].Play();
 							_audioCollection.Play(GameAudioType.Sound, audioPerTileToPlay);
+
 							MainThreadDispatcher.StartEndOfFrameMicroCoroutine(
 								tileView.ScalePopInAnimation(sourceScale));
 							Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))

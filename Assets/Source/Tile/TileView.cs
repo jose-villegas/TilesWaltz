@@ -27,7 +27,7 @@ namespace TilesWalk.Tile
 		[Inject] protected DiContainer _container;
 		[Inject] protected TileViewFactory _tileFactory;
 		[Inject] protected TileViewLevelMap _tileLevelMap;
-		[Inject] protected GameTileColorsConfiguration _tileColorsSettings;
+		[Inject] protected GameTileColorsConfiguration _colorsConfiguration;
 		[Inject] protected TileColorMaterialColorMatchHandler _colorHandler;
 		[Inject] protected GameEventsHandler _gameEvents;
 		[Inject(Optional = true)] protected LevelFinishTracker _levelFinishTracker;
@@ -179,6 +179,15 @@ namespace TilesWalk.Tile
 		protected virtual void UpdateColor(Tuple<Tile, TileColor> color)
 		{
 			Renderer.material = _colorHandler.GetMaterial(color.Item1.TileColor);
+
+			if (_controller.Tile.PowerUp == TilePowerUp.ColorMatch)
+			{
+				_particleSystems["Color"].Stop();
+				var pColor = _colorsConfiguration[_controller.Tile.TileColor];
+				ParticleSystem.MainModule settings = _particleSystems["Color"].main;
+				settings.startColor = pColor;
+				_particleSystems["Color"].Play();
+			}
 		}
 
 		#region Debug
