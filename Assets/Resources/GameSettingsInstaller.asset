@@ -78,7 +78,7 @@ MonoBehaviour:
     _maximumUserMaps: 3
     _maximumImportedMaps: 3
     _maximumTilesPerLevel: 200
-    _tileSeparationBoundsOffset: 0.65
+    _tileSeparationBoundsOffset: 0.7
   _gamePalette:
     _colorConfiguration:
     - _color: {r: 0.95, g: 0.95, b: 0.9098039, a: 1}

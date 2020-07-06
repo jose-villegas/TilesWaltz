@@ -9,16 +9,16 @@ namespace TilesWalk.Building.Level
 		/// <summary>
 		/// Useful for map building
 		/// </summary>
-		public List<string> TileParameters;
+		public List<Tuple<int, string>> Levels;
 
 		public GameLevelsMap()
 		{
-			TileParameters = new List<string>();
+			Levels = new List<Tuple<int, string>>();
 		}
 
 		public GameLevelsMap(GameLevelsMap copyFrom) : base(copyFrom)
 		{
-			TileParameters = new List<string>(copyFrom.TileParameters);
+			Levels = new List<Tuple<int, string>>(copyFrom.Levels);
 		}
 	}
 }

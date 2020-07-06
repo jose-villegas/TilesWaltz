@@ -28,6 +28,8 @@ namespace TilesWalk.Tile
 		private Subject<Tuple<Tile, TileColor>> _onTileColorChanged;
 		private Subject<Tuple<Tile, TilePowerUp>> onTilePowerUpChanged;
 
+		public bool Root { get; set; }
+
 		/// <summary>
 		/// This structure contains a reference to the neighbor tiles, useful for indexing
 		/// the structure, each index represents an index at <see cref="CardinalDirection"/>
@@ -84,7 +86,7 @@ namespace TilesWalk.Tile
 		public void ShuffleColor(bool self = false)
 		{
 			var distinct = Neighbors.Select(x => x.Value.TileColor).ToList();
-			
+
 			if (self) distinct.Add(TileColor);
 
 			TileColor = TileColorExtension.RandomColor(distinct.ToArray());

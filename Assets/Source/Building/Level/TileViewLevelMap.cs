@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using ModestTree;
 using NaughtyAttributes;
 using Newtonsoft.Json;
 using TilesWalk.Building.LevelEditor;
+using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Level;
 using TilesWalk.General;
 using TilesWalk.Map.Bridge;
@@ -68,7 +71,7 @@ namespace TilesWalk.Building.Level
 			return State == TileViewLevelMapState.RemovingTile ||
 			       State == TileViewLevelMapState.OnComboRemoval ||
 			       State == TileViewLevelMapState.OnPowerUpRemoval ||
-				   State == TileViewLevelMapState.EditorMode ||
+			       State == TileViewLevelMapState.EditorMode ||
 			       State == TileViewLevelMapState.Locked;
 		}
 
@@ -103,12 +106,16 @@ namespace TilesWalk.Building.Level
 		{
 			var customLevel = new LevelMap
 			{
-				Tiles = new List<int> {0},
 				Id = Constants.CustomLevelName,
 				Instructions = new List<InsertionInstruction>(),
+				Roots = new List<RootTile>()
+				{
+					new RootTile()
+				},
 				MapSize = 3,
 				StarsRequired = 0,
-				Target = 0
+				Target = 0,
+				FinishCondition = FinishCondition.MovesLimit,
 			};
 			// add the root tile
 			BuildTileMap<LevelEditorTileView>(customLevel);
@@ -151,8 +158,6 @@ namespace TilesWalk.Building.Level
 			TileToHash[tile] = id;
 			HashToTile[id] = tile;
 			TileView[tile.Controller.Tile] = tile;
-			// register tile to the tile map
-			_levelMap.Tiles.Add(id);
 			// trigger event
 			_onTileRegistered?.OnNext(tile);
 		}
@@ -185,8 +190,35 @@ namespace TilesWalk.Building.Level
 			// remove from map
 			_levelMap.Instructions.RemoveAll(x => x.Tile == hash);
 			_levelMap.Instructions.RemoveAll(x => x.Root == hash);
-			_levelMap.Tiles.Remove(hash);
-			
+
+			if (tile.Controller.Tile.Root)
+			{
+				var index = _levelMap.Roots.FindIndex(x => x.Key == hash);
+
+				if (index >= 0)
+				{
+					_levelMap.Roots.RemoveAt(index);
+
+					foreach (var tileNeighbor in tile.Controller.Tile.Neighbors)
+					{
+						tileNeighbor.Value.Root = true;
+						var view = TileView[tileNeighbor.Value];
+
+						_levelMap.Roots.Add(new RootTile()
+						{
+							Key = TileToHash[view],
+							Position = view.transform.position,
+							Rotation = view.transform.eulerAngles
+						});
+					}
+				}
+				else
+				{
+					Debug.LogWarning("Root tile is marked as root but wasn't found of the level map" +
+					                 "check your level integrity.");
+				}
+			}
+
 			// remove all instructions that refer to this tile
 			if (!Insertions.TryGetValue(hash, out var instructions)) return;
 
@@ -222,7 +254,14 @@ namespace TilesWalk.Building.Level
 			var map = new LevelMap()
 			{
 				Instructions = instr,
-				Tiles = hashes
+				Roots = HashToTile
+					.Where(x => x.Value.Controller.Tile.Root)
+					.Select(val => new RootTile()
+					{
+						Key = val.Key,
+						Position = val.Value.transform.position,
+						Rotation = val.Value.transform.eulerAngles
+					}).ToList()
 			};
 
 			_instructions = JsonConvert.SerializeObject(map);
@@ -253,24 +292,53 @@ namespace TilesWalk.Building.Level
 		public void BuildTileMap<T>(LevelMap map) where T : TileView
 		{
 			Reset();
+			List<int> currentRoots = new List<int>();
 
-			foreach (var mapTile in map.Tiles)
+			// create root tiles first
+			foreach (var rootTile in map.Roots)
 			{
 				T tile = null;
 				tile = _viewFactory.NewInstance<T>();
-				RegisterTile(tile, mapTile);
+				RegisterTile(tile, rootTile.Key);
+				currentRoots.Add(rootTile.Key);
+				// set transform
+				tile.transform.position = rootTile.Position;
+				tile.transform.rotation = Quaternion.Euler(rootTile.Rotation);
+				// register root within the tile map
+				_levelMap.Roots.Add(rootTile);
 			}
 
+			var hasNewRootAvailable = true;
+
 			// Now execute neighbor insertion logic
-			foreach (var instruction in map.Instructions)
+			while (hasNewRootAvailable)
 			{
-				var rootTile = HashToTile[instruction.Root];
-				var insert = HashToTile[instruction.Tile];
-				// adjust neighbor insertion
-				Vector3 translate = Vector3.zero;
-				Quaternion rotate = Quaternion.identity;
-				rootTile.InsertNeighbor(instruction.Direction, instruction.Rule, insert);
-				UpdateInstructions(rootTile, insert, instruction.Direction, instruction.Rule);
+				var newRoots = new List<int>();
+				hasNewRootAvailable = false;
+
+				// now create all the tiles related to these roots
+				foreach (var root in currentRoots)
+				{
+					var related = map.Instructions.Where(x => x.Root == root).ToList();
+					var anyRelated = related.Any();
+					// ensure next loop since there is at least another tile parent
+					hasNewRootAvailable |= anyRelated;
+
+					// no need to iterate if this tile is a leaf
+					if (!anyRelated) continue;
+
+					foreach (var instruction in related)
+					{
+						var rootTile = HashToTile[instruction.Root];
+						var insert = HashToTile[instruction.Tile];
+						rootTile.InsertNeighbor(instruction.Direction, instruction.Rule, insert);
+						UpdateInstructions(rootTile, insert, instruction.Direction, instruction.Rule);
+						// update newer roots for next loop
+						newRoots.Add(instruction.Tile);
+					}
+				}
+
+				currentRoots = newRoots;
 			}
 
 			_levelMap.Id = map.Id;

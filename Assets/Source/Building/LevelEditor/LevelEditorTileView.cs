@@ -305,7 +305,7 @@ namespace TilesWalk.Building.LevelEditor
 			_levelEditorToolSet.InsertionCanvas.UpdateButtons(this);
 
 			// max amount of tiles reached
-			if (_tileLevelMap.LevelMap.Tiles.Count >= _customLevelsConfiguration.MaximumTilesPerLevel)
+			if (_tileLevelMap.HashToTile.Count >= _customLevelsConfiguration.MaximumTilesPerLevel)
 			{
 				_notice.Configure("Maximum amount of tiles reached").Show(2f);
 				OnCancelClick();

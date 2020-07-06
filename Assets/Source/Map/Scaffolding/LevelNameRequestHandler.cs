@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Map.General;
@@ -7,7 +6,6 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
-using Provider = TilesWalk.Map.General.Provider;
 
 namespace TilesWalk.Map.Scaffolding
 {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
+using UnityEngine;
 
 namespace TilesWalk.Building.Level
 {
@@ -29,19 +29,20 @@ namespace TilesWalk.Building.Level
 		{
 			var split = text.Split('%');
 			var header = split[0];
+			var roots = split[1];
+			var instructions = split[2];
 
+			// extract header
 			var headerSplit = header.Split('$');
 
 			var id = headerSplit[0];
-			var instructionCount = int.Parse(headerSplit[1]);
-			var tilesCount = int.Parse(headerSplit[2]);
-			var mapSize = int.Parse(headerSplit[3]);
-			var targetPoints = int.Parse(headerSplit[4]);
+			var mapSize = int.Parse(headerSplit[1]);
+			var targetPoints = int.Parse(headerSplit[2]);
 
 			var finishCondition = FinishCondition.MovesLimit;
-			var limit = int.Parse(headerSplit[6]);
+			var limit = int.Parse(headerSplit[4]);
 
-			switch (headerSplit[5])
+			switch (headerSplit[3])
 			{
 				case "T":
 					finishCondition = FinishCondition.TimeLimit;
@@ -51,13 +52,45 @@ namespace TilesWalk.Building.Level
 					break;
 			}
 
-			var listInstructions = new List<InsertionInstruction>();
-			// avoid repetitions
-			var listTiles = new HashSet<int>();
+			// extract roots
+			var listRoots = new List<RootTile>();
+			var rootsSplit = roots.Split('#');
 
-			for (int i = 1; i < split.Length; i++)
+			for (int i = 0; i < rootsSplit.Length; i++)
 			{
-				var instructionSplit = split[i].Split('$');
+				var rootInstruction = rootsSplit[i].Split('$');
+
+				var key = int.Parse(rootInstruction[0]);
+
+				var position = new Vector3
+				(
+					float.Parse(rootInstruction[1]),
+					float.Parse(rootInstruction[2]),
+					float.Parse(rootInstruction[3])
+				);
+
+				var rotation = new Vector3
+				(
+					float.Parse(rootInstruction[4]),
+					float.Parse(rootInstruction[5]),
+					float.Parse(rootInstruction[6])
+				);
+
+				listRoots.Add(new RootTile()
+				{
+					Key = key,
+					Position = position,
+					Rotation = rotation
+				});
+			}
+
+			// extract instructions
+			var listInstructions = new List<InsertionInstruction>();
+			var instructionSplits = instructions.Split('#');
+
+			for (int i = 1; i < instructionSplits.Length; i++)
+			{
+				var instructionSplit = instructionSplits[i].Split('$');
 				var root = int.Parse(instructionSplit[0]);
 				var tile = int.Parse(instructionSplit[1]);
 				var instruction = instructionSplit[2];
@@ -93,8 +126,6 @@ namespace TilesWalk.Building.Level
 						break;
 				}
 
-				listTiles.Add(root);
-				listTiles.Add(tile);
 				listInstructions.Add(new InsertionInstruction()
 				{
 					Root = root,
@@ -108,7 +139,7 @@ namespace TilesWalk.Building.Level
 			{
 				Id = id,
 				Instructions = listInstructions,
-				Tiles = listTiles.ToList(),
+				Roots = listRoots,
 				MapSize = mapSize,
 				StarsRequired = 0,
 				Target = targetPoints,
@@ -131,8 +162,9 @@ namespace TilesWalk.Building.Level
 		public string ToQRString(int conditionLimit)
 		{
 			var result = string.Empty;
+
 			// first define the header
-			result += $"{Id}${Instructions.Count}${Tiles.Count}${MapSize}${Target}";
+			result += $"{Id}${MapSize}${Target}";
 
 			switch (FinishCondition)
 			{
@@ -144,17 +176,40 @@ namespace TilesWalk.Building.Level
 					break;
 			}
 
+			// remap to smaller ids since instance hash is usually used, we need to compress
+			// the data within 2700 characters
 			Dictionary<int, int> tileIdRemap = new Dictionary<int, int>();
-			var i = 0;
-			// remap to smaller ids
-			foreach (var tile in Tiles)
+			var remapKey = 0;
+
+			foreach (var instruction in Instructions)
 			{
-				tileIdRemap[tile] = i++;
+				if (!tileIdRemap.TryGetValue(instruction.Root, out int val))
+				{
+					tileIdRemap[instruction.Root] = remapKey++;
+				}
+
+				if (!tileIdRemap.TryGetValue(instruction.Tile, out val))
+				{
+					tileIdRemap[instruction.Root] = remapKey++;
+				}
 			}
 
-			for (int j = 0; j < Instructions.Count; j++)
+			// insert roots
+			for (int i = 0; i < Roots.Count; i++)
 			{
-				var instruction = Instructions[j];
+				var rootTile = Roots[i];
+				result += $"{tileIdRemap[rootTile.Key]}" +
+				          $"${rootTile.Position.x:0.0}${rootTile.Position.y:0.0}${rootTile.Position.z:0.0}" +
+				          $"${rootTile.Rotation.x:0.0}${rootTile.Rotation.y:0.0}${rootTile.Rotation.z:0.0}";
+
+				if (i != Roots.Count - 1) result += "#";
+			}
+
+			result += "%";
+
+			for (int i = 0; i < Instructions.Count; i++)
+			{
+				var instruction = Instructions[i];
 
 				result += $"{tileIdRemap[instruction.Root]}${tileIdRemap[instruction.Tile]}";
 
@@ -187,7 +242,7 @@ namespace TilesWalk.Building.Level
 						break;
 				}
 
-				if (j != Instructions.Count - 1) result += "%";
+				if (i != Instructions.Count - 1) result += "#";
 			}
 
 			return result;

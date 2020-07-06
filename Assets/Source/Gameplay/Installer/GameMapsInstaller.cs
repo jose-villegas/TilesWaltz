@@ -7,6 +7,7 @@ using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Persistence;
 using UnityEngine;
 using Zenject;
+using GameLevelsMap = TilesWalk.Map.Tile.GameLevelsMap;
 
 namespace TilesWalk.Gameplay.Installer
 {

@@ -82,7 +82,7 @@ namespace TilesWalk.Navigation.UI
 
 		private void UpdateCanvas(LevelMap map)
 		{
-			_playButton.interactable = _gameScoresHelper.GameStars >= map.StarsRequired;
+			//_playButton.interactable = _gameScoresHelper.GameStars >= map.StarsRequired;
 
 			// setup the bridge before loading scene
 			_playButton.onClick.AddListener(() =>
