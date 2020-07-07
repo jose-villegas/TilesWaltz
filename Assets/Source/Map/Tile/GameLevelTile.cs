@@ -16,7 +16,7 @@ using Zenject;
 
 namespace TilesWalk.Map.Tile
 {
-	public class LevelTile : ObservableTriggerBase, ILevelNameRequire
+	public class GameLevelTile : ObservableTriggerBase, ILevelNameRequire
 	{
 		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
 		[Inject] private LevelBridge _levelBridge;
@@ -25,23 +25,17 @@ namespace TilesWalk.Map.Tile
 		[Inject] private LevelStarsTileMaterialHandler _starsColorHandler;
 		[Inject] private GameEventsHandler _gameEvents;
 
-		[SerializeField] private List<LevelTileLink> _links;
-
 		private MeshRenderer _meshRenderer;
 		private ParticleSystemsCollector _particleSystems;
+		private LevelTileLinksHandler _links;
 
 		public ReactiveProperty<string> Name { get; } = new ReactiveProperty<string>();
 		public ReactiveProperty<LevelMap> Map { get; } = new ReactiveProperty<LevelMap>();
 
-		public List<LevelTileLink> Links => _links;
+		public LevelTileLinksHandler Links => _links;
 
-		private Subject<LevelTile> _onLevelTileClick;
+		private Subject<GameLevelTile> _onLevelTileClick;
 		private bool _disabledClick;
-
-		public LevelTile this[CardinalDirection direction]
-		{
-			get { return _links.Find(x => x.Direction == direction).Level; }
-		}
 
 		protected MeshRenderer Renderer
 		{
@@ -54,60 +48,6 @@ namespace TilesWalk.Map.Tile
 
 				return _meshRenderer;
 			}
-		}
-
-		public LevelTileLink GetLink(CardinalDirection direction)
-		{
-			if (_links == null) _links = new List<LevelTileLink>();
-
-			if (_links.Count > 0)
-			{
-				var indexOf = _links.FindIndex(x => x.Direction == direction);
-
-				if (indexOf >= 0)
-				{
-					return _links[indexOf];
-				}
-
-				_links.Add(new LevelTileLink(direction));
-				return _links[_links.Count - 1];
-			}
-
-			_links.Add(new LevelTileLink(direction));
-			return _links[_links.Count - 1];
-		}
-
-		/// <summary>
-		/// Finds the link that has a matching endpoint within its path,
-		/// if it doesn't exist it will add a link in the given direction
-		/// </summary>
-		/// <param name="endpoint"></param>
-		/// <param name="direction"></param>
-		/// <returns></returns>
-		public LevelTileLink GetLink(GameObject endpoint, CardinalDirection direction)
-		{
-			if (_links == null) _links = new List<LevelTileLink>();
-
-			if (_links.Count > 0)
-			{
-				var indexOf = _links.FindIndex(x => x.Path[x.Path.Count - 1] == endpoint);
-
-				if (indexOf >= 0)
-				{
-					return _links[indexOf];
-				}
-
-				_links.Add(new LevelTileLink(direction));
-				return _links[_links.Count - 1];
-			}
-
-			_links.Add(new LevelTileLink(direction));
-			return _links[_links.Count - 1];
-		}
-
-		public bool HasNeighbor(CardinalDirection direction)
-		{
-			return _links.Any(x => x.Direction == direction);
 		}
 
 		private void OnMouseDown()
@@ -132,9 +72,9 @@ namespace TilesWalk.Map.Tile
 			_onLevelTileClick?.OnNext(this);
 		}
 
-		public IObservable<LevelTile> OnLevelTileClickAsObservable()
+		public IObservable<GameLevelTile> OnLevelTileClickAsObservable()
 		{
-			return _onLevelTileClick = _onLevelTileClick ?? new Subject<LevelTile>();
+			return _onLevelTileClick = _onLevelTileClick ?? new Subject<GameLevelTile>();
 		}
 
 		protected override void RaiseOnCompletedOnDestroy()
@@ -147,6 +87,7 @@ namespace TilesWalk.Map.Tile
 			_gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed).AddTo(this);
 			_gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused).AddTo(this);
 
+			_links = gameObject.AddComponent<LevelTileLinksHandler>();
 			_particleSystems = gameObject.AddComponent<ParticleSystemsCollector>();
 
 			_detailsCanvas.LevelRequest.Name.Subscribe(mapName =>

@@ -1,45 +1,43 @@
 ﻿using TilesWalk.General.Patterns;
-using TilesWalk.Tile;
 using UnityEngine;
 using Zenject;
 
-namespace TilesWalk.Building
+namespace TilesWalk.Map.Tile
 {
-	public class TileViewFactory : GenericFactory<TileView>
+	public class GameMapTileFactory : GenericFactory<GameMapTile>
 	{
-		[Inject(Id = "TileAsset")] private GameObject _tileAsset;
-		[Inject] private DiContainer _container;
+		[Inject(Id = "TileAsset", Optional = true)] private GameObject _tileAsset;
 
 		private void Start()
 		{
 			if (_tileAsset == null)
 			{
-				Debug.LogError("No asset assigned to the TileViewFactory");
+				Debug.LogWarning("Using direct asset assigned to the LevelTileViewFactory, injection couldn't be resolved");
 				return;
 			}
 
 			Asset = _tileAsset;
 		}
 
-		protected override TileView CreateInstance()
+		protected override GameMapTile CreateInstance()
 		{
 			if (Asset == null)
 			{
-				Debug.LogError("No asset loaded for the TileViewFactory");
+				Debug.LogError("No asset loaded for the LevelTileViewFactory");
 				return null;
 			}
 
 			// Instantiate first tile
 			var instance = Instantiate(Asset, Vector3.zero, Quaternion.identity, transform);
-			var view = _container.InstantiateComponent(typeof(TileView), instance) as TileView;
+			var view = instance.GetComponent<GameMapTile>();
 
 			// Obtain proper boundaries from collider
 			if (view == null) return null;
 
-			var boxCollider = view.GetComponent<BoxCollider>();
+			var boxCollider = view.Collider;
 			view.Controller.AdjustBounds(boxCollider.bounds);
 			view.Controller.Tile.ShuffleColor();
-			
+
 			return view;
 		}
 
@@ -47,7 +45,7 @@ namespace TilesWalk.Building
 		{
 			if (Asset == null)
 			{
-				Debug.LogError("No asset loaded for the TileViewFactory");
+				Debug.LogError("No asset loaded for the LevelTileViewFactory");
 				return null;
 			}
 
@@ -56,7 +54,7 @@ namespace TilesWalk.Building
 
 			// find model children to instance the tile view there
 			var mesh = instance.GetComponentInChildren<MeshRenderer>();
-			var view = _container.InstantiateComponent(typeof(T1), mesh.gameObject) as T1;
+			var view = instance.GetComponent<T1>();
 
 			// Obtain proper boundaries from collider
 			if (view == null) return null;

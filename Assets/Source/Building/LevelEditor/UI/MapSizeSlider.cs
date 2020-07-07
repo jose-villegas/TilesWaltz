@@ -25,7 +25,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 			{
 				Component.OnValueChangedAsObservable().Subscribe(val =>
 				{
-					_tileViewLevelMap.LevelMap.MapSize = (int)val;
+					_tileViewLevelMap.Map.MapSize = (int)val;
 				}).AddTo(this);
 			}
 		}

@@ -14,9 +14,9 @@ namespace TilesWalk.Gameplay.Level.UI
 
 		private void Start()
 		{
-			if (_tileViewLevelMap.LevelMap != null && !string.IsNullOrEmpty(_tileViewLevelMap.LevelMap.Id))
+			if (_tileViewLevelMap.Map != null && !string.IsNullOrEmpty(_tileViewLevelMap.Map.Id))
 			{
-				Component.text = _tileViewLevelMap.LevelMap.Id;
+				Component.text = _tileViewLevelMap.Map.Id;
 			}
 
 			_tileViewLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);

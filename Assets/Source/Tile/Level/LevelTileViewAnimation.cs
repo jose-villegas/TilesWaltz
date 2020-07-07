@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using TilesWalk.Gameplay;
 using TilesWalk.Gameplay.Animation;
 using UnityEngine;
-using UnityEngine.Timeline;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace TilesWalk.Tile
+namespace TilesWalk.Tile.Level
 {
-	public partial class TileView
+	public partial class LevelTileView
 	{
 		[Inject] private AnimationConfiguration _animationSettings;
 
@@ -77,7 +75,7 @@ namespace TilesWalk.Tile
 			transform.localScale = scale;
 		}
 
-		private IEnumerator ShuffleMoveAnimation(List<TileView> tiles, List<Tuple<Vector3, Quaternion>> source)
+		private IEnumerator ShuffleMoveAnimation(List<Level.LevelTileView> tiles, List<Tuple<Vector3, Quaternion>> source)
 		{
 			var t = 0f;
 

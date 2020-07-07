@@ -66,14 +66,14 @@ namespace TilesWalk.Building.LevelEditor.UI
 			if (!_save.interactable) return;
 
 			// check if the name changed
-			if (_tileViewLevelMap.LevelMap.Id != _originalName)
+			if (_tileViewLevelMap.Map.Id != _originalName)
 			{
 				// check if another map with this name exists
-				if (_solver.Provider.Collection.Exist(_tileViewLevelMap.LevelMap.Id))
+				if (_solver.Provider.Collection.Exist(_tileViewLevelMap.Map.Id))
 				{
 					_confirmation.Configure("A map with the same name already exists, replace?", () =>
 					{
-						_originalName = _tileViewLevelMap.LevelMap.Id;
+						_originalName = _tileViewLevelMap.Map.Id;
 						OnSaveConfirm(u);
 					}).Show();
 
@@ -81,13 +81,13 @@ namespace TilesWalk.Building.LevelEditor.UI
 				}
 			}
 
-			var map = new LevelMap(_tileViewLevelMap.LevelMap);
+			var map = new LevelMap(_tileViewLevelMap.Map);
 
 			if (_movesToggle.isOn)
 			{
 				_solver.Provider.Collection.Insert(map, new MovesFinishCondition
 				(
-					_tileViewLevelMap.LevelMap.Id,
+					_tileViewLevelMap.Map.Id,
 					int.Parse(_movesField.text)
 				));
 			}
@@ -95,7 +95,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 			{
 				_solver.Provider.Collection.Insert(map, new TimeFinishCondition
 				(
-					_tileViewLevelMap.LevelMap.Id,
+					_tileViewLevelMap.Map.Id,
 					float.Parse(_secondsField.text)
 				));
 			}
@@ -110,15 +110,15 @@ namespace TilesWalk.Building.LevelEditor.UI
 		private void Start()
 		{
 			_titleField.onValueChanged.AsObservable()
-				.Subscribe(val => _tileViewLevelMap.LevelMap.Id = val).AddTo(this);
+				.Subscribe(val => _tileViewLevelMap.Map.Id = val).AddTo(this);
 			_targetPointsField.onValueChanged.AsObservable()
-				.Subscribe(val => _tileViewLevelMap.LevelMap.Target = int.Parse(val)).AddTo(this);
+				.Subscribe(val => _tileViewLevelMap.Map.Target = int.Parse(val)).AddTo(this);
 			_movesToggle.onValueChanged.AsObservable()
 				.Subscribe(val =>
 				{
 					if (val)
 					{
-						_tileViewLevelMap.LevelMap.FinishCondition = FinishCondition.MovesLimit;
+						_tileViewLevelMap.Map.FinishCondition = FinishCondition.MovesLimit;
 					}
 				}).AddTo(this);
 			_timeToggle.onValueChanged.AsObservable()
@@ -126,7 +126,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 				{
 					if (val)
 					{
-						_tileViewLevelMap.LevelMap.FinishCondition = FinishCondition.TimeLimit;
+						_tileViewLevelMap.Map.FinishCondition = FinishCondition.TimeLimit;
 					}
 				}).AddTo(this);
 

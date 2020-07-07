@@ -80,7 +80,7 @@ namespace TilesWalk.Gameplay.Condition
 		/// </summary>
 		private void MovesTracking()
 		{
-			_tileLevelMap.OnTileRemovedAsObservable().Subscribe(l =>
+			_tileLevelMap.Trigger.OnTileRemovedAsObservable().Subscribe(l =>
 				{
 					if (_gamePaused || _movesFinishCondition.IsConditionMeet.Value) return;
 
@@ -90,7 +90,7 @@ namespace TilesWalk.Gameplay.Condition
 
 			_levelScorePointsTracker.OnScorePointsUpdatedAsObservable().Subscribe(score =>
 			{
-				if (score.Points.Last < _tileLevelMap.LevelMap.Target) return;
+				if (score.Points.Last < _tileLevelMap.Map.Target) return;
 
 				if (_movesFinishCondition != null && !_recordSet)
 				{
@@ -119,7 +119,7 @@ namespace TilesWalk.Gameplay.Condition
 				_levelScorePointsTracker.OnScorePointsUpdatedAsObservable().Subscribe(score =>
 				{
 					// wait till the map is unlocked
-					if (_tileLevelMap.State == TileViewLevelMapState.FreeMove)
+					if (_tileLevelMap.State == TileLevelMapState.FreeMove)
 					{
 						_onLevelFinish?.OnNext(_levelScorePointsTracker.LevelScore);
 					}
@@ -146,7 +146,7 @@ namespace TilesWalk.Gameplay.Condition
 			// this could be done using TakeWhile, when UniRX supports inclusive last value
 			_levelScorePointsTracker.OnScorePointsUpdatedAsObservable().Subscribe(score =>
 			{
-				if (score.Points.Last < _tileLevelMap.LevelMap.Target) return;
+				if (score.Points.Last < _tileLevelMap.Map.Target) return;
 
 				if (_timeFinishCondition != null && !_recordSet)
 				{

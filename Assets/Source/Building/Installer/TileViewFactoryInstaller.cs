@@ -5,11 +5,11 @@ namespace TilesWalk.Building.Installer
 {
 	public class TileViewFactoryInstaller : MonoInstaller
 	{
-		[SerializeField] private TileViewFactory _tileFactory;
+		[SerializeField] private LevelTileViewFactory _levelTileFactory;
 
 		public override void InstallBindings()
 		{
-			Container.Bind<TileViewFactory>().FromInstance(_tileFactory).AsSingle();
+			Container.Bind<LevelTileViewFactory>().FromInstance(_levelTileFactory).AsSingle();
 		}
 	}
 }

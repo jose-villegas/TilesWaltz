@@ -14,6 +14,7 @@ using UnityEngine.Android;
 using UnityEngine.UI;
 using Zenject;
 using ZXing;
+using LevelTileView = TilesWalk.Tile.Level.LevelTileView;
 
 namespace TilesWalk.Building.Gallery.UI
 {
@@ -326,7 +327,7 @@ namespace TilesWalk.Building.Gallery.UI
 			var parsedToQR = _map.ToQRString(limit);
 			_qr.texture = TextQRConverter.GenerateTexture(parsedToQR);
 
-			_levelMap.BuildTileMap<TileView>(_map);
+			_levelMap.BuildTileMap<LevelTileView>(_map);
 			_mapPreview.texture = _previewCamera.GetCurrentRender(512, 512);
 			_levelMap.Reset();
 		}

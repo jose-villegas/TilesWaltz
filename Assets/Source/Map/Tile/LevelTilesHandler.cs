@@ -25,23 +25,23 @@ namespace TilesWalk.Map.Tile
 
 		private ReactiveProperty<int> _readyCount = new ReactiveProperty<int>();
 
-		private Subject<List<LevelTile>> _levelTilesMapsReady;
+		private Subject<List<GameLevelTile>> _levelTilesMapsReady;
 
-		public List<LevelTile> LevelTiles { get; private set; }
+		public List<GameLevelTile> LevelTiles { get; private set; }
 
-		public LevelTile this[LevelMap map]
+		public GameLevelTile this[LevelMap map]
 		{
 			get { return LevelTiles.FirstOrDefault(x => x.Map.Value.Id == map.Id); }
 		}
 
-		public LevelTile this[int i] => LevelTiles[i];
+		public GameLevelTile this[int i] => LevelTiles[i];
 
 		private void Awake()
 		{
 			_solver.InstanceProvider(gameObject);
 
-			var inChildren = GetComponentsInChildren<LevelTile>();
-			LevelTiles = new List<LevelTile>();
+			var inChildren = GetComponentsInChildren<GameLevelTile>();
+			LevelTiles = new List<GameLevelTile>();
 
 			for (int i = 0; i < inChildren.Length; i++)
 			{
@@ -77,11 +77,11 @@ namespace TilesWalk.Map.Tile
 			HashSet<Animator> justUnlocked = new HashSet<Animator>();
 			HashSet<Animator> completed = new HashSet<Animator>();
 			Dictionary<Animator, int> maxStars = new Dictionary<Animator, int>();
-			List<KeyValuePair<LevelTile, LevelTile>> linksDone = new List<KeyValuePair<LevelTile, LevelTile>>();
+			List<KeyValuePair<GameLevelTile, GameLevelTile>> linksDone = new List<KeyValuePair<GameLevelTile, GameLevelTile>>();
 
 			foreach (var levelTile in LevelTiles)
 			{
-				var links = levelTile.Links;
+				var links = levelTile.Links.Links;
 
 				// no linking for this tile
 				if (links == null || links.Count == 0) continue;
@@ -168,7 +168,7 @@ namespace TilesWalk.Map.Tile
 						}
 					}
 
-					linksDone.Add(new KeyValuePair<LevelTile, LevelTile>(levelTile, levelTileLink.Level));
+					linksDone.Add(new KeyValuePair<GameLevelTile, GameLevelTile>(levelTile, levelTileLink.Level));
 				}
 			}
 
@@ -290,9 +290,9 @@ namespace TilesWalk.Map.Tile
 			_levelTilesMapsReady?.OnCompleted();
 		}
 
-		public IObservable<List<LevelTile>> OnLevelTilesMapsReadyAsObservable()
+		public IObservable<List<GameLevelTile>> OnLevelTilesMapsReadyAsObservable()
 		{
-			return _levelTilesMapsReady = _levelTilesMapsReady ?? new Subject<List<LevelTile>>();
+			return _levelTilesMapsReady = _levelTilesMapsReady ?? new Subject<List<GameLevelTile>>();
 		}
 	}
 }

@@ -13,12 +13,14 @@ using TilesWalk.Tile.Rules;
 using UniRx;
 using UnityEngine;
 using Zenject;
+using LevelTileView = TilesWalk.Tile.Level.LevelTileView;
 
 namespace TilesWalk.Building.LevelEditor
 {
-	public class LevelEditorTileView : TileView
+	public class LevelEditorTileView : LevelTileView
 	{
 		[Inject] private LevelEditorToolSet _levelEditorToolSet;
+		[Inject] private LevelTileViewFactory _levelTileFactory;
 		[Inject] private CustomLevelPlayer _customLevelPlayer;
 		[Inject] private CustomLevelsConfiguration _customLevelsConfiguration;
 		[Inject] private Notice _notice;
@@ -49,10 +51,10 @@ namespace TilesWalk.Building.LevelEditor
 
 			base.Start();
 
-			_tileLevelMap.State = TileViewLevelMapState.EditorMode;
+			_tileLevelMap.State = TileLevelMapState.EditorMode;
 			Renderer.material = IsGhost ? _levelEditorToolSet.GhostMaterial : _levelEditorToolSet.EditorTileMaterial;
 
-			_tileLevelMap.OnTileClickedAsObservable().Subscribe(OnAnyTileClicked).AddTo(this);
+			_tileLevelMap.Trigger.OnTileClickedAsObservable().Subscribe(OnAnyTileClicked).AddTo(this);
 			IsSelected.Subscribe(OnTileSelected).AddTo(this);
 
 			_customLevelPlayer.OnPlayAsObservable().Subscribe(OnCustomLevelPlay).AddTo(this);
@@ -128,7 +130,7 @@ namespace TilesWalk.Building.LevelEditor
 
 		private void OnCustomLevelStop(LevelMap obj)
 		{
-			_tileLevelMap.State = TileViewLevelMapState.EditorMode;
+			_tileLevelMap.State = TileLevelMapState.EditorMode;
 			// return blank material
 			Renderer.material = IsGhost ? _levelEditorToolSet.GhostMaterial : _levelEditorToolSet.EditorTileMaterial;
 		}
@@ -142,7 +144,7 @@ namespace TilesWalk.Building.LevelEditor
 			// assign a color and update render
 			_controller.Tile.ShuffleColor();
 			Renderer.material = _colorHandler.GetMaterial(_controller.Tile.TileColor);
-			_tileLevelMap.State = TileViewLevelMapState.FreeMove;
+			_tileLevelMap.State = TileLevelMapState.FreeMove;
 		}
 
 		protected override void OnMouseDown()
@@ -166,7 +168,7 @@ namespace TilesWalk.Building.LevelEditor
 					return;
 				}
 
-				_onTileClicked?.OnNext(_controller.Tile);
+				Trigger.OnTileClicked?.OnNext(_controller.Tile);
 			}
 		}
 
@@ -281,8 +283,7 @@ namespace TilesWalk.Building.LevelEditor
 			{
 				_ghostTileView = new Tuple<CardinalDirection, LevelEditorTileView>
 				(
-					direction,
-					_tileFactory.NewInstance<LevelEditorTileView>()
+					direction, _levelTileFactory.NewInstance<LevelEditorTileView>()
 				);
 				_ghostTileView.Item2.Controller.AdjustBounds(_ghostTileBounds);
 				_ghostTileView.Item2.Renderer.material = _levelEditorToolSet.GhostMaterial;

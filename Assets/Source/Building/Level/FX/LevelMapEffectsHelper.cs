@@ -20,7 +20,7 @@ namespace TilesWalk.Building.Level
 
 		private void Awake()
 		{
-			_levelMap.OnPowerUpRemovalAsObservable().Subscribe(OnPowerUpRemoval).AddTo(this);
+			_levelMap.Trigger.OnPowerUpRemovalAsObservable().Subscribe(OnPowerUpRemoval).AddTo(this);
 		}
 
 		private void OnPowerUpRemoval(Tuple<List<Tile.Tile>, TilePowerUp> power)

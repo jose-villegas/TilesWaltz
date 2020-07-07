@@ -7,7 +7,6 @@ using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Persistence;
 using UnityEngine;
 using Zenject;
-using GameLevelsMap = TilesWalk.Map.Tile.GameLevelsMap;
 
 namespace TilesWalk.Gameplay.Installer
 {
@@ -33,22 +32,22 @@ namespace TilesWalk.Gameplay.Installer
 		[Header("Entries")] [SerializeField] private GameMapCollection _gameMaps = new GameMapCollection();
 
 		[Header("Game Levels Map")] [SerializeField]
-		private GameLevelsMap _gameLevelsMap;
+		private GameLevelsMap _gameMap;
 
 		private bool IsTimeCondition => _condition == FinishCondition.TimeLimit;
 
 		private bool IsMovesCondition => _condition == FinishCondition.MovesLimit;
 
-		public GameLevelsMap LevelsMap
+		public GameLevelsMap GameMap
 		{
-			get => _gameLevelsMap;
-			set => _gameLevelsMap = value;
+			get => _gameMap;
+			set => _gameMap = value;
 		}
 
 		public override void InstallBindings()
 		{
-			Container.Bind<GameMapCollection>().WithId("GameMaps").FromInstance(_gameMaps);
-			Container.Bind<GameLevelsMap>().WithId("LevelsMap").FromInstance(_gameLevelsMap);
+			Container.Bind<GameMapCollection>().FromInstance(_gameMaps).AsSingle();
+			Container.Bind<GameLevelsMap>().FromInstance(_gameMap).AsSingle();
 		}
 
 		[Button]

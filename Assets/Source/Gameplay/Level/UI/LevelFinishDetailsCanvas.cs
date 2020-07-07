@@ -40,10 +40,10 @@ namespace TilesWalk.Gameplay.Level.UI
 			_points.Current = 0;
 
 			// time
-			TimeDetails(score, _levelMap.LevelMap);
+			TimeDetails(score, _levelMap.Map);
 
 			// moves
-			MovesDetail(score, _levelMap.LevelMap);
+			MovesDetail(score, _levelMap.Map);
 
 			_retry.interactable = false;
 			_continue.interactable = false;

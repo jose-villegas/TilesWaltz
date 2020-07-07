@@ -8,6 +8,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
+using LevelTileView = TilesWalk.Tile.Level.LevelTileView;
 
 namespace TilesWalk.Building.LevelEditor.UI
 {
@@ -41,7 +42,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 			_saveLevelCanvas.OnLevelMapSavedAsObservable().Subscribe(OnLevelMapSaved).AddTo(this);
 		}
 
-		private void OnTileRegistered(TileView tile)
+		private void OnTileRegistered(LevelTileView tile)
 		{
 			_notification.gameObject.SetActive(true);
 			_changesCounter++;

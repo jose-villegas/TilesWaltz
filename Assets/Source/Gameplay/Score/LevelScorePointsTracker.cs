@@ -30,7 +30,7 @@ namespace TilesWalk.Gameplay.Score
 			{
 				if (_solver != null)
 				{
-					return _currentScore = _solver.Provider.Records[_tileLevelMap.LevelMap.Id];
+					return _currentScore = _solver.Provider.Records[_tileLevelMap.Map.Id];
 				}
 
 				if (_currentScore == null)
@@ -46,9 +46,9 @@ namespace TilesWalk.Gameplay.Score
 		{
 			if (_solver != null) _solver.InstanceProvider(gameObject);
 
-			_tileLevelMap.OnTileRemovedAsObservable().Subscribe(OnTileRemoved).AddTo(this);
-			_tileLevelMap.OnComboRemovalAsObservable().Subscribe(OnComboRemoval).AddTo(this);
-			_tileLevelMap.OnPowerUpRemovalAsObservable().Subscribe(OnPowerUpRemoval).AddTo(this);
+			_tileLevelMap.Trigger.OnTileRemovedAsObservable().Subscribe(OnTileRemoved).AddTo(this);
+			_tileLevelMap.Trigger.OnComboRemovalAsObservable().Subscribe(OnComboRemoval).AddTo(this);
+			_tileLevelMap.Trigger.OnPowerUpRemovalAsObservable().Subscribe(OnPowerUpRemoval).AddTo(this);
 			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
 		}
 
@@ -84,9 +84,9 @@ namespace TilesWalk.Gameplay.Score
 		{
 			if (_solver != null)
 			{
-				_solver.Provider.Records[_tileLevelMap.LevelMap.Id].Points.Update(_currentScore.Points.Last);
-				_solver.Provider.Records[_tileLevelMap.LevelMap.Id].Moves.Update(_currentScore.Moves.Last);
-				_solver.Provider.Records[_tileLevelMap.LevelMap.Id].Time.Update(_currentScore.Time.Last);
+				_solver.Provider.Records[_tileLevelMap.Map.Id].Points.Update(_currentScore.Points.Last);
+				_solver.Provider.Records[_tileLevelMap.Map.Id].Moves.Update(_currentScore.Moves.Last);
+				_solver.Provider.Records[_tileLevelMap.Map.Id].Time.Update(_currentScore.Time.Last);
 			}
 		}
 
@@ -98,7 +98,7 @@ namespace TilesWalk.Gameplay.Score
 
 		public void ResetTrack()
 		{
-			var mapName = _tileLevelMap.LevelMap.Id;
+			var mapName = _tileLevelMap.Map.Id;
 
 			if (_scoreTracking.TryGetValue(LevelScore.Id, out var track))
 			{
@@ -109,7 +109,7 @@ namespace TilesWalk.Gameplay.Score
 
 		public void AddPoints(int points)
 		{
-			var mapName = _tileLevelMap.LevelMap.Id;
+			var mapName = _tileLevelMap.Map.Id;
 
 			if (!_scoreTracking.TryGetValue(LevelScore.Id, out var track))
 			{

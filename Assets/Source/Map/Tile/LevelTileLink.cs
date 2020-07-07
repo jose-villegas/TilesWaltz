@@ -9,12 +9,12 @@ namespace TilesWalk.Map.Tile
 	public class LevelTileLink
 	{
 		[SerializeField] private CardinalDirection _direction;
-		[SerializeField] private LevelTile _level;
+		[SerializeField] private GameLevelTile _level;
 		[SerializeField] private List<GameObject> _path;
 
 		public CardinalDirection Direction => _direction;
 
-		public LevelTile Level
+		public GameLevelTile Level
 		{
 			get => _level;
 			set => _level = value;

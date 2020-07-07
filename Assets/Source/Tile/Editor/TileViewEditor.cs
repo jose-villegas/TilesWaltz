@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TilesWalk.Tile.Editor
 {
-	[CustomEditor(typeof(TileView))]
+	[CustomEditor(typeof(Level.LevelTileView))]
 	public class TileViewEditor : NaughtyInspector
 	{
 		[DrawGizmo(GizmoType.Selected)]
@@ -21,7 +21,7 @@ namespace TilesWalk.Tile.Editor
 
 		private static void DrawHandles(Transform objectTransform)
 		{
-			var t = objectTransform.GetComponent<TileView>();
+			var t = objectTransform.GetComponent<Level.LevelTileView>();
 
 			if (t == null) return;
 

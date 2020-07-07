@@ -22,13 +22,13 @@ namespace TilesWalk.Building.LevelEditor
 		{
 			IsPlaying = true;
 			_levelScorePointsTracker.ResetTrack();
-			_onPlay?.OnNext(_tileViewLevelMap.LevelMap);
+			_onPlay?.OnNext(_tileViewLevelMap.Map);
 		}
 
 		public void Stop()
 		{
 			IsPlaying = false;
-			_onStop?.OnNext(_tileViewLevelMap.LevelMap);
+			_onStop?.OnNext(_tileViewLevelMap.Map);
 		}
 
 		public IObservable<LevelMap> OnPlayAsObservable()

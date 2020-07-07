@@ -6,44 +6,49 @@ using ModestTree;
 using NaughtyAttributes;
 using Newtonsoft.Json;
 using TilesWalk.Building.LevelEditor;
+using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
-using TilesWalk.Gameplay.Level;
 using TilesWalk.General;
 using TilesWalk.Map.Bridge;
 using TilesWalk.Tile;
+using TilesWalk.Tile.Level;
 using TilesWalk.Tile.Rules;
 using UniRx;
 using UnityEngine;
 using Zenject;
+using LevelTileView = TilesWalk.Tile.Level.LevelTileView;
 
 namespace TilesWalk.Building.Level
 {
 	/// <summary>
-	/// This class holds the currently running level map and all its <see cref="TileView"/>
+	/// This class holds the currently running level map and all its <see cref="LevelTileView"/>
 	/// instances
 	/// </summary>
-	public class TileViewLevelMap : TileViewTrigger
+	public class TileViewLevelMap : TileLevelMap<LevelMap, LevelTileView, LevelTileViewFactory>
 	{
-		[Inject] private TileViewFactory _viewFactory;
 		[Inject] private LevelBridge _levelBridge;
-		[Inject] private CustomLevelsConfiguration _customLevelsConfiguration;
 
 		[SerializeField] private LevelLoadOptions _loadOption;
-		[TextArea, SerializeField] private string _instructions;
-		[SerializeField] LevelMap _levelMap = new LevelMap();
 
-		private Dictionary<Tile.Tile, TileView> TileView { get; } = new Dictionary<Tile.Tile, TileView>();
-		public Dictionary<TileView, int> TileToHash { get; } = new Dictionary<TileView, int>();
-		public Dictionary<int, TileView> HashToTile { get; } = new Dictionary<int, TileView>();
+		public LevelTileViewTriggerBase Trigger
+		{
+			get
+			{
+				if (_levelTileTriggerBase == null)
+				{
+					_levelTileTriggerBase = gameObject.AddComponent<LevelTileViewTriggerBase>();
+				}
 
-		public Dictionary<int, List<InsertionInstruction>> Insertions { get; } =
-			new Dictionary<int, List<InsertionInstruction>>();
+				return _levelTileTriggerBase;
+			}
+			protected set => _levelTileTriggerBase = value;
+		}
 
 		/// <summary>
 		/// This property handles the current map state, useful for locking movement
 		/// or seeing what is actually happening with the tiles
 		/// </summary>
-		public TileViewLevelMapState State
+		public TileLevelMapState State
 		{
 			get => _state;
 			set
@@ -53,14 +58,10 @@ namespace TilesWalk.Building.Level
 			}
 		}
 
-		public LevelMap LevelMap => _levelMap;
+
 		public LevelLoadOptions LoadOption => _loadOption;
-
-		protected Subject<LevelMap> _onLevelMapLoaded;
-		protected Subject<TileView> _onTileRegistered;
-		protected Subject<TileViewLevelMapState> _onMapStateChanged;
-
-		private TileViewLevelMapState _state;
+		private TileLevelMapState _state;
+		private LevelTileViewTriggerBase _levelTileTriggerBase;
 
 		/// <summary>
 		/// Checks if any of the current states for the map is locking movement
@@ -68,16 +69,16 @@ namespace TilesWalk.Building.Level
 		/// <returns></returns>
 		public bool IsMovementLocked()
 		{
-			return State == TileViewLevelMapState.RemovingTile ||
-			       State == TileViewLevelMapState.OnComboRemoval ||
-			       State == TileViewLevelMapState.OnPowerUpRemoval ||
-			       State == TileViewLevelMapState.EditorMode ||
-			       State == TileViewLevelMapState.Locked;
+			return State == TileLevelMapState.RemovingTile ||
+			       State == TileLevelMapState.OnComboRemoval ||
+			       State == TileLevelMapState.OnPowerUpRemoval ||
+			       State == TileLevelMapState.EditorMode ||
+			       State == TileLevelMapState.Locked;
 		}
 
-		private void Start()
+		protected override void Start()
 		{
-			_viewFactory.OnNewInstanceAsObservable().Subscribe(OnNewTileInstance).AddTo(this);
+			base.Start();
 
 			switch (_loadOption)
 			{
@@ -85,7 +86,7 @@ namespace TilesWalk.Building.Level
 					BuildFromInstructions();
 					break;
 				case LevelLoadOptions.FromBridgeLevelMode:
-					BuildTileMap<TileView>(_levelBridge.Payload.Level);
+					BuildTileMap<LevelTileView>(_levelBridge.Payload.Level);
 					break;
 				case LevelLoadOptions.FromBridgeEditorMode when _levelBridge.Payload == null:
 					BuildEditorRootMap();
@@ -127,25 +128,20 @@ namespace TilesWalk.Building.Level
 		/// with the tile instance
 		/// </summary>
 		/// <param name="tile"></param>
-		private void OnNewTileInstance(TileView tile)
+		protected override void OnNewTileInstance(LevelTileView tile)
 		{
-			tile.OnComboRemovalAsObservable()
-				.Subscribe(path => _onComboRemoval?.OnNext(path)).AddTo(tile);
-			tile.OnTileRemovedAsObservable()
-				.Subscribe(path => _onTileRemoved?.OnNext(path)).AddTo(tile);
-			tile.OnTileClickedAsObservable()
-				.Subscribe(val => _onTileClicked?.OnNext(val)).AddTo(tile);
-			tile.OnPowerUpRemovalAsObservable()
-				.Subscribe(path => _onPowerUpRemoval?.OnNext(path)).AddTo(tile);
+			tile.Trigger.OnTileRemovedAsObservable()
+				.Subscribe(path => Trigger.OnTileRemoved?.OnNext(path)).AddTo(tile);
+			tile.Trigger.OnTileClickedAsObservable()
+				.Subscribe(val => Trigger.OnTileClicked?.OnNext(val)).AddTo(tile);
+			// level related events
+			tile.Trigger.OnComboRemovalAsObservable()
+				.Subscribe(path => Trigger.OnComboRemoval?.OnNext(path)).AddTo(tile);
+			tile.Trigger.OnPowerUpRemovalAsObservable()
+				.Subscribe(path => Trigger.OnPowerUpRemoval?.OnNext(path)).AddTo(tile);
 		}
 
-		/// <summary>
-		/// This method finally registers a <see cref="TileView"/> to this the internal
-		/// map structure, use this to confirm that a tile instance is part of the map
-		/// </summary>
-		/// <param name="tile"></param>
-		/// <param name="hash"></param>
-		public void RegisterTile(TileView tile, int? hash = null)
+		public override void RegisterTile(LevelTileView tile, int? hash = null)
 		{
 			if (TileToHash.ContainsKey(tile))
 			{
@@ -180,7 +176,7 @@ namespace TilesWalk.Building.Level
 			return false;
 		}
 
-		public void RemoveTile(TileView tile)
+		public override void RemoveTile(LevelTileView tile)
 		{
 			if (!TileToHash.TryGetValue(tile, out var hash)) return;
 
@@ -188,23 +184,23 @@ namespace TilesWalk.Building.Level
 			HashToTile.Remove(hash);
 			TileView.Remove(tile.Controller.Tile);
 			// remove from map
-			_levelMap.Instructions.RemoveAll(x => x.Tile == hash);
-			_levelMap.Instructions.RemoveAll(x => x.Root == hash);
+			_map.Instructions.RemoveAll(x => x.Tile == hash);
+			_map.Instructions.RemoveAll(x => x.Root == hash);
 
 			if (tile.Controller.Tile.Root)
 			{
-				var index = _levelMap.Roots.FindIndex(x => x.Key == hash);
+				var index = _map.Roots.FindIndex(x => x.Key == hash);
 
 				if (index >= 0)
 				{
-					_levelMap.Roots.RemoveAt(index);
+					_map.Roots.RemoveAt(index);
 
 					foreach (var tileNeighbor in tile.Controller.Tile.Neighbors)
 					{
 						tileNeighbor.Value.Root = true;
 						var view = TileView[tileNeighbor.Value];
 
-						_levelMap.Roots.Add(new RootTile()
+						_map.Roots.Add(new RootTile()
 						{
 							Key = TileToHash[view],
 							Position = view.transform.position,
@@ -225,15 +221,6 @@ namespace TilesWalk.Building.Level
 			Insertions.Remove(hash);
 		}
 
-		public TileView GetTileView(Tile.Tile tile)
-		{
-			return TileView[tile];
-		}
-
-		public bool HasTileView(Tile.Tile tile)
-		{
-			return TileView.ContainsKey(tile);
-		}
 
 		[Button]
 		public void RefreshAllPaths()
@@ -278,7 +265,7 @@ namespace TilesWalk.Building.Level
 				case LevelLoadOptions.None:
 				case LevelLoadOptions.FromInstructions:
 				case LevelLoadOptions.FromBridgeLevelMode:
-					BuildTileMap<TileView>(map);
+					BuildTileMap<LevelTileView>(map);
 					break;
 				case LevelLoadOptions.LevelEditor:
 				case LevelLoadOptions.FromBridgeEditorMode:
@@ -289,7 +276,7 @@ namespace TilesWalk.Building.Level
 			}
 		}
 
-		public void BuildTileMap<T>(LevelMap map) where T : TileView
+		public override void BuildTileMap<T>(LevelMap map)
 		{
 			Reset();
 			List<int> currentRoots = new List<int>();
@@ -298,14 +285,14 @@ namespace TilesWalk.Building.Level
 			foreach (var rootTile in map.Roots)
 			{
 				T tile = null;
-				tile = _viewFactory.NewInstance<T>();
+				tile = _factory.NewInstance<T>();
 				RegisterTile(tile, rootTile.Key);
 				currentRoots.Add(rootTile.Key);
 				// set transform
 				tile.transform.position = rootTile.Position;
 				tile.transform.rotation = Quaternion.Euler(rootTile.Rotation);
 				// register root within the tile map
-				_levelMap.Roots.Add(rootTile);
+				_map.Roots.Add(rootTile);
 			}
 
 			var hasNewRootAvailable = true;
@@ -341,92 +328,11 @@ namespace TilesWalk.Building.Level
 				currentRoots = newRoots;
 			}
 
-			_levelMap.Id = map.Id;
-			_levelMap.Target = map.Target;
-			_levelMap.FinishCondition = map.FinishCondition;
-			_levelMap.MapSize = map.MapSize;
-			_onLevelMapLoaded?.OnNext(_levelMap);
-		}
-
-		public bool IsBreakingDistance(TileView tile)
-		{
-			var tiles = HashToTile.Values.ToList();
-			var tileBounds = new Bounds
-			(
-				tile.transform.position,
-				tile.Collider.size * _customLevelsConfiguration.TileSeparationBoundsOffset
-			);
-
-			return tiles.Any(x =>
-			{
-				var tightBound = new Bounds
-				(
-					x.transform.position,
-					x.Collider.bounds.size * _customLevelsConfiguration.TileSeparationBoundsOffset
-				);
-				return tightBound.Intersects(tileBounds);
-			});
-		}
-
-		public void Reset()
-		{
-			// reset data structures
-			if (TileView.Count > 0)
-			{
-				foreach (var value in TileView.Values)
-				{
-					Destroy(value.gameObject);
-				}
-			}
-
-			TileView.Clear();
-			HashToTile.Clear();
-			TileToHash.Clear();
-			Insertions.Clear();
-		}
-
-		public void UpdateInstructions(TileView root, TileView tile, CardinalDirection d, NeighborWalkRule r)
-		{
-			if (!TileToHash.TryGetValue(root, out var rootId) ||
-			    !TileToHash.TryGetValue(tile, out var tileId)) return;
-
-			if (!Insertions.TryGetValue(rootId, out var insertions))
-			{
-				Insertions[rootId] = insertions = new List<InsertionInstruction>();
-			}
-
-			insertions.Add(new InsertionInstruction()
-			{
-				Tile = tileId,
-				Root = rootId,
-				Direction = d,
-				Rule = r
-			});
-
-			_levelMap.Instructions.Add(insertions.Last());
-		}
-
-		public IObservable<LevelMap> OnLevelMapLoadedAsObservable()
-		{
-			return _onLevelMapLoaded = _onLevelMapLoaded ?? new Subject<LevelMap>();
-		}
-
-		public IObservable<TileView> OnTileRegisteredAsObservable()
-		{
-			return _onTileRegistered = _onTileRegistered ?? new Subject<TileView>();
-		}
-
-		public IObservable<TileViewLevelMapState> OnMapStateChangedAsObservable()
-		{
-			return _onMapStateChanged = _onMapStateChanged ?? new Subject<TileViewLevelMapState>();
-		}
-
-		protected override void RaiseOnCompletedOnDestroy()
-		{
-			base.RaiseOnCompletedOnDestroy();
-			_onLevelMapLoaded?.OnCompleted();
-			_onTileRegistered?.OnCompleted();
-			_onMapStateChanged?.OnCompleted();
+			_map.Id = map.Id;
+			_map.Target = map.Target;
+			_map.FinishCondition = map.FinishCondition;
+			_map.MapSize = map.MapSize;
+			_onLevelMapLoaded?.OnNext(_map);
 		}
 	}
 }

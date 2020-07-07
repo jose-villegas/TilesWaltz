@@ -10,6 +10,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
+using LevelTileView = TilesWalk.Tile.Level.LevelTileView;
 
 namespace TilesWalk.Building.Gallery.UI
 {
@@ -60,7 +61,7 @@ namespace TilesWalk.Building.Gallery.UI
 			_share.onClick.AsObservable().Subscribe(OnShareClick).AddTo(this);
 			_addToUser.onClick.AsObservable().Subscribe(OnAddToUserMapsClicked).AddTo(this);
 
-			_levelMap.BuildTileMap<TileView>(_levelRequest.Map);
+			_levelMap.BuildTileMap<LevelTileView>(_levelRequest.Map);
 			_mapPreview.texture = _previewCamera.GetCurrentRender();
 			_levelMap.Reset();
 		}

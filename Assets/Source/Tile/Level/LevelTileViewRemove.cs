@@ -9,13 +9,13 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 
-namespace TilesWalk.Tile
+namespace TilesWalk.Tile.Level
 {
-	public partial class TileView
+	public partial class LevelTileView
 	{
 		[Inject] private GameAudioCollection _audioCollection;
 
-		private List<Tuple<Vector3, Quaternion>> ShufflePath(IReadOnlyList<TileView> shufflePath)
+		private List<Tuple<Vector3, Quaternion>> ShufflePath(IReadOnlyList<LevelTileView> shufflePath)
 		{
 			if (shufflePath == null || shufflePath.Count <= 0) return null;
 
@@ -46,7 +46,7 @@ namespace TilesWalk.Tile
 				return;
 			}
 
-			_tileLevelMap.State = TileViewLevelMapState.RemovingTile;
+			_tileLevelMap.State = TileLevelMapState.RemovingTile;
 
 			_controller.Remove();
 			var shufflePath = _controller.Tile.ShortestPathToLeaf;
@@ -54,9 +54,9 @@ namespace TilesWalk.Tile
 			if (shufflePath == null || shufflePath.Count <= 0) return;
 
 			// play removal fx
-			_particleSystems["Remove"].Play();
+			ParticleSystems["Remove"].Play();
 
-			var tiles = shufflePath.Select(x => _tileLevelMap.GetTileView(x)).ToList();
+			var tiles = Enumerable.Select<Tile, LevelTileView>(shufflePath, x => _tileLevelMap.GetTileView(x)).ToList();
 			
 			// this structure with backup the origin position and rotations
 			var backup = ShufflePath(tiles);
@@ -69,36 +69,36 @@ namespace TilesWalk.Tile
 
 			_audioCollection.Play(GameAudioType.Sound, "Shuffle");
 			MainThreadDispatcher.StartEndOfFrameMicroCoroutine(ShuffleMoveAnimation(tiles, backup));
-			Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ShuffleMoveTime))
-				.DelayFrame(1)
-				.Subscribe(_ => { }, () =>
-				{
-					lastTile._particleSystems["PopIn"].Play();
-					MainThreadDispatcher.StartEndOfFrameMicroCoroutine(lastTile.ScalePopInAnimation(scale));
-					Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
-						.DelayFrame(1)
-						.Subscribe(_ => { }, () =>
-						{
-							// finally the remove animation is done, check for power-ups
-							if (_controller.Tile.PowerUp != TilePowerUp.None)
+			DisposableExtensions.AddTo(Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ShuffleMoveTime))
+					.DelayFrame(1)
+					.Subscribe(_ => { }, () =>
+					{
+						lastTile.ParticleSystems["PopIn"].Play();
+						MainThreadDispatcher.StartEndOfFrameMicroCoroutine(lastTile.ScalePopInAnimation(scale));
+						DisposableExtensions.AddTo(Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
+							.DelayFrame(1)
+							.Subscribe(_ => { }, () =>
 							{
-								HandlePowerUp(() =>
+								// finally the remove animation is done, check for power-ups
+								if (_controller.Tile.PowerUp != TilePowerUp.None)
 								{
-									_onTileRemoved?.OnNext(shufflePath);
-								});
-							}
-							else
-							{
-								_tileLevelMap.State = TileViewLevelMapState.FreeMove;
-								_onTileRemoved?.OnNext(shufflePath);
-							}
-						}).AddTo(this);
-				}).AddTo(this);
+									HandlePowerUp(() =>
+									{
+										Trigger.OnTileRemoved?.OnNext(shufflePath);
+									});
+								}
+								else
+								{
+									_tileLevelMap.State = TileLevelMapState.FreeMove;
+									Trigger.OnTileRemoved?.OnNext(shufflePath);
+								}
+							}), (Component) this);
+					}), (Component) this);
 		}
 
 		private void HandlePowerUp(Action onFinish)
 		{
-			_tileLevelMap.State = TileViewLevelMapState.OnPowerUpRemoval;
+			_tileLevelMap.State = TileLevelMapState.OnPowerUpRemoval;
 
 			List<Tile> path = null;
 			var audioToPlay = "";
@@ -144,35 +144,35 @@ namespace TilesWalk.Tile
 
 					if (index == 0)
 					{
-						_onPowerUpRemoval?.OnNext(new Tuple<List<Tile>, TilePowerUp>(path, powerUp));
+						Trigger.OnPowerUpRemoval?.OnNext(new Tuple<List<Tile>, TilePowerUp>(path, powerUp));
 						_controller.HandleTilePowerUp();
 					}
 
 					MainThreadDispatcher.StartEndOfFrameMicroCoroutine(
 						tileView.ScalePopInAnimation(Vector3.zero, i * 0.1f));
 
-					Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime + i * 0.1f))
-						.DelayFrame(1)
-						.Subscribe(_ => { }, () =>
-						{
-							tileView._particleSystems["PopIn"].Play();
-							tileView._particleSystems[particlePerTile].Play();
-							_audioCollection.Play(GameAudioType.Sound, audioPerTileToPlay);
+					DisposableExtensions.AddTo(Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime + i * 0.1f))
+							.DelayFrame(1)
+							.Subscribe(_ => { }, () =>
+							{
+								tileView.ParticleSystems["PopIn"].Play();
+								tileView.ParticleSystems[particlePerTile].Play();
+								_audioCollection.Play(GameAudioType.Sound, audioPerTileToPlay);
 
-							MainThreadDispatcher.StartEndOfFrameMicroCoroutine(
-								tileView.ScalePopInAnimation(sourceScale));
-							Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
-								.DelayFrame(1)
-								.Subscribe(_ => { },
-									() =>
-									{
-										if (index == path.Count - 1)
+								MainThreadDispatcher.StartEndOfFrameMicroCoroutine(
+									tileView.ScalePopInAnimation(sourceScale));
+								DisposableExtensions.AddTo(Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
+									.DelayFrame(1)
+									.Subscribe(_ => { },
+										() =>
 										{
-											_tileLevelMap.State = TileViewLevelMapState.FreeMove;
-											onFinish?.Invoke();
-										}
-									}).AddTo(this);
-						}).AddTo(this);
+											if (index == path.Count - 1)
+											{
+												_tileLevelMap.State = TileLevelMapState.FreeMove;
+												onFinish?.Invoke();
+											}
+										}), (Component) this);
+							}), (Component) this);
 				}
 			}
 		}
@@ -194,7 +194,7 @@ namespace TilesWalk.Tile
 				return;
 			}
 
-			_tileLevelMap.State = TileViewLevelMapState.OnComboRemoval;
+			_tileLevelMap.State = TileLevelMapState.OnComboRemoval;
 			var shufflePath = _controller.Tile.MatchingColorPatch;
 			var indexOf = shufflePath.FindIndex(x => x.PowerUp != TilePowerUp.None);
 
@@ -203,7 +203,7 @@ namespace TilesWalk.Tile
 				var view = _tileLevelMap.GetTileView(shufflePath[indexOf]);
 				view.HandlePowerUp(() =>
 				{
-					_onComboRemoval?.OnNext(shufflePath);
+					Trigger.OnComboRemoval?.OnNext(shufflePath);
 				});
 				return;
 			}
@@ -216,29 +216,29 @@ namespace TilesWalk.Tile
 
 				_audioCollection.Play(GameAudioType.Sound, "Combo");
 				MainThreadDispatcher.StartEndOfFrameMicroCoroutine(tileView.ScalePopInAnimation(Vector3.zero));
-				Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
-					.DelayFrame(1)
-					.Subscribe(_ => { }, () =>
-					{
-						if (index == shufflePath.Count - 1)
+				DisposableExtensions.AddTo(Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
+						.DelayFrame(1)
+						.Subscribe(_ => { }, () =>
 						{
-							tileView.Controller.RemoveCombo();
-						}
+							if (index == shufflePath.Count - 1)
+							{
+								tileView.Controller.RemoveCombo();
+							}
 
-						tileView._particleSystems["PopIn"].Play();
-						MainThreadDispatcher.StartEndOfFrameMicroCoroutine(tileView.ScalePopInAnimation(sourceScale));
-						Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
-							.DelayFrame(1)
-							.Subscribe(_ => { },
-								() =>
-								{
-									if (index == shufflePath.Count - 1)
+							tileView.ParticleSystems["PopIn"].Play();
+							MainThreadDispatcher.StartEndOfFrameMicroCoroutine(tileView.ScalePopInAnimation(sourceScale));
+							DisposableExtensions.AddTo(Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
+								.DelayFrame(1)
+								.Subscribe(_ => { },
+									() =>
 									{
-										_tileLevelMap.State = TileViewLevelMapState.FreeMove;
-										_onComboRemoval?.OnNext(shufflePath);
-									}
-								}).AddTo(this);
-					}).AddTo(this);
+										if (index == shufflePath.Count - 1)
+										{
+											_tileLevelMap.State = TileLevelMapState.FreeMove;
+											Trigger.OnComboRemoval?.OnNext(shufflePath);
+										}
+									}), (Component) this);
+						}), (Component) this);
 			}
 		}
 	}

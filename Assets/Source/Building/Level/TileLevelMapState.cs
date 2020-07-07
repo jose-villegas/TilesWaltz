@@ -1,6 +1,6 @@
 ﻿namespace TilesWalk.Building.Level
 {
-	public enum TileViewLevelMapState
+	public enum TileLevelMapState
 	{
 		FreeMove,
 		RemovingTile,

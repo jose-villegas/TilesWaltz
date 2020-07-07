@@ -41,7 +41,7 @@ namespace TilesWalk.Map.Camera
 		}
 
 		/// <summary>
-		/// Find the selected <see cref="LevelTile"/> to focus the camera at
+		/// Find the selected <see cref="GameLevelTile"/> to focus the camera at
 		/// </summary>
 		/// <param name="unit"></param>
 		private void OnDetailsCanvasShown(Unit unit)
@@ -69,7 +69,7 @@ namespace TilesWalk.Map.Camera
 		/// Subscribes tile click action
 		/// </summary>
 		/// <param name="levelTiles"></param>
-		private void OnLevelTilesMapsReady(List<LevelTile> levelTiles)
+		private void OnLevelTilesMapsReady(List<GameLevelTile> levelTiles)
 		{
 			foreach (var tile in levelTiles)
 			{
@@ -78,10 +78,10 @@ namespace TilesWalk.Map.Camera
 		}
 
 		/// <summary>
-		/// Translates the camera to a proper position to look at the selected <see cref="LevelTile"/>
+		/// Translates the camera to a proper position to look at the selected <see cref="GameLevelTile"/>
 		/// </summary>
 		/// <param name="tile"></param>
-		private void LookAtLevelTile(LevelTile tile)
+		private void LookAtLevelTile(GameLevelTile tile)
 		{
 			_lookAt?.Dispose();
 			_lookAt = GoToPosition(_initialPosition + tile.transform.position).ToObservable().Subscribe().AddTo(this);

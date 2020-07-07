@@ -29,10 +29,10 @@ namespace TilesWalk.Gameplay.Score.UI
 					score =>
 					{
 						float last = score.Points.Last;
-						float ceil = _tileLevelMap.LevelMap.Target;
+						float ceil = _tileLevelMap.Map.Target;
 						Component.value = Mathf.Min(1f, last / ceil);
 
-						var starCount = _gameScoresHelper.GetLastScoreStarCount(_tileLevelMap.LevelMap);
+						var starCount = _gameScoresHelper.GetLastScoreStarCount(_tileLevelMap.Map);
 						_stars.ForEach(i => i.sprite = _starEmpty);
 
 						for (int i = 0; i < starCount && i < _stars.Count; i++)
