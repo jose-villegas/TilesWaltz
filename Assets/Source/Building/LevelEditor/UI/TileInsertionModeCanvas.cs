@@ -13,7 +13,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 {
 	public class TileInsertionModeCanvas : CanvasGroupBehaviour
 	{
-		[Inject] private TileViewLevelMap _levelMap;
+		[Inject] private TileViewLevelMap __tileLevelMap;
 
 		private CanvasGroupBehaviour _insertionCanvas;
 

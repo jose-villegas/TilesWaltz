@@ -11,7 +11,7 @@ namespace TilesWalk.Building.Level
 {
 	public class LevelMapEffectsHelper : MonoBehaviour
 	{
-		[Inject] private TileViewLevelMap _levelMap;
+		[Inject] private TileViewLevelMap __tileLevelMap;
 		[Inject] protected GameTileColorsConfiguration _colorsConfiguration;
 
 		[SerializeField] private ParticleSystemsCollector _particleSystems;
@@ -20,7 +20,7 @@ namespace TilesWalk.Building.Level
 
 		private void Awake()
 		{
-			_levelMap.Trigger.OnPowerUpRemovalAsObservable().Subscribe(OnPowerUpRemoval).AddTo(this);
+			__tileLevelMap.Trigger.OnPowerUpRemovalAsObservable().Subscribe(OnPowerUpRemoval).AddTo(this);
 		}
 
 		private void OnPowerUpRemoval(Tuple<List<Tile.Tile>, TilePowerUp> power)

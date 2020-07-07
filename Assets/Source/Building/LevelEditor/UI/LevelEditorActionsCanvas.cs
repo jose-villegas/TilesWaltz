@@ -16,7 +16,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 	{
 		[Inject] private LevelEditorToolSet _levelEditorToolSet;
 		[Inject] private SaveLevelCanvas _saveLevelCanvas;
-		[Inject] private TileViewLevelMap _levelMap;
+		[Inject] private TileViewLevelMap __tileLevelMap;
 
 		[SerializeField] private Button _edit;
 		[SerializeField] private Button _save;
@@ -37,7 +37,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 			_edit.onClick.AsObservable().Subscribe(OnEditClick).AddTo(this);
 			_save.onClick.AsObservable().Subscribe(OnQuickSaveClick).AddTo(this);
 
-			_levelMap.OnTileRegisteredAsObservable().Subscribe(OnTileRegistered).AddTo(this);
+			__tileLevelMap.OnTileRegisteredAsObservable().Subscribe(OnTileRegistered).AddTo(this);
 
 			_saveLevelCanvas.OnLevelMapSavedAsObservable().Subscribe(OnLevelMapSaved).AddTo(this);
 		}

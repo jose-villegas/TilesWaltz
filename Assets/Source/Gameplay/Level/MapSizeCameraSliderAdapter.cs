@@ -12,13 +12,13 @@ namespace TilesWalk.Gameplay.Level
 	{
 		[SerializeField] private Slider _mapSizeSlider;
 
-		[Inject] private TileViewLevelMap _tileViewLevelMap;
+		[Inject] private TileViewLevelMap _tileLevelMap;
 		private float _originalSize;
 
 		private void Awake()
 		{
 			_originalSize = Component.orthographicSize;
-			_tileViewLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
+			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
 
 			if (_mapSizeSlider != null)
 			{

@@ -15,14 +15,14 @@ namespace TilesWalk.Building.LevelEditor.UI
 	public class CustomLevelMovesCounterLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{
 		[Inject] private CustomLevelPlayer _customLevelPlayer;
-		[Inject] private TileViewLevelMap _tileViewLevelMap;
+		[Inject] private TileViewLevelMap _tileLevelMap;
 		private MovesFinishCondition _condition;
 
 		private void Start()
 		{
 			Component.text = 0.Localize();
 			_condition = new MovesFinishCondition(Constants.CustomLevelName, Int32.MaxValue);
-			_tileViewLevelMap.Trigger.OnTileRemovedAsObservable()
+			_tileLevelMap.Trigger.OnTileRemovedAsObservable()
 				.SubscribeToText(Component, _ => _condition.Update(1).Localize());
 			_customLevelPlayer.OnPlayAsObservable().Subscribe(OnCustomLevelPlay).AddTo(this);
 		}

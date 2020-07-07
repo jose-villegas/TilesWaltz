@@ -23,7 +23,7 @@ namespace TilesWalk.Navigation.UI
 	public class LevelMapDetailsCanvas : CanvasGroupBehaviour
 	{
 		[Inject] private LevelBridge _levelBridge;
-		[Inject] private LevelTilesHandler _levelTilesHandler;
+		[Inject] private GameLevelTilesInitializer _gameLevelTilesInitializer;
 		[Inject] private GameScoresHelper _gameScoresHelper;
 		[Inject] private MapProviderSolver _solver;
 
@@ -69,7 +69,7 @@ namespace TilesWalk.Navigation.UI
 					}
 
 
-					var levelTile = _levelTilesHandler[_levelRequest.Map];
+					var levelTile = _gameLevelTilesInitializer[_levelRequest.Map];
 					var neighbor = levelTile.Links[directionButton.Direction];
 
 					OnHideAsObservable().Take(1).Subscribe(u => { neighbor.OnMapTileClick(); }).AddTo(this);
@@ -105,7 +105,7 @@ namespace TilesWalk.Navigation.UI
 			}
 
 			// set navigation buttons
-			var levelTile = _levelTilesHandler[map];
+			var levelTile = _gameLevelTilesInitializer[map];
 
 			for (int i = 0; i < _directionButtons.Count; i++)
 			{

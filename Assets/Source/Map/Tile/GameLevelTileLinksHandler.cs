@@ -6,10 +6,9 @@ using UnityEngine;
 namespace TilesWalk.Map.Tile
 {
 	[SerializeField]
-	public class LevelTileLinksHandler : MonoBehaviour
+	public class GameLevelTileLinksHandler : MonoBehaviour
 	{
 		[SerializeField] private List<LevelTileLink> _links;
-
 
 		public List<LevelTileLink> Links => _links;
 

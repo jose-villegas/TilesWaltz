@@ -27,12 +27,12 @@ namespace TilesWalk.Map.Tile
 
 		private MeshRenderer _meshRenderer;
 		private ParticleSystemsCollector _particleSystems;
-		private LevelTileLinksHandler _links;
+		private GameLevelTileLinksHandler _links;
 
 		public ReactiveProperty<string> Name { get; } = new ReactiveProperty<string>();
 		public ReactiveProperty<LevelMap> Map { get; } = new ReactiveProperty<LevelMap>();
 
-		public LevelTileLinksHandler Links => _links;
+		public GameLevelTileLinksHandler Links => _links;
 
 		private Subject<GameLevelTile> _onLevelTileClick;
 		private bool _disabledClick;
@@ -87,7 +87,7 @@ namespace TilesWalk.Map.Tile
 			_gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed).AddTo(this);
 			_gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused).AddTo(this);
 
-			_links = gameObject.AddComponent<LevelTileLinksHandler>();
+			_links = gameObject.GetComponent<GameLevelTileLinksHandler>();
 			_particleSystems = gameObject.AddComponent<ParticleSystemsCollector>();
 
 			_detailsCanvas.LevelRequest.Name.Subscribe(mapName =>

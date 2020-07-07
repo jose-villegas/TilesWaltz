@@ -6,19 +6,26 @@ namespace TilesWalk.Building.Level
 	[Serializable]
 	public class GameLevelsMap : GenericMap
 	{
+		[Serializable]
+		public class GameLevelReference
+		{
+			public string Id;
+			public int Hash;
+		}
+
 		/// <summary>
 		/// Useful for map building
 		/// </summary>
-		public List<Tuple<int, string>> Levels;
+		public List<GameLevelReference> Levels;
 
 		public GameLevelsMap()
 		{
-			Levels = new List<Tuple<int, string>>();
+			Levels = new List<GameLevelReference>();
 		}
 
 		public GameLevelsMap(GameLevelsMap copyFrom) : base(copyFrom)
 		{
-			Levels = new List<Tuple<int, string>>(copyFrom.Levels);
+			Levels = new List<GameLevelReference>(copyFrom.Levels);
 		}
 	}
 }

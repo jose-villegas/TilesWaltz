@@ -23,7 +23,7 @@ namespace TilesWalk.Gameplay.Level.UI
 		[Inject] private LevelFinishTracker _levelFinishTracker;
 		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;
 		[Inject] private GameScoresHelper _gameScoresHelper;
-		[Inject] private TileViewLevelMap _levelMap;
+		[Inject] private TileViewLevelMap __tileLevelMap;
 		[Inject] private ScorePointsConfiguration _scorePointsConfiguration;
 		[Inject] private MapProviderSolver _solver;
 		[Inject] private GameSave _gameSave;
@@ -81,16 +81,16 @@ namespace TilesWalk.Gameplay.Level.UI
 			_continue.interactable = false;
 			_summary.interactable = false;
 
-			_slider.maxValue = _levelMap.Map.Target;
+			_slider.maxValue = __tileLevelMap.Map.Target;
 			// initialize number at 0
 			_slidingNumber.Current = 0;
 
 			// update slider with number
 			_slidingNumber.ObserveEveryValueChanged(x => x.Current).Subscribe(value =>
 			{
-				if (value <= _levelMap.Map.Target)
+				if (value <= __tileLevelMap.Map.Target)
 				{
-					var starCount = _gameScoresHelper.GetStarCount(_levelMap.Map.Target, (int) value);
+					var starCount = _gameScoresHelper.GetStarCount(__tileLevelMap.Map.Target, (int) value);
 
 					if (starCount >= 1)
 					{
@@ -109,7 +109,7 @@ namespace TilesWalk.Gameplay.Level.UI
 				}
 
 				_basePointsDone = true;
-				var starCount = _gameScoresHelper.GetLastScoreStarCount(_levelMap.Map);
+				var starCount = _gameScoresHelper.GetLastScoreStarCount(__tileLevelMap.Map);
 
 				if (starCount < 3)
 				{
@@ -129,7 +129,7 @@ namespace TilesWalk.Gameplay.Level.UI
 				_animator.SetTrigger("LevelCompleted");
 				_gameSave.Statistics.MapCompleted(_solver.Source);
 
-				switch (_levelMap.Map.FinishCondition)
+				switch (__tileLevelMap.Map.FinishCondition)
 				{
 					case FinishCondition.TimeLimit:
 						// check if we have extra time

@@ -32,7 +32,6 @@ namespace TilesWalk.Map.Scaffolding
 		{
 			_solver.InstanceProvider(gameObject);
 
-			ScaffoldRequiredNames(RawName);
 			Name.Subscribe(level =>
 			{
 				if (string.IsNullOrEmpty(level)) return;
@@ -58,6 +57,7 @@ namespace TilesWalk.Map.Scaffolding
 					_onTileMapFound?.OnNext(Map);
 				}
 			}).AddTo(this);
+
 			Name.Value = RawName;
 		}
 

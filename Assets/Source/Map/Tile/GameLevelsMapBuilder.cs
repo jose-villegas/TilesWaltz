@@ -15,9 +15,11 @@ using UnityEditor;
 
 namespace TilesWalk.Map.Tile
 {
-	public class GameLevelsMapBuilder : TileLevelMap<GameLevelsMap, GameMapTile, GameMapTileFactory>
+	public class GameLevelsMapBuilder : TileViewMap<GameLevelsMap, GameMapTile, GameMapTileFactory>
 	{
 		[Inject] private GameLevelsMap _gameMap;
+
+		[SerializeField] private bool _loadAtStart;
 		private IDisposable _onNewInstanceDisposable;
 
 #if UNITY_EDITOR
@@ -40,6 +42,7 @@ namespace TilesWalk.Map.Tile
 
 			if (_map.Roots == null) _map.Roots = new List<RootTile>();
 
+			tile.Controller.Tile.Root = true;
 			_map.Roots.Add(new RootTile()
 			{
 				Key = TileToHash[tile],
@@ -56,6 +59,15 @@ namespace TilesWalk.Map.Tile
 
 			if (maps != null)
 			{
+				// update level maps
+				_map.Levels = TileView
+					.Where(x => !string.IsNullOrEmpty(x.Value.LevelId))
+					.Select(x => new GameLevelsMap.GameLevelReference()
+					{
+						Id = x.Value.LevelId,
+						Hash = TileToHash[x.Value]
+					}).ToList();
+
 				maps.GameMap = _map;
 			}
 			else
@@ -69,7 +81,11 @@ namespace TilesWalk.Map.Tile
 		protected override void Start()
 		{
 			base.Start();
-			BuildTileMap<GameMapTile>(_gameMap);
+
+			if (_loadAtStart)
+			{
+				BuildTileMap<GameMapTile>(_gameMap);
+			}
 		}
 
 		public override void Reset()
@@ -177,6 +193,13 @@ namespace TilesWalk.Map.Tile
 		{
 			Reset();
 			List<int> currentRoots = new List<int>();
+			// dictionary of levels, useful for fast checking level tiles
+			Dictionary<int, string> levelTiles = new Dictionary<int, string>();
+
+			foreach (var gameLevelReference in map.Levels)
+			{
+				levelTiles.Add(gameLevelReference.Hash, gameLevelReference.Id);
+			}
 
 			// create root tiles first
 			foreach (var rootTile in map.Roots)
@@ -190,6 +213,13 @@ namespace TilesWalk.Map.Tile
 				tile.transform.rotation = Quaternion.Euler(rootTile.Rotation);
 				// register root within the tile map
 				_map.Roots.Add(rootTile);
+				tile.Controller.Tile.Root = true;
+
+				// check if root is a level tile
+				if (levelTiles.TryGetValue(rootTile.Key, out var levelId))
+				{
+					tile.ConvertToLevelTile();
+				}
 			}
 
 			var hasNewRootAvailable = true;
@@ -216,9 +246,17 @@ namespace TilesWalk.Map.Tile
 						var rootTile = HashToTile[instruction.Root];
 						var insert = HashToTile[instruction.Tile];
 						rootTile.InsertNeighbor(instruction.Direction, instruction.Rule, insert);
+						// register to internal structure
+						RegisterTile(insert, instruction.Tile);
 						UpdateInstructions(rootTile, insert, instruction.Direction, instruction.Rule);
 						// update newer roots for next loop
 						newRoots.Add(instruction.Tile);
+
+						// check if root is a level tile
+						if (levelTiles.TryGetValue(instruction.Tile, out var levelId))
+						{
+							insert.ConvertToLevelTile();
+						}
 					}
 				}
 
@@ -227,6 +265,7 @@ namespace TilesWalk.Map.Tile
 
 			_map.Id = map.Id;
 			_map.MapSize = map.MapSize;
+			_map.Levels = map.Levels;
 			_onLevelMapLoaded?.OnNext(_map);
 		}
 	}

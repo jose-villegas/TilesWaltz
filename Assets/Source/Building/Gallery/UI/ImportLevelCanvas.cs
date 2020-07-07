@@ -20,7 +20,7 @@ namespace TilesWalk.Building.Gallery.UI
 {
 	public class ImportLevelCanvas : CanvasGroupBehaviour
 	{
-		[Inject] private TileViewLevelMap _levelMap;
+		[Inject] private TileViewLevelMap __tileLevelMap;
 		[Inject] private LevelMapPreviewRenderCamera _previewCamera;
 		[Inject] private MapProviderSolver _solver;
 		[Inject] private Notice _notice;
@@ -327,9 +327,9 @@ namespace TilesWalk.Building.Gallery.UI
 			var parsedToQR = _map.ToQRString(limit);
 			_qr.texture = TextQRConverter.GenerateTexture(parsedToQR);
 
-			_levelMap.BuildTileMap<LevelTileView>(_map);
+			__tileLevelMap.BuildTileMap<LevelTileView>(_map);
 			_mapPreview.texture = _previewCamera.GetCurrentRender(512, 512);
-			_levelMap.Reset();
+			__tileLevelMap.Reset();
 		}
 	}
 }

@@ -14,7 +14,7 @@ using Zenject;
 
 namespace TilesWalk.Map.Tile
 {
-	public class LevelTilesHandler : ObservableTriggerBase
+	public class GameLevelTilesInitializer : ObservableTriggerBase
 	{
 		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
 		[Inject] private MapProviderSolver _solver;

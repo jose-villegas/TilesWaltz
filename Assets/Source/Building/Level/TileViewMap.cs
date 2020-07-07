@@ -14,7 +14,7 @@ using LevelTileView = TilesWalk.Tile.Level.LevelTileView;
 
 namespace TilesWalk.Building.Level
 {
-	public abstract class TileLevelMap<T1, T2, T3> : MonoBehaviour where T1 : GenericMap where T2 : TileView where T3 : GenericFactory<T2>
+	public abstract class TileViewMap<T1, T2, T3> : MonoBehaviour where T1 : GenericMap where T2 : TileView where T3 : GenericFactory<T2>
 	{
 		[Inject] protected CustomLevelsConfiguration _customLevelsConfiguration;
 		[Inject] protected T3 _factory;

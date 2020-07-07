@@ -10,7 +10,7 @@ namespace TilesWalk.Building.LevelEditor
 {
 	public class CustomLevelPlayer : ObservableTriggerBase
 	{
-		[Inject] private TileViewLevelMap _tileViewLevelMap;
+		[Inject] private TileViewLevelMap _tileLevelMap;
 		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;
 
 		public bool IsPlaying { get; private set; } = false;
@@ -22,13 +22,13 @@ namespace TilesWalk.Building.LevelEditor
 		{
 			IsPlaying = true;
 			_levelScorePointsTracker.ResetTrack();
-			_onPlay?.OnNext(_tileViewLevelMap.Map);
+			_onPlay?.OnNext(_tileLevelMap.Map);
 		}
 
 		public void Stop()
 		{
 			IsPlaying = false;
-			_onStop?.OnNext(_tileViewLevelMap.Map);
+			_onStop?.OnNext(_tileLevelMap.Map);
 		}
 
 		public IObservable<LevelMap> OnPlayAsObservable()

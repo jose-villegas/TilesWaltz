@@ -5,6 +5,7 @@ using NaughtyAttributes;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Display;
 using TilesWalk.General;
+using TilesWalk.Map.Scaffolding;
 using TilesWalk.Tile;
 using TilesWalk.Tile.Rules;
 using UniRx;
@@ -20,10 +21,12 @@ namespace TilesWalk.Map.Tile
 		[Inject] private GameLevelsMapBuilder _map;
 		[Inject] private DiContainer _container;
 
-#if UNITY_EDITOR
 		[SerializeField] private string _levelId;
+#if UNITY_EDITOR
 		[SerializeField] private CardinalDirection _direction = CardinalDirection.North;
 		[SerializeField] private NeighborWalkRule _rule = NeighborWalkRule.Plain;
+
+		public string LevelId => _levelId;
 
 		[Button(enabledMode: EButtonEnableMode.Editor)]
 		private void AddNeighbor()
@@ -58,7 +61,8 @@ namespace TilesWalk.Map.Tile
 		}
 #endif
 
-		private void ConvertToLevelTile()
+		[Button(enabledMode: EButtonEnableMode.Editor)]
+		public void ConvertToLevelTile()
 		{
 			var hasLevelTile = GetComponentInChildren<GameLevelTile>();
 
@@ -68,10 +72,26 @@ namespace TilesWalk.Map.Tile
 				return;
 			}
 
-			// look for the mesh renderer
-			var meshRenderer = GetComponentInChildren<MeshRenderer>();
+			if (Application.isEditor)
+			{
+				gameObject.AddComponent<GameLevelTile>();
+				gameObject.AddComponent<GameLevelTileLinksHandler>();
+				var requestHandler = gameObject.AddComponent<LevelNameRequestHandler>();
+				requestHandler.RawName = _levelId;
+			}
+			else
+			{
+				_container.InstantiateComponent(typeof(GameLevelTile), gameObject);
+				_container.InstantiateComponent(typeof(GameLevelTileLinksHandler), gameObject);
+				var requestHandler =
+					_container.InstantiateComponent(typeof(LevelNameRequestHandler), gameObject) as
+						LevelNameRequestHandler;
 
-			_container.InstantiateComponent(typeof(GameLevelTile), meshRenderer.gameObject);
+				if (requestHandler != null)
+				{
+					requestHandler.Name.Value = _levelId;
+				}
+			}
 		}
 
 		protected override void UpdateColor(Tuple<TilesWalk.Tile.Tile, TileColor> color)

@@ -10,11 +10,11 @@ namespace TilesWalk.Building.LevelEditor.UI
 	[RequireComponent(typeof(Slider))]
 	public class MapSizeSlider : ObligatoryComponentBehaviour<Slider>
 	{
-		[Inject] private TileViewLevelMap _tileViewLevelMap;
+		[Inject] private TileViewLevelMap _tileLevelMap;
 
 		private void Awake()
 		{
-			_tileViewLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
+			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
 		}
 
 		private void OnLevelMapLoaded(LevelMap map)
@@ -25,7 +25,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 			{
 				Component.OnValueChangedAsObservable().Subscribe(val =>
 				{
-					_tileViewLevelMap.Map.MapSize = (int)val;
+					_tileLevelMap.Map.MapSize = (int)val;
 				}).AddTo(this);
 			}
 		}

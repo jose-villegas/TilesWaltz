@@ -7,11 +7,11 @@ namespace TilesWalk.Navigation.Installer
 {
 	public class LevelTilesHandlerInstaller : MonoInstaller
 	{
-		[SerializeField] private LevelTilesHandler _levelTilesHandler;
+		[SerializeField] private GameLevelTilesInitializer _gameLevelTilesInitializer;
 
 		public override void InstallBindings()
 		{
-			Container.Bind<LevelTilesHandler>().FromInstance(_levelTilesHandler).AsSingle();
+			Container.Bind<GameLevelTilesInitializer>().FromInstance(_gameLevelTilesInitializer).AsSingle();
 		}
 	}
 }

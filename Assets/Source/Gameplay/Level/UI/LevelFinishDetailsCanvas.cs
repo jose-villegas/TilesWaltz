@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using TilesWalk.Building.Level;
-using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.General.UI;
-using TilesWalk.Map.Bridge;
-using TilesWalk.Map.General;
-using TilesWalk.Navigation.UI;
 using TMPro;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 using Zenject;
 
@@ -21,7 +15,7 @@ namespace TilesWalk.Gameplay.Level.UI
 	{
 		[Inject] private LevelFinishTracker _levelFinishTracker;
 		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;
-		[Inject] private TileViewLevelMap _levelMap;
+		[Inject] private TileViewLevelMap __tileLevelMap;
 		[Inject] private ScorePointsConfiguration _scorePointsConfiguration;
 
 		[Header("Points")] [SerializeField] private SlidingNumber _points;
@@ -40,10 +34,10 @@ namespace TilesWalk.Gameplay.Level.UI
 			_points.Current = 0;
 
 			// time
-			TimeDetails(score, _levelMap.Map);
+			TimeDetails(score, __tileLevelMap.Map);
 
 			// moves
-			MovesDetail(score, _levelMap.Map);
+			MovesDetail(score, __tileLevelMap.Map);
 
 			_retry.interactable = false;
 			_continue.interactable = false;

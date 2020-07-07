@@ -1,14 +1,10 @@
 ﻿using System;
-using NaughtyAttributes;
 using TilesWalk.BaseInterfaces;
-using TilesWalk.Building;
 using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Display;
 using TilesWalk.Gameplay.Score;
-using TilesWalk.General;
-using TilesWalk.Tile.Rules;
 using UniRx;
 using UnityEngine;
 using Zenject;

@@ -19,7 +19,7 @@ namespace TilesWalk.Map.Camera
 	[RequireComponent(typeof(CameraDrag))]
 	public class GameMapCameraHandler : ObligatoryComponentBehaviour<CameraDrag>
 	{
-		[Inject] private LevelTilesHandler _levelTilesHandler;
+		[Inject] private GameLevelTilesInitializer _gameLevelTilesInitializer;
 		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
 		[Inject] private AnimationConfiguration _animationConfiguration;
 
@@ -32,7 +32,7 @@ namespace TilesWalk.Map.Camera
 
 			_detailsCanvas.OnShowAsObservable().Subscribe(OnDetailsCanvasShown).AddTo(this);
 			_detailsCanvas.OnHideAsObservable().Subscribe(OnDetailsCanvasHiden).AddTo(this);
-			_levelTilesHandler.OnLevelTilesMapsReadyAsObservable().Subscribe(OnLevelTilesMapsReady).AddTo(this);
+			_gameLevelTilesInitializer.OnLevelTilesMapsReadyAsObservable().Subscribe(OnLevelTilesMapsReady).AddTo(this);
 		}
 
 		private void OnDetailsCanvasHiden(Unit u)
@@ -46,7 +46,7 @@ namespace TilesWalk.Map.Camera
 		/// <param name="unit"></param>
 		private void OnDetailsCanvasShown(Unit unit)
 		{
-			var levelTile = _levelTilesHandler.LevelTiles.FirstOrDefault(x =>
+			var levelTile = _gameLevelTilesInitializer.LevelTiles.FirstOrDefault(x =>
 			{
 				if (x.Map != null && _detailsCanvas.LevelRequest.Map != null)
 				{

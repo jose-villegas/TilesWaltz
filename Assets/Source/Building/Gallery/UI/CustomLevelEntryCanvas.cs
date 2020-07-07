@@ -18,7 +18,7 @@ namespace TilesWalk.Building.Gallery.UI
 	{
 		[Inject] private LevelBridge _bridge;
 		[Inject] private ShareLevelCanvas _shareCanvas;
-		[Inject] private TileViewLevelMap _levelMap;
+		[Inject] private TileViewLevelMap __tileLevelMap;
 		[Inject] private LevelMapPreviewRenderCamera _previewCamera;
 		[Inject] private MapProviderSolver _solver;
 		[Inject] private Confirmation _confirmation;
@@ -61,9 +61,9 @@ namespace TilesWalk.Building.Gallery.UI
 			_share.onClick.AsObservable().Subscribe(OnShareClick).AddTo(this);
 			_addToUser.onClick.AsObservable().Subscribe(OnAddToUserMapsClicked).AddTo(this);
 
-			_levelMap.BuildTileMap<LevelTileView>(_levelRequest.Map);
+			__tileLevelMap.BuildTileMap<LevelTileView>(_levelRequest.Map);
 			_mapPreview.texture = _previewCamera.GetCurrentRender();
-			_levelMap.Reset();
+			__tileLevelMap.Reset();
 		}
 
 		private void OnAddToUserMapsClicked(Unit u)

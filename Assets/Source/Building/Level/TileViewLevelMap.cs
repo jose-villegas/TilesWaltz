@@ -24,7 +24,7 @@ namespace TilesWalk.Building.Level
 	/// This class holds the currently running level map and all its <see cref="LevelTileView"/>
 	/// instances
 	/// </summary>
-	public class TileViewLevelMap : TileLevelMap<LevelMap, LevelTileView, LevelTileViewFactory>
+	public class TileViewLevelMap : TileViewMap<LevelMap, LevelTileView, LevelTileViewFactory>
 	{
 		[Inject] private LevelBridge _levelBridge;
 
@@ -41,7 +41,6 @@ namespace TilesWalk.Building.Level
 
 				return _levelTileTriggerBase;
 			}
-			protected set => _levelTileTriggerBase = value;
 		}
 
 		/// <summary>
@@ -112,6 +111,11 @@ namespace TilesWalk.Building.Level
 				Roots = new List<RootTile>()
 				{
 					new RootTile()
+					{
+						Key = 0,
+						Position = Vector3.zero,
+						Rotation = Vector3.zero
+					}
 				},
 				MapSize = 3,
 				StarsRequired = 0,
@@ -292,6 +296,7 @@ namespace TilesWalk.Building.Level
 				tile.transform.position = rootTile.Position;
 				tile.transform.rotation = Quaternion.Euler(rootTile.Rotation);
 				// register root within the tile map
+				tile.Controller.Tile.Root = true;
 				_map.Roots.Add(rootTile);
 			}
 
@@ -319,6 +324,8 @@ namespace TilesWalk.Building.Level
 						var rootTile = HashToTile[instruction.Root];
 						var insert = HashToTile[instruction.Tile];
 						rootTile.InsertNeighbor(instruction.Direction, instruction.Rule, insert);
+						// register to structure
+						RegisterTile(insert);
 						UpdateInstructions(rootTile, insert, instruction.Direction, instruction.Rule);
 						// update newer roots for next loop
 						newRoots.Add(instruction.Tile);

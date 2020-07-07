@@ -2,7 +2,6 @@
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Display;
-using TilesWalk.Gameplay.Persistence;
 using TilesWalk.General.UI;
 using TilesWalk.Map.Bridge;
 using TilesWalk.Map.General;
@@ -17,7 +16,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 	public class SaveLevelCanvas : CanvasGroupBehaviour
 	{
 		[Inject] private LevelBridge _bridge;
-		[Inject] private TileViewLevelMap _tileViewLevelMap;
+		[Inject] private TileViewLevelMap _tileLevelMap;
 		[Inject] private MapProviderSolver _solver;
 		[Inject] private Notice _notice;
 		[Inject] private Confirmation _confirmation;
@@ -66,14 +65,14 @@ namespace TilesWalk.Building.LevelEditor.UI
 			if (!_save.interactable) return;
 
 			// check if the name changed
-			if (_tileViewLevelMap.Map.Id != _originalName)
+			if (_tileLevelMap.Map.Id != _originalName)
 			{
 				// check if another map with this name exists
-				if (_solver.Provider.Collection.Exist(_tileViewLevelMap.Map.Id))
+				if (_solver.Provider.Collection.Exist(_tileLevelMap.Map.Id))
 				{
 					_confirmation.Configure("A map with the same name already exists, replace?", () =>
 					{
-						_originalName = _tileViewLevelMap.Map.Id;
+						_originalName = _tileLevelMap.Map.Id;
 						OnSaveConfirm(u);
 					}).Show();
 
@@ -81,13 +80,13 @@ namespace TilesWalk.Building.LevelEditor.UI
 				}
 			}
 
-			var map = new LevelMap(_tileViewLevelMap.Map);
+			var map = new LevelMap(_tileLevelMap.Map);
 
 			if (_movesToggle.isOn)
 			{
 				_solver.Provider.Collection.Insert(map, new MovesFinishCondition
 				(
-					_tileViewLevelMap.Map.Id,
+					_tileLevelMap.Map.Id,
 					int.Parse(_movesField.text)
 				));
 			}
@@ -95,7 +94,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 			{
 				_solver.Provider.Collection.Insert(map, new TimeFinishCondition
 				(
-					_tileViewLevelMap.Map.Id,
+					_tileLevelMap.Map.Id,
 					float.Parse(_secondsField.text)
 				));
 			}
@@ -110,15 +109,15 @@ namespace TilesWalk.Building.LevelEditor.UI
 		private void Start()
 		{
 			_titleField.onValueChanged.AsObservable()
-				.Subscribe(val => _tileViewLevelMap.Map.Id = val).AddTo(this);
+				.Subscribe(val => _tileLevelMap.Map.Id = val).AddTo(this);
 			_targetPointsField.onValueChanged.AsObservable()
-				.Subscribe(val => _tileViewLevelMap.Map.Target = int.Parse(val)).AddTo(this);
+				.Subscribe(val => _tileLevelMap.Map.Target = int.Parse(val)).AddTo(this);
 			_movesToggle.onValueChanged.AsObservable()
 				.Subscribe(val =>
 				{
 					if (val)
 					{
-						_tileViewLevelMap.Map.FinishCondition = FinishCondition.MovesLimit;
+						_tileLevelMap.Map.FinishCondition = FinishCondition.MovesLimit;
 					}
 				}).AddTo(this);
 			_timeToggle.onValueChanged.AsObservable()
@@ -126,11 +125,11 @@ namespace TilesWalk.Building.LevelEditor.UI
 				{
 					if (val)
 					{
-						_tileViewLevelMap.Map.FinishCondition = FinishCondition.TimeLimit;
+						_tileLevelMap.Map.FinishCondition = FinishCondition.TimeLimit;
 					}
 				}).AddTo(this);
 
-			if (_tileViewLevelMap.LoadOption == LevelLoadOptions.FromBridgeEditorMode && _bridge.Payload != null)
+			if (_tileLevelMap.LoadOption == LevelLoadOptions.FromBridgeEditorMode && _bridge.Payload != null)
 			{
 				_originalName = _bridge.Payload.Level.Id;
 				FillCanvas();
@@ -177,7 +176,8 @@ namespace TilesWalk.Building.LevelEditor.UI
 		{
 			base.Show();
 
-			if (!_maxNoticeShown && _solver.Provider.Collection.AvailableMaps.Count >= _solver.Provider.MaximumLevels)
+			if (!_maxNoticeShown && _solver.Provider.Collection.AvailableMaps != null &&
+			    _solver.Provider.Collection.AvailableMaps.Count >= _solver.Provider.MaximumLevels)
 			{
 				_maxNoticeShown = true;
 				_titleField.interactable = false;

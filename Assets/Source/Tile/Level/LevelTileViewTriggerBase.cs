@@ -6,7 +6,7 @@ using UniRx.Triggers;
 
 namespace TilesWalk.Tile.Level
 {
-	public abstract class LevelTileViewTriggerBase : ObservableTriggerBase
+	public class LevelTileViewTriggerBase : ObservableTriggerBase
 	{
 		public Subject<List<Tile>> OnTileRemoved;
 		public Subject<List<Tile>> OnComboRemoval;
