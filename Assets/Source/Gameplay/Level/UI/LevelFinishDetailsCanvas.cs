@@ -66,10 +66,19 @@ namespace TilesWalk.Gameplay.Level.UI
 
 						_totalPoints.OnTargetReachedAsObservable().Subscribe(_ =>
 						{
-							_retry.interactable = true;
-							_continue.interactable = true;
+							if (extra > 0)
+							{
+								_retry.interactable = true;
+								_continue.interactable = true;
+							}
 						}).AddTo(this);
 					}).AddTo(this);
+
+					if (extra <= 0)
+					{
+						_retry.interactable = true;
+						_continue.interactable = true;
+					}
 
 					_extraPoints.Target(extra);
 				}).AddTo(this);
@@ -98,10 +107,19 @@ namespace TilesWalk.Gameplay.Level.UI
 
 						_totalPoints.OnTargetReachedAsObservable().Subscribe(_ =>
 						{
-							_retry.interactable = true;
-							_continue.interactable = true;
+							if (extra > 0)
+							{
+								_retry.interactable = true;
+								_continue.interactable = true;
+							}
 						}).AddTo(this);
 					}).AddTo(this);
+
+					if (extra <= 0)
+					{
+						_retry.interactable = true;
+						_continue.interactable = true;
+					}
 
 					_extraPoints.Target(extra);
 				}).AddTo(this);

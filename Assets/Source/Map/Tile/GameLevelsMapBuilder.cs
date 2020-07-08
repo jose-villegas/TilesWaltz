@@ -15,14 +15,29 @@ using UnityEditor;
 
 namespace TilesWalk.Map.Tile
 {
+	/// <summary>
+	/// This class builds the game map, the game map contains all the internal levels developed for the game
+	/// </summary>
 	public class GameLevelsMapBuilder : TileViewMap<GameLevelsMap, GameMapTile, GameMapTileFactory>
 	{
 		[Inject] private GameLevelsMap _gameMap;
 
+		/// <summary>
+		/// If true this script will build the game game from start
+		/// The recommended right now is to have the map already built-in
+		/// onto the scene, but for future, the map could be loaded through
+		/// asset bundles, this would prove useful, optimizations will be necessary.
+		/// </summary>
 		[SerializeField] private bool _loadAtStart;
+
 		private IDisposable _onNewInstanceDisposable;
 
 #if UNITY_EDITOR
+		/// <summary>
+		/// On Editor mode this setups this class for building the game map
+		/// use in conjunction with <see cref="BuildFromGameMap"/> to continue
+		/// with previous progress
+		/// </summary>
 		[Button(enabledMode: EButtonEnableMode.Editor)]
 		private void SetupForEditorMode()
 		{
@@ -51,6 +66,10 @@ namespace TilesWalk.Map.Tile
 			});
 		}
 
+		/// <summary>
+		/// Saves the current map build to the game maps asset scriptable object
+		/// Careful when using as this replaces the current map.
+		/// </summary>
 		[Button(enabledMode: EButtonEnableMode.Editor)]
 		private void SaveGameMap()
 		{
@@ -77,6 +96,9 @@ namespace TilesWalk.Map.Tile
 			}
 		}
 
+		/// <summary>
+		/// In editor mode built the current game map
+		/// </summary>
 		[Button(enabledMode: EButtonEnableMode.Editor)]
 		private void BuildFromGameMap()
 		{
@@ -105,6 +127,9 @@ namespace TilesWalk.Map.Tile
 			}
 		}
 
+		/// <summary>
+		/// Reset the map completely and destroy all the instances
+		/// </summary>
 		public override void Reset()
 		{
 			// reset data structures
@@ -141,6 +166,11 @@ namespace TilesWalk.Map.Tile
 			_map = new GameLevelsMap();
 		}
 
+		/// <summary>
+		/// Removes a tile from the map. Handler re-rooting for when a root
+		/// tile is removed
+		/// </summary>
+		/// <param name="tile"></param>
 		public override void RemoveTile(GameMapTile tile)
 		{
 			if (!TileToHash.TryGetValue(tile, out var hash)) return;
@@ -187,6 +217,11 @@ namespace TilesWalk.Map.Tile
 			Insertions.Remove(hash);
 		}
 
+		/// <summary>
+		/// This register a <see cref="GameMapTile"/> as a tile pointer to
+		/// a level to the internal map structure
+		/// </summary>
+		/// <param name="tile"></param>
 		public void RegisterLevelTile(GameMapTile tile)
 		{
 			if (TileToHash.TryGetValue(tile, out var hash))
@@ -205,6 +240,12 @@ namespace TilesWalk.Map.Tile
 			}
 		}
 
+		/// <summary>
+		/// Determines if a <see cref="Tile"/> is actually a tile that points to
+		/// a game level
+		/// </summary>
+		/// <param name="tile"></param>
+		/// <returns></returns>
 		public bool IsLevelTile(TilesWalk.Tile.Tile tile)
 		{
 			foreach (var gameLevelReference in _map.Levels)
@@ -224,7 +265,7 @@ namespace TilesWalk.Map.Tile
 		}
 
 		/// <summary>
-		/// New tiles will be registered as roots
+		/// Does nothing in the game map builder
 		/// </summary>
 		/// <param name="tile"></param>
 		protected override void OnNewTileInstance(GameMapTile tile)
@@ -232,6 +273,11 @@ namespace TilesWalk.Map.Tile
 			// do nothing
 		}
 
+		/// <summary>
+		/// Register a new tile to the map structure
+		/// </summary>
+		/// <param name="tile"></param>
+		/// <param name="hash"></param>
 		public override void RegisterTile(GameMapTile tile, int? hash = null)
 		{
 			if (TileToHash.ContainsKey(tile))
@@ -249,6 +295,11 @@ namespace TilesWalk.Map.Tile
 			_onTileRegistered?.OnNext(tile);
 		}
 
+		/// <summary>
+		/// Builds the given game map
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="map"></param>
 		public override void BuildTileMap<T>(GameLevelsMap map)
 		{
 			Reset();
@@ -273,7 +324,7 @@ namespace TilesWalk.Map.Tile
 				tile.transform.rotation = Quaternion.Euler(rootTile.Rotation);
 				// register root within the tile map
 				if (_map.Roots == null) _map.Roots = new List<RootTile>();
-				
+
 				_map.Roots.Add(rootTile);
 				tile.Controller.Tile.Root = true;
 
@@ -307,12 +358,12 @@ namespace TilesWalk.Map.Tile
 					foreach (var instruction in related)
 					{
 						var rootTile = HashToTile[instruction.Root];
-
+						// create neighbor tile
 						T tile = null;
 						tile = _factory.NewInstance<T>();
 						RegisterTile(tile, instruction.Tile);
+						// insert on the tile structure
 						var insert = HashToTile[instruction.Tile];
-
 						rootTile.InsertNeighbor(instruction.Direction, instruction.Rule, insert);
 						// register to internal structure
 						UpdateInstructions(rootTile, insert, instruction.Direction, instruction.Rule);

@@ -102,6 +102,13 @@ namespace TilesWalk.Gameplay.Condition
 			_movesFinishCondition.IsConditionMeet.Subscribe(meet =>
 			{
 				if (!meet) return;
+
+				if (_movesFinishCondition != null && !_recordSet)
+				{
+					_recordSet = true;
+					_levelScorePointsTracker.LevelScore.Moves.Update(_movesFinishCondition.Limit);
+				}
+
 				TriggerLevelFinish();
 			}).AddTo(this);
 		}
@@ -159,6 +166,13 @@ namespace TilesWalk.Gameplay.Condition
 			_timeFinishCondition.IsConditionMeet.Subscribe(meet =>
 			{
 				if (!meet) return;
+
+				if (_timeFinishCondition != null && !_recordSet)
+				{
+					_recordSet = true;
+					_levelScorePointsTracker.LevelScore.Time.Update(_timeFinishCondition.Limit);
+				}
+
 				TriggerLevelFinish();
 			}).AddTo(this);
 		}

@@ -322,10 +322,14 @@ namespace TilesWalk.Building.Level
 					foreach (var instruction in related)
 					{
 						var rootTile = HashToTile[instruction.Root];
+						// create neighbor instance
+						T tile = null;
+						tile = _factory.NewInstance<T>();
+						RegisterTile(tile, instruction.Tile);
+						// insert on the tile structure
 						var insert = HashToTile[instruction.Tile];
 						rootTile.InsertNeighbor(instruction.Direction, instruction.Rule, insert);
 						// register to structure
-						RegisterTile(insert);
 						UpdateInstructions(rootTile, insert, instruction.Direction, instruction.Rule);
 						// update newer roots for next loop
 						newRoots.Add(instruction.Tile);
