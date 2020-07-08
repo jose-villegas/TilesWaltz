@@ -19,7 +19,6 @@ namespace TilesWalk.Map.Tile
 	public class GameLevelTile : ObservableTriggerBase, ILevelNameRequire
 	{
 		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
-		[Inject] private LevelBridge _levelBridge;
 		[Inject] private GameScoresHelper _gameScoresHelper;
 		[Inject] private LevelStateTileMaterialHandler _colorHandler;
 		[Inject] private LevelStarsTileMaterialHandler _starsColorHandler;
@@ -35,6 +34,7 @@ namespace TilesWalk.Map.Tile
 		public GameLevelTileLinksHandler Links => _links;
 
 		private Subject<GameLevelTile> _onLevelTileClick;
+		private Subject<GameLevelTile> _onLevelDataLoaded;
 		private bool _disabledClick;
 
 		protected MeshRenderer Renderer
@@ -77,9 +77,15 @@ namespace TilesWalk.Map.Tile
 			return _onLevelTileClick = _onLevelTileClick ?? new Subject<GameLevelTile>();
 		}
 
+		public IObservable<GameLevelTile> OnLevelDataLoadedAsObservable()
+		{
+			return _onLevelDataLoaded = _onLevelDataLoaded ?? new Subject<GameLevelTile>();
+		}
+
 		protected override void RaiseOnCompletedOnDestroy()
 		{
 			_onLevelTileClick?.OnCompleted();
+			_onLevelDataLoaded?.OnCompleted();
 		}
 
 		private void Awake()
@@ -133,6 +139,8 @@ namespace TilesWalk.Map.Tile
 							Renderer.material = _colorHandler.GetMaterial(LevelMapState.ToComplete);
 						}
 					}
+
+					_onLevelDataLoaded?.OnNext(this);
 				}
 			});
 		}

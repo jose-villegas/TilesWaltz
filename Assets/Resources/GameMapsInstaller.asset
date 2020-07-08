@@ -13,70 +13,134 @@ MonoBehaviour:
   m_Name: GameMapsInstaller
   m_EditorClassIdentifier: 
   _name: Chromosome
-  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-266888,"Root":0,"Direction":4,"Rule":1},{"Tile":-267522,"Root":0,"Direction":1,"Rule":1},{"Tile":-268370,"Root":0,"Direction":8,"Rule":1},{"Tile":-269004,"Root":0,"Direction":2,"Rule":1},{"Tile":-267098,"Root":-266888,"Direction":4,"Rule":1},{"Tile":-267308,"Root":-267098,"Direction":4,"Rule":1},{"Tile":-267732,"Root":-267522,"Direction":1,"Rule":1},{"Tile":-267942,"Root":-267732,"Direction":1,"Rule":1},{"Tile":-268580,"Root":-268370,"Direction":8,"Rule":1},{"Tile":-268790,"Root":-268580,"Direction":8,"Rule":1},{"Tile":-269214,"Root":-269004,"Direction":2,"Rule":1},{"Tile":-269424,"Root":-269214,"Direction":2,"Rule":1}],"Roots":[{"Key":0,"Position":{"x":0.0,"y":0.0,"z":0.0},"Rotation":{"x":0.0,"y":0.0,"z":0.0}}],"MapSize":0}'
+  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-36396,"Root":0,"Direction":4,"Rule":1},{"Tile":-36610,"Root":0,"Direction":1,"Rule":1},{"Tile":-36824,"Root":0,"Direction":8,"Rule":1},{"Tile":-37038,"Root":0,"Direction":2,"Rule":1},{"Tile":-37252,"Root":-36396,"Direction":4,"Rule":0},{"Tile":-37462,"Root":-37252,"Direction":4,"Rule":1},{"Tile":-37672,"Root":-37462,"Direction":4,"Rule":1},{"Tile":-37882,"Root":-37672,"Direction":4,"Rule":1},{"Tile":-38092,"Root":-37882,"Direction":4,"Rule":1},{"Tile":-38302,"Root":-38092,"Direction":4,"Rule":2},{"Tile":-38516,"Root":-36610,"Direction":1,"Rule":0},{"Tile":-38726,"Root":-38516,"Direction":1,"Rule":1},{"Tile":-38936,"Root":-38726,"Direction":1,"Rule":1},{"Tile":-39146,"Root":-38936,"Direction":1,"Rule":1},{"Tile":-39356,"Root":-39146,"Direction":1,"Rule":1},{"Tile":-39566,"Root":-39356,"Direction":1,"Rule":2},{"Tile":-39780,"Root":-36824,"Direction":8,"Rule":2},{"Tile":-39990,"Root":-39780,"Direction":8,"Rule":1},{"Tile":-40200,"Root":-39990,"Direction":8,"Rule":1},{"Tile":-40410,"Root":-40200,"Direction":8,"Rule":1},{"Tile":-40620,"Root":-40410,"Direction":8,"Rule":1},{"Tile":-40830,"Root":-40620,"Direction":8,"Rule":0},{"Tile":-41044,"Root":-37038,"Direction":2,"Rule":2},{"Tile":-41254,"Root":-41044,"Direction":2,"Rule":1},{"Tile":-41464,"Root":-41254,"Direction":2,"Rule":1},{"Tile":-41674,"Root":-41464,"Direction":2,"Rule":1},{"Tile":-41884,"Root":-41674,"Direction":2,"Rule":1},{"Tile":-42094,"Root":-41884,"Direction":2,"Rule":0}],"Roots":[{"Key":0,"Position":{"x":0.0,"y":0.0,"z":0.0},"Rotation":{"x":0.0,"y":0.0,"z":0.0}}],"MapSize":0}'
   _condition: 1
   _seconds: 60
   _moves: 20
-  _mapSize: 1
+  _mapSize: 2
   _starsRequired: 0
   _targetPoints: 2000
-  _gameMaps:
+  _gameLevels:
     _availableMaps:
     - Id: Chromosome
       Instructions:
-      - Tile: -266888
+      - Tile: -36396
         Root: 0
         Direction: 4
         Rule: 1
-      - Tile: -267522
+      - Tile: -36610
         Root: 0
         Direction: 1
         Rule: 1
-      - Tile: -268370
+      - Tile: -36824
         Root: 0
         Direction: 8
         Rule: 1
-      - Tile: -269004
+      - Tile: -37038
         Root: 0
         Direction: 2
         Rule: 1
-      - Tile: -267098
-        Root: -266888
+      - Tile: -37252
+        Root: -36396
+        Direction: 4
+        Rule: 0
+      - Tile: -37462
+        Root: -37252
         Direction: 4
         Rule: 1
-      - Tile: -267308
-        Root: -267098
+      - Tile: -37672
+        Root: -37462
         Direction: 4
         Rule: 1
-      - Tile: -267732
-        Root: -267522
+      - Tile: -37882
+        Root: -37672
+        Direction: 4
+        Rule: 1
+      - Tile: -38092
+        Root: -37882
+        Direction: 4
+        Rule: 1
+      - Tile: -38302
+        Root: -38092
+        Direction: 4
+        Rule: 2
+      - Tile: -38516
+        Root: -36610
+        Direction: 1
+        Rule: 0
+      - Tile: -38726
+        Root: -38516
         Direction: 1
         Rule: 1
-      - Tile: -267942
-        Root: -267732
+      - Tile: -38936
+        Root: -38726
         Direction: 1
         Rule: 1
-      - Tile: -268580
-        Root: -268370
+      - Tile: -39146
+        Root: -38936
+        Direction: 1
+        Rule: 1
+      - Tile: -39356
+        Root: -39146
+        Direction: 1
+        Rule: 1
+      - Tile: -39566
+        Root: -39356
+        Direction: 1
+        Rule: 2
+      - Tile: -39780
+        Root: -36824
+        Direction: 8
+        Rule: 2
+      - Tile: -39990
+        Root: -39780
         Direction: 8
         Rule: 1
-      - Tile: -268790
-        Root: -268580
+      - Tile: -40200
+        Root: -39990
         Direction: 8
         Rule: 1
-      - Tile: -269214
-        Root: -269004
+      - Tile: -40410
+        Root: -40200
+        Direction: 8
+        Rule: 1
+      - Tile: -40620
+        Root: -40410
+        Direction: 8
+        Rule: 1
+      - Tile: -40830
+        Root: -40620
+        Direction: 8
+        Rule: 0
+      - Tile: -41044
+        Root: -37038
+        Direction: 2
+        Rule: 2
+      - Tile: -41254
+        Root: -41044
         Direction: 2
         Rule: 1
-      - Tile: -269424
-        Root: -269214
+      - Tile: -41464
+        Root: -41254
         Direction: 2
         Rule: 1
+      - Tile: -41674
+        Root: -41464
+        Direction: 2
+        Rule: 1
+      - Tile: -41884
+        Root: -41674
+        Direction: 2
+        Rule: 1
+      - Tile: -42094
+        Root: -41884
+        Direction: 2
+        Rule: 0
       Roots:
       - Key: 0
         Position: {x: 0, y: 0, z: 0}
         Rotation: {x: 0, y: 0, z: 0}
-      MapSize: 1
+      MapSize: 2
       StarsRequired: 0
       Target: 2000
       FinishCondition: 1

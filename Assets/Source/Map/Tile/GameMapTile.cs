@@ -81,20 +81,25 @@ namespace TilesWalk.Map.Tile
 					_map = FindObjectOfType<GameLevelsMapBuilder>();
 				}
 
-				gameObject.AddComponent<GameLevelTile>();
-				var linksHandler = gameObject.AddComponent<GameLevelTileLinksHandler>();
+				// first the level name handler at root
 				var requestHandler = gameObject.AddComponent<LevelNameRequestHandler>();
 				requestHandler.RawName = _levelId;
 
+				// then add interactive scripts to the model
+				var meshRenderer = GetComponentInChildren<MeshRenderer>();
+				meshRenderer.gameObject.AddComponent<GameLevelTile>();
+				var linksHandler = meshRenderer.gameObject.AddComponent<GameLevelTileLinksHandler>();
+
 				_map.RegisterLevelTile(this);
 				linksHandler.ResolveLinks();
+
+				// activate level ui canvas
+				var canvas = GetComponentInChildren<Canvas>(true);
+				canvas.gameObject.SetActive(true);
 			}
 			else
 			{
-				_container.InstantiateComponent(typeof(GameLevelTile), gameObject);
-				var linksHandler =
-					_container.InstantiateComponent(typeof(GameLevelTileLinksHandler), gameObject) as
-						GameLevelTileLinksHandler;
+				// first the level name handler at root
 				var requestHandler =
 					_container.InstantiateComponent(typeof(LevelNameRequestHandler), gameObject) as
 						LevelNameRequestHandler;
@@ -104,12 +109,23 @@ namespace TilesWalk.Map.Tile
 					requestHandler.Name.Value = _levelId;
 				}
 
+				// then add interactive scripts to the model
+				var meshRenderer = GetComponentInChildren<MeshRenderer>();
+				_container.InstantiateComponent(typeof(GameLevelTile), meshRenderer.gameObject);
+				var linksHandler =
+					_container.InstantiateComponent(typeof(GameLevelTileLinksHandler), meshRenderer.gameObject) as
+						GameLevelTileLinksHandler;
+
 				_map.RegisterLevelTile(this);
 
 				if (linksHandler != null)
 				{
 					linksHandler.ResolveLinks();
 				}
+
+				// activate level ui canvas
+				var canvas = GetComponentInChildren<Canvas>(true);
+				canvas.gameObject.SetActive(true);
 			}
 		}
 

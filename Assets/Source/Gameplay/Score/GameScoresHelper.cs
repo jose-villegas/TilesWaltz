@@ -53,7 +53,7 @@ namespace TilesWalk.Gameplay.Score
 
 		public int GetStarCount(int target, int current)
 		{
-			var ratio = (float)current / target;
+			var ratio = (float) current / target;
 
 			if (ratio >= 1)
 			{
@@ -87,6 +87,13 @@ namespace TilesWalk.Gameplay.Score
 
 		public int GetHighestScoreStarCount(LevelScore score)
 		{
+			if (_solver.Provider.Collection.AvailableMaps == null ||
+			    _solver.Provider.Collection.AvailableMaps.Count == 0)
+			{
+				Debug.LogWarning($"No maps found for this MapProviderSolver, {_solver.Source}");
+				return 0;
+			}
+
 			var tileMap = _solver.Provider.Collection.AvailableMaps.Find(x => x.Id == score.Id);
 
 			if (tileMap != null)

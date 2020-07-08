@@ -84,6 +84,10 @@ namespace TilesWalk.Map.Tile
 			return _links.Any(x => x.Direction == direction);
 		}
 
+		/// <summary>
+		/// This method resolves the neighbor links for a game level tile in the game map.
+		/// This is written in such way avoiding the costs of recursive iterations
+		/// </summary>
 		[Button(enabledMode: EButtonEnableMode.Editor)]
 		public void ResolveLinks()
 		{
@@ -107,7 +111,7 @@ namespace TilesWalk.Map.Tile
 			var mapCollection = _solver.Provider.Collection;
 #endif
 
-			var mapTile = GetComponent<GameMapTile>();
+			var mapTile = GetComponentInParent<GameMapTile>();
 
 			var linkOrigins =
 				new Dictionary<CardinalDirection, List<KeyValuePair<CardinalDirection, TilesWalk.Tile.Tile>>>();
@@ -170,7 +174,7 @@ namespace TilesWalk.Map.Tile
 								// we have reached the link for this direction, don't keep going deeper
 								if (_map.IsLevelTile(root.Value) && currentLink.Level == null)
 								{
-									currentLink.Level = gameTile.GetComponent<GameLevelTile>();
+									currentLink.Level = gameTile.GetComponentInChildren<GameLevelTile>();
 
 									// set link on the other side for ease
 									var linkHandler = currentLink.Level.GetComponent<GameLevelTileLinksHandler>();

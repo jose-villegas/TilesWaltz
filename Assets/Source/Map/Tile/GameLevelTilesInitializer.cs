@@ -41,32 +41,23 @@ namespace TilesWalk.Map.Tile
 			_solver.InstanceProvider(gameObject);
 
 			var inChildren = GetComponentsInChildren<GameLevelTile>();
-			LevelTiles = new List<GameLevelTile>();
+			var readyAt = inChildren.Length;
+			LevelTiles = inChildren.ToList();
 
-			for (int i = 0; i < inChildren.Length; i++)
+			foreach (var gameLevelTile in LevelTiles)
 			{
-				var index = i;
-				var levelTile = inChildren[index];
-				levelTile.Map.Subscribe(tileMap =>
-				{
-					if (tileMap == null) return;
-
-					LevelTiles.Add(levelTile);
-					_readyCount.Value += 1;
-				}).AddTo(this);
+				gameLevelTile.OnLevelDataLoadedAsObservable().Subscribe(levelTile => { _readyCount.Value += 1; });
 			}
 
-			var readyAt = inChildren.Length;
 			_readyCount.Subscribe(count =>
 			{
-				if (count == readyAt)
-				{
-					LevelTiles.Sort((p1, p2) => p1.Map.Value.StarsRequired - p2.Map.Value.StarsRequired);
-					_levelTilesMapsReady?.OnNext(LevelTiles);
+				if (count != readyAt) return;
 
-					ShowNextLevelDetails();
-					HandleAnimations();
-				}
+				LevelTiles.Sort((p1, p2) => p1.Map.Value.StarsRequired - p2.Map.Value.StarsRequired);
+				_levelTilesMapsReady?.OnNext(LevelTiles);
+
+				ShowNextLevelDetails();
+				HandleAnimations();
 			}).AddTo(this);
 		}
 
@@ -77,7 +68,8 @@ namespace TilesWalk.Map.Tile
 			HashSet<Animator> justUnlocked = new HashSet<Animator>();
 			HashSet<Animator> completed = new HashSet<Animator>();
 			Dictionary<Animator, int> maxStars = new Dictionary<Animator, int>();
-			List<KeyValuePair<GameLevelTile, GameLevelTile>> linksDone = new List<KeyValuePair<GameLevelTile, GameLevelTile>>();
+			List<KeyValuePair<GameLevelTile, GameLevelTile>> linksDone =
+				new List<KeyValuePair<GameLevelTile, GameLevelTile>>();
 
 			foreach (var levelTile in LevelTiles)
 			{
