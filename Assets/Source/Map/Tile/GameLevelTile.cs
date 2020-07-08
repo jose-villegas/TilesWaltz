@@ -106,12 +106,16 @@ namespace TilesWalk.Map.Tile
 					if (!_gameScoresHelper.IsCompleted(Map.Value))
 					{
 						_particleSystems["Completed"].Stop();
+
+						_particleSystems["ToComplete"].gameObject.SetActive(true);
 						_particleSystems["ToComplete"].Play();
 					}
 					else
 					{
-						_particleSystems["Completed"].Play();
 						_particleSystems["ToComplete"].Stop();
+
+						_particleSystems["Completed"].gameObject.SetActive(true);
+						_particleSystems["Completed"].Play();
 					}
 				}
 				else

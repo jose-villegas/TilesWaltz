@@ -88,6 +88,7 @@ namespace TilesWalk.Map.Tile
 					}).ToList();
 
 				maps.GameMap = _map;
+				EditorUtility.SetDirty(maps);
 			}
 			else
 			{
@@ -328,9 +329,12 @@ namespace TilesWalk.Map.Tile
 				_map.Roots.Add(rootTile);
 				tile.Controller.Tile.Root = true;
 
+				tile.name = $"(Root) {tile.Controller.Tile.Index}";
+
 				// check if root is a level tile
 				if (levelTiles.TryGetValue(rootTile.Key, out var levelId))
 				{
+					tile.name = $"'{levelId}' {tile.name}";
 					tile.LevelId = levelId;
 					tile.ConvertToLevelTile();
 				}
@@ -370,9 +374,12 @@ namespace TilesWalk.Map.Tile
 						// update newer roots for next loop
 						newRoots.Add(instruction.Tile);
 
+						tile.name = $"{tile.Controller.Tile.Index} -> {rootTile.Controller.Tile.Index}, {instruction.Direction} & {instruction.Rule}";
+
 						// check if root is a level tile
 						if (levelTiles.TryGetValue(instruction.Tile, out var levelId))
 						{
+							tile.name = $"'{levelId}' {tile.name}";
 							insert.LevelId = levelId;
 							insert.ConvertToLevelTile();
 						}

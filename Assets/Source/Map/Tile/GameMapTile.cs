@@ -19,6 +19,7 @@ namespace TilesWalk.Map.Tile
 		[Inject] private DiContainer _container;
 
 		[SerializeField] private string _levelId;
+
 #if UNITY_EDITOR
 		[SerializeField] private CardinalDirection _direction = CardinalDirection.North;
 		[SerializeField] private NeighborWalkRule _rule = NeighborWalkRule.Plain;
@@ -52,13 +53,25 @@ namespace TilesWalk.Map.Tile
 
 			var tile = _factory.NewInstance();
 			this.InsertNeighbor(_direction, _rule, tile);
-
 			// keep the same rule as parent, easier building
 			tile._direction = _direction;
 			tile._rule = _rule;
 			// add new insertion instruction for this tile
 			_map.RegisterTile(tile);
 			_map.UpdateInstructions(this, tile, _direction, _rule);
+		}
+
+		[Button(enabledMode: EButtonEnableMode.Editor)]
+		private void Remove()
+		{
+			// since on editor mode dependencies cannot be solved, find the scripts
+			if (_map == null)
+			{
+				_map = FindObjectOfType<GameLevelsMapBuilder>();
+			}
+
+			_map.RemoveTile(this);
+			DestroyImmediate(gameObject);
 		}
 #endif
 

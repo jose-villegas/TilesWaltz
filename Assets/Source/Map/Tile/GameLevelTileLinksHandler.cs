@@ -215,7 +215,7 @@ namespace TilesWalk.Map.Tile
 
 								if (newRoots.Count > 0)
 								{
-									linkOrigins[root.Key] = newRoots;
+									linkOrigins[pair.Key] = newRoots;
 									hasNewRootsAvailable = true;
 								}
 							}

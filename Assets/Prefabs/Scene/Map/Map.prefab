@@ -62,14 +62,9 @@ MonoBehaviour:
   _map:
     Id: 
     Instructions: []
-    Roots:
-    - Key: -227368
-      Position: {x: 0, y: 0, z: 0}
-      Rotation: {x: -0, y: 0, z: 0}
+    Roots: []
     MapSize: 0
-    Levels:
-    - Id: Chromosome
-      Hash: -227368
+    Levels: []
   _loadAtStart: 0
 --- !u!114 &8244708422059447087
 MonoBehaviour:
