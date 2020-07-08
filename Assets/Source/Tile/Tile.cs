@@ -132,7 +132,12 @@ namespace TilesWalk.Tile
 
 			foreach (var neighbor in Neighbors)
 			{
-				result.AddRange(GetAllOfColor(neighbor.Value, TileColor, neighbor.Key.Opposite()));
+				var range = GetAllOfColor(neighbor.Value, TileColor, neighbor.Key.Opposite());
+
+				if (range != null)
+				{
+					result.AddRange(range);
+				}
 			}
 
 			result.Sort((t1, t2) =>
@@ -169,18 +174,31 @@ namespace TilesWalk.Tile
 				return null;
 			}
 
-			var result = new List<Tile>();
+			List<Tile> result = null;
 
 			foreach (var neighbor in source.Neighbors)
 			{
 				if (neighbor.Key == ignore) continue;
 
-				if (neighbor.Value.TileColor == color) result.Add(neighbor.Value);
+				if (neighbor.Value.TileColor == color)
+				{
+					if (result == null)
+					{
+						result = new List<Tile>();
+					}
+
+					result.Add(neighbor.Value);
+				}
 
 				var neighborColors = GetAllOfColor(neighbor.Value, color, neighbor.Key.Opposite());
 
 				if (neighborColors != null && neighborColors.Count > 0)
 				{
+					if (result == null)
+					{
+						result = new List<Tile>();
+					}
+
 					result.AddRange(neighborColors);
 				}
 			}

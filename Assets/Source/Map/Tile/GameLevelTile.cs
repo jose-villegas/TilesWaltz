@@ -82,13 +82,16 @@ namespace TilesWalk.Map.Tile
 			_onLevelTileClick?.OnCompleted();
 		}
 
+		private void Awake()
+		{
+			_links = gameObject.GetComponent<GameLevelTileLinksHandler>();
+			_particleSystems = gameObject.AddComponent<ParticleSystemsCollector>();
+		}
+
 		private void Start()
 		{
 			_gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed).AddTo(this);
 			_gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused).AddTo(this);
-
-			_links = gameObject.GetComponent<GameLevelTileLinksHandler>();
-			_particleSystems = gameObject.AddComponent<ParticleSystemsCollector>();
 
 			_detailsCanvas.LevelRequest.Name.Subscribe(mapName =>
 			{

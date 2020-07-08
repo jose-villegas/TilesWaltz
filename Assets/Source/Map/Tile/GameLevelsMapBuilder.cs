@@ -76,6 +76,23 @@ namespace TilesWalk.Map.Tile
 				               "Assets/Resources/GameMapsInstaller.asset");
 			}
 		}
+
+		[Button(enabledMode: EButtonEnableMode.Editor)]
+		private void BuildFromGameMap()
+		{
+			var maps = AssetDatabase.LoadAssetAtPath("Assets/Resources/GameMapsInstaller.asset",
+				typeof(GameMapsInstaller)) as GameMapsInstaller;
+
+			if (maps != null)
+			{
+				BuildTileMap<GameMapTile>(maps.GameMap);
+			}
+			else
+			{
+				Debug.LogError("GameMapsInstaller scriptable object couldn't be found at " +
+				               "Assets/Resources/GameMapsInstaller.asset");
+			}
+		}
 #endif
 
 		protected override void Start()
@@ -105,6 +122,14 @@ namespace TilesWalk.Map.Tile
 					{
 						Destroy(value.gameObject);
 					}
+				}
+			}
+
+			if (Application.isEditor)
+			{
+				foreach (Transform child in transform)
+				{
+					DestroyImmediate(child.gameObject);
 				}
 			}
 
@@ -162,6 +187,41 @@ namespace TilesWalk.Map.Tile
 			Insertions.Remove(hash);
 		}
 
+		public void RegisterLevelTile(GameMapTile tile)
+		{
+			if (TileToHash.TryGetValue(tile, out var hash))
+			{
+				if (_map.Levels.Any(x => x.Hash == hash))
+				{
+					Debug.LogWarning($"Level {tile.LevelId} tile already registered");
+					return;
+				}
+
+				_map.Levels.Add(new GameLevelsMap.GameLevelReference()
+				{
+					Hash = hash,
+					Id = tile.LevelId
+				});
+			}
+		}
+
+		public bool IsLevelTile(TilesWalk.Tile.Tile tile)
+		{
+			foreach (var gameLevelReference in _map.Levels)
+			{
+				var instance = HashToTile[gameLevelReference.Hash];
+
+				if (instance != null && instance.Controller.Tile == tile)
+				{
+					if (!string.IsNullOrEmpty(instance.LevelId))
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
 
 		/// <summary>
 		/// New tiles will be registered as roots
@@ -212,12 +272,15 @@ namespace TilesWalk.Map.Tile
 				tile.transform.position = rootTile.Position;
 				tile.transform.rotation = Quaternion.Euler(rootTile.Rotation);
 				// register root within the tile map
+				if (_map.Roots == null) _map.Roots = new List<RootTile>();
+				
 				_map.Roots.Add(rootTile);
 				tile.Controller.Tile.Root = true;
 
 				// check if root is a level tile
 				if (levelTiles.TryGetValue(rootTile.Key, out var levelId))
 				{
+					tile.LevelId = levelId;
 					tile.ConvertToLevelTile();
 				}
 			}
@@ -244,10 +307,14 @@ namespace TilesWalk.Map.Tile
 					foreach (var instruction in related)
 					{
 						var rootTile = HashToTile[instruction.Root];
+
+						T tile = null;
+						tile = _factory.NewInstance<T>();
+						RegisterTile(tile, instruction.Tile);
 						var insert = HashToTile[instruction.Tile];
+
 						rootTile.InsertNeighbor(instruction.Direction, instruction.Rule, insert);
 						// register to internal structure
-						RegisterTile(insert, instruction.Tile);
 						UpdateInstructions(rootTile, insert, instruction.Direction, instruction.Rule);
 						// update newer roots for next loop
 						newRoots.Add(instruction.Tile);
@@ -255,6 +322,7 @@ namespace TilesWalk.Map.Tile
 						// check if root is a level tile
 						if (levelTiles.TryGetValue(instruction.Tile, out var levelId))
 						{
+							insert.LevelId = levelId;
 							insert.ConvertToLevelTile();
 						}
 					}
@@ -265,7 +333,6 @@ namespace TilesWalk.Map.Tile
 
 			_map.Id = map.Id;
 			_map.MapSize = map.MapSize;
-			_map.Levels = map.Levels;
 			_onLevelMapLoaded?.OnNext(_map);
 		}
 	}

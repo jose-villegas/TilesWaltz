@@ -20,10 +20,15 @@ namespace TilesWalk.Map.Tile
 			set => _level = value;
 		}
 
-		public List<GameObject> Path => _path;
+		public List<GameObject> Path
+		{
+			get => _path;
+			set => _path = value;
+		}
 
 		public LevelTileLink(CardinalDirection direction)
 		{
+			_level = null;
 			_direction = direction;
 			_path = new List<GameObject>();
 		}

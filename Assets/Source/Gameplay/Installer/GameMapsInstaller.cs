@@ -29,7 +29,7 @@ namespace TilesWalk.Gameplay.Installer
 		[SerializeField] private int _starsRequired;
 		[SerializeField] private int _targetPoints;
 
-		[Header("Entries")] [SerializeField] private GameMapCollection _gameMaps = new GameMapCollection();
+		[Header("Entries")] [SerializeField] private GameMapCollection _gameLevels;
 
 		[Header("Game Levels Map")] [SerializeField]
 		private GameLevelsMap _gameMap;
@@ -38,15 +38,22 @@ namespace TilesWalk.Gameplay.Installer
 
 		private bool IsMovesCondition => _condition == FinishCondition.MovesLimit;
 
+		/// <summary>
+		/// These accessors should only be available through editor build
+		/// </summary>
+#if UNITY_EDITOR
 		public GameLevelsMap GameMap
 		{
 			get => _gameMap;
 			set => _gameMap = value;
 		}
 
+		public GameMapCollection GameLevels => _gameLevels;
+#endif
+
 		public override void InstallBindings()
 		{
-			Container.Bind<GameMapCollection>().FromInstance(_gameMaps).AsSingle();
+			Container.Bind<GameMapCollection>().FromInstance(_gameLevels).AsSingle();
 			Container.Bind<GameLevelsMap>().FromInstance(_gameMap).AsSingle();
 		}
 
@@ -64,14 +71,13 @@ namespace TilesWalk.Gameplay.Installer
 			{
 				case FinishCondition.TimeLimit:
 					var tCond = new TimeFinishCondition(map.Id, _seconds);
-					_gameMaps.Insert(map, tCond);
+					_gameLevels.Insert(map, tCond);
 					break;
 				case FinishCondition.MovesLimit:
 					var mCond = new MovesFinishCondition(map.Id, _moves);
-					_gameMaps.Insert(map, mCond);
+					_gameLevels.Insert(map, mCond);
 					break;
 			}
-
 		}
 	}
 }

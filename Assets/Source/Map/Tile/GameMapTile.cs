@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using NaughtyAttributes;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Display;
@@ -11,7 +9,6 @@ using TilesWalk.Tile.Rules;
 using UniRx;
 using UnityEngine;
 using Zenject;
-using LevelTileView = TilesWalk.Tile.Level.LevelTileView;
 
 namespace TilesWalk.Map.Tile
 {
@@ -26,7 +23,11 @@ namespace TilesWalk.Map.Tile
 		[SerializeField] private CardinalDirection _direction = CardinalDirection.North;
 		[SerializeField] private NeighborWalkRule _rule = NeighborWalkRule.Plain;
 
-		public string LevelId => _levelId;
+		public string LevelId
+		{
+			get => _levelId;
+			set => _levelId = value;
+		}
 
 		[Button(enabledMode: EButtonEnableMode.Editor)]
 		private void AddNeighbor()
@@ -74,15 +75,26 @@ namespace TilesWalk.Map.Tile
 
 			if (Application.isEditor)
 			{
+				// since on editor mode dependencies cannot be solved, find the scripts
+				if (_map == null)
+				{
+					_map = FindObjectOfType<GameLevelsMapBuilder>();
+				}
+
 				gameObject.AddComponent<GameLevelTile>();
-				gameObject.AddComponent<GameLevelTileLinksHandler>();
+				var linksHandler = gameObject.AddComponent<GameLevelTileLinksHandler>();
 				var requestHandler = gameObject.AddComponent<LevelNameRequestHandler>();
 				requestHandler.RawName = _levelId;
+
+				_map.RegisterLevelTile(this);
+				linksHandler.ResolveLinks();
 			}
 			else
 			{
 				_container.InstantiateComponent(typeof(GameLevelTile), gameObject);
-				_container.InstantiateComponent(typeof(GameLevelTileLinksHandler), gameObject);
+				var linksHandler =
+					_container.InstantiateComponent(typeof(GameLevelTileLinksHandler), gameObject) as
+						GameLevelTileLinksHandler;
 				var requestHandler =
 					_container.InstantiateComponent(typeof(LevelNameRequestHandler), gameObject) as
 						LevelNameRequestHandler;
@@ -90,6 +102,13 @@ namespace TilesWalk.Map.Tile
 				if (requestHandler != null)
 				{
 					requestHandler.Name.Value = _levelId;
+				}
+
+				_map.RegisterLevelTile(this);
+
+				if (linksHandler != null)
+				{
+					linksHandler.ResolveLinks();
 				}
 			}
 		}
