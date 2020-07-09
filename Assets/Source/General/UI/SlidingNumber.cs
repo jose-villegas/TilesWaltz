@@ -74,7 +74,7 @@ namespace TilesWalk.General.UI
 
 		private IEnumerator NumberSlidingAnimation()
 		{
-			while (Math.Abs(Current - _target) > Mathf.Epsilon)
+			while (Math.Abs(Current - _target) > Constants.Tolerance)
 			{
 				if (_initial < _target)
 				{

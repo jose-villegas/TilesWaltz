@@ -30,6 +30,10 @@ namespace TilesWalk.Building.Level
 
 		[SerializeField] private LevelLoadOptions _loadOption;
 
+		[SerializeField]
+		private Dictionary<Vector3Int, List<LevelTileView>>
+			_indexes = new Dictionary<Vector3Int, List<LevelTileView>>();
+
 		public LevelTileViewTriggerBase Trigger
 		{
 			get
@@ -59,6 +63,9 @@ namespace TilesWalk.Building.Level
 
 
 		public LevelLoadOptions LoadOption => _loadOption;
+
+		public Dictionary<Vector3Int, List<LevelTileView>> Indexes => _indexes;
+
 		private TileLevelMapState _state;
 		private LevelTileViewTriggerBase _levelTileTriggerBase;
 
@@ -219,6 +226,14 @@ namespace TilesWalk.Building.Level
 				}
 			}
 
+			// update indexes
+			if (_indexes.TryGetValue(tile.Controller.Tile.Index, out var matchingIndexes))
+			{
+				var indexOf = _indexes[tile.Controller.Tile.Index].FindIndex(x => x == tile);
+
+				if (indexOf >= 0) _indexes[tile.Controller.Tile.Index].RemoveAt(indexOf);
+			}
+
 			// remove all instructions that refer to this tile
 			if (!Insertions.TryGetValue(hash, out var instructions)) return;
 
@@ -298,6 +313,8 @@ namespace TilesWalk.Building.Level
 				// register root within the tile map
 				tile.Controller.Tile.Root = true;
 				_map.Roots.Add(rootTile);
+				// update indexes
+				UpdateIndexes(tile);
 			}
 
 			var hasNewRootAvailable = true;
@@ -329,6 +346,8 @@ namespace TilesWalk.Building.Level
 						// insert on the tile structure
 						var insert = HashToTile[instruction.Tile];
 						rootTile.InsertNeighbor(instruction.Direction, instruction.Rule, insert);
+						// update indexes
+						UpdateIndexes(tile);
 						// register to structure
 						UpdateInstructions(rootTile, insert, instruction.Direction, instruction.Rule);
 						// update newer roots for next loop
@@ -344,6 +363,18 @@ namespace TilesWalk.Building.Level
 			_map.FinishCondition = map.FinishCondition;
 			_map.MapSize = map.MapSize;
 			_onLevelMapLoaded?.OnNext(_map);
+		}
+
+		public void UpdateIndexes<T>(T tile) where T : LevelTileView
+		{
+			if (!_indexes.TryGetValue(tile.Controller.Tile.Index, out var matchingIndexes))
+			{
+				_indexes[tile.Controller.Tile.Index] = new List<LevelTileView>() {tile};
+			}
+			else
+			{
+				matchingIndexes.Add(tile);
+			}
 		}
 	}
 }

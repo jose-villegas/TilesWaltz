@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using TilesWalk.Building.Level;
@@ -216,6 +217,15 @@ namespace TilesWalk.Building.LevelEditor
 				_ghostTileView.Item2.Renderer.material = Renderer.material;
 				_tileLevelMap.RegisterTile(_ghostTileView.Item2);
 				_tileLevelMap.UpdateInstructions(this, _ghostTileView.Item2, _currentDirection, _currentRule);
+
+				// update indexes
+				_tileLevelMap.UpdateIndexes(_ghostTileView.Item2);
+				// update connection separators
+				foreach (var tile in _tileLevelMap.HashToTile.Values)
+				{
+					if (tile != null) tile.CheckSeparator();
+				}
+
 				_ghostTileView.Item2.Start();
 				_ghostTileView.Item2._currentDirection = _currentDirection;
 				_ghostTileView.Item2._currentRule = _currentRule;

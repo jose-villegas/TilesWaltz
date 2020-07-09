@@ -211,7 +211,7 @@ MonoBehaviour:
         Position: {x: 0, y: 0, z: 0}
         Rotation: {x: 0, y: 0, z: 0}
       MapSize: 3
-      StarsRequired: 0
+      StarsRequired: 1
       Target: 3000
       FinishCondition: 0
     _movesFinishConditions:
@@ -235,9 +235,9 @@ MonoBehaviour:
       Root: -186120
       Direction: 2
       Rule: 1
-    - Tile: -186352
+    - Tile: -209514
       Root: -186234
-      Direction: 4
+      Direction: 2
       Rule: 1
     Roots:
     - Key: -182758
@@ -248,4 +248,4 @@ MonoBehaviour:
     - Id: Chromosome
       Hash: -182758
     - Id: Snake
-      Hash: -186352
+      Hash: -209514

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TilesWalk.Gameplay.Animation;
+using TilesWalk.General;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -22,7 +23,7 @@ namespace TilesWalk.Tile.Level
 				var movementSpeed = Random.Range(-1f, 1f);
 				var scaleSpeed = Random.Range(0.1f, 0.25f);
 
-				while (transform != null && transform.localScale.sqrMagnitude > Mathf.Epsilon)
+				while (transform != null && transform.localScale.sqrMagnitude > Constants.Tolerance)
 				{
 					var step = movementSpeed * Time.deltaTime;
 
@@ -37,7 +38,7 @@ namespace TilesWalk.Tile.Level
 				movementSpeed = Random.Range(-1f, 1f);
 				scaleSpeed = Random.Range(0.1f, 0.25f);
 
-				while (transform != null && (scale - transform.localScale).sqrMagnitude > Mathf.Epsilon)
+				while (transform != null && (scale - transform.localScale).sqrMagnitude > Constants.Tolerance)
 				{
 					var step = movementSpeed * Time.deltaTime;
 
@@ -63,7 +64,7 @@ namespace TilesWalk.Tile.Level
 			}
 
 			t = 0f;
-			
+
 			while (t <= _animationSettings.ScalePopInTime)
 			{
 				var norm = t / _animationSettings.ScalePopInTime;
@@ -75,7 +76,8 @@ namespace TilesWalk.Tile.Level
 			transform.localScale = scale;
 		}
 
-		private IEnumerator ShuffleMoveAnimation(List<Level.LevelTileView> tiles, List<Tuple<Vector3, Quaternion>> source)
+		private IEnumerator ShuffleMoveAnimation(List<Level.LevelTileView> tiles,
+			List<Tuple<Vector3, Quaternion>> source)
 		{
 			var t = 0f;
 

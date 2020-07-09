@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Display;
 using TilesWalk.Gameplay.Score;
+using TilesWalk.General;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -48,11 +50,68 @@ namespace TilesWalk.Tile.Level
 			// update particles on power up
 			_controller.Tile.OnTilePowerUpChangedAsObservable().Subscribe(UpdatePowerUpFX).AddTo(this);
 
-
 			// on level finish stop interactions
 			if (_levelFinishTracker != null)
 			{
 				_levelFinishTracker.OnLevelFinishAsObservable().Subscribe(OnLevelFinish).AddTo(this);
+			}
+
+			// check if we need to activate a separator
+			CheckSeparator();
+		}
+
+		public void CheckSeparator()
+		{
+			var index = Controller.Tile.Index;
+
+			for (int i = -1; i < 2; i++)
+			{
+				for (int j = -1; j < 2; j++)
+				{
+					for (int k = -1; k < 2; k++)
+					{
+						if (i == 0 && j == 0 && k == 0) continue;
+
+						var checkIndex = new Vector3Int(index.x + i, index.y + j, index.z + k);
+
+						if (_tileLevelMap.Indexes.TryGetValue(checkIndex, out var matching))
+						{
+							// check if any points up in the same direction
+							if (matching != null && matching.Count > 0)
+							{
+								var indexOf = matching.FindIndex(x =>
+								{
+									var matchUp = Math.Abs(Vector3.Dot(transform.up, x.transform.up) - 1) < Constants.Tolerance;
+									var notRelated = !Controller.Tile.Neighbors.ContainsValue(x.Controller.Tile);
+									return matchUp && notRelated;
+								});
+
+								if (indexOf >= 0)
+								{
+									var direction = matching[indexOf].transform.position - transform.position;
+									direction.Normalize();
+
+									if (Math.Abs(Vector3.Dot(direction, transform.forward) - 1f) < Constants.Tolerance)
+									{
+										ParticleSystems.ParticleFX["S-North"].Play();
+									}
+									else if (Math.Abs(Vector3.Dot(direction, -transform.forward) - 1f) < Constants.Tolerance)
+									{
+										ParticleSystems.ParticleFX["S-South"].Play();
+									}
+									else if (Math.Abs(Vector3.Dot(direction, transform.right) - 1f) < Constants.Tolerance)
+									{
+										ParticleSystems.ParticleFX["S-East"].Play();
+									}
+									else if (Math.Abs(Vector3.Dot(direction, -transform.right) - 1f) < Constants.Tolerance)
+									{
+										ParticleSystems.ParticleFX["S-West"].Play();
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 

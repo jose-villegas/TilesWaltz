@@ -18,9 +18,11 @@ namespace TilesWalk.Map.Tile
 		[Inject] private GameLevelsMapBuilder _map;
 		[Inject] private DiContainer _container;
 
+		[Header("Level Tile")]
 		[SerializeField] private string _levelId;
 
 #if UNITY_EDITOR
+		[Header("Editor Mode")]
 		[SerializeField] private CardinalDirection _direction = CardinalDirection.North;
 		[SerializeField] private NeighborWalkRule _rule = NeighborWalkRule.Plain;
 
@@ -71,6 +73,12 @@ namespace TilesWalk.Map.Tile
 			}
 
 			_map.RemoveTile(this);
+
+			foreach (var tileNeighbor in Controller.Tile.Neighbors)
+			{
+				tileNeighbor.Value.Neighbors.Remove(tileNeighbor.Key.Opposite());
+			}
+
 			DestroyImmediate(gameObject);
 		}
 #endif

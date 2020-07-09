@@ -176,6 +176,11 @@ namespace TilesWalk.Map.Tile
 		{
 			if (!TileToHash.TryGetValue(tile, out var hash)) return;
 
+			if (IsLevelTile(tile.Controller.Tile))
+			{
+				_map.Levels.RemoveAll(x => x.Hash == hash);
+			}
+
 			TileToHash.Remove(tile);
 			HashToTile.Remove(hash);
 			TileView.Remove(tile.Controller.Tile);
