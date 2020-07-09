@@ -77,36 +77,33 @@ namespace TilesWalk.Tile.Level
 						if (_tileLevelMap.Indexes.TryGetValue(checkIndex, out var matching))
 						{
 							// check if any points up in the same direction
-							if (matching != null && matching.Count > 0)
+							if (matching != null)
 							{
-								var indexOf = matching.FindIndex(x =>
-								{
-									var matchUp = Math.Abs(Vector3.Dot(transform.up, x.transform.up) - 1) < Constants.Tolerance;
-									var notRelated = !Controller.Tile.Neighbors.ContainsValue(x.Controller.Tile);
-									return matchUp && notRelated;
-								});
+								var matchUp = Math.Abs(Vector3.Dot(transform.up, matching.transform.up) - 1) <
+								              Constants.Tolerance;
+								var notRelated = !Controller.Tile.Neighbors.ContainsValue(matching.Controller.Tile);
 
-								if (indexOf >= 0)
-								{
-									var direction = matching[indexOf].transform.position - transform.position;
-									direction.Normalize();
+								if (!matchUp || !notRelated) continue;
 
-									if (Math.Abs(Vector3.Dot(direction, transform.forward) - 1f) < Constants.Tolerance)
-									{
-										ParticleSystems.ParticleFX["S-North"].Play();
-									}
-									else if (Math.Abs(Vector3.Dot(direction, -transform.forward) - 1f) < Constants.Tolerance)
-									{
-										ParticleSystems.ParticleFX["S-South"].Play();
-									}
-									else if (Math.Abs(Vector3.Dot(direction, transform.right) - 1f) < Constants.Tolerance)
-									{
-										ParticleSystems.ParticleFX["S-East"].Play();
-									}
-									else if (Math.Abs(Vector3.Dot(direction, -transform.right) - 1f) < Constants.Tolerance)
-									{
-										ParticleSystems.ParticleFX["S-West"].Play();
-									}
+								var direction = matching.transform.position - transform.position;
+								direction.Normalize();
+
+								if (Math.Abs(Vector3.Dot(direction, transform.forward) - 1f) < Constants.Tolerance)
+								{
+									ParticleSystems.ParticleFX["S-North"].Play();
+								}
+								else if (Math.Abs(Vector3.Dot(direction, -transform.forward) - 1f) <
+								         Constants.Tolerance)
+								{
+									ParticleSystems.ParticleFX["S-South"].Play();
+								}
+								else if (Math.Abs(Vector3.Dot(direction, transform.right) - 1f) < Constants.Tolerance)
+								{
+									ParticleSystems.ParticleFX["S-East"].Play();
+								}
+								else if (Math.Abs(Vector3.Dot(direction, -transform.right) - 1f) < Constants.Tolerance)
+								{
+									ParticleSystems.ParticleFX["S-West"].Play();
 								}
 							}
 						}
@@ -201,6 +198,12 @@ namespace TilesWalk.Tile.Level
 		#region Debug
 
 #if UNITY_EDITOR
+		private void OnDrawGizmos()
+		{
+			Gizmos.color = Color.red;
+			Gizmos.DrawWireCube(Controller.Tile.Index, Vector3.one);
+		}
+
 		private void OnDrawGizmosSelected()
 		{
 			Gizmos.color = Color.green;

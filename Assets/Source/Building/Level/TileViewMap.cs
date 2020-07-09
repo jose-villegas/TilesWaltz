@@ -106,7 +106,7 @@ namespace TilesWalk.Building.Level
 			var tileBounds = new Bounds
 			(
 				tile.transform.position,
-				tile.Collider.size * _customLevelsConfiguration.TileSeparationBoundsOffset
+				tile.Collider.size * (_customLevelsConfiguration.TileSeparationBoundsOffset)
 			);
 
 			return tiles.Any(x =>
@@ -114,7 +114,7 @@ namespace TilesWalk.Building.Level
 				var tightBound = new Bounds
 				(
 					x.transform.position,
-					x.Collider.bounds.size * _customLevelsConfiguration.TileSeparationBoundsOffset
+					x.Collider.bounds.size * (_customLevelsConfiguration.TileSeparationBoundsOffset)
 				);
 				return tightBound.Intersects(tileBounds);
 			});

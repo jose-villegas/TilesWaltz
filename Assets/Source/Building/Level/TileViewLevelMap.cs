@@ -31,8 +31,7 @@ namespace TilesWalk.Building.Level
 		[SerializeField] private LevelLoadOptions _loadOption;
 
 		[SerializeField]
-		private Dictionary<Vector3Int, List<LevelTileView>>
-			_indexes = new Dictionary<Vector3Int, List<LevelTileView>>();
+		private Dictionary<Vector3Int, LevelTileView> _indexes = new Dictionary<Vector3Int, LevelTileView>();
 
 		public LevelTileViewTriggerBase Trigger
 		{
@@ -64,7 +63,7 @@ namespace TilesWalk.Building.Level
 
 		public LevelLoadOptions LoadOption => _loadOption;
 
-		public Dictionary<Vector3Int, List<LevelTileView>> Indexes => _indexes;
+		public Dictionary<Vector3Int, LevelTileView> Indexes => _indexes;
 
 		private TileLevelMapState _state;
 		private LevelTileViewTriggerBase _levelTileTriggerBase;
@@ -229,9 +228,7 @@ namespace TilesWalk.Building.Level
 			// update indexes
 			if (_indexes.TryGetValue(tile.Controller.Tile.Index, out var matchingIndexes))
 			{
-				var indexOf = _indexes[tile.Controller.Tile.Index].FindIndex(x => x == tile);
-
-				if (indexOf >= 0) _indexes[tile.Controller.Tile.Index].RemoveAt(indexOf);
+				_indexes.Remove(tile.Controller.Tile.Index);
 			}
 
 			// remove all instructions that refer to this tile
@@ -367,13 +364,9 @@ namespace TilesWalk.Building.Level
 
 		public void UpdateIndexes<T>(T tile) where T : LevelTileView
 		{
-			if (!_indexes.TryGetValue(tile.Controller.Tile.Index, out var matchingIndexes))
+			if (!_indexes.TryGetValue(tile.Controller.Tile.Index, out var matching))
 			{
-				_indexes[tile.Controller.Tile.Index] = new List<LevelTileView>() {tile};
-			}
-			else
-			{
-				matchingIndexes.Add(tile);
+				_indexes[tile.Controller.Tile.Index] = tile;
 			}
 		}
 	}

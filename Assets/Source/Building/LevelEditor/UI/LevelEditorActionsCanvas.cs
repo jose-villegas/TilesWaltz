@@ -20,6 +20,8 @@ namespace TilesWalk.Building.LevelEditor.UI
 
 		[SerializeField] private Button _edit;
 		[SerializeField] private Button _save;
+		[SerializeField] private Toggle _showUi;
+		[SerializeField] private Toggle _showGrid;
 		[SerializeField] private Image _notification;
 		[SerializeField] private TextMeshProUGUI _counter;
 
@@ -28,6 +30,10 @@ namespace TilesWalk.Building.LevelEditor.UI
 		public Button Edit => _edit;
 
 		public Button Save => _save;
+
+		public Toggle ShowUI => _showUi;
+
+		public Toggle ShowGrid => _showGrid;
 
 		public void Start()
 		{

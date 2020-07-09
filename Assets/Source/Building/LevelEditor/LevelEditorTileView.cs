@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace TilesWalk.Building.LevelEditor
 		[Inject] private CustomLevelPlayer _customLevelPlayer;
 		[Inject] private CustomLevelsConfiguration _customLevelsConfiguration;
 		[Inject] private Notice _notice;
+		[Inject] private CanvasHoverListener _canvasHover;
 
 		private Tuple<CardinalDirection, LevelEditorTileView> _ghostTileView;
 		private Bounds _ghostTileBounds = new Bounds(Vector3.zero, new Vector3(1f, 0.3f, 1f));
@@ -32,6 +34,7 @@ namespace TilesWalk.Building.LevelEditor
 		private NeighborWalkRule _currentRule = NeighborWalkRule.Plain;
 		private CardinalDirection _currentDirection = CardinalDirection.None;
 		private CanvasGroupBehaviour _guides;
+		private Vector3? _sourcePosition = null;
 
 		public BoolReactiveProperty IsSelected { get; } = new BoolReactiveProperty();
 		public bool IsGhost { get; private set; } = false;
@@ -70,6 +73,8 @@ namespace TilesWalk.Building.LevelEditor
 			_levelEditorToolSet.InsertionCanvas.Cancel.OnClickAsObservable().Subscribe(_ => OnCancelClick())
 				.AddTo(this);
 			_levelEditorToolSet.InsertionCanvas.Delete.OnClickAsObservable().Subscribe(_ => OnDeleteClick())
+				.AddTo(this);
+			_levelEditorToolSet.ActionsCanvas.ShowGrid.onValueChanged.AsObservable().Subscribe(OnShowGridToggle)
 				.AddTo(this);
 
 			// subscribe to UI actions
@@ -129,11 +134,74 @@ namespace TilesWalk.Building.LevelEditor
 			}
 		}
 
+		private void OnShowGridToggle(bool val)
+		{
+			// first backup the position for the first time
+			if (_sourcePosition == null)
+			{
+				_sourcePosition = this.transform.position;
+			}
+
+			if (val)
+			{
+				_levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorActions);
+			}
+			else
+			{
+				_levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorActionsAndInsertion);
+			}
+
+			_levelEditorToolSet.ActionsCanvas.ShowGrid.interactable = false;
+			StartCoroutine(ToggleGridPosition(val)).GetAwaiter()
+				.OnCompleted(() => _levelEditorToolSet.ActionsCanvas.ShowGrid.interactable = true);
+		}
+
+		private IEnumerator ToggleGridPosition(bool val)
+		{
+			var index = Controller.Tile.Index;
+
+			if (_sourcePosition != null)
+			{
+				var source = _sourcePosition.Value;
+				var target = new Vector3(index.x, index.y, index.z);
+
+				if (!val)
+				{
+					target = source;
+					source = Controller.Tile.Index;
+				}
+
+				var t = 0f;
+
+				while (t < _animationSettings.GridAnimationTime)
+				{
+					transform.position = Vector3.Lerp(source, target, t / _animationSettings.GridAnimationTime);
+					t += Time.deltaTime;
+					yield return null;
+				}
+			}
+
+			Transform childTrans = transform.Find("WireBox");
+
+			if (childTrans != null) childTrans.gameObject.SetActive(val);
+
+			yield return null;
+		}
+
 		private void OnCustomLevelStop(LevelMap obj)
 		{
 			_tileLevelMap.State = TileLevelMapState.EditorMode;
 			// return blank material
 			Renderer.material = IsGhost ? _levelEditorToolSet.GhostMaterial : _levelEditorToolSet.EditorTileMaterial;
+
+			if (_levelEditorToolSet.ActionsCanvas.ShowGrid.isOn) 
+			{
+				_levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorActions);
+
+				Transform childTrans = transform.Find("WireBox");
+
+				if (childTrans != null) childTrans.gameObject.SetActive(true);
+			}
 		}
 
 		private void OnCustomLevelPlay(LevelMap obj)
@@ -146,6 +214,10 @@ namespace TilesWalk.Building.LevelEditor
 			_controller.Tile.ShuffleColor();
 			Renderer.material = _colorHandler.GetMaterial(_controller.Tile.TileColor);
 			_tileLevelMap.State = TileLevelMapState.FreeMove;
+
+			Transform childTrans = transform.Find("WireBox");
+
+			if (childTrans != null) childTrans.gameObject.SetActive(false);
 		}
 
 		protected override void OnMouseDown()
@@ -156,6 +228,8 @@ namespace TilesWalk.Building.LevelEditor
 			}
 			else
 			{
+				if (_canvasHover.IsUIOverride) return;
+
 				if (IsGhost)
 				{
 					var view =
@@ -177,13 +251,6 @@ namespace TilesWalk.Building.LevelEditor
 		{
 			if (IsSelected.Value)
 			{
-				//var neighbor = _controller.Tile.Neighbors.First();
-				//neighbor.Value.Neighbors.Remove(neighbor.Key.Opposite());
-				//neighbor.Value.HingePoints.Remove(neighbor.Key.Opposite());
-				//TileController.ChainRefreshPaths(neighbor.Value);
-				//_tileLevelMap.RemoveTile(this);
-				//Destroy(this.gameObject);
-
 				var neighbors = _controller.Tile.Neighbors;
 
 				foreach (var neighbor in neighbors)
@@ -203,7 +270,7 @@ namespace TilesWalk.Building.LevelEditor
 			if (IsSelected.Value && _ghostTileView != null)
 			{
 				RemoveGhostNeighbor(_currentDirection);
-				Destroy(_ghostTileView.Item2.gameObject);
+				Destroy(_ghostTileView.Item2.transform.parent.gameObject);
 				_ghostTileView = null;
 				_levelEditorToolSet.InsertionCanvas.UpdateButtons(this);
 			}
@@ -270,6 +337,8 @@ namespace TilesWalk.Building.LevelEditor
 		{
 			if (_customLevelPlayer.IsPlaying) return;
 
+			if (!_levelEditorToolSet.ActionsCanvas.ShowUI.isOn) return;
+
 			// user is unselecting the tile
 			if (tile == _controller.Tile && IsSelected.Value)
 			{
@@ -321,8 +390,12 @@ namespace TilesWalk.Building.LevelEditor
 				_notice.Configure("Maximum amount of tiles reached").Show(2f);
 				OnCancelClick();
 			}
-
-			if (_tileLevelMap.IsBreakingDistance(_ghostTileView.Item2))
+			else if (_tileLevelMap.Indexes.ContainsKey(_ghostTileView.Item2.Controller.Tile.Index))
+			{
+				_notice.Configure("Two tiles cannot share the same index or position").Show(2f);
+				OnCancelClick();
+			}
+			else if (_tileLevelMap.IsBreakingDistance(_ghostTileView.Item2))
 			{
 				_notice.Configure("Two tiles cannot share the same space").Show(2f);
 				OnCancelClick();

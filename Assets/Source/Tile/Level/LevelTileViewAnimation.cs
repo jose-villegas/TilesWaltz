@@ -11,7 +11,7 @@ namespace TilesWalk.Tile.Level
 {
 	public partial class LevelTileView
 	{
-		[Inject] private AnimationConfiguration _animationSettings;
+		[Inject] protected AnimationConfiguration _animationSettings;
 
 		private IEnumerator LevelFinishAnimation()
 		{
