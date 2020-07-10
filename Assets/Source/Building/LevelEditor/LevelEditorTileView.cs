@@ -68,11 +68,11 @@ namespace TilesWalk.Building.LevelEditor
 			_levelEditorToolSet.InsertionCanvas.Cancel.interactable = false;
 			_levelEditorToolSet.InsertionCanvas.Delete.interactable = false;
 
-			_levelEditorToolSet.InsertionCanvas.Confirm.OnClickAsObservable().Subscribe(_ => OnConfirmClick())
+			_levelEditorToolSet.InsertionCanvas.Confirm.OnClickAsObservable().Subscribe(OnConfirmClick)
 				.AddTo(this);
-			_levelEditorToolSet.InsertionCanvas.Cancel.OnClickAsObservable().Subscribe(_ => OnCancelClick())
+			_levelEditorToolSet.InsertionCanvas.Cancel.OnClickAsObservable().Subscribe(OnCancelClick)
 				.AddTo(this);
-			_levelEditorToolSet.InsertionCanvas.Delete.OnClickAsObservable().Subscribe(_ => OnDeleteClick())
+			_levelEditorToolSet.InsertionCanvas.Delete.OnClickAsObservable().Subscribe(OnDeleteClick)
 				.AddTo(this);
 			_levelEditorToolSet.ActionsCanvas.ShowGrid.onValueChanged.AsObservable().Subscribe(OnShowGridToggle)
 				.AddTo(this);
@@ -115,7 +115,7 @@ namespace TilesWalk.Building.LevelEditor
 					{
 						var tileView = _ghostTileView.Item2;
 
-						OnConfirmClick();
+						OnConfirmClick(Unit.Default);
 
 						IsSelected.Value = false;
 						tileView.IsSelected.Value = true;
@@ -142,13 +142,16 @@ namespace TilesWalk.Building.LevelEditor
 				_sourcePosition = this.transform.position;
 			}
 
-			if (val)
+			if (_levelEditorToolSet.ActionsCanvas.ShowUI.isOn)
 			{
-				_levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorActions);
-			}
-			else
-			{
-				_levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorActionsAndInsertion);
+				if (val)
+				{
+					_levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorActions);
+				}
+				else
+				{
+					_levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorActionsAndInsertion);
+				}
 			}
 
 			_levelEditorToolSet.ActionsCanvas.ShowGrid.interactable = false;
@@ -194,7 +197,7 @@ namespace TilesWalk.Building.LevelEditor
 			// return blank material
 			Renderer.material = IsGhost ? _levelEditorToolSet.GhostMaterial : _levelEditorToolSet.EditorTileMaterial;
 
-			if (_levelEditorToolSet.ActionsCanvas.ShowGrid.isOn) 
+			if (_levelEditorToolSet.ActionsCanvas.ShowGrid.isOn)
 			{
 				_levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorActions);
 
@@ -207,7 +210,7 @@ namespace TilesWalk.Building.LevelEditor
 		private void OnCustomLevelPlay(LevelMap obj)
 		{
 			// remove ghost tile if there is any
-			OnCancelClick();
+			OnCancelClick(Unit.Default);
 			// unselect
 			if (IsSelected.Value) OnTileSelected(false);
 			// assign a color and update render
@@ -237,7 +240,7 @@ namespace TilesWalk.Building.LevelEditor
 
 					if (view != null)
 					{
-						view.OnConfirmClick();
+						view.OnConfirmClick(Unit.Default);
 					}
 
 					return;
@@ -247,7 +250,7 @@ namespace TilesWalk.Building.LevelEditor
 			}
 		}
 
-		private void OnDeleteClick()
+		private void OnDeleteClick(Unit u)
 		{
 			if (IsSelected.Value)
 			{
@@ -265,7 +268,7 @@ namespace TilesWalk.Building.LevelEditor
 			}
 		}
 
-		private void OnCancelClick()
+		private void OnCancelClick(Unit u)
 		{
 			if (IsSelected.Value && _ghostTileView != null)
 			{
@@ -276,7 +279,7 @@ namespace TilesWalk.Building.LevelEditor
 			}
 		}
 
-		private void OnConfirmClick()
+		private void OnConfirmClick(Unit u)
 		{
 			if (IsSelected.Value && _ghostTileView != null)
 			{
@@ -388,17 +391,17 @@ namespace TilesWalk.Building.LevelEditor
 			if (_tileLevelMap.HashToTile.Count >= _customLevelsConfiguration.MaximumTilesPerLevel)
 			{
 				_notice.Configure("Maximum amount of tiles reached").Show(2f);
-				OnCancelClick();
+				OnCancelClick(Unit.Default);
 			}
 			else if (_tileLevelMap.Indexes.ContainsKey(_ghostTileView.Item2.Controller.Tile.Index))
 			{
 				_notice.Configure("Two tiles cannot share the same index or position").Show(2f);
-				OnCancelClick();
+				OnCancelClick(Unit.Default);
 			}
 			else if (_tileLevelMap.IsBreakingDistance(_ghostTileView.Item2))
 			{
 				_notice.Configure("Two tiles cannot share the same space").Show(2f);
-				OnCancelClick();
+				OnCancelClick(Unit.Default);
 			}
 		}
 
