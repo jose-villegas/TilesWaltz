@@ -34,7 +34,9 @@ namespace TilesWalk.Building.LevelEditor
 		private NeighborWalkRule _currentRule = NeighborWalkRule.Plain;
 		private CardinalDirection _currentDirection = CardinalDirection.None;
 		private CanvasGroupBehaviour _guides;
+		private Animator _animator;
 		private Vector3? _sourcePosition = null;
+		private Subject<Unit> _onAllPathsHidden = new Subject<Unit>();
 
 		public BoolReactiveProperty IsSelected { get; } = new BoolReactiveProperty();
 		public bool IsGhost { get; private set; } = false;
@@ -50,6 +52,7 @@ namespace TilesWalk.Building.LevelEditor
 		protected override void Start()
 		{
 			_guides = GetComponentInChildren<CanvasGroupBehaviour>(true);
+			_animator = GetComponentInChildren<Animator>(true);
 
 			if (IsGhost) return;
 
@@ -76,6 +79,7 @@ namespace TilesWalk.Building.LevelEditor
 				.AddTo(this);
 			_levelEditorToolSet.ActionsCanvas.ShowGrid.onValueChanged.AsObservable().Subscribe(OnShowGridToggle)
 				.AddTo(this);
+			_levelEditorToolSet.ActionsCanvas.ShowUI.onValueChanged.AsObservable().Subscribe(OnShowUI);
 
 			// subscribe to UI actions
 			foreach (var value in Enum.GetValues(typeof(NeighborWalkRule)))
@@ -131,6 +135,14 @@ namespace TilesWalk.Building.LevelEditor
 					_levelEditorToolSet.InsertionCanvas.Confirm.interactable = true;
 					_levelEditorToolSet.InsertionCanvas.Cancel.interactable = true;
 				}).AddTo(this);
+			}
+		}
+
+		private void OnShowUI(bool val)
+		{
+			if (!val)
+			{
+				OnTileSelected(false);
 			}
 		}
 
@@ -317,6 +329,35 @@ namespace TilesWalk.Building.LevelEditor
 				_guides.gameObject.SetActive(true);
 				_guides.Show();
 
+				// show path
+				var shortestPath = Controller.Tile.ShortestPathToLeaf;
+
+				if (shortestPath != null && shortestPath.Count > 0)
+				{
+					for (var i = 0; i < shortestPath.Count; i++)
+					{
+						var tile = shortestPath[i];
+						var hasTileView = _tileLevelMap.HasTileView(tile);
+
+						if (hasTileView)
+						{
+							var view = _tileLevelMap.GetTileView(tile) as LevelEditorTileView;
+
+							if (view != null)
+							{
+								Observable.Timer(TimeSpan.FromSeconds(i * 0.075)).DelayFrame(1).Subscribe(_ => { }, () =>
+								{
+									Transform childTrans = view._animator.transform.Find("PathContainer");
+
+									if (childTrans != null) childTrans.gameObject.SetActive(true);
+
+									view._animator.SetBool("ShowPath", true);
+								}).AddTo(this);
+							}
+						}
+					}
+				}
+
 				// set outline for this tile
 				var newMaterials = new[]
 				{
@@ -330,7 +371,23 @@ namespace TilesWalk.Building.LevelEditor
 			}
 			else
 			{
+				// hide tools
 				_guides.Hide();
+
+				// hide path
+				foreach (var levelTileView in _tileLevelMap.HashToTile.Values)
+				{
+					var view = (LevelEditorTileView)levelTileView;
+
+					if (view != null) view._animator.SetBool("ShowPath", false);
+
+					Transform childTrans = view._animator.transform.Find("PathContainer");
+
+					if (childTrans != null) childTrans.gameObject.SetActive(false);
+
+					_onAllPathsHidden?.OnNext(Unit.Default);
+				}
+
 				if (Renderer.materials.Length > 1)
 				{
 					Renderer.materials = new[] {_levelEditorToolSet.EditorTileMaterial};

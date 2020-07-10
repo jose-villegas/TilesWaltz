@@ -12,128 +12,120 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4db1560a02e1e48a2df94c781726ae, type: 3}
   m_Name: GameMapsInstaller
   m_EditorClassIdentifier: 
-  _name: Snake
-  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-178148,"Root":0,"Direction":4,"Rule":1},{"Tile":-179202,"Root":0,"Direction":8,"Rule":1},{"Tile":-178358,"Root":-178148,"Direction":1,"Rule":1},{"Tile":-178568,"Root":-178358,"Direction":4,"Rule":1},{"Tile":-178778,"Root":-178568,"Direction":4,"Rule":1},{"Tile":-178988,"Root":-178778,"Direction":4,"Rule":1},{"Tile":-179412,"Root":-179202,"Direction":8,"Rule":1},{"Tile":-179622,"Root":-179412,"Direction":8,"Rule":0},{"Tile":-179832,"Root":-179622,"Direction":8,"Rule":1},{"Tile":-180042,"Root":-179832,"Direction":8,"Rule":2},{"Tile":-180252,"Root":-180042,"Direction":8,"Rule":0},{"Tile":-180462,"Root":-180252,"Direction":8,"Rule":1},{"Tile":-180672,"Root":-180462,"Direction":8,"Rule":2},{"Tile":-180886,"Root":-178988,"Direction":4,"Rule":1},{"Tile":-181096,"Root":-180886,"Direction":4,"Rule":0}],"Roots":[{"Key":0,"Position":{"x":0.0,"y":0.0,"z":0.0},"Rotation":{"x":0.0,"y":0.0,"z":0.0}}],"MapSize":0}'
+  _name: Jumpers
+  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-21216,"Root":0,"Direction":1,"Rule":1},{"Tile":-21764,"Root":0,"Direction":2,"Rule":1},{"Tile":-24772,"Root":0,"Direction":8,"Rule":0},{"Tile":-21488,"Root":-21216,"Direction":4,"Rule":1},{"Tile":-22036,"Root":-21764,"Direction":8,"Rule":1},{"Tile":-25048,"Root":-21764,"Direction":2,"Rule":2},{"Tile":-22308,"Root":-22036,"Direction":8,"Rule":1},{"Tile":-22580,"Root":-22308,"Direction":2,"Rule":1},{"Tile":-25324,"Root":-22308,"Direction":8,"Rule":0},{"Tile":-22856,"Root":-21488,"Direction":4,"Rule":1},{"Tile":-24496,"Root":-21488,"Direction":1,"Rule":0},{"Tile":-23128,"Root":-22856,"Direction":1,"Rule":1},{"Tile":-23400,"Root":-23128,"Direction":4,"Rule":1},{"Tile":-23672,"Root":-23400,"Direction":4,"Rule":1},{"Tile":-25600,"Root":-23400,"Direction":1,"Rule":0},{"Tile":-23948,"Root":-22580,"Direction":8,"Rule":1},{"Tile":-24220,"Root":-23948,"Direction":8,"Rule":1}],"Roots":[{"Key":0,"Position":{"x":0.0,"y":0.0,"z":0.0},"Rotation":{"x":0.0,"y":0.0,"z":0.0}}],"MapSize":0}'
   _condition: 0
   _seconds: 45
   _moves: 20
-  _mapSize: 3
-  _starsRequired: 0
-  _targetPoints: 3000
+  _mapSize: 2
+  _starsRequired: 4
+  _targetPoints: 2000
   _gameLevels:
     _availableMaps:
     - Id: Chromosome
       Instructions:
-      - Tile: -36396
-        Root: 0
-        Direction: 4
-        Rule: 1
-      - Tile: -36610
+      - Tile: -51088
         Root: 0
         Direction: 1
         Rule: 1
-      - Tile: -36824
+      - Tile: -52712
+        Root: 0
+        Direction: 4
+        Rule: 1
+      - Tile: -54336
         Root: 0
         Direction: 8
         Rule: 1
-      - Tile: -37038
+      - Tile: -56778
         Root: 0
         Direction: 2
         Rule: 1
-      - Tile: -37252
-        Root: -36396
-        Direction: 4
-        Rule: 0
-      - Tile: -37462
-        Root: -37252
-        Direction: 4
-        Rule: 1
-      - Tile: -37672
-        Root: -37462
-        Direction: 4
-        Rule: 1
-      - Tile: -37882
-        Root: -37672
-        Direction: 4
-        Rule: 1
-      - Tile: -38092
-        Root: -37882
-        Direction: 4
-        Rule: 1
-      - Tile: -38302
-        Root: -38092
-        Direction: 4
-        Rule: 2
-      - Tile: -38516
-        Root: -36610
+      - Tile: -51358
+        Root: -51088
         Direction: 1
         Rule: 0
-      - Tile: -38726
-        Root: -38516
+      - Tile: -51628
+        Root: -51358
         Direction: 1
         Rule: 1
-      - Tile: -38936
-        Root: -38726
+      - Tile: -51898
+        Root: -51628
         Direction: 1
         Rule: 1
-      - Tile: -39146
-        Root: -38936
+      - Tile: -52168
+        Root: -51898
         Direction: 1
         Rule: 1
-      - Tile: -39356
-        Root: -39146
-        Direction: 1
-        Rule: 1
-      - Tile: -39566
-        Root: -39356
+      - Tile: -52438
+        Root: -52168
         Direction: 1
         Rule: 2
-      - Tile: -39780
-        Root: -36824
+      - Tile: -52982
+        Root: -52712
+        Direction: 4
+        Rule: 0
+      - Tile: -53252
+        Root: -52982
+        Direction: 4
+        Rule: 1
+      - Tile: -53522
+        Root: -53252
+        Direction: 4
+        Rule: 1
+      - Tile: -53792
+        Root: -53522
+        Direction: 4
+        Rule: 1
+      - Tile: -54062
+        Root: -53792
+        Direction: 4
+        Rule: 2
+      - Tile: -54606
+        Root: -54336
         Direction: 8
         Rule: 2
-      - Tile: -39990
-        Root: -39780
+      - Tile: -54876
+        Root: -54606
         Direction: 8
         Rule: 1
-      - Tile: -40200
-        Root: -39990
+      - Tile: -55146
+        Root: -54876
         Direction: 8
         Rule: 1
-      - Tile: -40410
-        Root: -40200
+      - Tile: -55416
+        Root: -55146
         Direction: 8
         Rule: 1
-      - Tile: -40620
-        Root: -40410
+      - Tile: -55686
+        Root: -55416
         Direction: 8
         Rule: 1
-      - Tile: -40830
-        Root: -40620
+      - Tile: -56504
+        Root: -55686
         Direction: 8
         Rule: 0
-      - Tile: -41044
-        Root: -37038
+      - Tile: -57048
+        Root: -56778
         Direction: 2
         Rule: 2
-      - Tile: -41254
-        Root: -41044
+      - Tile: -57318
+        Root: -57048
         Direction: 2
         Rule: 1
-      - Tile: -41464
-        Root: -41254
+      - Tile: -57588
+        Root: -57318
         Direction: 2
         Rule: 1
-      - Tile: -41674
-        Root: -41464
+      - Tile: -57858
+        Root: -57588
         Direction: 2
         Rule: 1
-      - Tile: -41884
-        Root: -41674
+      - Tile: -58128
+        Root: -57858
         Direction: 2
         Rule: 1
-      - Tile: -42094
-        Root: -41884
+      - Tile: -58398
+        Root: -58128
         Direction: 2
         Rule: 0
       Roots:
@@ -142,7 +134,7 @@ MonoBehaviour:
         Rotation: {x: 0, y: 0, z: 0}
       MapSize: 2
       StarsRequired: 0
-      Target: 1700
+      Target: 1750
       FinishCondition: 1
     - Id: Snake
       Instructions:
@@ -214,11 +206,91 @@ MonoBehaviour:
       StarsRequired: 1
       Target: 3000
       FinishCondition: 0
+    - Id: Jumpers
+      Instructions:
+      - Tile: -21216
+        Root: 0
+        Direction: 1
+        Rule: 1
+      - Tile: -21764
+        Root: 0
+        Direction: 2
+        Rule: 1
+      - Tile: -24772
+        Root: 0
+        Direction: 8
+        Rule: 0
+      - Tile: -21488
+        Root: -21216
+        Direction: 4
+        Rule: 1
+      - Tile: -22036
+        Root: -21764
+        Direction: 8
+        Rule: 1
+      - Tile: -25048
+        Root: -21764
+        Direction: 2
+        Rule: 2
+      - Tile: -22308
+        Root: -22036
+        Direction: 8
+        Rule: 1
+      - Tile: -22580
+        Root: -22308
+        Direction: 2
+        Rule: 1
+      - Tile: -25324
+        Root: -22308
+        Direction: 8
+        Rule: 0
+      - Tile: -22856
+        Root: -21488
+        Direction: 4
+        Rule: 1
+      - Tile: -24496
+        Root: -21488
+        Direction: 1
+        Rule: 0
+      - Tile: -23128
+        Root: -22856
+        Direction: 1
+        Rule: 1
+      - Tile: -23400
+        Root: -23128
+        Direction: 4
+        Rule: 1
+      - Tile: -23672
+        Root: -23400
+        Direction: 4
+        Rule: 1
+      - Tile: -25600
+        Root: -23400
+        Direction: 1
+        Rule: 0
+      - Tile: -23948
+        Root: -22580
+        Direction: 8
+        Rule: 1
+      - Tile: -24220
+        Root: -23948
+        Direction: 8
+        Rule: 1
+      Roots:
+      - Key: 0
+        Position: {x: 0, y: 0, z: 0}
+        Rotation: {x: 0, y: 0, z: 0}
+      MapSize: 2
+      StarsRequired: 4
+      Target: 2000
+      FinishCondition: 0
     _movesFinishConditions:
     - _id: Chromosome
       _limit: 20
     _timeFinishConditions:
     - _id: Snake
+      _limit: 45
+    - _id: Jumpers
       _limit: 45
   _gameMap:
     Id: Game Map
@@ -239,6 +311,30 @@ MonoBehaviour:
       Root: -186234
       Direction: 2
       Rule: 1
+    - Tile: -28892
+      Root: -182758
+      Direction: 4
+      Rule: 1
+    - Tile: -29006
+      Root: -28892
+      Direction: 4
+      Rule: 1
+    - Tile: -29120
+      Root: -29006
+      Direction: 4
+      Rule: 1
+    - Tile: -29238
+      Root: -29120
+      Direction: 4
+      Rule: 2
+    - Tile: -29356
+      Root: -29238
+      Direction: 4
+      Rule: 1
+    - Tile: -29474
+      Root: -29356
+      Direction: 4
+      Rule: 0
     Roots:
     - Key: -182758
       Position: {x: 0, y: 0, z: 0}
@@ -249,3 +345,5 @@ MonoBehaviour:
       Hash: -182758
     - Id: Snake
       Hash: -209514
+    - Id: Jumpers
+      Hash: -29474
