@@ -47,6 +47,7 @@ namespace TilesWalk.Tile.Level
 			}
 
 			_tileLevelMap.State = TileLevelMapState.RemovingTile;
+			var isPowerUpTile = _controller.Tile.PowerUp != TilePowerUp.None;
 
 			_controller.Remove();
 			var shufflePath = _controller.Tile.ShortestPathToLeaf;
@@ -57,7 +58,6 @@ namespace TilesWalk.Tile.Level
 			ParticleSystems["Remove"].Play();
 
 			var tiles = shufflePath.Select(x => _tileLevelMap.GetTileView(x)).ToList();
-			var isPowerUpTile = _controller.Tile.PowerUp != TilePowerUp.None;
 
 			// this structure with backup the origin position and rotations
 			var backup = ShufflePath(tiles);

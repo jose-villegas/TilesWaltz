@@ -268,6 +268,12 @@ namespace TilesWalk.Building.LevelEditor
 		{
 			if (IsSelected.Value)
 			{
+				// first check if the tile had a ghost neighbor
+				if (HasGhost)
+				{
+					OnCancelClick(Unit.Default);
+				}
+
 				var neighbors = _controller.Tile.Neighbors;
 
 				foreach (var neighbor in neighbors)

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4db1560a02e1e48a2df94c781726ae, type: 3}
   m_Name: GameMapsInstaller
   m_EditorClassIdentifier: 
-  _name: Jumpers
-  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-21216,"Root":0,"Direction":1,"Rule":1},{"Tile":-21764,"Root":0,"Direction":2,"Rule":1},{"Tile":-24772,"Root":0,"Direction":8,"Rule":0},{"Tile":-21488,"Root":-21216,"Direction":4,"Rule":1},{"Tile":-22036,"Root":-21764,"Direction":8,"Rule":1},{"Tile":-25048,"Root":-21764,"Direction":2,"Rule":2},{"Tile":-22308,"Root":-22036,"Direction":8,"Rule":1},{"Tile":-22580,"Root":-22308,"Direction":2,"Rule":1},{"Tile":-25324,"Root":-22308,"Direction":8,"Rule":0},{"Tile":-22856,"Root":-21488,"Direction":4,"Rule":1},{"Tile":-24496,"Root":-21488,"Direction":1,"Rule":0},{"Tile":-23128,"Root":-22856,"Direction":1,"Rule":1},{"Tile":-23400,"Root":-23128,"Direction":4,"Rule":1},{"Tile":-23672,"Root":-23400,"Direction":4,"Rule":1},{"Tile":-25600,"Root":-23400,"Direction":1,"Rule":0},{"Tile":-23948,"Root":-22580,"Direction":8,"Rule":1},{"Tile":-24220,"Root":-23948,"Direction":8,"Rule":1}],"Roots":[{"Key":0,"Position":{"x":0.0,"y":0.0,"z":0.0},"Rotation":{"x":0.0,"y":0.0,"z":0.0}}],"MapSize":0}'
+  _name: Trickster
+  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-90248,"Root":0,"Direction":1,"Rule":1},{"Tile":-90520,"Root":-90248,"Direction":8,"Rule":1},{"Tile":-90792,"Root":-90520,"Direction":2,"Rule":1},{"Tile":-91068,"Root":-90792,"Direction":2,"Rule":1},{"Tile":-91340,"Root":-91068,"Direction":4,"Rule":1},{"Tile":-91614,"Root":-91340,"Direction":4,"Rule":1},{"Tile":-91886,"Root":-91614,"Direction":1,"Rule":1},{"Tile":-92160,"Root":-91886,"Direction":1,"Rule":1},{"Tile":-92526,"Root":-92160,"Direction":4,"Rule":1},{"Tile":-92798,"Root":-92526,"Direction":2,"Rule":1},{"Tile":-93072,"Root":-92798,"Direction":2,"Rule":1},{"Tile":-93346,"Root":-93072,"Direction":2,"Rule":1},{"Tile":-93618,"Root":-93346,"Direction":8,"Rule":1},{"Tile":-93892,"Root":-93618,"Direction":8,"Rule":1},{"Tile":-94166,"Root":-93892,"Direction":8,"Rule":1},{"Tile":-94440,"Root":-94166,"Direction":8,"Rule":1},{"Tile":-94712,"Root":-94440,"Direction":1,"Rule":1},{"Tile":-94986,"Root":-94712,"Direction":1,"Rule":1},{"Tile":-95260,"Root":-94986,"Direction":1,"Rule":1},{"Tile":-95534,"Root":-95260,"Direction":1,"Rule":1},{"Tile":-95806,"Root":-95534,"Direction":4,"Rule":1},{"Tile":-96080,"Root":-95806,"Direction":4,"Rule":1},{"Tile":-96354,"Root":-96080,"Direction":4,"Rule":1},{"Tile":-96628,"Root":-96354,"Direction":4,"Rule":1}],"Roots":[{"Key":0,"Position":{"x":0.0,"y":0.0,"z":0.0},"Rotation":{"x":0.0,"y":0.0,"z":0.0}}],"MapSize":0}'
   _condition: 0
-  _seconds: 45
-  _moves: 20
+  _seconds: 30
+  _moves: 25
   _mapSize: 2
-  _starsRequired: 4
-  _targetPoints: 2000
+  _starsRequired: 10
+  _targetPoints: 2800
   _gameLevels:
     _availableMaps:
     - Id: Chromosome
@@ -204,7 +204,7 @@ MonoBehaviour:
         Rotation: {x: 0, y: 0, z: 0}
       MapSize: 3
       StarsRequired: 1
-      Target: 3000
+      Target: 3250
       FinishCondition: 0
     - Id: Jumpers
       Instructions:
@@ -282,16 +282,220 @@ MonoBehaviour:
         Rotation: {x: 0, y: 0, z: 0}
       MapSize: 2
       StarsRequired: 4
-      Target: 2000
+      Target: 8000
+      FinishCondition: 0
+    - Id: Gecko
+      Instructions:
+      - Tile: -53038
+        Root: 0
+        Direction: 4
+        Rule: 1
+      - Tile: -54402
+        Root: 0
+        Direction: 8
+        Rule: 1
+      - Tile: -53310
+        Root: -53038
+        Direction: 4
+        Rule: 1
+      - Tile: -53582
+        Root: -53310
+        Direction: 4
+        Rule: 1
+      - Tile: -57422
+        Root: -53310
+        Direction: 2
+        Rule: 1
+      - Tile: -57970
+        Root: -53310
+        Direction: 1
+        Rule: 1
+      - Tile: -53854
+        Root: -53582
+        Direction: 4
+        Rule: 0
+      - Tile: -60160
+        Root: -53854
+        Direction: 4
+        Rule: 2
+      - Tile: -54674
+        Root: -54402
+        Direction: 8
+        Rule: 1
+      - Tile: -54946
+        Root: -54674
+        Direction: 8
+        Rule: 1
+      - Tile: -56038
+        Root: -54674
+        Direction: 2
+        Rule: 2
+      - Tile: -59072
+        Root: -54674
+        Direction: 1
+        Rule: 1
+      - Tile: -55218
+        Root: -54946
+        Direction: 8
+        Rule: 2
+      - Tile: -55490
+        Root: -55218
+        Direction: 8
+        Rule: 0
+      - Tile: -55762
+        Root: -55490
+        Direction: 8
+        Rule: 1
+      - Tile: -57694
+        Root: -57422
+        Direction: 4
+        Rule: 2
+      - Tile: -58242
+        Root: -57970
+        Direction: 1
+        Rule: 2
+      - Tile: -58524
+        Root: -56038
+        Direction: 2
+        Rule: 1
+      - Tile: -58796
+        Root: -58524
+        Direction: 4
+        Rule: 2
+      - Tile: -59344
+        Root: -59072
+        Direction: 1
+        Rule: 1
+      - Tile: -59616
+        Root: -59344
+        Direction: 1
+        Rule: 2
+      Roots:
+      - Key: 0
+        Position: {x: 0, y: 0, z: 0}
+        Rotation: {x: 0, y: 0, z: 0}
+      MapSize: 2
+      StarsRequired: 9
+      Target: 3000
+      FinishCondition: 1
+    - Id: Trickster
+      Instructions:
+      - Tile: -90248
+        Root: 0
+        Direction: 1
+        Rule: 1
+      - Tile: -90520
+        Root: -90248
+        Direction: 8
+        Rule: 1
+      - Tile: -90792
+        Root: -90520
+        Direction: 2
+        Rule: 1
+      - Tile: -91068
+        Root: -90792
+        Direction: 2
+        Rule: 1
+      - Tile: -91340
+        Root: -91068
+        Direction: 4
+        Rule: 1
+      - Tile: -91614
+        Root: -91340
+        Direction: 4
+        Rule: 1
+      - Tile: -91886
+        Root: -91614
+        Direction: 1
+        Rule: 1
+      - Tile: -92160
+        Root: -91886
+        Direction: 1
+        Rule: 1
+      - Tile: -92526
+        Root: -92160
+        Direction: 4
+        Rule: 1
+      - Tile: -92798
+        Root: -92526
+        Direction: 2
+        Rule: 1
+      - Tile: -93072
+        Root: -92798
+        Direction: 2
+        Rule: 1
+      - Tile: -93346
+        Root: -93072
+        Direction: 2
+        Rule: 1
+      - Tile: -93618
+        Root: -93346
+        Direction: 8
+        Rule: 1
+      - Tile: -93892
+        Root: -93618
+        Direction: 8
+        Rule: 1
+      - Tile: -94166
+        Root: -93892
+        Direction: 8
+        Rule: 1
+      - Tile: -94440
+        Root: -94166
+        Direction: 8
+        Rule: 1
+      - Tile: -94712
+        Root: -94440
+        Direction: 1
+        Rule: 1
+      - Tile: -94986
+        Root: -94712
+        Direction: 1
+        Rule: 1
+      - Tile: -95260
+        Root: -94986
+        Direction: 1
+        Rule: 1
+      - Tile: -95534
+        Root: -95260
+        Direction: 1
+        Rule: 1
+      - Tile: -95806
+        Root: -95534
+        Direction: 4
+        Rule: 1
+      - Tile: -96080
+        Root: -95806
+        Direction: 4
+        Rule: 1
+      - Tile: -96354
+        Root: -96080
+        Direction: 4
+        Rule: 1
+      - Tile: -96628
+        Root: -96354
+        Direction: 4
+        Rule: 1
+      Roots:
+      - Key: 0
+        Position: {x: 0, y: 0, z: 0}
+        Rotation: {x: 0, y: 0, z: 0}
+      MapSize: 2
+      StarsRequired: 10
+      Target: 2800
       FinishCondition: 0
     _movesFinishConditions:
     - _id: Chromosome
       _limit: 20
+    - _id: Gecko
+      _limit: 25
     _timeFinishConditions:
     - _id: Snake
       _limit: 45
     - _id: Jumpers
       _limit: 45
+    - _id: Trickster
+      _limit: 30
   _gameMap:
     Id: Game Map
     Instructions:
@@ -299,29 +503,29 @@ MonoBehaviour:
       Root: -182758
       Direction: 2
       Rule: 1
-    - Tile: -186120
-      Root: -186006
-      Direction: 2
-      Rule: 1
-    - Tile: -186234
-      Root: -186120
-      Direction: 2
-      Rule: 1
-    - Tile: -209514
-      Root: -186234
-      Direction: 2
-      Rule: 1
     - Tile: -28892
       Root: -182758
       Direction: 4
+      Rule: 1
+    - Tile: -186120
+      Root: -186006
+      Direction: 2
       Rule: 1
     - Tile: -29006
       Root: -28892
       Direction: 4
       Rule: 1
+    - Tile: -186234
+      Root: -186120
+      Direction: 2
+      Rule: 1
     - Tile: -29120
       Root: -29006
       Direction: 4
+      Rule: 1
+    - Tile: -209514
+      Root: -186234
+      Direction: 2
       Rule: 1
     - Tile: -29238
       Root: -29120
@@ -335,6 +539,30 @@ MonoBehaviour:
       Root: -29356
       Direction: 4
       Rule: 0
+    - Tile: -99240
+      Root: -182758
+      Direction: 8
+      Rule: 1
+    - Tile: -99354
+      Root: -99240
+      Direction: 8
+      Rule: 1
+    - Tile: -99480
+      Root: -99354
+      Direction: 8
+      Rule: 2
+    - Tile: -99598
+      Root: -99480
+      Direction: 8
+      Rule: 1
+    - Tile: -99712
+      Root: -99598
+      Direction: 8
+      Rule: 1
+    - Tile: -99834
+      Root: -99712
+      Direction: 8
+      Rule: 0
     Roots:
     - Key: -182758
       Position: {x: 0, y: 0, z: 0}
@@ -347,3 +575,5 @@ MonoBehaviour:
       Hash: -209514
     - Id: Jumpers
       Hash: -29474
+    - Id: Gecko
+      Hash: -99834
