@@ -6,6 +6,7 @@ using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Installer;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
 #if UNITY_EDITOR
@@ -86,6 +87,15 @@ namespace TilesWalk.Map.Tile
 						Id = x.Value.LevelId,
 						Hash = TileToHash[x.Value]
 					}).ToList();
+				// update root positions
+				for (var index = 0; index < _map.Roots.Count; index++)
+				{
+					var rootTile = _map.Roots[index];
+					var view = HashToTile[rootTile.Key];
+
+					_map.Roots[index].Position = view.transform.position;
+					_map.Roots[index].Rotation = view.transform.eulerAngles;
+				}
 
 				maps.GameMap = _map;
 				EditorUtility.SetDirty(maps);

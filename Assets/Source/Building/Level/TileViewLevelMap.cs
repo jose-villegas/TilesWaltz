@@ -197,6 +197,7 @@ namespace TilesWalk.Building.Level
 			_map.Instructions.RemoveAll(x => x.Tile == hash);
 			_map.Instructions.RemoveAll(x => x.Root == hash);
 
+			// in case of removing a root and its neighbor pass to be roots
 			if (tile.Controller.Tile.Root)
 			{
 				var index = _map.Roots.FindIndex(x => x.Key == hash);
@@ -232,9 +233,14 @@ namespace TilesWalk.Building.Level
 			}
 
 			// remove all instructions that refer to this tile
-			if (!Insertions.TryGetValue(hash, out var instructions)) return;
-
 			Insertions.Remove(hash);
+
+			foreach (var insertion in Insertions.ToList())
+			{
+				// remove these related entries
+				insertion.Value.RemoveAll(x => x.Root == hash);
+				insertion.Value.RemoveAll(x => x.Tile == hash);
+			}
 		}
 
 
@@ -252,7 +258,6 @@ namespace TilesWalk.Building.Level
 		public void GenerateInstructions()
 		{
 			var instr = Insertions.Values.SelectMany(x => x).ToList();
-			var hashes = TileToHash.Values.ToList();
 
 			var map = new LevelMap()
 			{

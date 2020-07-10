@@ -61,6 +61,12 @@ namespace TilesWalk.Gameplay.Installer
 		public void Insert()
 		{
 			var map = JsonConvert.DeserializeObject<LevelMap>(_instructions);
+
+			if (_gameLevels.Exist(_name))
+			{
+				Debug.LogWarning("A map with this id already exists, replacing...");
+			}
+
 			map.Id = _name;
 			map.MapSize = _mapSize;
 			map.FinishCondition = _condition;

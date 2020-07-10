@@ -182,6 +182,8 @@ namespace TilesWalk.Building.LevelEditor
 					t += Time.deltaTime;
 					yield return null;
 				}
+
+				transform.position = target;
 			}
 
 			Transform childTrans = transform.Find("WireBox");
