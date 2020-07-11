@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4db1560a02e1e48a2df94c781726ae, type: 3}
   m_Name: GameMapsInstaller
   m_EditorClassIdentifier: 
-  _name: Tree
-  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-276914,"Root":0,"Direction":4,"Rule":1},{"Tile":-278282,"Root":0,"Direction":8,"Rule":1},{"Tile":-277186,"Root":-276914,"Direction":1,"Rule":1},{"Tile":-277734,"Root":-276914,"Direction":2,"Rule":1},{"Tile":-281306,"Root":-276914,"Direction":4,"Rule":1},{"Tile":-277458,"Root":-277186,"Direction":1,"Rule":1},{"Tile":-278006,"Root":-277734,"Direction":2,"Rule":1},{"Tile":-278554,"Root":-278282,"Direction":2,"Rule":1},{"Tile":-279102,"Root":-278282,"Direction":1,"Rule":1},{"Tile":-279666,"Root":-278282,"Direction":8,"Rule":1},{"Tile":-278826,"Root":-278554,"Direction":2,"Rule":1},{"Tile":-279374,"Root":-279102,"Direction":1,"Rule":1},{"Tile":-279938,"Root":-279666,"Direction":8,"Rule":1},{"Tile":-280210,"Root":-279938,"Direction":2,"Rule":1},{"Tile":-280758,"Root":-279938,"Direction":1,"Rule":1},{"Tile":-280482,"Root":-280210,"Direction":2,"Rule":1},{"Tile":-281030,"Root":-280758,"Direction":1,"Rule":1},{"Tile":-281578,"Root":-281306,"Direction":4,"Rule":1},{"Tile":-281850,"Root":-281578,"Direction":1,"Rule":1},{"Tile":-282398,"Root":-281578,"Direction":2,"Rule":1},{"Tile":-282712,"Root":-281578,"Direction":4,"Rule":1}],"Roots":[{"Key":0,"Position":{"x":0.0,"y":0.0,"z":0.0},"Rotation":{"x":0.0,"y":0.0,"z":0.0}}],"MapSize":0}'
+  _name: Knot
+  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-268038,"Root":-267484,"Direction":1,"Rule":1},{"Tile":-268310,"Root":-268038,"Direction":1,"Rule":0},{"Tile":-268582,"Root":-268310,"Direction":1,"Rule":1},{"Tile":-268854,"Root":-268582,"Direction":1,"Rule":1},{"Tile":-269126,"Root":-268854,"Direction":1,"Rule":0},{"Tile":-269398,"Root":-269126,"Direction":1,"Rule":1},{"Tile":-269670,"Root":-269398,"Direction":1,"Rule":1},{"Tile":-269942,"Root":-269670,"Direction":1,"Rule":0},{"Tile":-270214,"Root":-269942,"Direction":1,"Rule":1},{"Tile":-270486,"Root":-270214,"Direction":1,"Rule":1},{"Tile":-270758,"Root":-270486,"Direction":1,"Rule":1},{"Tile":-271030,"Root":-270758,"Direction":1,"Rule":0},{"Tile":-271302,"Root":-271030,"Direction":1,"Rule":1},{"Tile":-272402,"Root":-272130,"Direction":4,"Rule":1},{"Tile":-272130,"Root":-271850,"Direction":4,"Rule":1},{"Tile":-272674,"Root":-272402,"Direction":4,"Rule":1},{"Tile":-272946,"Root":-272674,"Direction":4,"Rule":2},{"Tile":-273218,"Root":-272946,"Direction":4,"Rule":1},{"Tile":-273490,"Root":-273218,"Direction":4,"Rule":1},{"Tile":-273762,"Root":-273490,"Direction":4,"Rule":2},{"Tile":-274310,"Root":-273762,"Direction":4,"Rule":1},{"Tile":-274582,"Root":-274310,"Direction":4,"Rule":1},{"Tile":-274854,"Root":-274582,"Direction":4,"Rule":2},{"Tile":-275126,"Root":-274854,"Direction":4,"Rule":1},{"Tile":-275398,"Root":-275126,"Direction":4,"Rule":2},{"Tile":-275670,"Root":-275398,"Direction":4,"Rule":1}],"Roots":[{"Key":-267484,"Position":{"x":-1.0,"y":0.0,"z":0.0},"Rotation":{"x":0.0,"y":0.0,"z":0.0}},{"Key":-271850,"Position":{"x":0.9999999,"y":1.30000007,"z":0.0},"Rotation":{"x":0.0,"y":0.0,"z":180.0}}],"MapSize":0}'
   _condition: 1
-  _seconds: 30
-  _moves: 25
-  _mapSize: 3
-  _starsRequired: 12
-  _targetPoints: 3000
+  _seconds: 60
+  _moves: 20
+  _mapSize: 0
+  _starsRequired: 15
+  _targetPoints: 2200
   _gameLevels:
     _availableMaps:
     - Id: Chromosome
@@ -578,6 +578,405 @@ MonoBehaviour:
       StarsRequired: 12
       Target: 3000
       FinishCondition: 1
+    - Id: Spine
+      Instructions:
+      - Tile: -224262
+        Root: 0
+        Direction: 1
+        Rule: 1
+      - Tile: -226180
+        Root: 0
+        Direction: 2
+        Rule: 1
+      - Tile: -224544
+        Root: -224262
+        Direction: 1
+        Rule: 0
+      - Tile: -224816
+        Root: -224544
+        Direction: 1
+        Rule: 1
+      - Tile: -225088
+        Root: -224816
+        Direction: 1
+        Rule: 1
+      - Tile: -230544
+        Root: -224816
+        Direction: 8
+        Rule: 1
+      - Tile: -225360
+        Root: -225088
+        Direction: 1
+        Rule: 1
+      - Tile: -225632
+        Root: -225360
+        Direction: 1
+        Rule: 1
+      - Tile: -233000
+        Root: -225360
+        Direction: 4
+        Rule: 1
+      - Tile: -225904
+        Root: -225632
+        Direction: 1
+        Rule: 1
+      - Tile: -226452
+        Root: -226180
+        Direction: 2
+        Rule: 2
+      - Tile: -226724
+        Root: -226452
+        Direction: 2
+        Rule: 1
+      - Tile: -226996
+        Root: -226724
+        Direction: 2
+        Rule: 1
+      - Tile: -228088
+        Root: -226724
+        Direction: 8
+        Rule: 1
+      - Tile: -227268
+        Root: -226996
+        Direction: 2
+        Rule: 1
+      - Tile: -227540
+        Root: -227268
+        Direction: 2
+        Rule: 1
+      - Tile: -235456
+        Root: -227268
+        Direction: 4
+        Rule: 1
+      - Tile: -227812
+        Root: -227540
+        Direction: 2
+        Rule: 1
+      - Tile: -228360
+        Root: -228088
+        Direction: 8
+        Rule: 2
+      - Tile: -228632
+        Root: -228360
+        Direction: 8
+        Rule: 1
+      - Tile: -228904
+        Root: -228632
+        Direction: 8
+        Rule: 2
+      - Tile: -229176
+        Root: -228904
+        Direction: 8
+        Rule: 1
+      - Tile: -229448
+        Root: -229176
+        Direction: 8
+        Rule: 1
+      - Tile: -229720
+        Root: -229448
+        Direction: 8
+        Rule: 2
+      - Tile: -229992
+        Root: -229720
+        Direction: 8
+        Rule: 1
+      - Tile: -230264
+        Root: -229992
+        Direction: 8
+        Rule: 2
+      - Tile: -230816
+        Root: -230544
+        Direction: 8
+        Rule: 0
+      - Tile: -231088
+        Root: -230816
+        Direction: 8
+        Rule: 1
+      - Tile: -231360
+        Root: -231088
+        Direction: 8
+        Rule: 0
+      - Tile: -231632
+        Root: -231360
+        Direction: 8
+        Rule: 1
+      - Tile: -231904
+        Root: -231632
+        Direction: 8
+        Rule: 1
+      - Tile: -232176
+        Root: -231904
+        Direction: 8
+        Rule: 0
+      - Tile: -232448
+        Root: -232176
+        Direction: 8
+        Rule: 1
+      - Tile: -232720
+        Root: -232448
+        Direction: 8
+        Rule: 0
+      - Tile: -233272
+        Root: -233000
+        Direction: 4
+        Rule: 0
+      - Tile: -233544
+        Root: -233272
+        Direction: 4
+        Rule: 1
+      - Tile: -233816
+        Root: -233544
+        Direction: 4
+        Rule: 0
+      - Tile: -234088
+        Root: -233816
+        Direction: 4
+        Rule: 1
+      - Tile: -234360
+        Root: -234088
+        Direction: 4
+        Rule: 1
+      - Tile: -234632
+        Root: -234360
+        Direction: 4
+        Rule: 0
+      - Tile: -234904
+        Root: -234632
+        Direction: 4
+        Rule: 1
+      - Tile: -235176
+        Root: -234904
+        Direction: 4
+        Rule: 0
+      - Tile: -235728
+        Root: -235456
+        Direction: 4
+        Rule: 2
+      - Tile: -236000
+        Root: -235728
+        Direction: 4
+        Rule: 1
+      - Tile: -236272
+        Root: -236000
+        Direction: 4
+        Rule: 2
+      - Tile: -236544
+        Root: -236272
+        Direction: 4
+        Rule: 1
+      - Tile: -236816
+        Root: -236544
+        Direction: 4
+        Rule: 1
+      - Tile: -237088
+        Root: -236816
+        Direction: 4
+        Rule: 2
+      - Tile: -237360
+        Root: -237088
+        Direction: 4
+        Rule: 1
+      - Tile: -237632
+        Root: -237360
+        Direction: 4
+        Rule: 2
+      - Tile: -237912
+        Root: -225904
+        Direction: 8
+        Rule: 1
+      - Tile: -238184
+        Root: -237912
+        Direction: 8
+        Rule: 0
+      - Tile: -238456
+        Root: -238184
+        Direction: 8
+        Rule: 1
+      - Tile: -238728
+        Root: -238456
+        Direction: 8
+        Rule: 0
+      - Tile: -239000
+        Root: -238728
+        Direction: 8
+        Rule: 1
+      - Tile: -239272
+        Root: -239000
+        Direction: 8
+        Rule: 1
+      - Tile: -239544
+        Root: -239272
+        Direction: 8
+        Rule: 0
+      - Tile: -239816
+        Root: -239544
+        Direction: 8
+        Rule: 1
+      - Tile: -240088
+        Root: -239816
+        Direction: 8
+        Rule: 0
+      - Tile: -240368
+        Root: -227812
+        Direction: 8
+        Rule: 1
+      - Tile: -240640
+        Root: -240368
+        Direction: 8
+        Rule: 2
+      - Tile: -240912
+        Root: -240640
+        Direction: 8
+        Rule: 1
+      - Tile: -241184
+        Root: -240912
+        Direction: 8
+        Rule: 2
+      - Tile: -241456
+        Root: -241184
+        Direction: 8
+        Rule: 1
+      - Tile: -241728
+        Root: -241456
+        Direction: 8
+        Rule: 1
+      - Tile: -242000
+        Root: -241728
+        Direction: 8
+        Rule: 2
+      - Tile: -242272
+        Root: -242000
+        Direction: 8
+        Rule: 1
+      - Tile: -242544
+        Root: -242272
+        Direction: 8
+        Rule: 2
+      Roots:
+      - Key: 0
+        Position: {x: 0, y: 0, z: 0}
+        Rotation: {x: 0, y: 0, z: 0}
+      MapSize: 2
+      StarsRequired: 30
+      Target: 5000
+      FinishCondition: 0
+    - Id: Knot
+      Instructions:
+      - Tile: -268038
+        Root: -267484
+        Direction: 1
+        Rule: 1
+      - Tile: -268310
+        Root: -268038
+        Direction: 1
+        Rule: 0
+      - Tile: -268582
+        Root: -268310
+        Direction: 1
+        Rule: 1
+      - Tile: -268854
+        Root: -268582
+        Direction: 1
+        Rule: 1
+      - Tile: -269126
+        Root: -268854
+        Direction: 1
+        Rule: 0
+      - Tile: -269398
+        Root: -269126
+        Direction: 1
+        Rule: 1
+      - Tile: -269670
+        Root: -269398
+        Direction: 1
+        Rule: 1
+      - Tile: -269942
+        Root: -269670
+        Direction: 1
+        Rule: 0
+      - Tile: -270214
+        Root: -269942
+        Direction: 1
+        Rule: 1
+      - Tile: -270486
+        Root: -270214
+        Direction: 1
+        Rule: 1
+      - Tile: -270758
+        Root: -270486
+        Direction: 1
+        Rule: 1
+      - Tile: -271030
+        Root: -270758
+        Direction: 1
+        Rule: 0
+      - Tile: -271302
+        Root: -271030
+        Direction: 1
+        Rule: 1
+      - Tile: -272402
+        Root: -272130
+        Direction: 4
+        Rule: 1
+      - Tile: -272130
+        Root: -271850
+        Direction: 4
+        Rule: 1
+      - Tile: -272674
+        Root: -272402
+        Direction: 4
+        Rule: 1
+      - Tile: -272946
+        Root: -272674
+        Direction: 4
+        Rule: 2
+      - Tile: -273218
+        Root: -272946
+        Direction: 4
+        Rule: 1
+      - Tile: -273490
+        Root: -273218
+        Direction: 4
+        Rule: 1
+      - Tile: -273762
+        Root: -273490
+        Direction: 4
+        Rule: 2
+      - Tile: -274310
+        Root: -273762
+        Direction: 4
+        Rule: 1
+      - Tile: -274582
+        Root: -274310
+        Direction: 4
+        Rule: 1
+      - Tile: -274854
+        Root: -274582
+        Direction: 4
+        Rule: 2
+      - Tile: -275126
+        Root: -274854
+        Direction: 4
+        Rule: 1
+      - Tile: -275398
+        Root: -275126
+        Direction: 4
+        Rule: 2
+      - Tile: -275670
+        Root: -275398
+        Direction: 4
+        Rule: 1
+      Roots:
+      - Key: -267484
+        Position: {x: -1, y: 0, z: 0}
+        Rotation: {x: 0, y: 0, z: 0}
+      - Key: -271850
+        Position: {x: 0.9999999, y: 1.3000001, z: 0}
+        Rotation: {x: 0, y: 0, z: 180}
+      MapSize: 0
+      StarsRequired: 15
+      Target: 2200
+      FinishCondition: 1
     _movesFinishConditions:
     - _id: Chromosome
       _limit: 20
@@ -585,6 +984,8 @@ MonoBehaviour:
       _limit: 25
     - _id: Tree
       _limit: 25
+    - _id: Knot
+      _limit: 20
     _timeFinishConditions:
     - _id: Snake
       _limit: 45
@@ -592,6 +993,8 @@ MonoBehaviour:
       _limit: 45
     - _id: Trickster
       _limit: 30
+    - _id: Spine
+      _limit: 60
   _gameMap:
     Id: Game Map
     Instructions:
@@ -647,6 +1050,10 @@ MonoBehaviour:
       Root: -209514
       Direction: 8
       Rule: 1
+    - Tile: -297758
+      Root: -209514
+      Direction: 2
+      Rule: 1
     - Tile: -29356
       Root: -29238
       Direction: 4
@@ -659,6 +1066,10 @@ MonoBehaviour:
       Root: -173726
       Direction: 8
       Rule: 1
+    - Tile: -297876
+      Root: -297758
+      Direction: 2
+      Rule: 2
     - Tile: -29474
       Root: -29356
       Direction: 4
@@ -671,38 +1082,46 @@ MonoBehaviour:
       Root: -173840
       Direction: 8
       Rule: 1
-    - Tile: -178522
-      Root: -173954
-      Direction: 8
-      Rule: 2
-    - Tile: -178640
-      Root: -178522
-      Direction: 8
-      Rule: 0
-    - Tile: -178762
-      Root: -178640
-      Direction: 2
-      Rule: 1
-    - Tile: -297758
-      Root: -209514
-      Direction: 2
-      Rule: 1
-    - Tile: -297876
-      Root: -297758
-      Direction: 2
-      Rule: 2
     - Tile: -297994
       Root: -297876
       Direction: 2
       Rule: 1
+    - Tile: -178522
+      Root: -173954
+      Direction: 8
+      Rule: 2
     - Tile: -298112
       Root: -297994
       Direction: 2
       Rule: 0
-    - Tile: -298234
+    - Tile: -178640
+      Root: -178522
+      Direction: 8
+      Rule: 0
+    - Tile: -214180
       Root: -298112
+      Direction: 2
+      Rule: 1
+    - Tile: -279890
+      Root: -214180
       Direction: 8
       Rule: 1
+    - Tile: -280004
+      Root: -279890
+      Direction: 8
+      Rule: 1
+    - Tile: -280122
+      Root: -280004
+      Direction: 8
+      Rule: 2
+    - Tile: -280240
+      Root: -280122
+      Direction: 8
+      Rule: 1
+    - Tile: -280358
+      Root: -280240
+      Direction: 8
+      Rule: 0
     Roots:
     - Key: -182758
       Position: {x: 0, y: 0, z: 0}
@@ -718,6 +1137,8 @@ MonoBehaviour:
     - Id: Gecko
       Hash: -99834
     - Id: Trickster
-      Hash: -178762
+      Hash: -178640
     - Id: Tree
-      Hash: -298234
+      Hash: -214180
+    - Id: Knot
+      Hash: -280358

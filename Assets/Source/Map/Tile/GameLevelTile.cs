@@ -6,6 +6,7 @@ using TilesWalk.Gameplay.Input;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.General;
 using TilesWalk.General.FX;
+using TilesWalk.General.UI;
 using TilesWalk.Map.Bridge;
 using TilesWalk.Map.Scaffolding;
 using TilesWalk.Navigation.UI;
@@ -23,6 +24,7 @@ namespace TilesWalk.Map.Tile
 		[Inject] private LevelStateTileMaterialHandler _colorHandler;
 		[Inject] private LevelStarsTileMaterialHandler _starsColorHandler;
 		[Inject] private GameEventsHandler _gameEvents;
+        [Inject] private CanvasHoverListener _canvasHover;
 
 		private MeshRenderer _meshRenderer;
 		private ParticleSystemsCollector _particleSystems;
@@ -53,6 +55,8 @@ namespace TilesWalk.Map.Tile
 		private void OnMouseDown()
 		{
 			if (_disabledClick) return;
+
+            if (_canvasHover.IsUIOverride) return;
 
 			OnMapTileClick();
 		}
