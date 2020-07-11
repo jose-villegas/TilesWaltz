@@ -1,4 +1,5 @@
 ﻿using TilesWalk.Building.Level;
+using TilesWalk.General.Display;
 using TilesWalk.General.Patterns;
 using UniRx;
 using UnityEngine;
@@ -13,25 +14,26 @@ namespace TilesWalk.Gameplay.Level
 		[SerializeField] private Slider _mapSizeSlider;
 
 		[Inject] private TileViewLevelMap _tileLevelMap;
+        [Inject] private GameDisplayConfiguration _displayConfiguration;
+
 		private float _originalSize;
 
 		private void Awake()
 		{
-			_originalSize = Component.orthographicSize;
 			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
 
 			if (_mapSizeSlider != null)
 			{
 				_mapSizeSlider.OnValueChangedAsObservable().Subscribe(val =>
 				{
-					Component.orthographicSize = _originalSize + val;
+					Component.orthographicSize = _displayConfiguration.GetOrthogonalSize((int)val);
 				}).AddTo(this);
 			}
 		}
 
 		private void OnLevelMapLoaded(LevelMap map)
 		{
-			Component.orthographicSize = _originalSize + map.MapSize;
+			Component.orthographicSize = _displayConfiguration.GetOrthogonalSize(map.MapSize);
 		}
 	}
 }

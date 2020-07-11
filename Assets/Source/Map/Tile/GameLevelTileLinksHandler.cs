@@ -184,12 +184,13 @@ namespace TilesWalk.Map.Tile
 										linkHandler._links = new List<LevelTileLink>();
 									}
 
-									if (!linkHandler.Links.Exists(x => x.Direction == pair.Key.Opposite()))
+									// here is the root direction instead of the pair, as the link source can differ
+									if (!linkHandler.Links.Exists(x => x.Direction == root.Key.Opposite()))
 									{
 										var reverse = new List<GameObject>(currentLink.Path);
 										reverse.Reverse();
 
-										linkHandler.Links.Add(new LevelTileLink(pair.Key.Opposite())
+										linkHandler.Links.Add(new LevelTileLink(root.Key.Opposite())
 										{
 											Path = reverse, Level = GetComponent<GameLevelTile>()
 										});

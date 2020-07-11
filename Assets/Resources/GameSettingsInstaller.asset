@@ -74,6 +74,7 @@ MonoBehaviour:
     _scalePopInTime: 0.1
     _powerUpPopInSequenceFactor: 0.5
     _targetTileTime: 0.15
+    _gridAnimationTime: 0.35
   _customLevelsSettings:
     _maximumUserMaps: 3
     _maximumImportedMaps: 3
@@ -130,3 +131,9 @@ MonoBehaviour:
       _match: 20
     - _color: {r: 0.62656003, g: 0.88110006, b: 0.97900003, a: 1}
       _match: 30
+  _displaySettings:
+    _displayOptions:
+    - _aspectRatio: {x: 9, y: 16}
+      _maxOrthogonalSize: 10
+    - _aspectRatio: {x: 9, y: 19}
+      _maxOrthogonalSize: 12
