@@ -17,6 +17,7 @@ namespace TilesWalk.Building.Level
 			Id = copyFrom.Id;
 			Instructions = new List<InsertionInstruction>(copyFrom.Instructions);
 			MapSize = copyFrom.MapSize;
+			Roots = new List<RootTile>(copyFrom.Roots);
 		}
 
 		public GenericMap()

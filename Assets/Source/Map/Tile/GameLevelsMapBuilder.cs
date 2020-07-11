@@ -228,9 +228,14 @@ namespace TilesWalk.Map.Tile
 			}
 
 			// remove all instructions that refer to this tile
-			if (!Insertions.TryGetValue(hash, out var instructions)) return;
-
 			Insertions.Remove(hash);
+
+			foreach (var insertion in Insertions.ToList())
+			{
+				// remove these related entries
+				insertion.Value.RemoveAll(x => x.Root == hash);
+				insertion.Value.RemoveAll(x => x.Tile == hash);
+			}
 		}
 
 		/// <summary>

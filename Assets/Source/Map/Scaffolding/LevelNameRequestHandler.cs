@@ -9,7 +9,6 @@ using Zenject;
 
 namespace TilesWalk.Map.Scaffolding
 {
-	[RequireComponent(typeof(IMapProvider))]
 	public class LevelNameRequestHandler : ObservableTriggerBase
 	{
 		[Inject] private MapProviderSolver _solver;
@@ -23,7 +22,11 @@ namespace TilesWalk.Map.Scaffolding
 		public string RawName
 		{
 			get => _levelName;
-			set => _levelName = value;
+			set
+			{
+				_levelName = value;
+				Name.Value = value;
+			}
 		}
 
 		private Subject<LevelMap> _onTileMapFound;

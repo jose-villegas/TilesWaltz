@@ -80,6 +80,10 @@ namespace TilesWalk.Building.LevelEditor.UI
 				}
 			}
 
+			_tileLevelMap.Map.FinishCondition = _movesToggle.isOn
+				? FinishCondition.MovesLimit
+				: FinishCondition.TimeLimit;
+
 			var map = new LevelMap(_tileLevelMap.Map);
 
 			if (_movesToggle.isOn)

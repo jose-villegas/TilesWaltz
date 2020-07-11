@@ -88,7 +88,7 @@ namespace TilesWalk.Building.Level
 			var listInstructions = new List<InsertionInstruction>();
 			var instructionSplits = instructions.Split('#');
 
-			for (int i = 1; i < instructionSplits.Length; i++)
+			for (int i = 0; i < instructionSplits.Length; i++)
 			{
 				var instructionSplit = instructionSplits[i].Split('$');
 				var root = int.Parse(instructionSplit[0]);
@@ -179,18 +179,17 @@ namespace TilesWalk.Building.Level
 			// remap to smaller ids since instance hash is usually used, we need to compress
 			// the data within 2700 characters
 			Dictionary<int, int> tileIdRemap = new Dictionary<int, int>();
-			var remapKey = 0;
 
 			foreach (var instruction in Instructions)
 			{
-				if (!tileIdRemap.TryGetValue(instruction.Root, out int val))
+				if (!tileIdRemap.TryGetValue(instruction.Root, out _))
 				{
-					tileIdRemap[instruction.Root] = remapKey++;
+					tileIdRemap[instruction.Root] = tileIdRemap.Count;
 				}
 
-				if (!tileIdRemap.TryGetValue(instruction.Tile, out val))
+				if (!tileIdRemap.TryGetValue(instruction.Tile, out _))
 				{
-					tileIdRemap[instruction.Root] = remapKey++;
+					tileIdRemap[instruction.Tile] = tileIdRemap.Count;
 				}
 			}
 

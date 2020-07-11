@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Map.General;
@@ -13,8 +14,9 @@ namespace TilesWalk.Building.Gallery.UI
 	{
 		[Inject] private DiContainer _container;
 		[Inject] private MapProviderSolver _solver;
-		[Inject(Optional = true)] private ImportLevelCanvas _importCanvas;
 		[SerializeField] private CustomLevelEntryCanvas _entry;
+
+		private Dictionary<string, CustomLevelEntryCanvas> _entries = new Dictionary<string, CustomLevelEntryCanvas>();
 
 		private void Start()
 		{
@@ -27,21 +29,38 @@ namespace TilesWalk.Building.Gallery.UI
 				var instance = _container.InstantiatePrefab(_entry.gameObject, transform);
 				var canvas = instance.GetComponent<CustomLevelEntryCanvas>();
 				canvas.name = map.Id;
-				canvas.LevelRequest.Name.Value = map.Id;
+				canvas.LevelRequest.RawName = map.Id;
+
+				_entries.Add(map.Id, canvas);
 			}
 
-			if (_importCanvas != null)
-			{
-				_importCanvas.OnNewLevelImportedAsObservable().Subscribe(OnNewLevelImported).AddTo(this);
-			}
+			_solver.Provider.Collection.OnLevelRemovedAsObservable().Subscribe(OnCollectionEntryRemoved).AddTo(this);
+			_solver.Provider.Collection.OnNewLevelInsertAsObservable().Subscribe(OnCollectionEntryInserted).AddTo(this);
 		}
 
-		private void OnNewLevelImported(Tuple<LevelMap, MapFinishCondition> map)
+		private void OnCollectionEntryInserted(LevelMap map)
 		{
+			// this meants the entry was replaced
+			if (_entries.TryGetValue(map.Id, out var canvas))
+			{
+				Destroy(canvas.gameObject);
+			}
+
 			var instance = _container.InstantiatePrefab(_entry.gameObject, transform);
-			var canvas = instance.GetComponent<CustomLevelEntryCanvas>();
-			canvas.name = map.Item1.Id;
-			canvas.LevelRequest.Name.Value = map.Item1.Id;
+			var newCanvas = instance.GetComponent<CustomLevelEntryCanvas>();
+			newCanvas.name = map.Id;
+			newCanvas.LevelRequest.RawName = map.Id;
+
+			_entries[map.Id] = newCanvas;
+		}
+
+		private void OnCollectionEntryRemoved(LevelMap map)
+		{
+			if (_entries.TryGetValue(map.Id, out var canvas))
+			{
+				Destroy(canvas.gameObject);
+				_entries.Remove(map.Id);
+			}
 		}
 	}
 }

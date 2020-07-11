@@ -150,8 +150,15 @@ namespace TilesWalk.Map.Tile
 			}
 		}
 
+		protected override void Start()
+		{
+			_gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused);
+			_gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed);
+		}
+
 		protected override void UpdateColor(Tuple<TilesWalk.Tile.Tile, TileColor> color)
 		{
+			// color setting will be handled by GameLevelsTilesInitializer
 		}
 
 		protected override void OnGameResumed(Unit u)

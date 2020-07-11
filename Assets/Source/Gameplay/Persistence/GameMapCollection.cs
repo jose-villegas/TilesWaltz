@@ -144,6 +144,9 @@ namespace TilesWalk.Gameplay.Persistence
 			if (MovesFinishConditions == null) _movesFinishConditions = new List<MovesFinishCondition>();
 			if (TimeFinishConditions == null) _timeFinishConditions = new List<TimeFinishCondition>();
 
+			// remove references to null
+			PruneNullValues();
+
 			var indexOf = _availableMaps.FindIndex(x => x.Id == map.Id);
 
 			// this means the level is already save so we are going to replace it instead
@@ -196,6 +199,14 @@ namespace TilesWalk.Gameplay.Persistence
 			}
 
 			_onNewLevelInsert?.OnNext(map);
+		}
+
+		private void PruneNullValues()
+		{
+			// prune null values
+			_movesFinishConditions.RemoveAll(x => x == null);
+			_timeFinishConditions.RemoveAll(x => x == null);
+			_availableMaps.RemoveAll(x => x == null);
 		}
 	}
 }

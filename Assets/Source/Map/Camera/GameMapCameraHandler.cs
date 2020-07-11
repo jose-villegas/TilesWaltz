@@ -25,6 +25,7 @@ namespace TilesWalk.Map.Camera
 
 		private Vector3 _initialPosition;
 		private IDisposable _lookAt;
+		private bool firstTime = true;
 
 		private void Awake()
 		{
@@ -89,6 +90,13 @@ namespace TilesWalk.Map.Camera
 
 		private IEnumerator GoToPosition(Vector3 position)
 		{
+			if (firstTime)
+			{
+				transform.position = position;
+				firstTime = false;
+				yield break;
+			}
+
 			var initial = transform.position;
 			var t = 0f;
 

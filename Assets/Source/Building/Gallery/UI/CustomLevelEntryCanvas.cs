@@ -1,6 +1,7 @@
 ﻿using System;
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Condition;
+using TilesWalk.Gameplay.Persistence;
 using TilesWalk.General.UI;
 using TilesWalk.Map.Bridge;
 using TilesWalk.Map.General;
@@ -22,6 +23,7 @@ namespace TilesWalk.Building.Gallery.UI
 		[Inject] private LevelMapPreviewRenderCamera _previewCamera;
 		[Inject] private MapProviderSolver _solver;
 		[Inject] private Confirmation _confirmation;
+		[Inject] private GameSave _gameSave;
 
 		[SerializeField] private LevelNameRequestHandler _levelRequest;
 		[SerializeField] private CanvasGroupBehaviour _timeCanvas;
@@ -32,7 +34,6 @@ namespace TilesWalk.Building.Gallery.UI
 		[SerializeField] private Button _addToUser;
 		[SerializeField] private Button _play;
 		[SerializeField] private Button _share;
-		[SerializeField] private UserLevelMapsProvider _userMaps;
 
 		public LevelNameRequestHandler LevelRequest => _levelRequest;
 
@@ -49,11 +50,6 @@ namespace TilesWalk.Building.Gallery.UI
 				_addToUser.gameObject.SetActive(true);
 			}
 
-			if (_userMaps.Collection.AvailableMaps.Count >= _userMaps.MaximumLevels)
-			{
-				_addToUser.interactable = false;
-			}
-
 			_levelRequest.Name.Subscribe(UpdateCanvas).AddTo(this);
 			_edit.onClick.AsObservable().Subscribe(OnEditClick).AddTo(this);
 			_play.onClick.AsObservable().Subscribe(OnPlayClick).AddTo(this);
@@ -68,18 +64,18 @@ namespace TilesWalk.Building.Gallery.UI
 
 		private void OnAddToUserMapsClicked(Unit u)
 		{
-			var alreadyExisting = _userMaps.Collection.Exist(_levelRequest.Map.Id);
+			var alreadyExisting = _gameSave.UserMaps.Exist(_levelRequest.Map.Id);
 
 			if (!alreadyExisting)
 			{
 				_confirmation.Configure("Add this map to user maps?",
-					() => { _userMaps.Collection.Insert(_levelRequest.Map, _levelRequest.Condition); }).Show();
+					() => { _gameSave.UserMaps.Insert(_levelRequest.Map, _levelRequest.Condition); }).Show();
 			}
 			else
 			{
 				_confirmation.Configure(
 					$"This will replace your map named {_levelRequest.Map.Id}, continue?",
-					() => { _userMaps.Collection.Insert(_levelRequest.Map, _levelRequest.Condition); }).Show();
+					() => { _gameSave.UserMaps.Insert(_levelRequest.Map, _levelRequest.Condition); }).Show();
 			}
 		}
 
@@ -98,7 +94,6 @@ namespace TilesWalk.Building.Gallery.UI
 			_confirmation.Configure(() =>
 			{
 				_solver.Provider.Collection.Remove(_levelRequest.Name.Value);
-				Destroy(gameObject);
 			}).Show();
 		}
 

@@ -55,8 +55,6 @@ namespace TilesWalk.Building.Gallery.UI
 		private bool _askingPermission;
 		private IDisposable _qrCheck = null;
 
-		private Subject<Tuple<LevelMap, MapFinishCondition>> _onNewLevelImported;
-
 		private void Awake()
 		{
 			_add.interactable = false;
@@ -74,29 +72,15 @@ namespace TilesWalk.Building.Gallery.UI
 					_confirmation.Configure("There is another map with the same name, replace?", () =>
 					{
 						_solver.Provider.Collection.Insert(_map, _condition);
-						_onNewLevelImported?.OnNext(new Tuple<LevelMap, MapFinishCondition>(_map, _condition));
 						gameObject.SetActive(false);
 					}).Show();
 				}
 				else
 				{
 					_solver.Provider.Collection.Insert(_map, _condition);
-					_onNewLevelImported?.OnNext(new Tuple<LevelMap, MapFinishCondition>(_map, _condition));
 					gameObject.SetActive(false);
 				}
 			}
-		}
-
-		public IObservable<Tuple<LevelMap, MapFinishCondition>> OnNewLevelImportedAsObservable()
-		{
-			return _onNewLevelImported = _onNewLevelImported == null
-				? new Subject<Tuple<LevelMap, MapFinishCondition>>()
-				: _onNewLevelImported;
-		}
-
-		private void OnDestroy()
-		{
-			_onNewLevelImported?.OnCompleted();
 		}
 
 		private void OnCodeEntered(string code)
