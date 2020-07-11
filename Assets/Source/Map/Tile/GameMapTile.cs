@@ -21,16 +21,16 @@ namespace TilesWalk.Map.Tile
 		[Header("Level Tile")]
 		[SerializeField] private string _levelId;
 
-#if UNITY_EDITOR
-		[Header("Editor Mode")]
-		[SerializeField] private CardinalDirection _direction = CardinalDirection.North;
-		[SerializeField] private NeighborWalkRule _rule = NeighborWalkRule.Plain;
-
 		public string LevelId
 		{
 			get => _levelId;
 			set => _levelId = value;
 		}
+
+#if UNITY_EDITOR
+		[Header("Editor Mode")]
+		[SerializeField] private CardinalDirection _direction = CardinalDirection.North;
+		[SerializeField] private NeighborWalkRule _rule = NeighborWalkRule.Plain;
 
 		[Button(enabledMode: EButtonEnableMode.Editor)]
 		private void AddNeighbor()

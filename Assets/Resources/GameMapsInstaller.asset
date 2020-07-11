@@ -282,7 +282,7 @@ MonoBehaviour:
         Rotation: {x: 0, y: 0, z: 0}
       MapSize: 2
       StarsRequired: 4
-      Target: 8000
+      Target: 4850
       FinishCondition: 0
     - Id: Gecko
       Instructions:
