@@ -137,3 +137,5 @@ MonoBehaviour:
       _maxOrthogonalSize: 10
     - _aspectRatio: {x: 9, y: 19}
       _maxOrthogonalSize: 12
+    - _aspectRatio: {x: 3, y: 5}
+      _maxOrthogonalSize: 10
