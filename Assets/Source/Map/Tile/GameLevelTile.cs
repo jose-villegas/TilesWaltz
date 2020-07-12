@@ -17,6 +17,10 @@ using Zenject;
 
 namespace TilesWalk.Map.Tile
 {
+	/// <summary>
+	/// The game level tiles are tiles in the game map used to represent
+	/// entries to game levels
+	/// </summary>
 	public class GameLevelTile : ObservableTriggerBase, ILevelNameRequire
 	{
 		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
@@ -33,12 +37,19 @@ namespace TilesWalk.Map.Tile
 		public ReactiveProperty<string> Name { get; } = new ReactiveProperty<string>();
 		public ReactiveProperty<LevelMap> Map { get; } = new ReactiveProperty<LevelMap>();
 
+		/// <summary>
+		/// This class holds the links that relate levels through
+		/// the map structure
+		/// </summary>
 		public GameLevelTileLinksHandler Links => _links;
 
 		private Subject<GameLevelTile> _onLevelTileClick;
 		private Subject<GameLevelTile> _onLevelDataLoaded;
 		private bool _disabledClick;
 
+		/// <summary>
+		/// The tile mesh renderer
+		/// </summary>
 		protected MeshRenderer Renderer
 		{
 			get
@@ -61,6 +72,10 @@ namespace TilesWalk.Map.Tile
 			OnMapTileClick();
 		}
 
+		/// <summary>
+		/// Logic for when a level tile is clicked, this shows
+		/// the level details in the UI
+		/// </summary>
 		public void OnMapTileClick()
 		{
 			if (_detailsCanvas.IsVisible && _detailsCanvas.LevelRequest.Name.Value == Name.Value)
@@ -76,11 +91,19 @@ namespace TilesWalk.Map.Tile
 			_onLevelTileClick?.OnNext(this);
 		}
 
+		/// <summary>
+		/// Raised when a tile is clicked
+		/// </summary>
+		/// <returns></returns>
 		public IObservable<GameLevelTile> OnLevelTileClickAsObservable()
 		{
 			return _onLevelTileClick = _onLevelTileClick ?? new Subject<GameLevelTile>();
 		}
 
+		/// <summary>
+		/// Raised when the level tile is fully loaded
+		/// </summary>
+		/// <returns></returns>
 		public IObservable<GameLevelTile> OnLevelDataLoadedAsObservable()
 		{
 			return _onLevelDataLoaded = _onLevelDataLoaded ?? new Subject<GameLevelTile>();
@@ -100,9 +123,11 @@ namespace TilesWalk.Map.Tile
 
 		private void Start()
 		{
+			// Subscribe to game events
 			_gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed).AddTo(this);
 			_gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused).AddTo(this);
 
+			// initialize particle effects
 			_detailsCanvas.LevelRequest.Name.Subscribe(mapName =>
 			{
 				if (mapName == Name.Value)
@@ -128,6 +153,7 @@ namespace TilesWalk.Map.Tile
 				}
 			}).AddTo(this);
 
+			// Initialize materials
 			Map.Subscribe(map =>
 			{
 				if (map != null)

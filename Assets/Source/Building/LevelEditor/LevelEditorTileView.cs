@@ -19,6 +19,11 @@ using LevelTileView = TilesWalk.Tile.Level.LevelTileView;
 
 namespace TilesWalk.Building.LevelEditor
 {
+	/// <summary>
+	/// Level editor tiles behave as <see cref="LevelTileView"/> when the
+	/// game is playing, but they contain extra logic to enable the creationg
+	/// of new levels in the editor
+	/// </summary>
 	public class LevelEditorTileView : LevelTileView
 	{
 		[Inject] private LevelEditorToolSet _levelEditorToolSet;
@@ -138,6 +143,10 @@ namespace TilesWalk.Building.LevelEditor
 			}
 		}
 
+		/// <summary>
+		/// When the UI is hidden this will disable the tile selection
+		/// </summary>
+		/// <param name="val"></param>
 		private void OnShowUI(bool val)
 		{
 			if (!val)
@@ -146,6 +155,10 @@ namespace TilesWalk.Building.LevelEditor
 			}
 		}
 
+		/// <summary>
+		/// Logic for when the grid view is used
+		/// </summary>
+		/// <param name="val"></param>
 		private void OnShowGridToggle(bool val)
 		{
 			// first backup the position for the first time
@@ -171,6 +184,11 @@ namespace TilesWalk.Building.LevelEditor
 				.OnCompleted(() => _levelEditorToolSet.ActionsCanvas.ShowGrid.interactable = true);
 		}
 
+		/// <summary>
+		/// This method contains the movement animation for the grid view
+		/// </summary>
+		/// <param name="val"></param>
+		/// <returns></returns>
 		private IEnumerator ToggleGridPosition(bool val)
 		{
 			var index = Controller.Tile.Index;
@@ -205,6 +223,11 @@ namespace TilesWalk.Building.LevelEditor
 			yield return null;
 		}
 
+		/// <summary>
+		/// This method handles the logic when the custom built
+		/// level play mode is stopped
+		/// </summary>
+		/// <param name="obj"></param>
 		private void OnCustomLevelStop(LevelMap obj)
 		{
 			_tileLevelMap.State = TileLevelMapState.EditorMode;
@@ -221,6 +244,11 @@ namespace TilesWalk.Building.LevelEditor
 			}
 		}
 
+		/// <summary>
+		/// This method handles the logic for when the custom built level
+		/// is played
+		/// </summary>
+		/// <param name="obj"></param>
 		private void OnCustomLevelPlay(LevelMap obj)
 		{
 			// remove ghost tile if there is any
@@ -264,6 +292,10 @@ namespace TilesWalk.Building.LevelEditor
 			}
 		}
 
+		/// <summary>
+		/// Handles logic for when a tile is deleted
+		/// </summary>
+		/// <param name="u"></param>
 		private void OnDeleteClick(Unit u)
 		{
 			if (IsSelected.Value)
@@ -288,6 +320,10 @@ namespace TilesWalk.Building.LevelEditor
 			}
 		}
 
+		/// <summary>
+		/// When a ghost tile is built, this method cancels that ghost tile
+		/// </summary>
+		/// <param name="u"></param>
 		private void OnCancelClick(Unit u)
 		{
 			if (IsSelected.Value && _ghostTileView != null)
@@ -299,6 +335,10 @@ namespace TilesWalk.Building.LevelEditor
 			}
 		}
 
+		/// <summary>
+		/// This method confirms the neighboring ghost tile
+		/// </summary>
+		/// <param name="u"></param>
 		private void OnConfirmClick(Unit u)
 		{
 			if (IsSelected.Value && _ghostTileView != null)
@@ -326,6 +366,10 @@ namespace TilesWalk.Building.LevelEditor
 			}
 		}
 
+		/// <summary>
+		/// Handles tile selection in the editor
+		/// </summary>
+		/// <param name="isSelected"></param>
 		private void OnTileSelected(bool isSelected)
 		{
 			if (isSelected)
@@ -401,6 +445,10 @@ namespace TilesWalk.Building.LevelEditor
 			}
 		}
 
+		/// <summary>
+		/// This method handles when any tile of the <see cref="TileViewLevelMap"/> is clicked
+		/// </summary>
+		/// <param name="tile"></param>
 		private void OnAnyTileClicked(Tile.Tile tile)
 		{
 			if (_customLevelPlayer.IsPlaying) return;
@@ -422,6 +470,12 @@ namespace TilesWalk.Building.LevelEditor
 			}
 		}
 
+		/// <summary>
+		/// Creates a neighboring level tile, this tile is marked as a ghost until its confirmed,
+		/// when confirmed it will be added to the final level map structure
+		/// </summary>
+		/// <param name="direction"></param>
+		/// <param name="rule"></param>
 		private void InsertGhostNeighbor(CardinalDirection direction, NeighborWalkRule rule)
 		{
 			if (direction == CardinalDirection.None) return;
@@ -470,6 +524,10 @@ namespace TilesWalk.Building.LevelEditor
 			}
 		}
 
+		/// <summary>
+		/// This method the neighboring ghost tile
+		/// </summary>
+		/// <param name="direction"></param>
 		private void RemoveGhostNeighbor(CardinalDirection direction)
 		{
 			if (_ghostTileView != null)
