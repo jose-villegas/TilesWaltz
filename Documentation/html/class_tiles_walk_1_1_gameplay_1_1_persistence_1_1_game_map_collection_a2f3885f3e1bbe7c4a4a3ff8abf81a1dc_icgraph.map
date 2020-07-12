@@ -1,0 +1,4 @@
+<map id="TilesWalk.Gameplay.Persistence.GameMapCollection.Exist" name="TilesWalk.Gameplay.Persistence.GameMapCollection.Exist">
+<area shape="rect" id="node1" title="Checks if a level with the given id exists within the AvailableMaps structure" alt="" coords="248,5,467,47"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_gameplay_1_1_installer_1_1_game_maps_installer.html#ac6e88529002bc79d33947d9c9b33a3d1" title=" " alt="" coords="5,5,200,47"/>
+</map>

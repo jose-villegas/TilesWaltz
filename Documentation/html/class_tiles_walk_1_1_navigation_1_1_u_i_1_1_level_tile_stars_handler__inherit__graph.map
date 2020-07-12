@@ -1,0 +1,5 @@
+<map id="TilesWalk.Navigation.UI.LevelTileStarsHandler" name="TilesWalk.Navigation.UI.LevelTileStarsHandler">
+<area shape="rect" id="node1" title=" " alt="" coords="51,80,214,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node3" href="$interface_tiles_walk_1_1_map_1_1_scaffolding_1_1_i_level_name_require.html" title=" " alt="" coords="140,5,272,32"/>
+</map>

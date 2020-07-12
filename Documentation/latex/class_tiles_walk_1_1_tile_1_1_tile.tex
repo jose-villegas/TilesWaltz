@@ -1,0 +1,272 @@
+\hypertarget{class_tiles_walk_1_1_tile_1_1_tile}{}\doxysection{Tiles\+Walk.\+Tile.\+Tile Class Reference}
+\label{class_tiles_walk_1_1_tile_1_1_tile}\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+
+
+\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}} class, contains all properties and fields related to the in-\/game tiles puzzle figure, most property names are self explanatory  
+
+
+
+
+Inheritance diagram for Tiles\+Walk.\+Tile.\+Tile\+:
+% FIG 0
+
+
+Collaboration diagram for Tiles\+Walk.\+Tile.\+Tile\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_a173bb832c84eed6f0c67f4f587757ca8}{Shuffle\+Color}} (bool self=false)
+\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_a9b948601f034226a7bdd543065694cb1}{Refresh\+Shortest\+Leaf\+Path}} ()
+\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_a74290916763e312dc71ab33e72e10310}{Refresh\+Matching\+Color\+Patch}} ()
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_ad7f9539a979c19b8f1ef4668e5022cd8}{Tile}} ()
+\item 
+I\+Observable$<$ Tuple$<$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}}, \mbox{\hyperlink{namespace_tiles_walk_1_1_gameplay_1_1_display_ad17b37d819177353aeb2e24c72c72a89}{Tile\+Color}} $>$ $>$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_a10a7d0046f0827608806fd64ef6ecc1a}{On\+Tile\+Color\+Changed\+As\+Observable}} ()
+\item 
+I\+Observable$<$ Tuple$<$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}}, \mbox{\hyperlink{namespace_tiles_walk_1_1_tile_a4463a990ccd3e55734e54f0d38f1abd1}{Tile\+Power\+Up}} $>$ $>$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_ae38d3e7a476f8d557e597d5e026a81bd}{On\+Tile\+Power\+Up\+Changed\+As\+Observable}} ()
+\item 
+List$<$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_af4179b5ebd328ac2d2c87c3e079123ce}{Get\+All\+Of\+Color}} ()
+\item 
+List$<$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_a1bea64cd1a2a0e93311332932c716ab4}{Get\+Straight\+Path}} (bool apply\+Power\+Modifier, params \mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}}\mbox{[}$\,$\mbox{]} direction)
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_a23173a4679548f6e0214ecfa0084f767}{Root}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+Dictionary$<$ \mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}}, \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_af6ac6d0c3510447f90bdd41c99d3db40}{Neighbors}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em This structure contains a reference to the neighbor tiles, useful for indexing the structure, each index represents an index at Cardinal\+Direction \end{DoxyCompactList}\item 
+Dictionary$<$ \mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}}, Vector3 $>$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_a3d630674983312e2bc57b16bcc52dec7}{Hinge\+Points}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em This points connects this tile with the neighbor tile, useful for positioning \end{DoxyCompactList}\item 
+Vector3\+Int \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_a2dab60edfebd36a9098d0997202a7903}{Index}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em This vector contains a 3D coordinate respective to the tile structure, though visually it doesn\textquotesingle{}t look like a series of voxels, this coordinate represents its position in voxel space \end{DoxyCompactList}\item 
+Bounds \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_ab5603a82066f5189a7eec7707e3607f9}{Bounds}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\hyperlink{namespace_tiles_walk_1_1_gameplay_1_1_display_ad17b37d819177353aeb2e24c72c72a89}{Tile\+Color}}? \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_a58065b5ee79a44686933428f128eec1e}{Tile\+Color}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+List$<$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_a9300e152662265e4d22d4e0230cca07c}{Shortest\+Path\+To\+Leaf}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+List$<$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_ab91add6fded8480d331d5d8f39821243}{Matching\+Color\+Patch}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\hyperlink{namespace_tiles_walk_1_1_tile_a4463a990ccd3e55734e54f0d38f1abd1}{Tile\+Power\+Up}}? \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_a24085fd7812b9402fbafac86729bcc45}{Power\+Up}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}} class, contains all properties and fields related to the in-\/game tiles puzzle figure, most property names are self explanatory 
+
+
+
+Definition at line 21 of file Tile.\+cs.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_ad7f9539a979c19b8f1ef4668e5022cd8}\label{class_tiles_walk_1_1_tile_1_1_tile_ad7f9539a979c19b8f1ef4668e5022cd8}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!Tile@{Tile}}
+\index{Tile@{Tile}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{Tile()}{Tile()}}
+{\footnotesize\ttfamily Tiles\+Walk.\+Tile.\+Tile.\+Tile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 106 of file Tile.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 2
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_af4179b5ebd328ac2d2c87c3e079123ce}\label{class_tiles_walk_1_1_tile_1_1_tile_af4179b5ebd328ac2d2c87c3e079123ce}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!GetAllOfColor@{GetAllOfColor}}
+\index{GetAllOfColor@{GetAllOfColor}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{GetAllOfColor()}{GetAllOfColor()}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}}$>$ Tiles\+Walk.\+Tile.\+Tile.\+Get\+All\+Of\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 129 of file Tile.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_a1bea64cd1a2a0e93311332932c716ab4}\label{class_tiles_walk_1_1_tile_1_1_tile_a1bea64cd1a2a0e93311332932c716ab4}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!GetStraightPath@{GetStraightPath}}
+\index{GetStraightPath@{GetStraightPath}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{GetStraightPath()}{GetStraightPath()}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}}$>$ Tiles\+Walk.\+Tile.\+Tile.\+Get\+Straight\+Path (\begin{DoxyParamCaption}\item[{bool}]{apply\+Power\+Modifier,  }\item[{params \mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}}\mbox{[}$\,$\mbox{]}}]{direction }\end{DoxyParamCaption})}
+
+
+
+Definition at line 209 of file Tile.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_a10a7d0046f0827608806fd64ef6ecc1a}\label{class_tiles_walk_1_1_tile_1_1_tile_a10a7d0046f0827608806fd64ef6ecc1a}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!OnTileColorChangedAsObservable@{OnTileColorChangedAsObservable}}
+\index{OnTileColorChangedAsObservable@{OnTileColorChangedAsObservable}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{OnTileColorChangedAsObservable()}{OnTileColorChangedAsObservable()}}
+{\footnotesize\ttfamily I\+Observable$<$Tuple$<$\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}}, \mbox{\hyperlink{namespace_tiles_walk_1_1_gameplay_1_1_display_ad17b37d819177353aeb2e24c72c72a89}{Tile\+Color}}$>$ $>$ Tiles\+Walk.\+Tile.\+Tile.\+On\+Tile\+Color\+Changed\+As\+Observable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 115 of file Tile.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_ae38d3e7a476f8d557e597d5e026a81bd}\label{class_tiles_walk_1_1_tile_1_1_tile_ae38d3e7a476f8d557e597d5e026a81bd}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!OnTilePowerUpChangedAsObservable@{OnTilePowerUpChangedAsObservable}}
+\index{OnTilePowerUpChangedAsObservable@{OnTilePowerUpChangedAsObservable}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{OnTilePowerUpChangedAsObservable()}{OnTilePowerUpChangedAsObservable()}}
+{\footnotesize\ttfamily I\+Observable$<$Tuple$<$\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}}, \mbox{\hyperlink{namespace_tiles_walk_1_1_tile_a4463a990ccd3e55734e54f0d38f1abd1}{Tile\+Power\+Up}}$>$ $>$ Tiles\+Walk.\+Tile.\+Tile.\+On\+Tile\+Power\+Up\+Changed\+As\+Observable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 122 of file Tile.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_a74290916763e312dc71ab33e72e10310}\label{class_tiles_walk_1_1_tile_1_1_tile_a74290916763e312dc71ab33e72e10310}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!RefreshMatchingColorPatch@{RefreshMatchingColorPatch}}
+\index{RefreshMatchingColorPatch@{RefreshMatchingColorPatch}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{RefreshMatchingColorPatch()}{RefreshMatchingColorPatch()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Tile.\+Tile.\+Refresh\+Matching\+Color\+Patch (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 101 of file Tile.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_a9b948601f034226a7bdd543065694cb1}\label{class_tiles_walk_1_1_tile_1_1_tile_a9b948601f034226a7bdd543065694cb1}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!RefreshShortestLeafPath@{RefreshShortestLeafPath}}
+\index{RefreshShortestLeafPath@{RefreshShortestLeafPath}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{RefreshShortestLeafPath()}{RefreshShortestLeafPath()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Tile.\+Tile.\+Refresh\+Shortest\+Leaf\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 95 of file Tile.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_a173bb832c84eed6f0c67f4f587757ca8}\label{class_tiles_walk_1_1_tile_1_1_tile_a173bb832c84eed6f0c67f4f587757ca8}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!ShuffleColor@{ShuffleColor}}
+\index{ShuffleColor@{ShuffleColor}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{ShuffleColor()}{ShuffleColor()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Tile.\+Tile.\+Shuffle\+Color (\begin{DoxyParamCaption}\item[{bool}]{self = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 86 of file Tile.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 7
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_ab5603a82066f5189a7eec7707e3607f9}\label{class_tiles_walk_1_1_tile_1_1_tile_ab5603a82066f5189a7eec7707e3607f9}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!Bounds@{Bounds}}
+\index{Bounds@{Bounds}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{Bounds}{Bounds}}
+{\footnotesize\ttfamily Bounds Tiles\+Walk.\+Tile.\+Tile.\+Bounds\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Definition at line 55 of file Tile.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_a3d630674983312e2bc57b16bcc52dec7}\label{class_tiles_walk_1_1_tile_1_1_tile_a3d630674983312e2bc57b16bcc52dec7}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!HingePoints@{HingePoints}}
+\index{HingePoints@{HingePoints}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{HingePoints}{HingePoints}}
+{\footnotesize\ttfamily Dictionary$<$\mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}}, Vector3$>$ Tiles\+Walk.\+Tile.\+Tile.\+Hinge\+Points\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+This points connects this tile with the neighbor tile, useful for positioning 
+
+
+
+Definition at line 42 of file Tile.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_a2dab60edfebd36a9098d0997202a7903}\label{class_tiles_walk_1_1_tile_1_1_tile_a2dab60edfebd36a9098d0997202a7903}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!Index@{Index}}
+\index{Index@{Index}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{Index}{Index}}
+{\footnotesize\ttfamily Vector3\+Int Tiles\+Walk.\+Tile.\+Tile.\+Index\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+This vector contains a 3D coordinate respective to the tile structure, though visually it doesn\textquotesingle{}t look like a series of voxels, this coordinate represents its position in voxel space 
+
+
+
+Definition at line 49 of file Tile.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_ab91add6fded8480d331d5d8f39821243}\label{class_tiles_walk_1_1_tile_1_1_tile_ab91add6fded8480d331d5d8f39821243}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!MatchingColorPatch@{MatchingColorPatch}}
+\index{MatchingColorPatch@{MatchingColorPatch}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{MatchingColorPatch}{MatchingColorPatch}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}}$>$ Tiles\+Walk.\+Tile.\+Tile.\+Matching\+Color\+Patch\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Definition at line 73 of file Tile.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_af6ac6d0c3510447f90bdd41c99d3db40}\label{class_tiles_walk_1_1_tile_1_1_tile_af6ac6d0c3510447f90bdd41c99d3db40}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!Neighbors@{Neighbors}}
+\index{Neighbors@{Neighbors}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{Neighbors}{Neighbors}}
+{\footnotesize\ttfamily Dictionary$<$\mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}}, \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}}$>$ Tiles\+Walk.\+Tile.\+Tile.\+Neighbors\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+This structure contains a reference to the neighbor tiles, useful for indexing the structure, each index represents an index at Cardinal\+Direction 
+
+
+
+Definition at line 37 of file Tile.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_a24085fd7812b9402fbafac86729bcc45}\label{class_tiles_walk_1_1_tile_1_1_tile_a24085fd7812b9402fbafac86729bcc45}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!PowerUp@{PowerUp}}
+\index{PowerUp@{PowerUp}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{PowerUp}{PowerUp}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_tiles_walk_1_1_tile_a4463a990ccd3e55734e54f0d38f1abd1}{Tile\+Power\+Up}}? Tiles\+Walk.\+Tile.\+Tile.\+Power\+Up\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Definition at line 75 of file Tile.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_a23173a4679548f6e0214ecfa0084f767}\label{class_tiles_walk_1_1_tile_1_1_tile_a23173a4679548f6e0214ecfa0084f767}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!Root@{Root}}
+\index{Root@{Root}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{Root}{Root}}
+{\footnotesize\ttfamily bool Tiles\+Walk.\+Tile.\+Tile.\+Root\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Definition at line 31 of file Tile.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_a9300e152662265e4d22d4e0230cca07c}\label{class_tiles_walk_1_1_tile_1_1_tile_a9300e152662265e4d22d4e0230cca07c}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!ShortestPathToLeaf@{ShortestPathToLeaf}}
+\index{ShortestPathToLeaf@{ShortestPathToLeaf}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{ShortestPathToLeaf}{ShortestPathToLeaf}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}}$>$ Tiles\+Walk.\+Tile.\+Tile.\+Shortest\+Path\+To\+Leaf\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Definition at line 72 of file Tile.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_a58065b5ee79a44686933428f128eec1e}\label{class_tiles_walk_1_1_tile_1_1_tile_a58065b5ee79a44686933428f128eec1e}} 
+\index{TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}!TileColor@{TileColor}}
+\index{TileColor@{TileColor}!TilesWalk.Tile.Tile@{TilesWalk.Tile.Tile}}
+\doxysubsubsection{\texorpdfstring{TileColor}{TileColor}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_tiles_walk_1_1_gameplay_1_1_display_ad17b37d819177353aeb2e24c72c72a89}{Tile\+Color}}? Tiles\+Walk.\+Tile.\+Tile.\+Tile\+Color\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Definition at line 61 of file Tile.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Source/\+Tile/\mbox{\hyperlink{_tile_8cs}{Tile.\+cs}}\end{DoxyCompactItemize}

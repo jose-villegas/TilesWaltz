@@ -1,0 +1,7 @@
+<map id="TilesWalk.BaseInterfaces.IModel" name="TilesWalk.BaseInterfaces.IModel">
+<area shape="rect" id="node1" title=" " alt="" coords="182,5,355,47"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_building_1_1_level_1_1_generic_map.html" title=" " alt="" coords="100,95,267,136"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_tile_1_1_tile.html" title="Tile class, contains all properties and fields related to the in&#45;game tiles puzzle figure,..." alt="" coords="291,102,417,129"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_building_1_1_level_1_1_game_levels_map.html" title=" " alt="" coords="5,184,172,225"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_building_1_1_level_1_1_level_map.html" title=" " alt="" coords="196,184,363,225"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_tiles_walk_1_1_general_1_1_patterns_1_1_obligatory_component_behaviour.html" title=" " alt="" coords="5,31,208,87"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_general_1_1_camera_1_1_camera_drag.html" title="Camera drag behavior, holding the pointer and moving around will update the camera position" alt="" coords="263,5,445,47"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_map_1_1_camera_1_1_game_map_size_slider_camera_adapter.html" title=" " alt="" coords="256,71,452,112"/>
+</map>

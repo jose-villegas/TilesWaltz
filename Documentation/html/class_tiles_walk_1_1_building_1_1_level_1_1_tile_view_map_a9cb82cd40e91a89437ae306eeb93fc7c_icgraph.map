@@ -1,0 +1,4 @@
+<map id="TilesWalk.Building.Level.TileViewMap.GetTileView" name="TilesWalk.Building.Level.TileViewMap.GetTileView">
+<area shape="rect" id="node1" title=" " alt="" coords="253,5,421,47"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler.html#a68c90c485b264bed13e28b2b32eab159" title="This method resolves the neighbor links for a game level tile in the game map. This is written in suc..." alt="" coords="5,5,205,47"/>
+</map>

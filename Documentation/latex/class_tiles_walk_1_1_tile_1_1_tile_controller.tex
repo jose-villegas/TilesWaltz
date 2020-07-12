@@ -1,0 +1,204 @@
+\hypertarget{class_tiles_walk_1_1_tile_1_1_tile_controller}{}\doxysection{Tiles\+Walk.\+Tile.\+Tile\+Controller Class Reference}
+\label{class_tiles_walk_1_1_tile_1_1_tile_controller}\index{TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}}
+
+
+Inheritance diagram for Tiles\+Walk.\+Tile.\+Tile\+Controller\+:
+% FIG 0
+
+
+Collaboration diagram for Tiles\+Walk.\+Tile.\+Tile\+Controller\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller_ad082ae78bf0a1187b23d7417b79ad0c7}{Tile\+Controller}} ()
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller_a9bf91d672c9cd5701d1f61e70d40fd89}{Tile\+Controller}} (\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}} tile)
+\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller_aeb6adbdf68b42b9d69f02ae97f7e50d3}{Add\+Neighbor}} (\mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}} direction, \mbox{\hyperlink{namespace_tiles_walk_1_1_tile_1_1_rules_a01057f990b901629316bc34452f9a82b}{Neighbor\+Walk\+Rule}} rule, \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}} tile, Matrix4x4 root, out Vector3 translate, out Quaternion rotate)
+\begin{DoxyCompactList}\small\item\em This methods inserts a neighbor in the data structure of the tile path \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller_a1f8eb0eb734331db73c1329a30b6abd6}{Remove\+Neighbor}} (\mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}} direction)
+\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller_af2494b7b52cb29ac737d0d94ec4ff9e5}{Remove}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}} removal works by changing the color of this tile for the next tile color in its shortest path to a leaf tile, this action is then spread through all the tiles in the path \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller_a5ebf2ecf6557be1e7ec63c1f115da5c8}{Handle\+Tile\+Power\+Up}} ()
+\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller_ab2a9555f25cf7024be7ce6f9cab17f92}{Remove\+Combo}} ()
+\begin{DoxyCompactList}\small\item\em Combo removal works by changing the colors for all the tiles within a matching color patch \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller_aa2b7a34131df9a8f68d9ad87f26e8793}{Adjust\+Bounds}} (Bounds bounds)
+\begin{DoxyCompactList}\small\item\em Changes the tile\textquotesingle{}s bounding box parameters, copies over the given bounds Only call this method when instancing a new tile. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller_a010da40c2f36f57674b4097c2bb787da}{Chain\+Refresh\+Paths}} (\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}} source, \mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}} ignore=Cardinal\+Direction.\+None, bool update\+Color\+Path=true, bool update\+Shortest\+Path=true)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}} \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller_a0f41aec0a99478d25e300a6cb76f0f96}{Tile}} =$>$ \+\_\+tile
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 14 of file Tile\+Controller.\+cs.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_controller_ad082ae78bf0a1187b23d7417b79ad0c7}\label{class_tiles_walk_1_1_tile_1_1_tile_controller_ad082ae78bf0a1187b23d7417b79ad0c7}} 
+\index{TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}!TileController@{TileController}}
+\index{TileController@{TileController}!TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}}
+\doxysubsubsection{\texorpdfstring{TileController()}{TileController()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Tiles\+Walk.\+Tile.\+Tile\+Controller.\+Tile\+Controller (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 20 of file Tile\+Controller.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_controller_a9bf91d672c9cd5701d1f61e70d40fd89}\label{class_tiles_walk_1_1_tile_1_1_tile_controller_a9bf91d672c9cd5701d1f61e70d40fd89}} 
+\index{TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}!TileController@{TileController}}
+\index{TileController@{TileController}!TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}}
+\doxysubsubsection{\texorpdfstring{TileController()}{TileController()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Tiles\+Walk.\+Tile.\+Tile\+Controller.\+Tile\+Controller (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}}}]{tile }\end{DoxyParamCaption})}
+
+
+
+Definition at line 25 of file Tile\+Controller.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_controller_aeb6adbdf68b42b9d69f02ae97f7e50d3}\label{class_tiles_walk_1_1_tile_1_1_tile_controller_aeb6adbdf68b42b9d69f02ae97f7e50d3}} 
+\index{TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}!AddNeighbor@{AddNeighbor}}
+\index{AddNeighbor@{AddNeighbor}!TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}}
+\doxysubsubsection{\texorpdfstring{AddNeighbor()}{AddNeighbor()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Tile.\+Tile\+Controller.\+Add\+Neighbor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}}}]{direction,  }\item[{\mbox{\hyperlink{namespace_tiles_walk_1_1_tile_1_1_rules_a01057f990b901629316bc34452f9a82b}{Neighbor\+Walk\+Rule}}}]{rule,  }\item[{\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}}}]{tile,  }\item[{Matrix4x4}]{root,  }\item[{out Vector3}]{translate,  }\item[{out Quaternion}]{rotate }\end{DoxyParamCaption})}
+
+
+
+This methods inserts a neighbor in the data structure of the tile path 
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & The direction respective to this tile as root\\
+\hline
+{\em rule} & The insertion rule for this tile\\
+\hline
+{\em tile} & The tile data, to be referenced\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 36 of file Tile\+Controller.\+cs.
+
+Here is the call graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_controller_aa2b7a34131df9a8f68d9ad87f26e8793}\label{class_tiles_walk_1_1_tile_1_1_tile_controller_aa2b7a34131df9a8f68d9ad87f26e8793}} 
+\index{TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}!AdjustBounds@{AdjustBounds}}
+\index{AdjustBounds@{AdjustBounds}!TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}}
+\doxysubsubsection{\texorpdfstring{AdjustBounds()}{AdjustBounds()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Tile.\+Tile\+Controller.\+Adjust\+Bounds (\begin{DoxyParamCaption}\item[{Bounds}]{bounds }\end{DoxyParamCaption})}
+
+
+
+Changes the tile\textquotesingle{}s bounding box parameters, copies over the given bounds Only call this method when instancing a new tile. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bounds} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 432 of file Tile\+Controller.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_controller_a010da40c2f36f57674b4097c2bb787da}\label{class_tiles_walk_1_1_tile_1_1_tile_controller_a010da40c2f36f57674b4097c2bb787da}} 
+\index{TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}!ChainRefreshPaths@{ChainRefreshPaths}}
+\index{ChainRefreshPaths@{ChainRefreshPaths}!TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}}
+\doxysubsubsection{\texorpdfstring{ChainRefreshPaths()}{ChainRefreshPaths()}}
+{\footnotesize\ttfamily static void Tiles\+Walk.\+Tile.\+Tile\+Controller.\+Chain\+Refresh\+Paths (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}}}]{source,  }\item[{\mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}}}]{ignore = {\ttfamily CardinalDirection.None},  }\item[{bool}]{update\+Color\+Path = {\ttfamily true},  }\item[{bool}]{update\+Shortest\+Path = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 56 of file Tile\+Controller.\+cs.
+
+Here is the call graph for this function\+:
+% FIG 3
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_controller_a5ebf2ecf6557be1e7ec63c1f115da5c8}\label{class_tiles_walk_1_1_tile_1_1_tile_controller_a5ebf2ecf6557be1e7ec63c1f115da5c8}} 
+\index{TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}!HandleTilePowerUp@{HandleTilePowerUp}}
+\index{HandleTilePowerUp@{HandleTilePowerUp}!TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}}
+\doxysubsubsection{\texorpdfstring{HandleTilePowerUp()}{HandleTilePowerUp()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Tile.\+Tile\+Controller.\+Handle\+Tile\+Power\+Up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 307 of file Tile\+Controller.\+cs.
+
+Here is the call graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_controller_af2494b7b52cb29ac737d0d94ec4ff9e5}\label{class_tiles_walk_1_1_tile_1_1_tile_controller_af2494b7b52cb29ac737d0d94ec4ff9e5}} 
+\index{TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}!Remove@{Remove}}
+\index{Remove@{Remove}!TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}}
+\doxysubsubsection{\texorpdfstring{Remove()}{Remove()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Tile.\+Tile\+Controller.\+Remove (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}} removal works by changing the color of this tile for the next tile color in its shortest path to a leaf tile, this action is then spread through all the tiles in the path 
+
+
+
+Definition at line 251 of file Tile\+Controller.\+cs.
+
+Here is the call graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_controller_ab2a9555f25cf7024be7ce6f9cab17f92}\label{class_tiles_walk_1_1_tile_1_1_tile_controller_ab2a9555f25cf7024be7ce6f9cab17f92}} 
+\index{TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}!RemoveCombo@{RemoveCombo}}
+\index{RemoveCombo@{RemoveCombo}!TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}}
+\doxysubsubsection{\texorpdfstring{RemoveCombo()}{RemoveCombo()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Tile.\+Tile\+Controller.\+Remove\+Combo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Combo removal works by changing the colors for all the tiles within a matching color patch 
+
+
+
+Definition at line 357 of file Tile\+Controller.\+cs.
+
+Here is the call graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_controller_a1f8eb0eb734331db73c1329a30b6abd6}\label{class_tiles_walk_1_1_tile_1_1_tile_controller_a1f8eb0eb734331db73c1329a30b6abd6}} 
+\index{TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}!RemoveNeighbor@{RemoveNeighbor}}
+\index{RemoveNeighbor@{RemoveNeighbor}!TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}}
+\doxysubsubsection{\texorpdfstring{RemoveNeighbor()}{RemoveNeighbor()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Tile.\+Tile\+Controller.\+Remove\+Neighbor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}}}]{direction }\end{DoxyParamCaption})}
+
+
+
+Definition at line 49 of file Tile\+Controller.\+cs.
+
+Here is the call graph for this function\+:
+% FIG 8
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_controller_a0f41aec0a99478d25e300a6cb76f0f96}\label{class_tiles_walk_1_1_tile_1_1_tile_controller_a0f41aec0a99478d25e300a6cb76f0f96}} 
+\index{TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}!Tile@{Tile}}
+\index{Tile@{Tile}!TilesWalk.Tile.TileController@{TilesWalk.Tile.TileController}}
+\doxysubsubsection{\texorpdfstring{Tile}{Tile}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}} Tiles\+Walk.\+Tile.\+Tile\+Controller.\+Tile =$>$ \+\_\+tile}
+
+
+
+Definition at line 18 of file Tile\+Controller.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Source/\+Tile/\mbox{\hyperlink{_tile_controller_8cs}{Tile\+Controller.\+cs}}\end{DoxyCompactItemize}

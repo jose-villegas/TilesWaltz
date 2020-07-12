@@ -1,0 +1,174 @@
+\hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile}{}\doxysection{Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile Class Reference}
+\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile}\index{TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}}
+
+
+The game level tiles are tiles in the game map used to represent entries to game levels  
+
+
+
+
+Inheritance diagram for Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile\+:
+% FIG 0
+
+
+Collaboration diagram for Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_a2b563aed0d8b5abd964e8e50a8c0efd0}{On\+Map\+Tile\+Click}} ()
+\begin{DoxyCompactList}\small\item\em Logic for when a level tile is clicked, this shows the level details in the \mbox{\hyperlink{namespace_tiles_walk_1_1_map_1_1_u_i}{UI}} \end{DoxyCompactList}\item 
+I\+Observable$<$ \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile}{Game\+Level\+Tile}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_a4a00171e85fd06b97f534aad3a594706}{On\+Level\+Tile\+Click\+As\+Observable}} ()
+\begin{DoxyCompactList}\small\item\em Raised when a tile is clicked \end{DoxyCompactList}\item 
+I\+Observable$<$ \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile}{Game\+Level\+Tile}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_ae7978632faccdb45ad6166e6e6459684}{On\+Level\+Data\+Loaded\+As\+Observable}} ()
+\begin{DoxyCompactList}\small\item\em Raised when the level tile is fully loaded \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler}{Game\+Level\+Tile\+Links\+Handler}} \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_a6408807c52d2602100c505766e3228ee}{Links}} =$>$ \+\_\+links
+\begin{DoxyCompactList}\small\item\em This class holds the links that relate levels through the map structure \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+override void \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_a0653aee1e3ebea95216c9497e0a3bf39}{Raise\+On\+Completed\+On\+Destroy}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Reactive\+Property$<$ string $>$ \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_ae196d708d5b6137975f5bb68d1556c43}{Name}} = new Reactive\+Property$<$string$>$()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+Reactive\+Property$<$ \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_ad3731e92cad0fe2d600393c296ffa832}{Map}} = new Reactive\+Property$<$\mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}}$>$()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+Mesh\+Renderer \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_a5289eb5d951556d2e24cfb8cdbc1b63f}{Renderer}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The tile mesh renderer \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The game level tiles are tiles in the game map used to represent entries to game levels 
+
+
+
+Definition at line 24 of file Game\+Level\+Tile.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_ae7978632faccdb45ad6166e6e6459684}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_ae7978632faccdb45ad6166e6e6459684}} 
+\index{TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}!OnLevelDataLoadedAsObservable@{OnLevelDataLoadedAsObservable}}
+\index{OnLevelDataLoadedAsObservable@{OnLevelDataLoadedAsObservable}!TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}}
+\doxysubsubsection{\texorpdfstring{OnLevelDataLoadedAsObservable()}{OnLevelDataLoadedAsObservable()}}
+{\footnotesize\ttfamily I\+Observable$<$\mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile}{Game\+Level\+Tile}}$>$ Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile.\+On\+Level\+Data\+Loaded\+As\+Observable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Raised when the level tile is fully loaded 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 107 of file Game\+Level\+Tile.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_a4a00171e85fd06b97f534aad3a594706}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_a4a00171e85fd06b97f534aad3a594706}} 
+\index{TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}!OnLevelTileClickAsObservable@{OnLevelTileClickAsObservable}}
+\index{OnLevelTileClickAsObservable@{OnLevelTileClickAsObservable}!TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}}
+\doxysubsubsection{\texorpdfstring{OnLevelTileClickAsObservable()}{OnLevelTileClickAsObservable()}}
+{\footnotesize\ttfamily I\+Observable$<$\mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile}{Game\+Level\+Tile}}$>$ Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile.\+On\+Level\+Tile\+Click\+As\+Observable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Raised when a tile is clicked 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 98 of file Game\+Level\+Tile.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_a2b563aed0d8b5abd964e8e50a8c0efd0}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_a2b563aed0d8b5abd964e8e50a8c0efd0}} 
+\index{TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}!OnMapTileClick@{OnMapTileClick}}
+\index{OnMapTileClick@{OnMapTileClick}!TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}}
+\doxysubsubsection{\texorpdfstring{OnMapTileClick()}{OnMapTileClick()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile.\+On\+Map\+Tile\+Click (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Logic for when a level tile is clicked, this shows the level details in the \mbox{\hyperlink{namespace_tiles_walk_1_1_map_1_1_u_i}{UI}} 
+
+
+
+Definition at line 79 of file Game\+Level\+Tile.\+cs.
+
+Here is the call graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_a0653aee1e3ebea95216c9497e0a3bf39}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_a0653aee1e3ebea95216c9497e0a3bf39}} 
+\index{TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}!RaiseOnCompletedOnDestroy@{RaiseOnCompletedOnDestroy}}
+\index{RaiseOnCompletedOnDestroy@{RaiseOnCompletedOnDestroy}!TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}}
+\doxysubsubsection{\texorpdfstring{RaiseOnCompletedOnDestroy()}{RaiseOnCompletedOnDestroy()}}
+{\footnotesize\ttfamily override void Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile.\+Raise\+On\+Completed\+On\+Destroy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 112 of file Game\+Level\+Tile.\+cs.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_a6408807c52d2602100c505766e3228ee}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_a6408807c52d2602100c505766e3228ee}} 
+\index{TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}!Links@{Links}}
+\index{Links@{Links}!TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}}
+\doxysubsubsection{\texorpdfstring{Links}{Links}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler}{Game\+Level\+Tile\+Links\+Handler}} Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile.\+Links =$>$ \+\_\+links}
+
+
+
+This class holds the links that relate levels through the map structure 
+
+
+
+Definition at line 44 of file Game\+Level\+Tile.\+cs.
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_ad3731e92cad0fe2d600393c296ffa832}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_ad3731e92cad0fe2d600393c296ffa832}} 
+\index{TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}!Map@{Map}}
+\index{Map@{Map}!TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}}
+\doxysubsubsection{\texorpdfstring{Map}{Map}}
+{\footnotesize\ttfamily Reactive\+Property$<$\mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}}$>$ Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile.\+Map = new Reactive\+Property$<$\mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}}$>$()\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Definition at line 38 of file Game\+Level\+Tile.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_ae196d708d5b6137975f5bb68d1556c43}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_ae196d708d5b6137975f5bb68d1556c43}} 
+\index{TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}!Name@{Name}}
+\index{Name@{Name}!TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}}
+\doxysubsubsection{\texorpdfstring{Name}{Name}}
+{\footnotesize\ttfamily Reactive\+Property$<$string$>$ Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile.\+Name = new Reactive\+Property$<$string$>$()\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Definition at line 37 of file Game\+Level\+Tile.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_a5289eb5d951556d2e24cfb8cdbc1b63f}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_a5289eb5d951556d2e24cfb8cdbc1b63f}} 
+\index{TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}!Renderer@{Renderer}}
+\index{Renderer@{Renderer}!TilesWalk.Map.Tile.GameLevelTile@{TilesWalk.Map.Tile.GameLevelTile}}
+\doxysubsubsection{\texorpdfstring{Renderer}{Renderer}}
+{\footnotesize\ttfamily Mesh\+Renderer Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile.\+Renderer\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [protected]}}
+
+
+
+The tile mesh renderer 
+
+
+
+Definition at line 53 of file Game\+Level\+Tile.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Source/\+Map/\+Tile/\mbox{\hyperlink{_game_level_tile_8cs}{Game\+Level\+Tile.\+cs}}\end{DoxyCompactItemize}

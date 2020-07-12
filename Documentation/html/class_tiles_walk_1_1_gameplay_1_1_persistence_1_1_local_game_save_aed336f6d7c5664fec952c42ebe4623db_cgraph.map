@@ -1,0 +1,4 @@
+<map id="TilesWalk.Gameplay.Persistence.LocalGameSave.Load" name="TilesWalk.Gameplay.Persistence.LocalGameSave.Load">
+<area shape="rect" id="node1" title="This loads the GameSave data from a local file" alt="" coords="5,5,224,47"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_statistics.html#a84aec1cdd705afaed16813263459f387" title=" " alt="" coords="272,5,491,47"/>
+</map>

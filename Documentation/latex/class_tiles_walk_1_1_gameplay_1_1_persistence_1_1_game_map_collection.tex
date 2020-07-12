@@ -1,0 +1,228 @@
+\hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection}{}\doxysection{Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Map\+Collection Class Reference}
+\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection}\index{TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}}
+
+
+This serves as a collection of Level\+Map and Map\+Finish\+Condition  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a4227f3aa5291d87c5afc50b21ab13a0d}{Game\+Map\+Collection}} (List$<$ \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}} $>$ maps, List$<$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_condition_1_1_moves_finish_condition}{Moves\+Finish\+Condition}} $>$ moves, List$<$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_condition_1_1_time_finish_condition}{Time\+Finish\+Condition}} $>$ times)
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a8cba507a083ed069667cdfeaf2f502e4}{Game\+Map\+Collection}} ()
+\item 
+I\+Observable$<$ \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a1e2acb77f91b1042830612ebb7b50b28}{On\+New\+Level\+Insert\+As\+Observable}} ()
+\begin{DoxyCompactList}\small\item\em Triggered when a new level is inserted in the collection \end{DoxyCompactList}\item 
+I\+Observable$<$ \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a0f3b5456c226e51e4d5d4bd4fae76559}{On\+Level\+Removed\+As\+Observable}} ()
+\begin{DoxyCompactList}\small\item\em Triggered when a level is removed from the collection \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a2f3885f3e1bbe7c4a4a3ff8abf81a1dc}{Exist}} (string id)
+\begin{DoxyCompactList}\small\item\em Checks if a level with the given id exists within the \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a3e7324af826e8214550abc15d22e9741}{Available\+Maps}} structure \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_ab450c83d696b4f8d551d3c29dc52691c}{Remove}} (string id)
+\begin{DoxyCompactList}\small\item\em Removes a level from \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a3e7324af826e8214550abc15d22e9741}{Available\+Maps}}, the method will also remove its matching Map\+Finish\+Condition stored within \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a64e3ebdab86c904a347636c69e1688cb}{Moves\+Finish\+Conditions}} or \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_ada84d101015b15d65956a5c0970e30a2}{Time\+Finish\+Conditions}} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a05e9795c08404620ee5f2550a37e9238}{Insert$<$ T $>$}} (\mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}} map, T condition)
+\begin{DoxyCompactList}\small\item\em Inserts a new map to the \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a3e7324af826e8214550abc15d22e9741}{Available\+Maps}} and adds its matching Map\+Finish\+Condition \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a3e7324af826e8214550abc15d22e9741}{Available\+Maps}} =$>$ \+\_\+available\+Maps
+\begin{DoxyCompactList}\small\item\em The maps within this collection \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_condition_1_1_moves_finish_condition}{Moves\+Finish\+Condition}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a64e3ebdab86c904a347636c69e1688cb}{Moves\+Finish\+Conditions}} =$>$ \+\_\+moves\+Finish\+Conditions
+\begin{DoxyCompactList}\small\item\em The finishing conditions for the \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a3e7324af826e8214550abc15d22e9741}{Available\+Maps}} that have a Finish\+Condition.\+Moves\+Limit condition \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_condition_1_1_time_finish_condition}{Time\+Finish\+Condition}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_ada84d101015b15d65956a5c0970e30a2}{Time\+Finish\+Conditions}} =$>$ \+\_\+time\+Finish\+Conditions
+\begin{DoxyCompactList}\small\item\em The finishing conditions for the \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a3e7324af826e8214550abc15d22e9741}{Available\+Maps}} that have a Finish\+Condition.\+Time\+Limit condition \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This serves as a collection of Level\+Map and Map\+Finish\+Condition 
+
+
+
+Definition at line 15 of file Game\+Map\+Collection.\+cs.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a4227f3aa5291d87c5afc50b21ab13a0d}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a4227f3aa5291d87c5afc50b21ab13a0d}} 
+\index{TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}!GameMapCollection@{GameMapCollection}}
+\index{GameMapCollection@{GameMapCollection}!TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}}
+\doxysubsubsection{\texorpdfstring{GameMapCollection()}{GameMapCollection()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Map\+Collection.\+Game\+Map\+Collection (\begin{DoxyParamCaption}\item[{List$<$ \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}} $>$}]{maps,  }\item[{List$<$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_condition_1_1_moves_finish_condition}{Moves\+Finish\+Condition}} $>$}]{moves,  }\item[{List$<$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_condition_1_1_time_finish_condition}{Time\+Finish\+Condition}} $>$}]{times }\end{DoxyParamCaption})}
+
+
+
+Definition at line 39 of file Game\+Map\+Collection.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a8cba507a083ed069667cdfeaf2f502e4}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a8cba507a083ed069667cdfeaf2f502e4}} 
+\index{TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}!GameMapCollection@{GameMapCollection}}
+\index{GameMapCollection@{GameMapCollection}!TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}}
+\doxysubsubsection{\texorpdfstring{GameMapCollection()}{GameMapCollection()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Map\+Collection.\+Game\+Map\+Collection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 46 of file Game\+Map\+Collection.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a2f3885f3e1bbe7c4a4a3ff8abf81a1dc}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a2f3885f3e1bbe7c4a4a3ff8abf81a1dc}} 
+\index{TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}!Exist@{Exist}}
+\index{Exist@{Exist}!TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}}
+\doxysubsubsection{\texorpdfstring{Exist()}{Exist()}}
+{\footnotesize\ttfamily bool Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Map\+Collection.\+Exist (\begin{DoxyParamCaption}\item[{string}]{id }\end{DoxyParamCaption})}
+
+
+
+Checks if a level with the given id exists within the \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a3e7324af826e8214550abc15d22e9741}{Available\+Maps}} structure 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 79 of file Game\+Map\+Collection.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 0
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a05e9795c08404620ee5f2550a37e9238}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a05e9795c08404620ee5f2550a37e9238}} 
+\index{TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}!Insert$<$ T $>$@{Insert$<$ T $>$}}
+\index{Insert$<$ T $>$@{Insert$<$ T $>$}!TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}}
+\doxysubsubsection{\texorpdfstring{Insert$<$ T $>$()}{Insert< T >()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Map\+Collection.\+Insert$<$ T $>$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}}}]{map,  }\item[{T}]{condition }\end{DoxyParamCaption})}
+
+
+
+Inserts a new map to the \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a3e7324af826e8214550abc15d22e9741}{Available\+Maps}} and adds its matching Map\+Finish\+Condition 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em map} & \\
+\hline
+{\em condition} & \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Type Constraints]\begin{description}
+\item[{\em T} : {\em Map\+Finish\+Condition}]\end{description}
+\end{Desc}
+
+
+Definition at line 141 of file Game\+Map\+Collection.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a0f3b5456c226e51e4d5d4bd4fae76559}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a0f3b5456c226e51e4d5d4bd4fae76559}} 
+\index{TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}!OnLevelRemovedAsObservable@{OnLevelRemovedAsObservable}}
+\index{OnLevelRemovedAsObservable@{OnLevelRemovedAsObservable}!TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}}
+\doxysubsubsection{\texorpdfstring{OnLevelRemovedAsObservable()}{OnLevelRemovedAsObservable()}}
+{\footnotesize\ttfamily I\+Observable$<$\mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}}$>$ Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Map\+Collection.\+On\+Level\+Removed\+As\+Observable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Triggered when a level is removed from the collection 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 69 of file Game\+Map\+Collection.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a1e2acb77f91b1042830612ebb7b50b28}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a1e2acb77f91b1042830612ebb7b50b28}} 
+\index{TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}!OnNewLevelInsertAsObservable@{OnNewLevelInsertAsObservable}}
+\index{OnNewLevelInsertAsObservable@{OnNewLevelInsertAsObservable}!TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}}
+\doxysubsubsection{\texorpdfstring{OnNewLevelInsertAsObservable()}{OnNewLevelInsertAsObservable()}}
+{\footnotesize\ttfamily I\+Observable$<$\mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}}$>$ Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Map\+Collection.\+On\+New\+Level\+Insert\+As\+Observable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Triggered when a new level is inserted in the collection 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 60 of file Game\+Map\+Collection.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_ab450c83d696b4f8d551d3c29dc52691c}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_ab450c83d696b4f8d551d3c29dc52691c}} 
+\index{TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}!Remove@{Remove}}
+\index{Remove@{Remove}!TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}}
+\doxysubsubsection{\texorpdfstring{Remove()}{Remove()}}
+{\footnotesize\ttfamily bool Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Map\+Collection.\+Remove (\begin{DoxyParamCaption}\item[{string}]{id }\end{DoxyParamCaption})}
+
+
+
+Removes a level from \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a3e7324af826e8214550abc15d22e9741}{Available\+Maps}}, the method will also remove its matching Map\+Finish\+Condition stored within \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a64e3ebdab86c904a347636c69e1688cb}{Moves\+Finish\+Conditions}} or \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_ada84d101015b15d65956a5c0970e30a2}{Time\+Finish\+Conditions}} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 93 of file Game\+Map\+Collection.\+cs.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a3e7324af826e8214550abc15d22e9741}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a3e7324af826e8214550abc15d22e9741}} 
+\index{TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}!AvailableMaps@{AvailableMaps}}
+\index{AvailableMaps@{AvailableMaps}!TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}}
+\doxysubsubsection{\texorpdfstring{AvailableMaps}{AvailableMaps}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}}$>$ Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Map\+Collection.\+Available\+Maps =$>$ \+\_\+available\+Maps}
+
+
+
+The maps within this collection 
+
+
+
+Definition at line 24 of file Game\+Map\+Collection.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a64e3ebdab86c904a347636c69e1688cb}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a64e3ebdab86c904a347636c69e1688cb}} 
+\index{TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}!MovesFinishConditions@{MovesFinishConditions}}
+\index{MovesFinishConditions@{MovesFinishConditions}!TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}}
+\doxysubsubsection{\texorpdfstring{MovesFinishConditions}{MovesFinishConditions}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_condition_1_1_moves_finish_condition}{Moves\+Finish\+Condition}}$>$ Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Map\+Collection.\+Moves\+Finish\+Conditions =$>$ \+\_\+moves\+Finish\+Conditions}
+
+
+
+The finishing conditions for the \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a3e7324af826e8214550abc15d22e9741}{Available\+Maps}} that have a Finish\+Condition.\+Moves\+Limit condition 
+
+
+
+Definition at line 29 of file Game\+Map\+Collection.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_ada84d101015b15d65956a5c0970e30a2}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_ada84d101015b15d65956a5c0970e30a2}} 
+\index{TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}!TimeFinishConditions@{TimeFinishConditions}}
+\index{TimeFinishConditions@{TimeFinishConditions}!TilesWalk.Gameplay.Persistence.GameMapCollection@{TilesWalk.Gameplay.Persistence.GameMapCollection}}
+\doxysubsubsection{\texorpdfstring{TimeFinishConditions}{TimeFinishConditions}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_condition_1_1_time_finish_condition}{Time\+Finish\+Condition}}$>$ Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Map\+Collection.\+Time\+Finish\+Conditions =$>$ \+\_\+time\+Finish\+Conditions}
+
+
+
+The finishing conditions for the \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection_a3e7324af826e8214550abc15d22e9741}{Available\+Maps}} that have a Finish\+Condition.\+Time\+Limit condition 
+
+
+
+Definition at line 34 of file Game\+Map\+Collection.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Source/\+Gameplay/\+Persistence/\mbox{\hyperlink{_game_map_collection_8cs}{Game\+Map\+Collection.\+cs}}\end{DoxyCompactItemize}

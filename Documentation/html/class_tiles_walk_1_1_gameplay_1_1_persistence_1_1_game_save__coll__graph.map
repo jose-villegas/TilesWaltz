@@ -1,0 +1,6 @@
+<map id="TilesWalk.Gameplay.Persistence.GameSave" name="TilesWalk.Gameplay.Persistence.GameSave">
+<area shape="rect" id="node1" title="The game save class contains all the data that is meant to be persistent through all the game instanc..." alt="" coords="407,95,625,137"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_statistics.html" title="Statistics data from the user" alt="" coords="5,6,224,47"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection.html" title="This serves as a collection of LevelMap and MapFinishCondition" alt="" coords="5,95,224,137"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper.html" title="This class serves as a collection of records matching an Id with a LevelScore" alt="" coords="5,214,224,255"/>
+</map>

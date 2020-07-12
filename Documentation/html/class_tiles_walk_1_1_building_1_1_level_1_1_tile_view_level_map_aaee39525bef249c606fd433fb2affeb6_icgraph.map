@@ -1,0 +1,4 @@
+<map id="TilesWalk.Building.Level.TileViewLevelMap.IsMovementLocked" name="TilesWalk.Building.Level.TileViewLevelMap.IsMovementLocked">
+<area shape="rect" id="node1" title="Checks if any of the current states for the map is locking movement" alt="" coords="223,5,461,47"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view.html#a438ac0dac039c0e9ac941a89580f944d" title=" " alt="" coords="5,5,175,47"/>
+</map>

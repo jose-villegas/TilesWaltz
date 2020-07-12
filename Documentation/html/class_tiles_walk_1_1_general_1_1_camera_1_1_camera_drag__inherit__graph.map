@@ -1,0 +1,4 @@
+<map id="TilesWalk.General.Camera.CameraDrag" name="TilesWalk.General.Camera.CameraDrag">
+<area shape="rect" id="node1" title="Camera drag behavior, holding the pointer and moving around will update the camera position" alt="" coords="16,95,197,136"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_general_1_1_patterns_1_1_obligatory_component_behaviour.html" title=" " alt="" coords="5,5,208,47"/>
+</map>

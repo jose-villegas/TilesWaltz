@@ -1,0 +1,10 @@
+<map id="TilesWalk.Tile.Tile.RefreshShortestLeafPath" name="TilesWalk.Tile.Tile.RefreshShortestLeafPath">
+<area shape="rect" id="node1" title=" " alt="" coords="499,169,673,211"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_tile_1_1_tile_controller.html#a010da40c2f36f57674b4097c2bb787da" title=" " alt="" coords="264,169,451,211"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_tile_1_1_tile_controller.html#aeb6adbdf68b42b9d69f02ae97f7e50d3" title="This methods inserts a neighbor in the data structure of the tile path" alt="" coords="17,5,204,47"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_tile_1_1_tile_controller.html#a5ebf2ecf6557be1e7ec63c1f115da5c8" title=" " alt="" coords="17,71,204,112"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_tile_1_1_tile_controller.html#af2494b7b52cb29ac737d0d94ec4ff9e5" title="Tile removal works by changing the color of this tile for the next tile color in its shortest path to..." alt="" coords="17,136,204,177"/>
+<area shape="rect" id="node6" href="$class_tiles_walk_1_1_tile_1_1_tile_controller.html#ab2a9555f25cf7024be7ce6f9cab17f92" title="Combo removal works by changing the colors for all the tiles within a matching color patch" alt="" coords="17,201,204,243"/>
+<area shape="rect" id="node7" href="$class_tiles_walk_1_1_tile_1_1_tile_controller.html#a1f8eb0eb734331db73c1329a30b6abd6" title=" " alt="" coords="17,267,204,308"/>
+<area shape="rect" id="node8" href="$class_tests_1_1_test_tile_controller_removal.html#a05f28a43b35d9f08bbb13e45b77dd016" title=" " alt="" coords="5,332,216,373"/>
+</map>

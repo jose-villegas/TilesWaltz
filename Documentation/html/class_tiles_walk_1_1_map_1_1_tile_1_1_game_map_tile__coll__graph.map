@@ -1,0 +1,15 @@
+<map id="TilesWalk.Map.Tile.GameMapTile" name="TilesWalk.Map.Tile.GameMapTile">
+<area shape="rect" id="node1" title=" " alt="" coords="849,152,1065,179"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_tile_1_1_tile_view.html" title=" " alt="" coords="729,152,800,179"/>
+<area shape="rect" id="node3" title=" " alt="" coords="408,5,519,32"/>
+<area shape="rect" id="node4" href="$interface_tiles_walk_1_1_base_interfaces_1_1_i_view.html" title=" " alt="" coords="437,56,490,83"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_tile_1_1_tile_color_material_color_match_handler.html" title=" " alt="" coords="374,107,553,149"/>
+<area shape="rect" id="node6" href="$class_tiles_walk_1_1_general_1_1_f_x_1_1_material_color_match_handler.html" title=" " alt="" coords="115,107,293,149"/>
+<area shape="rect" id="node7" href="$class_tiles_walk_1_1_gameplay_1_1_display_1_1_game_tile_colors_configuration.html" title=" " alt="" coords="367,173,560,214"/>
+<area shape="rect" id="node8" href="$class_tiles_walk_1_1_gameplay_1_1_input_1_1_game_events_handler.html" title=" " alt="" coords="374,238,553,279"/>
+<area shape="rect" id="node9" title=" " alt="" coords="127,245,281,272"/>
+<area shape="rect" id="node10" href="$class_tiles_walk_1_1_tile_1_1_tile_controller.html" title=" " alt="" coords="372,304,555,331"/>
+<area shape="rect" id="node11" href="$interface_tiles_walk_1_1_base_interfaces_1_1_i_controller.html" title=" " alt="" coords="164,300,244,327"/>
+<area shape="rect" id="node12" href="$class_tiles_walk_1_1_tile_1_1_tile.html" title="Tile class, contains all properties and fields related to the in&#45;game tiles puzzle figure,..." alt="" coords="141,351,267,377"/>
+<area shape="rect" id="node13" href="$interface_tiles_walk_1_1_base_interfaces_1_1_i_model.html" title=" " alt="" coords="5,351,65,377"/>
+</map>

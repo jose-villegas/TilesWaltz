@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_tiles_walk_1_1_general_1_1_patterns_1_1_obligatory_component_behaviour.html" title=" " alt="" coords="5,162,208,218"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_audio_1_1_u_i_1_1_button_click_sound.html" title=" " alt="" coords="299,5,473,47"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_g_p_g_s_1_1_u_i_1_1_g_p_g_s_achievements_button.html" title=" " alt="" coords="256,71,516,112"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_g_p_g_s_1_1_u_i_1_1_g_p_g_s_sign_in_button.html" title=" " alt="" coords="283,136,489,177"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_g_p_g_s_1_1_u_i_1_1_g_p_g_s_standard_leaderboard_button.html" title=" " alt="" coords="271,201,501,243"/>
+<area shape="rect" id="node6" href="$class_tiles_walk_1_1_map_1_1_u_i_1_1_clear_bridge_button.html" title=" " alt="" coords="289,267,483,308"/>
+<area shape="rect" id="node7" href="$class_tiles_walk_1_1_navigation_1_1_u_i_1_1_scene_load_button.html" title=" " alt="" coords="305,332,467,373"/>
+</map>

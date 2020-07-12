@@ -1,0 +1,4 @@
+<map id="TilesWalk.Gameplay.Score.Record.Update" name="TilesWalk.Gameplay.Score.Record.Update">
+<area shape="rect" id="node1" title="Update the record last value. Highest and Lowest will be updated here too if matching the conditions" alt="" coords="283,5,467,47"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_gameplay_1_1_score_1_1_level_score_points_tracker.html#a62f19778898896e3dd273d49e54d7949" title=" " alt="" coords="5,5,235,47"/>
+</map>

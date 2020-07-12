@@ -1,0 +1,9 @@
+<map id="TilesWalk.Tile.TileView.Start" name="TilesWalk.Tile.TileView.Start">
+<area shape="rect" id="node1" title=" " alt="" coords="5,189,164,231"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_tile_1_1_tile_view.html#a205f54d4e18f947c6ad05b765e4fe3b2" title=" " alt="" coords="258,5,417,47"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_gameplay_1_1_input_1_1_game_events_handler.html#a4861f5a7a92fc238f30257efa597a2b9" title=" " alt="" coords="217,71,457,127"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_tile_1_1_tile_view.html#a156922a5fffd711b296dd7cf34a13cb3" title=" " alt="" coords="258,152,417,193"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_gameplay_1_1_input_1_1_game_events_handler.html#acf253a3906c39771578caa6213f12ef9" title=" " alt="" coords="212,218,463,274"/>
+<area shape="rect" id="node6" href="$class_tiles_walk_1_1_tile_1_1_tile.html#a10a7d0046f0827608806fd64ef6ecc1a" title=" " alt="" coords="246,299,429,340"/>
+<area shape="rect" id="node7" href="$class_tiles_walk_1_1_tile_1_1_tile_view.html#a2252d9fe1217dfdeeb4982c170caafc9" title=" " alt="" coords="258,364,417,405"/>
+</map>

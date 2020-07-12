@@ -1,0 +1,15 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_tiles_walk_1_1_general_1_1_patterns_1_1_obligatory_component_behaviour.html" title=" " alt="" coords="5,341,208,397"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_canvas_group_behaviour.html" title=" " alt="" coords="256,348,447,389"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_building_1_1_gallery_1_1_u_i_1_1_import_level_canvas.html" title=" " alt="" coords="515,5,694,47"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_building_1_1_gallery_1_1_u_i_1_1_share_level_canvas.html" title=" " alt="" coords="515,71,694,112"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_u_i_1_1_level_editor_actions_canvas.html" title=" " alt="" coords="513,137,696,193"/>
+<area shape="rect" id="node6" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_u_i_1_1_save_level_canvas.html" title=" " alt="" coords="517,217,692,259"/>
+<area shape="rect" id="node7" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_u_i_1_1_tile_insertion_mode_canvas.html" title=" " alt="" coords="495,283,714,324"/>
+<area shape="rect" id="node8" href="$class_tiles_walk_1_1_gameplay_1_1_level_1_1_u_i_1_1_congrats_animation_canvas.html" title=" " alt="" coords="509,348,700,389"/>
+<area shape="rect" id="node9" href="$class_tiles_walk_1_1_gameplay_1_1_level_1_1_u_i_1_1_level_finish_details_canvas.html" title=" " alt="" coords="513,413,697,455"/>
+<area shape="rect" id="node10" href="$class_tiles_walk_1_1_gameplay_1_1_u_i_1_1_game_options_canvas.html" title=" " alt="" coords="506,479,703,520"/>
+<area shape="rect" id="node11" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_confirmation.html" title=" " alt="" coords="495,545,715,571"/>
+<area shape="rect" id="node12" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_notice.html" title=" " alt="" coords="512,595,697,622"/>
+<area shape="rect" id="node13" href="$class_tiles_walk_1_1_navigation_1_1_u_i_1_1_level_map_details_canvas.html" title=" " alt="" coords="523,647,686,688"/>
+</map>

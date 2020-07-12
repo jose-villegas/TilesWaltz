@@ -1,0 +1,5 @@
+<map id="TilesWalk.Tile.Tile.ShuffleColor" name="TilesWalk.Tile.Tile.ShuffleColor">
+<area shape="rect" id="node1" title=" " alt="" coords="240,39,411,80"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_tile_1_1_tile_controller.html#aeb6adbdf68b42b9d69f02ae97f7e50d3" title="This methods inserts a neighbor in the data structure of the tile path" alt="" coords="5,5,192,47"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_tile_1_1_tile_controller.html#af2494b7b52cb29ac737d0d94ec4ff9e5" title="Tile removal works by changing the color of this tile for the next tile color in its shortest path to..." alt="" coords="5,71,192,112"/>
+</map>

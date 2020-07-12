@@ -1,0 +1,212 @@
+\hypertarget{class_tiles_walk_1_1_tile_1_1_tile_view}{}\doxysection{Tiles\+Walk.\+Tile.\+Tile\+View Class Reference}
+\label{class_tiles_walk_1_1_tile_1_1_tile_view}\index{TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}}
+
+
+Inheritance diagram for Tiles\+Walk.\+Tile.\+Tile\+View\+:
+% FIG 0
+
+
+Collaboration diagram for Tiles\+Walk.\+Tile.\+Tile\+View\+:
+% FIG 1
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+abstract void \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_view_a2252d9fe1217dfdeeb4982c170caafc9}{Update\+Color}} (Tuple$<$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}}, \mbox{\hyperlink{namespace_tiles_walk_1_1_gameplay_1_1_display_ad17b37d819177353aeb2e24c72c72a89}{Tile\+Color}} $>$ color)
+\item 
+virtual void \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_view_a31ed30d401947d8c27119983e30c4ff5}{Start}} ()
+\item 
+abstract void \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_view_a156922a5fffd711b296dd7cf34a13cb3}{On\+Game\+Resumed}} (Unit u)
+\item 
+abstract void \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_view_a205f54d4e18f947c6ad05b765e4fe3b2}{On\+Game\+Paused}} (Unit u)
+\item 
+virtual void \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_view_a489420adaf6c2db4b41907a8ef5f2b56}{On\+Destroy}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_display_1_1_game_tile_colors_configuration}{Game\+Tile\+Colors\+Configuration}} \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_view_a0665ecaebfb1c1d9e022df4f9582fd81}{\+\_\+colors\+Configuration}}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_color_material_color_match_handler}{Tile\+Color\+Material\+Color\+Match\+Handler}} \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_view_a05e0bdbd25ab1482f0340bac925a3e0b}{\+\_\+color\+Handler}}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_input_1_1_game_events_handler}{Game\+Events\+Handler}} \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_view_a3a088142f1af30dfb435ea5f37b4b02d}{\+\_\+game\+Events}}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller}{Tile\+Controller}} \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_view_acc8632bcffaf169480ceb725373c84f7}{\+\_\+controller}} = new \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller}{Tile\+Controller}}()
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller}{Tile\+Controller}} \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_view_a9d65f981daf4a0415f67c8e339514073}{Controller}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+Box\+Collider \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_view_ae5d4261d2e7088677f8c7e1dfc8a0782}{Collider}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+Mesh\+Renderer \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_view_a48048df8612b0d48dcd9975051e79bb1}{Renderer}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_general_1_1_f_x_1_1_particle_systems_collector}{Particle\+Systems\+Collector}} \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_view_a758dae283b09c8300a8be1d0687a38cd}{Particle\+Systems}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, protected set\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 12 of file Tile\+View.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_view_a489420adaf6c2db4b41907a8ef5f2b56}\label{class_tiles_walk_1_1_tile_1_1_tile_view_a489420adaf6c2db4b41907a8ef5f2b56}} 
+\index{TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}!OnDestroy@{OnDestroy}}
+\index{OnDestroy@{OnDestroy}!TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}}
+\doxysubsubsection{\texorpdfstring{OnDestroy()}{OnDestroy()}}
+{\footnotesize\ttfamily virtual void Tiles\+Walk.\+Tile.\+Tile\+View.\+On\+Destroy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view_ab93891e47442793cc5e060a2fd3a435e}{Tiles\+Walk.\+Tile.\+Level.\+Level\+Tile\+View}}.
+
+
+
+Definition at line 89 of file Tile\+View.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_view_a205f54d4e18f947c6ad05b765e4fe3b2}\label{class_tiles_walk_1_1_tile_1_1_tile_view_a205f54d4e18f947c6ad05b765e4fe3b2}} 
+\index{TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}!OnGamePaused@{OnGamePaused}}
+\index{OnGamePaused@{OnGamePaused}!TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}}
+\doxysubsubsection{\texorpdfstring{OnGamePaused()}{OnGamePaused()}}
+{\footnotesize\ttfamily abstract void Tiles\+Walk.\+Tile.\+Tile\+View.\+On\+Game\+Paused (\begin{DoxyParamCaption}\item[{Unit}]{u }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_map_tile_a188685ee2304facf6268854f3df9da3e}{Tiles\+Walk.\+Map.\+Tile.\+Game\+Map\+Tile}}, and \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view_a7d4808fa3689171539350bfb82eadaa2}{Tiles\+Walk.\+Tile.\+Level.\+Level\+Tile\+View}}.
+
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_view_a156922a5fffd711b296dd7cf34a13cb3}\label{class_tiles_walk_1_1_tile_1_1_tile_view_a156922a5fffd711b296dd7cf34a13cb3}} 
+\index{TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}!OnGameResumed@{OnGameResumed}}
+\index{OnGameResumed@{OnGameResumed}!TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}}
+\doxysubsubsection{\texorpdfstring{OnGameResumed()}{OnGameResumed()}}
+{\footnotesize\ttfamily abstract void Tiles\+Walk.\+Tile.\+Tile\+View.\+On\+Game\+Resumed (\begin{DoxyParamCaption}\item[{Unit}]{u }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_map_tile_ac360c4c02181d99e76f19257a75cfc11}{Tiles\+Walk.\+Map.\+Tile.\+Game\+Map\+Tile}}, and \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view_a8391212dce538f9e4c94ec91a9f4df3f}{Tiles\+Walk.\+Tile.\+Level.\+Level\+Tile\+View}}.
+
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_view_a31ed30d401947d8c27119983e30c4ff5}\label{class_tiles_walk_1_1_tile_1_1_tile_view_a31ed30d401947d8c27119983e30c4ff5}} 
+\index{TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}!Start@{Start}}
+\index{Start@{Start}!TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily virtual void Tiles\+Walk.\+Tile.\+Tile\+View.\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_map_tile_aa13d7a839e97418f29e25e5c08398587}{Tiles\+Walk.\+Map.\+Tile.\+Game\+Map\+Tile}}, and \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view_ade6012f4831a7dded7a89400ce896894}{Tiles\+Walk.\+Tile.\+Level.\+Level\+Tile\+View}}.
+
+
+
+Definition at line 73 of file Tile\+View.\+cs.
+
+Here is the call graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_view_a2252d9fe1217dfdeeb4982c170caafc9}\label{class_tiles_walk_1_1_tile_1_1_tile_view_a2252d9fe1217dfdeeb4982c170caafc9}} 
+\index{TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}!UpdateColor@{UpdateColor}}
+\index{UpdateColor@{UpdateColor}!TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}}
+\doxysubsubsection{\texorpdfstring{UpdateColor()}{UpdateColor()}}
+{\footnotesize\ttfamily abstract void Tiles\+Walk.\+Tile.\+Tile\+View.\+Update\+Color (\begin{DoxyParamCaption}\item[{Tuple$<$ \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tile}}, \mbox{\hyperlink{namespace_tiles_walk_1_1_gameplay_1_1_display_ad17b37d819177353aeb2e24c72c72a89}{Tile\+Color}} $>$}]{color }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view_a1faa0a68d632f4bde70688a1b3ee6f70}{Tiles\+Walk.\+Tile.\+Level.\+Level\+Tile\+View}}.
+
+Here is the caller graph for this function\+:
+% FIG 5
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_view_a05e0bdbd25ab1482f0340bac925a3e0b}\label{class_tiles_walk_1_1_tile_1_1_tile_view_a05e0bdbd25ab1482f0340bac925a3e0b}} 
+\index{TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}!\_colorHandler@{\_colorHandler}}
+\index{\_colorHandler@{\_colorHandler}!TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}}
+\doxysubsubsection{\texorpdfstring{\_colorHandler}{\_colorHandler}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_color_material_color_match_handler}{Tile\+Color\+Material\+Color\+Match\+Handler}} Tiles\+Walk.\+Tile.\+Tile\+View.\+\_\+color\+Handler\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 15 of file Tile\+View.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_view_a0665ecaebfb1c1d9e022df4f9582fd81}\label{class_tiles_walk_1_1_tile_1_1_tile_view_a0665ecaebfb1c1d9e022df4f9582fd81}} 
+\index{TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}!\_colorsConfiguration@{\_colorsConfiguration}}
+\index{\_colorsConfiguration@{\_colorsConfiguration}!TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}}
+\doxysubsubsection{\texorpdfstring{\_colorsConfiguration}{\_colorsConfiguration}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_display_1_1_game_tile_colors_configuration}{Game\+Tile\+Colors\+Configuration}} Tiles\+Walk.\+Tile.\+Tile\+View.\+\_\+colors\+Configuration\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 14 of file Tile\+View.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_view_acc8632bcffaf169480ceb725373c84f7}\label{class_tiles_walk_1_1_tile_1_1_tile_view_acc8632bcffaf169480ceb725373c84f7}} 
+\index{TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}!\_controller@{\_controller}}
+\index{\_controller@{\_controller}!TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}}
+\doxysubsubsection{\texorpdfstring{\_controller}{\_controller}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller}{Tile\+Controller}} Tiles\+Walk.\+Tile.\+Tile\+View.\+\_\+controller = new \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller}{Tile\+Controller}}()\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 18 of file Tile\+View.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_view_a3a088142f1af30dfb435ea5f37b4b02d}\label{class_tiles_walk_1_1_tile_1_1_tile_view_a3a088142f1af30dfb435ea5f37b4b02d}} 
+\index{TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}!\_gameEvents@{\_gameEvents}}
+\index{\_gameEvents@{\_gameEvents}!TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}}
+\doxysubsubsection{\texorpdfstring{\_gameEvents}{\_gameEvents}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_input_1_1_game_events_handler}{Game\+Events\+Handler}} Tiles\+Walk.\+Tile.\+Tile\+View.\+\_\+game\+Events\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 16 of file Tile\+View.\+cs.
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_view_ae5d4261d2e7088677f8c7e1dfc8a0782}\label{class_tiles_walk_1_1_tile_1_1_tile_view_ae5d4261d2e7088677f8c7e1dfc8a0782}} 
+\index{TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}!Collider@{Collider}}
+\index{Collider@{Collider}!TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}}
+\doxysubsubsection{\texorpdfstring{Collider}{Collider}}
+{\footnotesize\ttfamily Box\+Collider Tiles\+Walk.\+Tile.\+Tile\+View.\+Collider\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Definition at line 30 of file Tile\+View.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_view_a9d65f981daf4a0415f67c8e339514073}\label{class_tiles_walk_1_1_tile_1_1_tile_view_a9d65f981daf4a0415f67c8e339514073}} 
+\index{TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}!Controller@{Controller}}
+\index{Controller@{Controller}!TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}}
+\doxysubsubsection{\texorpdfstring{Controller}{Controller}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile_controller}{Tile\+Controller}} Tiles\+Walk.\+Tile.\+Tile\+View.\+Controller\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Definition at line 24 of file Tile\+View.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_view_a758dae283b09c8300a8be1d0687a38cd}\label{class_tiles_walk_1_1_tile_1_1_tile_view_a758dae283b09c8300a8be1d0687a38cd}} 
+\index{TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}!ParticleSystems@{ParticleSystems}}
+\index{ParticleSystems@{ParticleSystems}!TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}}
+\doxysubsubsection{\texorpdfstring{ParticleSystems}{ParticleSystems}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_general_1_1_f_x_1_1_particle_systems_collector}{Particle\+Systems\+Collector}} Tiles\+Walk.\+Tile.\+Tile\+View.\+Particle\+Systems\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [protected set]}}
+
+
+
+Definition at line 56 of file Tile\+View.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_tile_1_1_tile_view_a48048df8612b0d48dcd9975051e79bb1}\label{class_tiles_walk_1_1_tile_1_1_tile_view_a48048df8612b0d48dcd9975051e79bb1}} 
+\index{TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}!Renderer@{Renderer}}
+\index{Renderer@{Renderer}!TilesWalk.Tile.TileView@{TilesWalk.Tile.TileView}}
+\doxysubsubsection{\texorpdfstring{Renderer}{Renderer}}
+{\footnotesize\ttfamily Mesh\+Renderer Tiles\+Walk.\+Tile.\+Tile\+View.\+Renderer\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 43 of file Tile\+View.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Source/\+Tile/\mbox{\hyperlink{_tile_view_8cs}{Tile\+View.\+cs}}\end{DoxyCompactItemize}

@@ -1,0 +1,5 @@
+<map id="TilesWalk.Navigation.UI.LevelMapDetailsCanvas" name="TilesWalk.Navigation.UI.LevelMapDetailsCanvas">
+<area shape="rect" id="node1" title=" " alt="" coords="25,169,188,211"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_canvas_group_behaviour.html" title=" " alt="" coords="29,95,184,121"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_general_1_1_patterns_1_1_obligatory_component_behaviour.html" title=" " alt="" coords="5,5,208,47"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="TilesWalk.General.UI.CanvasGroupBehaviour.Show" name="TilesWalk.General.UI.CanvasGroupBehaviour.Show">
+<area shape="rect" id="node1" title=" " alt="" coords="777,159,968,201"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_gameplay_1_1_level_1_1_u_i_1_1_level_finish_details_canvas.html#afa40c43f659f968606b1c85b809b4596" title=" " alt="" coords="516,5,721,61"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile.html#a2b563aed0d8b5abd964e8e50a8c0efd0" title="Logic for when a level tile is clicked, this shows the level details in the UI" alt="" coords="519,86,719,127"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_u_i_1_1_level_editor_tool_set.html#a77ed09e9cfba67561a033626299fc9e9" title=" " alt="" coords="525,152,712,208"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_notice.html#a0c794f0e192ae7f12092f2bae8e47193" title=" " alt="" coords="508,232,729,259"/>
+<area shape="rect" id="node8" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_canvas_group_behaviour.html#a020404802b0af7467be62a4eb977787b" title=" " alt="" coords="523,283,714,325"/>
+<area shape="rect" id="node6" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_u_i_1_1_save_level_canvas.html#a4d4d4d3130dc09103705b0db05703972" title=" " alt="" coords="5,217,201,273"/>
+<area shape="rect" id="node7" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_u_i_1_1_save_level_canvas.html#a850b200f5e10e6e7b7b360c25810c99b" title=" " alt="" coords="249,254,460,295"/>
+</map>

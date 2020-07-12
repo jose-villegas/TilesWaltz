@@ -1,0 +1,4 @@
+<map id="TilesWalk.Gameplay.Condition.TargetScorePointsCondition" name="TilesWalk.Gameplay.Condition.TargetScorePointsCondition">
+<area shape="rect" id="node1" title=" " alt="" coords="5,95,209,136"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_gameplay_1_1_condition_1_1_map_finish_condition.html" title=" " alt="" coords="39,5,175,47"/>
+</map>

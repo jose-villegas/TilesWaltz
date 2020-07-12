@@ -1,0 +1,7 @@
+<map id="TilesWalk.Gameplay.Persistence.Installer.GameSaveInstaller.InstallBindings" name="TilesWalk.Gameplay.Persistence.Installer.GameSaveInstaller.InstallBindings">
+<area shape="rect" id="node1" title=" " alt="" coords="5,63,224,119"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_local_game_save.html#aed336f6d7c5664fec952c42ebe4623db" title="This loads the GameSave data from a local file" alt="" coords="321,5,539,47"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save.html#acd73dc2226c82420d3d8e6101d9e5736" title=" " alt="" coords="285,71,575,112"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save.html#a63f26f2bf959f5628bdcfb05c9013b02" title=" " alt="" coords="272,136,588,177"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_statistics.html#a84aec1cdd705afaed16813263459f387" title=" " alt="" coords="636,5,855,47"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="TilesWalk.Map.Tile.GameLevelsMapBuilder.RegisterLevelTile" name="TilesWalk.Map.Tile.GameLevelsMapBuilder.RegisterLevelTile">
+<area shape="rect" id="node1" title="This register a GameMapTile as a tile pointer to a level to the internal map structure" alt="" coords="249,5,456,47"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_map_1_1_tile_1_1_game_map_tile.html#a8fcddbcb55acd74697ed7eefaf616d46" title=" " alt="" coords="5,5,201,47"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="TilesWalk.Gameplay.Installer.GameSettingsInstaller" name="TilesWalk.Gameplay.Installer.GameSettingsInstaller">
+<area shape="rect" id="node1" title=" " alt="" coords="328,39,523,80"/>
+<area shape="rect" id="node2" title=" " alt="" coords="15,5,189,47"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_gameplay_1_1_display_1_1_game_tile_colors_configuration.html" title=" " alt="" coords="5,71,199,112"/>
+</map>

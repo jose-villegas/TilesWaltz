@@ -1,0 +1,4 @@
+<map id="TilesWalk.Tile.Level.LevelTileView.OnMouseDown" name="TilesWalk.Tile.Level.LevelTileView.OnMouseDown">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,175,47"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map.html#aaee39525bef249c606fd433fb2affeb6" title="Checks if any of the current states for the map is locking movement" alt="" coords="223,5,461,47"/>
+</map>

@@ -1,0 +1,278 @@
+\hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map}{}\doxysection{Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map Class Reference}
+\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map}\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+
+
+This class holds the currently running level map and all its \mbox{\hyperlink{_tile_view_extension_8cs_a5836298f26f5baab9fce7df075ec2451}{Level\+Tile\+View}} instances  
+
+
+
+
+Inheritance diagram for Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map\+:
+% FIG 0
+
+
+Collaboration diagram for Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_aaee39525bef249c606fd433fb2affeb6}{Is\+Movement\+Locked}} ()
+\begin{DoxyCompactList}\small\item\em Checks if any of the current states for the map is locking movement \end{DoxyCompactList}\item 
+override void \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_ab0048452b55538049fd37a32d2f66e8c}{Register\+Tile}} (\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view}{Level\+Tile\+View}} tile, int? hash=null)
+\item 
+bool \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a3c5172f400aca9e7c42582c1cecd972d}{Is\+Any\+Combo\+Left}} ()
+\begin{DoxyCompactList}\small\item\em This method check if any color matching combo existing within all the tiles This is useful for preventing level finish from getting the last combo points \end{DoxyCompactList}\item 
+override void \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a71189c792f7e5bf74bdc98b60f913ef3}{Remove\+Tile}} (\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view}{Level\+Tile\+View}} tile)
+\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a58aac7d61cff1898f3ffbad26c9bfaa0}{Refresh\+All\+Paths}} ()
+\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a72f62a23d05a3ced6c3daa6a3d8e11dd}{Generate\+Instructions}} ()
+\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a9b2057c27de612b18ffb6435d9e7dc13}{Build\+From\+Instructions}} ()
+\item 
+override void \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_ab8f0b3cfb1f6be63d3ca9ef4c9a33eb0}{Build\+Tile\+Map$<$ T $>$}} (\mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}} map)
+\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a0ca1f4b3e91ede2e4cc39d67ecc9494e}{Update\+Indexes$<$ T $>$}} (T tile)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_tiles_walk_1_1_building_1_1_level_a3b12d5bad734b51c265198ae8c04c003}{Level\+Load\+Options}} \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a8567f10410c4ef8b78cc0b9ac409d2f3}{Load\+Option}} =$>$ \+\_\+load\+Option
+\item 
+Dictionary$<$ Vector3\+Int, \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view}{Level\+Tile\+View}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a069a6a7b36b9f8a3e117d4dc0f0da9dd}{Indexes}} =$>$ \+\_\+indexes
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+override void \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a2d8b635c21ed7eda88b0e0415544005a}{Start}} ()
+\item 
+override void \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a044ebe8d1e4e5a812d0ac44e4bb088f1}{On\+New\+Tile\+Instance}} (\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view}{Level\+Tile\+View}} tile)
+\begin{DoxyCompactList}\small\item\em Get tile callbacks and generalize them for the whole map, the callbacks are subscribed to the tile, so when they are disposed with the tile instance \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view_trigger_base}{Level\+Tile\+View\+Trigger\+Base}} \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a57977e4ed118214b6fd2c339664dd13d}{Trigger}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\hyperlink{namespace_tiles_walk_1_1_building_1_1_level_a3673df5ee6fea3533cef29a5e068b6d2}{Tile\+Level\+Map\+State}}? \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a1161895d17d0f03988adf5471b78ea07}{State}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em This property handles the current map state, useful for locking movement or seeing what is actually happening with the tiles \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+This class holds the currently running level map and all its \mbox{\hyperlink{_tile_view_extension_8cs_a5836298f26f5baab9fce7df075ec2451}{Level\+Tile\+View}} instances 
+
+
+
+Definition at line 27 of file Tile\+View\+Level\+Map.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a9b2057c27de612b18ffb6435d9e7dc13}\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a9b2057c27de612b18ffb6435d9e7dc13}} 
+\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}!BuildFromInstructions@{BuildFromInstructions}}
+\index{BuildFromInstructions@{BuildFromInstructions}!TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+\doxysubsubsection{\texorpdfstring{BuildFromInstructions()}{BuildFromInstructions()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map.\+Build\+From\+Instructions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 279 of file Tile\+View\+Level\+Map.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_ab8f0b3cfb1f6be63d3ca9ef4c9a33eb0}\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_ab8f0b3cfb1f6be63d3ca9ef4c9a33eb0}} 
+\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}!BuildTileMap$<$ T $>$@{BuildTileMap$<$ T $>$}}
+\index{BuildTileMap$<$ T $>$@{BuildTileMap$<$ T $>$}!TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+\doxysubsubsection{\texorpdfstring{BuildTileMap$<$ T $>$()}{BuildTileMap< T >()}}
+{\footnotesize\ttfamily override void Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map.\+Build\+Tile\+Map$<$ T $>$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_level_map}{Level\+Map}}}]{map }\end{DoxyParamCaption})}
+
+
+
+Definition at line 300 of file Tile\+View\+Level\+Map.\+cs.
+
+Here is the call graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a72f62a23d05a3ced6c3daa6a3d8e11dd}\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a72f62a23d05a3ced6c3daa6a3d8e11dd}} 
+\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}!GenerateInstructions@{GenerateInstructions}}
+\index{GenerateInstructions@{GenerateInstructions}!TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+\doxysubsubsection{\texorpdfstring{GenerateInstructions()}{GenerateInstructions()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map.\+Generate\+Instructions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 258 of file Tile\+View\+Level\+Map.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a3c5172f400aca9e7c42582c1cecd972d}\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a3c5172f400aca9e7c42582c1cecd972d}} 
+\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}!IsAnyComboLeft@{IsAnyComboLeft}}
+\index{IsAnyComboLeft@{IsAnyComboLeft}!TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+\doxysubsubsection{\texorpdfstring{IsAnyComboLeft()}{IsAnyComboLeft()}}
+{\footnotesize\ttfamily bool Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map.\+Is\+Any\+Combo\+Left (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This method check if any color matching combo existing within all the tiles This is useful for preventing level finish from getting the last combo points 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 176 of file Tile\+View\+Level\+Map.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_aaee39525bef249c606fd433fb2affeb6}\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_aaee39525bef249c606fd433fb2affeb6}} 
+\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}!IsMovementLocked@{IsMovementLocked}}
+\index{IsMovementLocked@{IsMovementLocked}!TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+\doxysubsubsection{\texorpdfstring{IsMovementLocked()}{IsMovementLocked()}}
+{\footnotesize\ttfamily bool Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map.\+Is\+Movement\+Locked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if any of the current states for the map is locking movement 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 75 of file Tile\+View\+Level\+Map.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a044ebe8d1e4e5a812d0ac44e4bb088f1}\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a044ebe8d1e4e5a812d0ac44e4bb088f1}} 
+\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}!OnNewTileInstance@{OnNewTileInstance}}
+\index{OnNewTileInstance@{OnNewTileInstance}!TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+\doxysubsubsection{\texorpdfstring{OnNewTileInstance()}{OnNewTileInstance()}}
+{\footnotesize\ttfamily override void Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map.\+On\+New\+Tile\+Instance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view}{Level\+Tile\+View}}}]{tile }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Get tile callbacks and generalize them for the whole map, the callbacks are subscribed to the tile, so when they are disposed with the tile instance 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tile} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 141 of file Tile\+View\+Level\+Map.\+cs.
+
+Here is the call graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a58aac7d61cff1898f3ffbad26c9bfaa0}\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a58aac7d61cff1898f3ffbad26c9bfaa0}} 
+\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}!RefreshAllPaths@{RefreshAllPaths}}
+\index{RefreshAllPaths@{RefreshAllPaths}!TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+\doxysubsubsection{\texorpdfstring{RefreshAllPaths()}{RefreshAllPaths()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map.\+Refresh\+All\+Paths (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 248 of file Tile\+View\+Level\+Map.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_ab0048452b55538049fd37a32d2f66e8c}\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_ab0048452b55538049fd37a32d2f66e8c}} 
+\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}!RegisterTile@{RegisterTile}}
+\index{RegisterTile@{RegisterTile}!TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+\doxysubsubsection{\texorpdfstring{RegisterTile()}{RegisterTile()}}
+{\footnotesize\ttfamily override void Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map.\+Register\+Tile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view}{Level\+Tile\+View}}}]{tile,  }\item[{int?}]{hash = {\ttfamily null} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 154 of file Tile\+View\+Level\+Map.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a71189c792f7e5bf74bdc98b60f913ef3}\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a71189c792f7e5bf74bdc98b60f913ef3}} 
+\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}!RemoveTile@{RemoveTile}}
+\index{RemoveTile@{RemoveTile}!TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+\doxysubsubsection{\texorpdfstring{RemoveTile()}{RemoveTile()}}
+{\footnotesize\ttfamily override void Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map.\+Remove\+Tile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view}{Level\+Tile\+View}}}]{tile }\end{DoxyParamCaption})}
+
+
+
+Definition at line 189 of file Tile\+View\+Level\+Map.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a2d8b635c21ed7eda88b0e0415544005a}\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a2d8b635c21ed7eda88b0e0415544005a}} 
+\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}!Start@{Start}}
+\index{Start@{Start}!TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily override void Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map.\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_map_a710af361e8fcc3ab42437845956e8360}{Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Map$<$ Level\+Map, Level\+Tile\+View, Level\+Tile\+View\+Factory $>$}}.
+
+
+
+Definition at line 84 of file Tile\+View\+Level\+Map.\+cs.
+
+Here is the call graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a0ca1f4b3e91ede2e4cc39d67ecc9494e}\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a0ca1f4b3e91ede2e4cc39d67ecc9494e}} 
+\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}!UpdateIndexes$<$ T $>$@{UpdateIndexes$<$ T $>$}}
+\index{UpdateIndexes$<$ T $>$@{UpdateIndexes$<$ T $>$}!TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+\doxysubsubsection{\texorpdfstring{UpdateIndexes$<$ T $>$()}{UpdateIndexes< T >()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map.\+Update\+Indexes$<$ T $>$ (\begin{DoxyParamCaption}\item[{T}]{tile }\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Type Constraints]\begin{description}
+\item[{\em T} : {\em \mbox{\hyperlink{_custom_level_entry_canvas_8cs_a5836298f26f5baab9fce7df075ec2451}{Level\+Tile\+View}}}]\end{description}
+\end{Desc}
+
+
+Definition at line 370 of file Tile\+View\+Level\+Map.\+cs.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a069a6a7b36b9f8a3e117d4dc0f0da9dd}\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a069a6a7b36b9f8a3e117d4dc0f0da9dd}} 
+\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}!Indexes@{Indexes}}
+\index{Indexes@{Indexes}!TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+\doxysubsubsection{\texorpdfstring{Indexes}{Indexes}}
+{\footnotesize\ttfamily Dictionary$<$Vector3\+Int, \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view}{Level\+Tile\+View}}$>$ Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map.\+Indexes =$>$ \+\_\+indexes}
+
+
+
+Definition at line 66 of file Tile\+View\+Level\+Map.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a8567f10410c4ef8b78cc0b9ac409d2f3}\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a8567f10410c4ef8b78cc0b9ac409d2f3}} 
+\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}!LoadOption@{LoadOption}}
+\index{LoadOption@{LoadOption}!TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+\doxysubsubsection{\texorpdfstring{LoadOption}{LoadOption}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_tiles_walk_1_1_building_1_1_level_a3b12d5bad734b51c265198ae8c04c003}{Level\+Load\+Options}} Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map.\+Load\+Option =$>$ \+\_\+load\+Option}
+
+
+
+Definition at line 64 of file Tile\+View\+Level\+Map.\+cs.
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a1161895d17d0f03988adf5471b78ea07}\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a1161895d17d0f03988adf5471b78ea07}} 
+\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}!State@{State}}
+\index{State@{State}!TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+\doxysubsubsection{\texorpdfstring{State}{State}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_tiles_walk_1_1_building_1_1_level_a3673df5ee6fea3533cef29a5e068b6d2}{Tile\+Level\+Map\+State}}? Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map.\+State\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+This property handles the current map state, useful for locking movement or seeing what is actually happening with the tiles 
+
+
+
+Definition at line 53 of file Tile\+View\+Level\+Map.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a57977e4ed118214b6fd2c339664dd13d}\label{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map_a57977e4ed118214b6fd2c339664dd13d}} 
+\index{TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}!Trigger@{Trigger}}
+\index{Trigger@{Trigger}!TilesWalk.Building.Level.TileViewLevelMap@{TilesWalk.Building.Level.TileViewLevelMap}}
+\doxysubsubsection{\texorpdfstring{Trigger}{Trigger}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view_trigger_base}{Level\+Tile\+View\+Trigger\+Base}} Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Level\+Map.\+Trigger\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Definition at line 36 of file Tile\+View\+Level\+Map.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Source/\+Building/\+Level/\mbox{\hyperlink{_tile_view_level_map_8cs}{Tile\+View\+Level\+Map.\+cs}}\end{DoxyCompactItemize}

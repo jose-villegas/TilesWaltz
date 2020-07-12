@@ -1,0 +1,5 @@
+<map id="TilesWalk.Map.Tile.GameLevelTileLinksHandler.ResolveLinks" name="TilesWalk.Map.Tile.GameLevelTileLinksHandler.ResolveLinks">
+<area shape="rect" id="node1" title="This method resolves the neighbor links for a game level tile in the game map. This is written in suc..." alt="" coords="5,39,205,80"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_map.html#a9cb82cd40e91a89437ae306eeb93fc7c" title=" " alt="" coords="273,5,441,47"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder.html#ab96fce4f655af2d524fa2e9ec3ec3339" title="Determines if a Tile is actually a tile that points to a game level" alt="" coords="253,71,460,112"/>
+</map>

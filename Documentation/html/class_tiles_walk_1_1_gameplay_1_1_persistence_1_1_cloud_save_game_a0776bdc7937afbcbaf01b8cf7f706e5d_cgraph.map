@@ -1,0 +1,5 @@
+<map id="TilesWalk.Gameplay.Persistence.CloudSaveGame.Save" name="TilesWalk.Gameplay.Persistence.CloudSaveGame.Save">
+<area shape="rect" id="node1" title="This saves the GameSave data." alt="" coords="5,39,224,80"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_statistics.html#ad773c5bb85452e7e314d5e9c480655de" title=" " alt="" coords="272,5,491,47"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_statistics.html#a6eae2a9fee51c68dea48a4dbb4a2d87d" title=" " alt="" coords="272,71,491,112"/>
+</map>

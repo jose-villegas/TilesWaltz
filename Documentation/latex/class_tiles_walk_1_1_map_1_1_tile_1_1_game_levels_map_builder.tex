@@ -1,0 +1,223 @@
+\hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder}{}\doxysection{Tiles\+Walk.\+Map.\+Tile.\+Game\+Levels\+Map\+Builder Class Reference}
+\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder}\index{TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}}
+
+
+This class builds the game map, the game map contains all the internal levels developed for the game  
+
+
+
+
+Inheritance diagram for Tiles\+Walk.\+Map.\+Tile.\+Game\+Levels\+Map\+Builder\+:
+% FIG 0
+
+
+Collaboration diagram for Tiles\+Walk.\+Map.\+Tile.\+Game\+Levels\+Map\+Builder\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+override void \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_ab6cee5a511ead583f5df444fb6dd9fbe}{Reset}} ()
+\begin{DoxyCompactList}\small\item\em Reset the map completely and destroy all the instances \end{DoxyCompactList}\item 
+override void \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a8649a6fcc87b8371e5ca245df299d389}{Remove\+Tile}} (\mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_map_tile}{Game\+Map\+Tile}} tile)
+\begin{DoxyCompactList}\small\item\em Removes a tile from the map. Handler re-\/rooting for when a root tile is removed \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a760c7da05868b68706407878e6680511}{Register\+Level\+Tile}} (\mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_map_tile}{Game\+Map\+Tile}} tile)
+\begin{DoxyCompactList}\small\item\em This register a \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_map_tile}{Game\+Map\+Tile}} as a tile pointer to a level to the internal map structure \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_ab96fce4f655af2d524fa2e9ec3ec3339}{Is\+Level\+Tile}} (\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tiles\+Walk.\+Tile.\+Tile}} tile)
+\begin{DoxyCompactList}\small\item\em Determines if a \mbox{\hyperlink{namespace_tiles_walk_1_1_map_1_1_tile}{Tile}} is actually a tile that points to a game level \end{DoxyCompactList}\item 
+override void \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a9f6b245db06c8976532f2770a084b9b1}{Register\+Tile}} (\mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_map_tile}{Game\+Map\+Tile}} tile, int? hash=null)
+\begin{DoxyCompactList}\small\item\em Register a new tile to the map structure \end{DoxyCompactList}\item 
+override void \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a7aefc75ede4d72de68e920521a450de4}{Build\+Tile\+Map$<$ T $>$}} (\mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_game_levels_map}{Game\+Levels\+Map}} map)
+\begin{DoxyCompactList}\small\item\em Builds the given game map \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+override void \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a0231c916702522d4caadee4be245121c}{Start}} ()
+\item 
+override void \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a3104b198da96d05763d85d63457c6b4d}{On\+New\+Tile\+Instance}} (\mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_map_tile}{Game\+Map\+Tile}} tile)
+\begin{DoxyCompactList}\small\item\em Does nothing in the game map builder \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+This class builds the game map, the game map contains all the internal levels developed for the game 
+
+
+
+Definition at line 22 of file Game\+Levels\+Map\+Builder.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a7aefc75ede4d72de68e920521a450de4}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a7aefc75ede4d72de68e920521a450de4}} 
+\index{TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}!BuildTileMap$<$ T $>$@{BuildTileMap$<$ T $>$}}
+\index{BuildTileMap$<$ T $>$@{BuildTileMap$<$ T $>$}!TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}}
+\doxysubsubsection{\texorpdfstring{BuildTileMap$<$ T $>$()}{BuildTileMap< T >()}}
+{\footnotesize\ttfamily override void Tiles\+Walk.\+Map.\+Tile.\+Game\+Levels\+Map\+Builder.\+Build\+Tile\+Map$<$ T $>$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_game_levels_map}{Game\+Levels\+Map}}}]{map }\end{DoxyParamCaption})}
+
+
+
+Builds the given game map 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em map} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 324 of file Game\+Levels\+Map\+Builder.\+cs.
+
+Here is the call graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_ab96fce4f655af2d524fa2e9ec3ec3339}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_ab96fce4f655af2d524fa2e9ec3ec3339}} 
+\index{TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}!IsLevelTile@{IsLevelTile}}
+\index{IsLevelTile@{IsLevelTile}!TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}}
+\doxysubsubsection{\texorpdfstring{IsLevelTile()}{IsLevelTile()}}
+{\footnotesize\ttfamily bool Tiles\+Walk.\+Map.\+Tile.\+Game\+Levels\+Map\+Builder.\+Is\+Level\+Tile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_tiles_walk_1_1_tile_1_1_tile}{Tiles\+Walk.\+Tile.\+Tile}}}]{tile }\end{DoxyParamCaption})}
+
+
+
+Determines if a \mbox{\hyperlink{namespace_tiles_walk_1_1_map_1_1_tile}{Tile}} is actually a tile that points to a game level 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tile} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 270 of file Game\+Levels\+Map\+Builder.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a3104b198da96d05763d85d63457c6b4d}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a3104b198da96d05763d85d63457c6b4d}} 
+\index{TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}!OnNewTileInstance@{OnNewTileInstance}}
+\index{OnNewTileInstance@{OnNewTileInstance}!TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}}
+\doxysubsubsection{\texorpdfstring{OnNewTileInstance()}{OnNewTileInstance()}}
+{\footnotesize\ttfamily override void Tiles\+Walk.\+Map.\+Tile.\+Game\+Levels\+Map\+Builder.\+On\+New\+Tile\+Instance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_map_tile}{Game\+Map\+Tile}}}]{tile }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Does nothing in the game map builder 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tile} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 292 of file Game\+Levels\+Map\+Builder.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a760c7da05868b68706407878e6680511}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a760c7da05868b68706407878e6680511}} 
+\index{TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}!RegisterLevelTile@{RegisterLevelTile}}
+\index{RegisterLevelTile@{RegisterLevelTile}!TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}}
+\doxysubsubsection{\texorpdfstring{RegisterLevelTile()}{RegisterLevelTile()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Map.\+Tile.\+Game\+Levels\+Map\+Builder.\+Register\+Level\+Tile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_map_tile}{Game\+Map\+Tile}}}]{tile }\end{DoxyParamCaption})}
+
+
+
+This register a \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_map_tile}{Game\+Map\+Tile}} as a tile pointer to a level to the internal map structure 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tile} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 246 of file Game\+Levels\+Map\+Builder.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a9f6b245db06c8976532f2770a084b9b1}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a9f6b245db06c8976532f2770a084b9b1}} 
+\index{TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}!RegisterTile@{RegisterTile}}
+\index{RegisterTile@{RegisterTile}!TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}}
+\doxysubsubsection{\texorpdfstring{RegisterTile()}{RegisterTile()}}
+{\footnotesize\ttfamily override void Tiles\+Walk.\+Map.\+Tile.\+Game\+Levels\+Map\+Builder.\+Register\+Tile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_map_tile}{Game\+Map\+Tile}}}]{tile,  }\item[{int?}]{hash = {\ttfamily null} }\end{DoxyParamCaption})}
+
+
+
+Register a new tile to the map structure 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tile} & \\
+\hline
+{\em hash} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 302 of file Game\+Levels\+Map\+Builder.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a8649a6fcc87b8371e5ca245df299d389}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a8649a6fcc87b8371e5ca245df299d389}} 
+\index{TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}!RemoveTile@{RemoveTile}}
+\index{RemoveTile@{RemoveTile}!TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}}
+\doxysubsubsection{\texorpdfstring{RemoveTile()}{RemoveTile()}}
+{\footnotesize\ttfamily override void Tiles\+Walk.\+Map.\+Tile.\+Game\+Levels\+Map\+Builder.\+Remove\+Tile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_map_tile}{Game\+Map\+Tile}}}]{tile }\end{DoxyParamCaption})}
+
+
+
+Removes a tile from the map. Handler re-\/rooting for when a root tile is removed 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tile} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 185 of file Game\+Levels\+Map\+Builder.\+cs.
+
+Here is the call graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_ab6cee5a511ead583f5df444fb6dd9fbe}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_ab6cee5a511ead583f5df444fb6dd9fbe}} 
+\index{TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}!Reset@{Reset}}
+\index{Reset@{Reset}!TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}}
+\doxysubsubsection{\texorpdfstring{Reset()}{Reset()}}
+{\footnotesize\ttfamily override void Tiles\+Walk.\+Map.\+Tile.\+Game\+Levels\+Map\+Builder.\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reset the map completely and destroy all the instances 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_map_a273b79c96c77908b35904c6797387007}{Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Map$<$ Game\+Levels\+Map, Game\+Map\+Tile, Game\+Map\+Tile\+Factory $>$}}.
+
+
+
+Definition at line 144 of file Game\+Levels\+Map\+Builder.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a0231c916702522d4caadee4be245121c}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder_a0231c916702522d4caadee4be245121c}} 
+\index{TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}!Start@{Start}}
+\index{Start@{Start}!TilesWalk.Map.Tile.GameLevelsMapBuilder@{TilesWalk.Map.Tile.GameLevelsMapBuilder}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily override void Tiles\+Walk.\+Map.\+Tile.\+Game\+Levels\+Map\+Builder.\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_map_a710af361e8fcc3ab42437845956e8360}{Tiles\+Walk.\+Building.\+Level.\+Tile\+View\+Map$<$ Game\+Levels\+Map, Game\+Map\+Tile, Game\+Map\+Tile\+Factory $>$}}.
+
+
+
+Definition at line 131 of file Game\+Levels\+Map\+Builder.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Source/\+Map/\+Tile/\mbox{\hyperlink{_map_2_tile_2_game_levels_map_builder_8cs}{Game\+Levels\+Map\+Builder.\+cs}}\end{DoxyCompactItemize}

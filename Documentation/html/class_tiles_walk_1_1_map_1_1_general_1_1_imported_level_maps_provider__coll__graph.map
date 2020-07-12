@@ -1,0 +1,7 @@
+<map id="TilesWalk.Map.General.ImportedLevelMapsProvider" name="TilesWalk.Map.General.ImportedLevelMapsProvider">
+<area shape="rect" id="node1" title=" " alt="" coords="333,78,544,119"/>
+<area shape="rect" id="node2" title=" " alt="" coords="59,5,170,32"/>
+<area shape="rect" id="node3" href="$interface_tiles_walk_1_1_map_1_1_general_1_1_i_map_provider.html" title=" " alt="" coords="67,56,163,83"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection.html" title="This serves as a collection of LevelMap and MapFinishCondition" alt="" coords="5,107,224,149"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper.html" title="This class serves as a collection of records matching an Id with a LevelScore" alt="" coords="5,173,224,214"/>
+</map>

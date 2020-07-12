@@ -1,0 +1,4 @@
+<map id="TilesWalk.Building.LevelTileViewFactory" name="TilesWalk.Building.LevelTileViewFactory">
+<area shape="rect" id="node1" title=" " alt="" coords="10,95,173,136"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_general_1_1_patterns_1_1_generic_factory.html" title=" " alt="" coords="5,5,177,47"/>
+</map>

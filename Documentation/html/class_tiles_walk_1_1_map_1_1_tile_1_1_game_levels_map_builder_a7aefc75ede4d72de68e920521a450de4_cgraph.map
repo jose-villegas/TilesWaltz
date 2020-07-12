@@ -1,0 +1,6 @@
+<map id="TilesWalk.Map.Tile.GameLevelsMapBuilder.BuildTileMap&lt; T &gt;" name="TilesWalk.Map.Tile.GameLevelsMapBuilder.BuildTileMap&lt; T &gt;">
+<area shape="rect" id="node1" title="Builds the given game map" alt="" coords="5,71,212,112"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder.html#a9f6b245db06c8976532f2770a084b9b1" title="Register a new tile to the map structure" alt="" coords="276,5,483,47"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder.html#ab6cee5a511ead583f5df444fb6dd9fbe" title="Reset the map completely and destroy all the instances" alt="" coords="276,71,483,112"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_map.html#a901e0491f882507b5baf1191c0c9b46f" title=" " alt="" coords="260,136,499,207"/>
+</map>

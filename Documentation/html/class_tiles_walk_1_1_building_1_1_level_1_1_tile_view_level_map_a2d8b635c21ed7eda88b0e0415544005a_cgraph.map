@@ -1,0 +1,4 @@
+<map id="TilesWalk.Building.Level.TileViewLevelMap.Start" name="TilesWalk.Building.Level.TileViewLevelMap.Start">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,172,47"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map.html#a9b2057c27de612b18ffb6435d9e7dc13" title=" " alt="" coords="220,5,475,47"/>
+</map>

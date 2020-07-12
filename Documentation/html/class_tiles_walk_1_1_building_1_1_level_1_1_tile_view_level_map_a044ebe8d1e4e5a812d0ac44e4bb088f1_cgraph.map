@@ -1,0 +1,7 @@
+<map id="TilesWalk.Building.Level.TileViewLevelMap.OnNewTileInstance" name="TilesWalk.Building.Level.TileViewLevelMap.OnNewTileInstance">
+<area shape="rect" id="node1" title="Get tile callbacks and generalize them for the whole map, the callbacks are subscribed to the tile,..." alt="" coords="5,133,244,174"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view_trigger_base.html#a1c97d2b7092b0901dda2e0834e20a9be" title=" " alt="" coords="297,5,548,61"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view_trigger_base.html#ad1dc1051cd61ee1be22633d19ca80298" title=" " alt="" coords="292,85,553,141"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view_trigger_base.html#aa4aa2013594aa291534e390decf5dbf0" title=" " alt="" coords="311,165,534,221"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view_trigger_base.html#ae181b2ae8290d6b106d6c1320becad1b" title=" " alt="" coords="306,245,539,301"/>
+</map>

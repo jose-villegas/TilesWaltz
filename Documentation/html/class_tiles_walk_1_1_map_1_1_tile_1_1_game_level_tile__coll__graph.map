@@ -1,0 +1,7 @@
+<map id="TilesWalk.Map.Tile.GameLevelTile" name="TilesWalk.Map.Tile.GameLevelTile">
+<area shape="rect" id="node1" title="The game level tiles are tiles in the game map used to represent entries to game levels" alt="" coords="449,56,669,83"/>
+<area shape="rect" id="node2" title=" " alt="" coords="188,5,343,32"/>
+<area shape="rect" id="node3" href="$interface_tiles_walk_1_1_map_1_1_scaffolding_1_1_i_level_name_require.html" title=" " alt="" coords="199,56,331,83"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler.html" title=" " alt="" coords="165,107,365,149"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,115,116,141"/>
+</map>

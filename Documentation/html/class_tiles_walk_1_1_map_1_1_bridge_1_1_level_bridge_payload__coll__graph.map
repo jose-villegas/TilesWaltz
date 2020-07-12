@@ -1,0 +1,7 @@
+<map id="TilesWalk.Map.Bridge.LevelBridgePayload" name="TilesWalk.Map.Bridge.LevelBridgePayload">
+<area shape="rect" id="node1" title=" " alt="" coords="153,261,336,303"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_building_1_1_level_1_1_level_map.html" title=" " alt="" coords="5,157,172,199"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_building_1_1_level_1_1_generic_map.html" title=" " alt="" coords="43,81,135,108"/>
+<area shape="rect" id="node4" href="$interface_tiles_walk_1_1_base_interfaces_1_1_i_model.html" title=" " alt="" coords="59,5,119,32"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_gameplay_1_1_condition_1_1_map_finish_condition.html" title=" " alt="" coords="196,157,400,199"/>
+</map>

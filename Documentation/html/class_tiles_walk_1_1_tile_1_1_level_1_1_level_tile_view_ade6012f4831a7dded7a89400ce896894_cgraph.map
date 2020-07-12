@@ -1,0 +1,6 @@
+<map id="TilesWalk.Tile.Level.LevelTileView.Start" name="TilesWalk.Tile.Level.LevelTileView.Start">
+<area shape="rect" id="node1" title=" " alt="" coords="5,79,175,120"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view.html#a9f9eab41c52192c492bc2462417fd60a" title=" " alt="" coords="245,5,415,47"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_gameplay_1_1_condition_1_1_level_finish_tracker.html#a97c8afc0ccdaf78964ba520412d7df18" title=" " alt="" coords="223,71,437,127"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_tile_1_1_tile.html#ae38d3e7a476f8d557e597d5e026a81bd" title=" " alt="" coords="227,152,433,193"/>
+</map>

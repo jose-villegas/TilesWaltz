@@ -1,0 +1,4 @@
+<map id="TilesWalk.Map.Tile.GameLevelsMapBuilder.RemoveTile" name="TilesWalk.Map.Tile.GameLevelsMapBuilder.RemoveTile">
+<area shape="rect" id="node1" title="Removes a tile from the map. Handler re&#45;rooting for when a root tile is removed" alt="" coords="5,5,212,47"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder.html#ab96fce4f655af2d524fa2e9ec3ec3339" title="Determines if a Tile is actually a tile that points to a game level" alt="" coords="260,5,467,47"/>
+</map>

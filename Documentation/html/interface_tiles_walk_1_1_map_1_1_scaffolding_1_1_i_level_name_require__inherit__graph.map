@@ -1,0 +1,13 @@
+<map id="TilesWalk.Map.Scaffolding.ILevelNameRequire" name="TilesWalk.Map.Scaffolding.ILevelNameRequire">
+<area shape="rect" id="node1" title=" " alt="" coords="5,286,184,327"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile.html" title="The game level tiles are tiles in the game map used to represent entries to game levels" alt="" coords="232,5,452,32"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_map_1_1_u_i_1_1_level_completed_toggle.html" title=" " alt="" coords="233,57,451,98"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_map_1_1_u_i_1_1_level_moves_condition_label.html" title=" " alt="" coords="245,122,439,163"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_map_1_1_u_i_1_1_level_name_label.html" title=" " alt="" coords="247,187,437,229"/>
+<area shape="rect" id="node6" href="$class_tiles_walk_1_1_map_1_1_u_i_1_1_level_stars_required_label.html" title=" " alt="" coords="248,253,436,294"/>
+<area shape="rect" id="node7" href="$class_tiles_walk_1_1_map_1_1_u_i_1_1_level_stars_required_toggle.html" title=" " alt="" coords="248,318,436,359"/>
+<area shape="rect" id="node8" href="$class_tiles_walk_1_1_map_1_1_u_i_1_1_level_target_points_label.html" title=" " alt="" coords="245,383,439,425"/>
+<area shape="rect" id="node9" href="$class_tiles_walk_1_1_map_1_1_u_i_1_1_level_target_record_label.html" title=" " alt="" coords="245,449,439,490"/>
+<area shape="rect" id="node10" href="$class_tiles_walk_1_1_map_1_1_u_i_1_1_level_time_condition_label.html" title=" " alt="" coords="249,514,435,555"/>
+<area shape="rect" id="node11" href="$class_tiles_walk_1_1_navigation_1_1_u_i_1_1_level_tile_stars_handler.html" title=" " alt="" coords="261,579,423,621"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="TilesWalk.Gameplay.Score.LevelScorePointsTracker.AddPoints" name="TilesWalk.Gameplay.Score.LevelScorePointsTracker.AddPoints">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,235,80"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_statistics.html#af95653b6cea44346944b98061a72ee7d" title=" " alt="" coords="283,5,501,47"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_gameplay_1_1_score_1_1_record.html#ac22d57cc182463cf7c8aa675e659895e" title="Update the record last value. Highest and Lowest will be updated here too if matching the conditions" alt="" coords="300,71,484,112"/>
+</map>

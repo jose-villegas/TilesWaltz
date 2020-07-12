@@ -1,0 +1,147 @@
+\hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper}{}\doxysection{Tiles\+Walk.\+Gameplay.\+Persistence.\+Records\+Keeper Class Reference}
+\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper}\index{TilesWalk.Gameplay.Persistence.RecordsKeeper@{TilesWalk.Gameplay.Persistence.RecordsKeeper}}
+
+
+This class serves as a collection of records matching an Id with a Level\+Score  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper_a60198a964f45663e111d01f381a49635}{Exist}} (string id, out \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_score_1_1_level_score}{Level\+Score}} score)
+\begin{DoxyCompactList}\small\item\em Determines if such a record exists within the collection \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper_a18d1f0d7855285b9cd33954281116cab}{Exist}} (string id)
+\begin{DoxyCompactList}\small\item\em Determines if such a record exists within the collection \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper_a8ecf6111af4dca89471c7080050a29c4}{Count}} =$>$ \+\_\+records?.Count ?? 0
+\begin{DoxyCompactList}\small\item\em A count of how many records are currently stored \end{DoxyCompactList}\item 
+Dictionary$<$ string, \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_score_1_1_level_score}{Level\+Score}} $>$.Value\+Collection \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper_aecdc418f5c8475b32d3fc88e28962880}{Values}} =$>$ \+\_\+records?.Values
+\begin{DoxyCompactList}\small\item\em The collection of records \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_score_1_1_level_score}{Level\+Score}} \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper_acd299ca671e5916fcec295105508325c}{this\mbox{[}string id\mbox{]}}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em This will return the matching Level\+Score for the given id \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class serves as a collection of records matching an Id with a Level\+Score 
+
+
+
+Definition at line 14 of file Records\+Keeper.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper_a18d1f0d7855285b9cd33954281116cab}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper_a18d1f0d7855285b9cd33954281116cab}} 
+\index{TilesWalk.Gameplay.Persistence.RecordsKeeper@{TilesWalk.Gameplay.Persistence.RecordsKeeper}!Exist@{Exist}}
+\index{Exist@{Exist}!TilesWalk.Gameplay.Persistence.RecordsKeeper@{TilesWalk.Gameplay.Persistence.RecordsKeeper}}
+\doxysubsubsection{\texorpdfstring{Exist()}{Exist()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Tiles\+Walk.\+Gameplay.\+Persistence.\+Records\+Keeper.\+Exist (\begin{DoxyParamCaption}\item[{string}]{id }\end{DoxyParamCaption})}
+
+
+
+Determines if such a record exists within the collection 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The id\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If the score was found
+\end{DoxyReturn}
+
+
+Definition at line 58 of file Records\+Keeper.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper_a60198a964f45663e111d01f381a49635}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper_a60198a964f45663e111d01f381a49635}} 
+\index{TilesWalk.Gameplay.Persistence.RecordsKeeper@{TilesWalk.Gameplay.Persistence.RecordsKeeper}!Exist@{Exist}}
+\index{Exist@{Exist}!TilesWalk.Gameplay.Persistence.RecordsKeeper@{TilesWalk.Gameplay.Persistence.RecordsKeeper}}
+\doxysubsubsection{\texorpdfstring{Exist()}{Exist()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Tiles\+Walk.\+Gameplay.\+Persistence.\+Records\+Keeper.\+Exist (\begin{DoxyParamCaption}\item[{string}]{id,  }\item[{out \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_score_1_1_level_score}{Level\+Score}}}]{score }\end{DoxyParamCaption})}
+
+
+
+Determines if such a record exists within the collection 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The id\\
+\hline
+{\em score} & The found score\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If the score was found
+\end{DoxyReturn}
+
+
+Definition at line 45 of file Records\+Keeper.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 0
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper_a8ecf6111af4dca89471c7080050a29c4}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper_a8ecf6111af4dca89471c7080050a29c4}} 
+\index{TilesWalk.Gameplay.Persistence.RecordsKeeper@{TilesWalk.Gameplay.Persistence.RecordsKeeper}!Count@{Count}}
+\index{Count@{Count}!TilesWalk.Gameplay.Persistence.RecordsKeeper@{TilesWalk.Gameplay.Persistence.RecordsKeeper}}
+\doxysubsubsection{\texorpdfstring{Count}{Count}}
+{\footnotesize\ttfamily int Tiles\+Walk.\+Gameplay.\+Persistence.\+Records\+Keeper.\+Count =$>$ \+\_\+records?.Count ?? 0}
+
+
+
+A count of how many records are currently stored 
+
+
+
+Definition at line 68 of file Records\+Keeper.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper_aecdc418f5c8475b32d3fc88e28962880}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper_aecdc418f5c8475b32d3fc88e28962880}} 
+\index{TilesWalk.Gameplay.Persistence.RecordsKeeper@{TilesWalk.Gameplay.Persistence.RecordsKeeper}!Values@{Values}}
+\index{Values@{Values}!TilesWalk.Gameplay.Persistence.RecordsKeeper@{TilesWalk.Gameplay.Persistence.RecordsKeeper}}
+\doxysubsubsection{\texorpdfstring{Values}{Values}}
+{\footnotesize\ttfamily Dictionary$<$string, \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_score_1_1_level_score}{Level\+Score}}$>$.Value\+Collection Tiles\+Walk.\+Gameplay.\+Persistence.\+Records\+Keeper.\+Values =$>$ \+\_\+records?.Values}
+
+
+
+The collection of records 
+
+
+
+Definition at line 73 of file Records\+Keeper.\+cs.
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper_acd299ca671e5916fcec295105508325c}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper_acd299ca671e5916fcec295105508325c}} 
+\index{TilesWalk.Gameplay.Persistence.RecordsKeeper@{TilesWalk.Gameplay.Persistence.RecordsKeeper}!this\mbox{[}string id\mbox{]}@{this[string id]}}
+\index{this\mbox{[}string id\mbox{]}@{this[string id]}!TilesWalk.Gameplay.Persistence.RecordsKeeper@{TilesWalk.Gameplay.Persistence.RecordsKeeper}}
+\doxysubsubsection{\texorpdfstring{this[string id]}{this[string id]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_score_1_1_level_score}{Level\+Score}} Tiles\+Walk.\+Gameplay.\+Persistence.\+Records\+Keeper.\+this\mbox{[}string id\mbox{]}\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+This will return the matching Level\+Score for the given id 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The matching id\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 24 of file Records\+Keeper.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Source/\+Gameplay/\+Persistence/\mbox{\hyperlink{_records_keeper_8cs}{Records\+Keeper.\+cs}}\end{DoxyCompactItemize}

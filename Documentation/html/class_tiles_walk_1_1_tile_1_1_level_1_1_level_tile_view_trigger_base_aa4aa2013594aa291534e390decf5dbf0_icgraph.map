@@ -1,0 +1,4 @@
+<map id="TilesWalk.Tile.Level.LevelTileViewTriggerBase.OnTileClickedAsObservable" name="TilesWalk.Tile.Level.LevelTileViewTriggerBase.OnTileClickedAsObservable">
+<area shape="rect" id="node1" title=" " alt="" coords="292,5,515,61"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_level_map.html#a044ebe8d1e4e5a812d0ac44e4bb088f1" title="Get tile callbacks and generalize them for the whole map, the callbacks are subscribed to the tile,..." alt="" coords="5,13,244,54"/>
+</map>

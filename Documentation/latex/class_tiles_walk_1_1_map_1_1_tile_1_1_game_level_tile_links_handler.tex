@@ -1,0 +1,132 @@
+\hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler}{}\doxysection{Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile\+Links\+Handler Class Reference}
+\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler}\index{TilesWalk.Map.Tile.GameLevelTileLinksHandler@{TilesWalk.Map.Tile.GameLevelTileLinksHandler}}
+
+
+Inheritance diagram for Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile\+Links\+Handler\+:
+% FIG 0
+
+
+Collaboration diagram for Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile\+Links\+Handler\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_level_tile_link}{Level\+Tile\+Link}} \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_a132b07ae5e04a0de20713d023bd54f4a}{Get\+Link}} (\mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}} direction)
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_level_tile_link}{Level\+Tile\+Link}} \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_a673982e860da3821637c57f9b97b2642}{Get\+Link}} (Game\+Object endpoint, \mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}} direction)
+\begin{DoxyCompactList}\small\item\em Finds the link that has a matching endpoint within its path, if it doesn\textquotesingle{}t exist it will add a link in the given direction \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_af7e57efe8398e1feb53fc8d45ff16f19}{Has\+Neighbor}} (\mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}} direction)
+\item 
+void \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_a68c90c485b264bed13e28b2b32eab159}{Resolve\+Links}} ()
+\begin{DoxyCompactList}\small\item\em This method resolves the neighbor links for a game level tile in the game map. This is written in such way avoiding the costs of recursive iterations \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_level_tile_link}{Level\+Tile\+Link}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_ac56bfe6d4a9e03ad14a1e5857cbba1e4}{Links}} =$>$ \+\_\+links
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile}{Game\+Level\+Tile}} \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_a658d890f2616ff0c9a308317e90f7c5d}{this\mbox{[}\+Cardinal\+Direction direction\mbox{]}}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 18 of file Game\+Level\+Tile\+Links\+Handler.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_a132b07ae5e04a0de20713d023bd54f4a}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_a132b07ae5e04a0de20713d023bd54f4a}} 
+\index{TilesWalk.Map.Tile.GameLevelTileLinksHandler@{TilesWalk.Map.Tile.GameLevelTileLinksHandler}!GetLink@{GetLink}}
+\index{GetLink@{GetLink}!TilesWalk.Map.Tile.GameLevelTileLinksHandler@{TilesWalk.Map.Tile.GameLevelTileLinksHandler}}
+\doxysubsubsection{\texorpdfstring{GetLink()}{GetLink()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_level_tile_link}{Level\+Tile\+Link}} Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile\+Links\+Handler.\+Get\+Link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}}}]{direction }\end{DoxyParamCaption})}
+
+
+
+Definition at line 33 of file Game\+Level\+Tile\+Links\+Handler.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_a673982e860da3821637c57f9b97b2642}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_a673982e860da3821637c57f9b97b2642}} 
+\index{TilesWalk.Map.Tile.GameLevelTileLinksHandler@{TilesWalk.Map.Tile.GameLevelTileLinksHandler}!GetLink@{GetLink}}
+\index{GetLink@{GetLink}!TilesWalk.Map.Tile.GameLevelTileLinksHandler@{TilesWalk.Map.Tile.GameLevelTileLinksHandler}}
+\doxysubsubsection{\texorpdfstring{GetLink()}{GetLink()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_level_tile_link}{Level\+Tile\+Link}} Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile\+Links\+Handler.\+Get\+Link (\begin{DoxyParamCaption}\item[{Game\+Object}]{endpoint,  }\item[{\mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}}}]{direction }\end{DoxyParamCaption})}
+
+
+
+Finds the link that has a matching endpoint within its path, if it doesn\textquotesingle{}t exist it will add a link in the given direction 
+
+
+\begin{DoxyParams}{Parameters}
+{\em endpoint} & \\
+\hline
+{\em direction} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 61 of file Game\+Level\+Tile\+Links\+Handler.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_af7e57efe8398e1feb53fc8d45ff16f19}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_af7e57efe8398e1feb53fc8d45ff16f19}} 
+\index{TilesWalk.Map.Tile.GameLevelTileLinksHandler@{TilesWalk.Map.Tile.GameLevelTileLinksHandler}!HasNeighbor@{HasNeighbor}}
+\index{HasNeighbor@{HasNeighbor}!TilesWalk.Map.Tile.GameLevelTileLinksHandler@{TilesWalk.Map.Tile.GameLevelTileLinksHandler}}
+\doxysubsubsection{\texorpdfstring{HasNeighbor()}{HasNeighbor()}}
+{\footnotesize\ttfamily bool Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile\+Links\+Handler.\+Has\+Neighbor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}}}]{direction }\end{DoxyParamCaption})}
+
+
+
+Definition at line 82 of file Game\+Level\+Tile\+Links\+Handler.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_a68c90c485b264bed13e28b2b32eab159}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_a68c90c485b264bed13e28b2b32eab159}} 
+\index{TilesWalk.Map.Tile.GameLevelTileLinksHandler@{TilesWalk.Map.Tile.GameLevelTileLinksHandler}!ResolveLinks@{ResolveLinks}}
+\index{ResolveLinks@{ResolveLinks}!TilesWalk.Map.Tile.GameLevelTileLinksHandler@{TilesWalk.Map.Tile.GameLevelTileLinksHandler}}
+\doxysubsubsection{\texorpdfstring{ResolveLinks()}{ResolveLinks()}}
+{\footnotesize\ttfamily void Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile\+Links\+Handler.\+Resolve\+Links (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This method resolves the neighbor links for a game level tile in the game map. This is written in such way avoiding the costs of recursive iterations 
+
+
+
+Definition at line 92 of file Game\+Level\+Tile\+Links\+Handler.\+cs.
+
+Here is the call graph for this function\+:
+% FIG 2
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_ac56bfe6d4a9e03ad14a1e5857cbba1e4}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_ac56bfe6d4a9e03ad14a1e5857cbba1e4}} 
+\index{TilesWalk.Map.Tile.GameLevelTileLinksHandler@{TilesWalk.Map.Tile.GameLevelTileLinksHandler}!Links@{Links}}
+\index{Links@{Links}!TilesWalk.Map.Tile.GameLevelTileLinksHandler@{TilesWalk.Map.Tile.GameLevelTileLinksHandler}}
+\doxysubsubsection{\texorpdfstring{Links}{Links}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_level_tile_link}{Level\+Tile\+Link}}$>$ Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile\+Links\+Handler.\+Links =$>$ \+\_\+links}
+
+
+
+Definition at line 26 of file Game\+Level\+Tile\+Links\+Handler.\+cs.
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_a658d890f2616ff0c9a308317e90f7c5d}\label{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile_links_handler_a658d890f2616ff0c9a308317e90f7c5d}} 
+\index{TilesWalk.Map.Tile.GameLevelTileLinksHandler@{TilesWalk.Map.Tile.GameLevelTileLinksHandler}!this\mbox{[}CardinalDirection direction\mbox{]}@{this[CardinalDirection direction]}}
+\index{this\mbox{[}CardinalDirection direction\mbox{]}@{this[CardinalDirection direction]}!TilesWalk.Map.Tile.GameLevelTileLinksHandler@{TilesWalk.Map.Tile.GameLevelTileLinksHandler}}
+\doxysubsubsection{\texorpdfstring{this[CardinalDirection direction]}{this[CardinalDirection direction]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile}{Game\+Level\+Tile}} Tiles\+Walk.\+Map.\+Tile.\+Game\+Level\+Tile\+Links\+Handler.\+this\mbox{[}\mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}} direction\mbox{]}\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Definition at line 28 of file Game\+Level\+Tile\+Links\+Handler.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Source/\+Map/\+Tile/\mbox{\hyperlink{_game_level_tile_links_handler_8cs}{Game\+Level\+Tile\+Links\+Handler.\+cs}}\end{DoxyCompactItemize}

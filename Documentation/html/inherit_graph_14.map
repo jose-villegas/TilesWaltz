@@ -1,0 +1,4 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_map.html" title=" " alt="" coords="5,5,256,61"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder.html" title="This class builds the game map, the game map contains all the internal levels developed for the game" alt="" coords="304,13,511,54"/>
+</map>

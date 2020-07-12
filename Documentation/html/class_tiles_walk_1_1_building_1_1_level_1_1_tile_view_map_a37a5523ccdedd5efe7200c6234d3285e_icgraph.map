@@ -1,0 +1,4 @@
+<map id="TilesWalk.Building.Level.TileViewMap.OnNewTileInstance" name="TilesWalk.Building.Level.TileViewMap.OnNewTileInstance">
+<area shape="rect" id="node1" title="Method for when a new tile is instanced but not registered yet" alt="" coords="285,20,496,61"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_map.html#a710af361e8fcc3ab42437845956e8360" title=" " alt="" coords="5,5,237,76"/>
+</map>

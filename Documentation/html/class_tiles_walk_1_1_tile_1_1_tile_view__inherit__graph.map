@@ -1,0 +1,7 @@
+<map id="TilesWalk.Tile.TileView" name="TilesWalk.Tile.TileView">
+<area shape="rect" id="node1" title=" " alt="" coords="144,80,299,107"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_map_1_1_tile_1_1_game_map_tile.html" title=" " alt="" coords="5,162,221,189"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_tile_1_1_level_1_1_level_tile_view.html" title=" " alt="" coords="246,155,415,196"/>
+<area shape="rect" id="node2" title=" " alt="" coords="113,5,223,32"/>
+<area shape="rect" id="node3" href="$interface_tiles_walk_1_1_base_interfaces_1_1_i_view.html" title=" " alt="" coords="248,5,301,32"/>
+</map>

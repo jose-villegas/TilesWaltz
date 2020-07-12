@@ -1,0 +1,6 @@
+<map id="TilesWalk.Map.General.IMapProvider" name="TilesWalk.Map.General.IMapProvider">
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,195,112"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_map_1_1_general_1_1_game_level_maps_provider.html" title=" " alt="" coords="250,5,446,47"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_map_1_1_general_1_1_imported_level_maps_provider.html" title=" " alt="" coords="243,71,453,112"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_map_1_1_general_1_1_user_level_maps_provider.html" title=" " alt="" coords="254,136,442,177"/>
+</map>

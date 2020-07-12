@@ -1,0 +1,6 @@
+<map id="TilesWalk.Building.Gallery.UI.CustomLevelEntryCanvas" name="TilesWalk.Building.Gallery.UI.CustomLevelEntryCanvas">
+<area shape="rect" id="node1" title=" " alt="" coords="21,185,207,227"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,89,116,115"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_map_1_1_scaffolding_1_1_level_name_request_handler.html" title=" " alt="" coords="141,81,319,123"/>
+<area shape="rect" id="node4" title=" " alt="" coords="153,5,307,32"/>
+</map>

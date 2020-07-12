@@ -1,0 +1,4 @@
+<map id="TilesWalk.Building.LevelEditor.CustomLevelPlayer.Play" name="TilesWalk.Building.LevelEditor.CustomLevelPlayer.Play">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,207,47"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_gameplay_1_1_score_1_1_level_score_points_tracker.html#a65abbe27fec51e7370c6e2b8056a9d79" title=" " alt="" coords="255,5,489,47"/>
+</map>

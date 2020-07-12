@@ -1,0 +1,5 @@
+<map id="TilesWalk.Map.UI.LevelTargetPointsLabel" name="TilesWalk.Map.UI.LevelTargetPointsLabel">
+<area shape="rect" id="node1" title=" " alt="" coords="106,95,299,136"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_general_1_1_patterns_1_1_obligatory_component_behaviour.html" title=" " alt="" coords="5,5,208,47"/>
+<area shape="rect" id="node3" href="$interface_tiles_walk_1_1_map_1_1_scaffolding_1_1_i_level_name_require.html" title=" " alt="" coords="233,13,365,39"/>
+</map>

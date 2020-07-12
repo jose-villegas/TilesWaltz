@@ -1,0 +1,4 @@
+<map id="TilesWalk.Building.LevelEditor.LevelEditorTileView" name="TilesWalk.Building.LevelEditor.LevelEditorTileView">
+<area shape="rect" id="node1" title="Level editor tiles behave as LevelTileView when the game is playing, but they contain extra logic to ..." alt="" coords="5,80,176,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="41,5,140,32"/>
+</map>

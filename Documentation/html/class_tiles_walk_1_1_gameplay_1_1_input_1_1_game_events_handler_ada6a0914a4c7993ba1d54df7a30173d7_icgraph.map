@@ -1,0 +1,13 @@
+<map id="TilesWalk.Gameplay.Input.GameEventsHandler.Resume" name="TilesWalk.Gameplay.Input.GameEventsHandler.Resume">
+<area shape="rect" id="node1" title=" " alt="" coords="1029,229,1221,271"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_canvas_group_behaviour.html#ae74e105b226121c3d1accf0d0314d099" title=" " alt="" coords="791,196,981,237"/>
+<area shape="rect" id="node10" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_canvas_group_behaviour.html#a7f07b3f519426b8997e014fc4682db41" title=" " alt="" coords="791,265,981,307"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_confirmation.html#ae6708f0888591cd8766c9004d438541c" title=" " alt="" coords="249,5,473,47"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_u_i_1_1_save_level_canvas.html#a4d4d4d3130dc09103705b0db05703972" title=" " alt="" coords="5,102,201,158"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_map_1_1_tile_1_1_game_level_tile.html#a2b563aed0d8b5abd964e8e50a8c0efd0" title="Logic for when a level tile is clicked, this shows the level details in the UI" alt="" coords="532,123,732,164"/>
+<area shape="rect" id="node6" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_u_i_1_1_level_editor_tool_set.html#a77ed09e9cfba67561a033626299fc9e9" title=" " alt="" coords="539,189,725,245"/>
+<area shape="rect" id="node7" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_notice.html#a0c794f0e192ae7f12092f2bae8e47193" title=" " alt="" coords="521,335,743,362"/>
+<area shape="rect" id="node9" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_canvas_group_behaviour.html#a020404802b0af7467be62a4eb977787b" title=" " alt="" coords="537,269,727,311"/>
+<area shape="rect" id="node8" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_u_i_1_1_save_level_canvas.html#a850b200f5e10e6e7b7b360c25810c99b" title=" " alt="" coords="256,289,467,331"/>
+<area shape="rect" id="node11" href="$class_tiles_walk_1_1_gameplay_1_1_level_1_1_u_i_1_1_level_finish_details_canvas.html#afa40c43f659f968606b1c85b809b4596" title=" " alt="" coords="529,386,735,442"/>
+</map>

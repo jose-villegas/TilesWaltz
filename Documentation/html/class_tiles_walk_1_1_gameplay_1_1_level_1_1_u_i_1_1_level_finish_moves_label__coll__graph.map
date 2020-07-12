@@ -1,0 +1,4 @@
+<map id="TilesWalk.Gameplay.Level.UI.LevelFinishMovesLabel" name="TilesWalk.Gameplay.Level.UI.LevelFinishMovesLabel">
+<area shape="rect" id="node1" title=" " alt="" coords="17,95,196,136"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_general_1_1_patterns_1_1_obligatory_component_behaviour.html" title=" " alt="" coords="5,5,208,47"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="TilesWalk.Building.LevelEditor.LevelEditorTileView.Start" name="TilesWalk.Building.LevelEditor.LevelEditorTileView.Start">
+<area shape="rect" id="node1" title=" " alt="" coords="5,133,208,174"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_u_i_1_1_tile_insertion_mode_canvas.html#ab3e84f5d8421941f02765af9feac24ce" title=" " alt="" coords="256,5,479,61"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_u_i_1_1_tile_insertion_mode_canvas.html#a6dc096d25707a8b7b1291a699144302e" title=" " alt="" coords="256,85,479,141"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_custom_level_player.html#a987837096edd613558bc7a26f1dbdc2d" title=" " alt="" coords="258,165,477,221"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_custom_level_player.html#aac46a58e636d83b735f6fa33e3ea9f80" title=" " alt="" coords="258,245,477,301"/>
+</map>

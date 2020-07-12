@@ -1,0 +1,6 @@
+<map id="TilesWalk.Tile.TileController" name="TilesWalk.Tile.TileController">
+<area shape="rect" id="node1" title=" " alt="" coords="5,171,188,197"/>
+<area shape="rect" id="node2" href="$interface_tiles_walk_1_1_base_interfaces_1_1_i_controller.html" title=" " alt="" coords="14,81,94,108"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_tile_1_1_tile.html" title="Tile class, contains all properties and fields related to the in&#45;game tiles puzzle figure,..." alt="" coords="119,81,245,108"/>
+<area shape="rect" id="node4" href="$interface_tiles_walk_1_1_base_interfaces_1_1_i_model.html" title=" " alt="" coords="152,5,212,32"/>
+</map>

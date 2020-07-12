@@ -1,0 +1,5 @@
+<map id="TilesWalk.Map.General.GameLevelMapsProvider" name="TilesWalk.Map.General.GameLevelMapsProvider">
+<area shape="rect" id="node1" title=" " alt="" coords="27,80,223,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node3" href="$interface_tiles_walk_1_1_map_1_1_general_1_1_i_map_provider.html" title=" " alt="" coords="141,5,237,32"/>
+</map>

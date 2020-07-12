@@ -1,0 +1,11 @@
+<map id="TilesWalk.Building.LevelEditor.UI.SaveLevelCanvas.OnSaveConfirm" name="TilesWalk.Building.LevelEditor.UI.SaveLevelCanvas.OnSaveConfirm">
+<area shape="rect" id="node1" title=" " alt="" coords="5,97,201,153"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_confirmation.html#ae6708f0888591cd8766c9004d438541c" title=" " alt="" coords="249,46,473,87"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_canvas_group_behaviour.html#ae74e105b226121c3d1accf0d0314d099" title=" " alt="" coords="791,42,981,83"/>
+<area shape="rect" id="node6" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_notice.html#a82c664494eba3a94778a3ca6993ffe4a" title=" " alt="" coords="537,195,727,236"/>
+<area shape="rect" id="node7" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_notice.html#a0c794f0e192ae7f12092f2bae8e47193" title=" " alt="" coords="521,113,743,140"/>
+<area shape="rect" id="node9" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_u_i_1_1_save_level_canvas.html#a850b200f5e10e6e7b7b360c25810c99b" title=" " alt="" coords="256,163,467,204"/>
+<area shape="rect" id="node4" href="$class_tiles_walk_1_1_gameplay_1_1_input_1_1_game_events_handler.html#a68ccb2a335507442125cde4d3964f7a4" title=" " alt="" coords="1035,42,1216,83"/>
+<area shape="rect" id="node5" href="$class_tiles_walk_1_1_gameplay_1_1_input_1_1_game_events_handler.html#ada6a0914a4c7993ba1d54df7a30173d7" title=" " alt="" coords="1029,107,1221,148"/>
+<area shape="rect" id="node8" href="$class_tiles_walk_1_1_general_1_1_u_i_1_1_canvas_group_behaviour.html#a7f07b3f519426b8997e014fc4682db41" title=" " alt="" coords="791,107,981,148"/>
+</map>

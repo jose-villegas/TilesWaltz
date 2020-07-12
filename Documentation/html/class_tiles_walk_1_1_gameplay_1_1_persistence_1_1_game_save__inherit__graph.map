@@ -1,0 +1,5 @@
+<map id="TilesWalk.Gameplay.Persistence.GameSave" name="TilesWalk.Gameplay.Persistence.GameSave">
+<area shape="rect" id="node1" title="The game save class contains all the data that is meant to be persistent through all the game instanc..." alt="" coords="5,39,224,80"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_cloud_save_game.html" title=" " alt="" coords="272,5,491,47"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_local_game_save.html" title="The game save class contains all the data that is meant to be persistent through all the game instanc..." alt="" coords="272,71,491,112"/>
+</map>

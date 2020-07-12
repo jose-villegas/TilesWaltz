@@ -1,0 +1,371 @@
+\hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{}\doxysection{Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save Class Reference}
+\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+
+
+The game save class contains all the data that is meant to be persistent through all the game instances  
+
+
+
+
+Inheritance diagram for Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save\+:
+% FIG 0
+
+
+Collaboration diagram for Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a7cf3cf95a7e4a6b0783f2dc84377a37b}{Game\+Save}} ()
+\item 
+I\+Observable$<$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_acd73dc2226c82420d3d8e6101d9e5736}{On\+Game\+Save\+Loaded\+As\+Observable}} ()
+\item 
+I\+Observable$<$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ae169e3ecfca1deaa9e894ec231ba7f3e}{On\+Game\+Save\+Saved\+As\+Observable}} ()
+\item 
+I\+Observable$<$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a801849f4031e5858dd31f57f3d6e386c}{On\+Game\+Save\+Save\+Failure\+As\+Observable}} ()
+\item 
+I\+Observable$<$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a63f26f2bf959f5628bdcfb05c9013b02}{On\+Game\+Save\+Load\+Failure\+As\+Observable}} ()
+\item 
+abstract void \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ad45b0d15337bf2ac09145820ffd53935}{Save}} ()
+\begin{DoxyCompactList}\small\item\em This saves the \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}} data. \end{DoxyCompactList}\item 
+abstract void \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aa2be267ec4240c6849fdf215b6aaa88c}{Load}} ()
+\begin{DoxyCompactList}\small\item\em This loads the \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}} data. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ab5869ec27af69e2db0bb51383714ee9c}{Game\+Save}} (\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}} save)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_statistics}{Game\+Statistics}} \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ab96a8708f408abdc3a6b8392cdeda75d}{Statistics}} =$>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a1054e0d20dc1b77d53ac13dcd9ea2ca2}{\+\_\+statistics}}
+\begin{DoxyCompactList}\small\item\em Contains user related statistics \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper}{Records\+Keeper}} \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_acad3842a07e31d818f31a96c0209cbbe}{Game\+Records}} =$>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a733732a5c7d2aaf216771525e9ac3e4e}{\+\_\+game\+Records}}
+\begin{DoxyCompactList}\small\item\em Records for the game levels, meaning levels that come bundled with the game and were not made by the user or others \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper}{Records\+Keeper}} \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aa11008c5c9e3986b769907460b458ab5}{User\+Level\+Records}} =$>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aa21e1396afbb919f7b0acc101e31a12b}{\+\_\+user\+Level\+Records}}
+\begin{DoxyCompactList}\small\item\em Records for levels made by the user \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper}{Records\+Keeper}} \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ad6c23cf197d5a3079fac62578cab1f2e}{Imported\+Level\+Records}} =$>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aacfad319306ccd338ce0c48d9def53b0}{\+\_\+imported\+Level\+Records}}
+\begin{DoxyCompactList}\small\item\em Records for levels made by other users \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection}{Game\+Map\+Collection}} \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a9bfa1490b8330eb7178e8e09c3af21d1}{User\+Maps}} =$>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a28fdad2187d0024d00fa318f9f7100a3}{\+\_\+user\+Maps}}
+\begin{DoxyCompactList}\small\item\em Levels made by the user \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection}{Game\+Map\+Collection}} \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aecd07b3eeaaab7ab1bffb086e0da8c2b}{Imported\+Maps}} =$>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ae740a22b8bfc314900935070112baea5}{\+\_\+imported\+Maps}}
+\begin{DoxyCompactList}\small\item\em Imported maps made by other users \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_statistics}{Game\+Statistics}} \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a1054e0d20dc1b77d53ac13dcd9ea2ca2}{\+\_\+statistics}}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper}{Records\+Keeper}} \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a733732a5c7d2aaf216771525e9ac3e4e}{\+\_\+game\+Records}}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper}{Records\+Keeper}} \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aa21e1396afbb919f7b0acc101e31a12b}{\+\_\+user\+Level\+Records}}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper}{Records\+Keeper}} \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aacfad319306ccd338ce0c48d9def53b0}{\+\_\+imported\+Level\+Records}}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection}{Game\+Map\+Collection}} \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a28fdad2187d0024d00fa318f9f7100a3}{\+\_\+user\+Maps}}
+\item 
+\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection}{Game\+Map\+Collection}} \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ae740a22b8bfc314900935070112baea5}{\+\_\+imported\+Maps}}
+\item 
+Subject$<$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aa459e8c19309612045a9e0023a7efe21}{\+\_\+on\+Game\+Save\+Load\+Failure}}
+\item 
+Subject$<$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a354a5454e3f73a721903613d0f3f3f5d}{\+\_\+on\+Game\+Save\+Loaded}}
+\item 
+Subject$<$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_adabaed3c81ca0c77c45a7915a3f57890}{\+\_\+on\+Game\+Save\+Save\+Failure}}
+\item 
+Subject$<$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}} $>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_af53e717866d674dad692cbce4c4a4c58}{\+\_\+on\+Game\+Save\+Saved}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The game save class contains all the data that is meant to be persistent through all the game instances 
+
+
+
+Definition at line 13 of file Game\+Save.\+cs.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a7cf3cf95a7e4a6b0783f2dc84377a37b}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a7cf3cf95a7e4a6b0783f2dc84377a37b}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!GameSave@{GameSave}}
+\index{GameSave@{GameSave}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{GameSave()}{GameSave()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+Game\+Save (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 60 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ab5869ec27af69e2db0bb51383714ee9c}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ab5869ec27af69e2db0bb51383714ee9c}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!GameSave@{GameSave}}
+\index{GameSave@{GameSave}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{GameSave()}{GameSave()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+Game\+Save (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}}}]{save }\end{DoxyParamCaption})}
+
+
+
+Definition at line 112 of file Game\+Save.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aa2be267ec4240c6849fdf215b6aaa88c}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aa2be267ec4240c6849fdf215b6aaa88c}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!Load@{Load}}
+\index{Load@{Load}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{Load()}{Load()}}
+{\footnotesize\ttfamily abstract void Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+Load (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+This loads the \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}} data. 
+
+
+
+Implemented in \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_cloud_save_game_a446d9de681845141ac3a7114e6402783}{Tiles\+Walk.\+Gameplay.\+Persistence.\+Cloud\+Save\+Game}}, and \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_local_game_save_aed336f6d7c5664fec952c42ebe4623db}{Tiles\+Walk.\+Gameplay.\+Persistence.\+Local\+Game\+Save}}.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_acd73dc2226c82420d3d8e6101d9e5736}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_acd73dc2226c82420d3d8e6101d9e5736}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!OnGameSaveLoadedAsObservable@{OnGameSaveLoadedAsObservable}}
+\index{OnGameSaveLoadedAsObservable@{OnGameSaveLoadedAsObservable}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{OnGameSaveLoadedAsObservable()}{OnGameSaveLoadedAsObservable()}}
+{\footnotesize\ttfamily I\+Observable$<$\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}}$>$ Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+On\+Game\+Save\+Loaded\+As\+Observable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 80 of file Game\+Save.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a63f26f2bf959f5628bdcfb05c9013b02}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a63f26f2bf959f5628bdcfb05c9013b02}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!OnGameSaveLoadFailureAsObservable@{OnGameSaveLoadFailureAsObservable}}
+\index{OnGameSaveLoadFailureAsObservable@{OnGameSaveLoadFailureAsObservable}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{OnGameSaveLoadFailureAsObservable()}{OnGameSaveLoadFailureAsObservable()}}
+{\footnotesize\ttfamily I\+Observable$<$\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}}$>$ Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+On\+Game\+Save\+Load\+Failure\+As\+Observable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 96 of file Game\+Save.\+cs.
+
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ae169e3ecfca1deaa9e894ec231ba7f3e}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ae169e3ecfca1deaa9e894ec231ba7f3e}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!OnGameSaveSavedAsObservable@{OnGameSaveSavedAsObservable}}
+\index{OnGameSaveSavedAsObservable@{OnGameSaveSavedAsObservable}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{OnGameSaveSavedAsObservable()}{OnGameSaveSavedAsObservable()}}
+{\footnotesize\ttfamily I\+Observable$<$\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}}$>$ Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+On\+Game\+Save\+Saved\+As\+Observable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 85 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a801849f4031e5858dd31f57f3d6e386c}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a801849f4031e5858dd31f57f3d6e386c}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!OnGameSaveSaveFailureAsObservable@{OnGameSaveSaveFailureAsObservable}}
+\index{OnGameSaveSaveFailureAsObservable@{OnGameSaveSaveFailureAsObservable}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{OnGameSaveSaveFailureAsObservable()}{OnGameSaveSaveFailureAsObservable()}}
+{\footnotesize\ttfamily I\+Observable$<$\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}}$>$ Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+On\+Game\+Save\+Save\+Failure\+As\+Observable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 90 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ad45b0d15337bf2ac09145820ffd53935}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ad45b0d15337bf2ac09145820ffd53935}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!Save@{Save}}
+\index{Save@{Save}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{Save()}{Save()}}
+{\footnotesize\ttfamily abstract void Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+Save (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+This saves the \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}} data. 
+
+
+
+Implemented in \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_local_game_save_adacebfdf645b8d7c04726ec2b97c85b5}{Tiles\+Walk.\+Gameplay.\+Persistence.\+Local\+Game\+Save}}, and \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_cloud_save_game_a0776bdc7937afbcbaf01b8cf7f706e5d}{Tiles\+Walk.\+Gameplay.\+Persistence.\+Cloud\+Save\+Game}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a733732a5c7d2aaf216771525e9ac3e4e}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a733732a5c7d2aaf216771525e9ac3e4e}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!\_gameRecords@{\_gameRecords}}
+\index{\_gameRecords@{\_gameRecords}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{\_gameRecords}{\_gameRecords}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper}{Records\+Keeper}} Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+\_\+game\+Records\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 17 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aacfad319306ccd338ce0c48d9def53b0}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aacfad319306ccd338ce0c48d9def53b0}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!\_importedLevelRecords@{\_importedLevelRecords}}
+\index{\_importedLevelRecords@{\_importedLevelRecords}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{\_importedLevelRecords}{\_importedLevelRecords}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper}{Records\+Keeper}} Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+\_\+imported\+Level\+Records\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 19 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ae740a22b8bfc314900935070112baea5}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ae740a22b8bfc314900935070112baea5}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!\_importedMaps@{\_importedMaps}}
+\index{\_importedMaps@{\_importedMaps}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{\_importedMaps}{\_importedMaps}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection}{Game\+Map\+Collection}} Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+\_\+imported\+Maps\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 22 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a354a5454e3f73a721903613d0f3f3f5d}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a354a5454e3f73a721903613d0f3f3f5d}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!\_onGameSaveLoaded@{\_onGameSaveLoaded}}
+\index{\_onGameSaveLoaded@{\_onGameSaveLoaded}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{\_onGameSaveLoaded}{\_onGameSaveLoaded}}
+{\footnotesize\ttfamily Subject$<$\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}}$>$ Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+\_\+on\+Game\+Save\+Loaded\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 56 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aa459e8c19309612045a9e0023a7efe21}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aa459e8c19309612045a9e0023a7efe21}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!\_onGameSaveLoadFailure@{\_onGameSaveLoadFailure}}
+\index{\_onGameSaveLoadFailure@{\_onGameSaveLoadFailure}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{\_onGameSaveLoadFailure}{\_onGameSaveLoadFailure}}
+{\footnotesize\ttfamily Subject$<$\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}}$>$ Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+\_\+on\+Game\+Save\+Load\+Failure\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 55 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_af53e717866d674dad692cbce4c4a4c58}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_af53e717866d674dad692cbce4c4a4c58}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!\_onGameSaveSaved@{\_onGameSaveSaved}}
+\index{\_onGameSaveSaved@{\_onGameSaveSaved}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{\_onGameSaveSaved}{\_onGameSaveSaved}}
+{\footnotesize\ttfamily Subject$<$\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}}$>$ Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+\_\+on\+Game\+Save\+Saved\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 58 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_adabaed3c81ca0c77c45a7915a3f57890}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_adabaed3c81ca0c77c45a7915a3f57890}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!\_onGameSaveSaveFailure@{\_onGameSaveSaveFailure}}
+\index{\_onGameSaveSaveFailure@{\_onGameSaveSaveFailure}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{\_onGameSaveSaveFailure}{\_onGameSaveSaveFailure}}
+{\footnotesize\ttfamily Subject$<$\mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save}{Game\+Save}}$>$ Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+\_\+on\+Game\+Save\+Save\+Failure\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 57 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a1054e0d20dc1b77d53ac13dcd9ea2ca2}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a1054e0d20dc1b77d53ac13dcd9ea2ca2}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!\_statistics@{\_statistics}}
+\index{\_statistics@{\_statistics}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{\_statistics}{\_statistics}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_statistics}{Game\+Statistics}} Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+\_\+statistics\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 15 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aa21e1396afbb919f7b0acc101e31a12b}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aa21e1396afbb919f7b0acc101e31a12b}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!\_userLevelRecords@{\_userLevelRecords}}
+\index{\_userLevelRecords@{\_userLevelRecords}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{\_userLevelRecords}{\_userLevelRecords}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper}{Records\+Keeper}} Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+\_\+user\+Level\+Records\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 18 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a28fdad2187d0024d00fa318f9f7100a3}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a28fdad2187d0024d00fa318f9f7100a3}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!\_userMaps@{\_userMaps}}
+\index{\_userMaps@{\_userMaps}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{\_userMaps}{\_userMaps}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection}{Game\+Map\+Collection}} Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+\_\+user\+Maps\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 21 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_acad3842a07e31d818f31a96c0209cbbe}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_acad3842a07e31d818f31a96c0209cbbe}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!GameRecords@{GameRecords}}
+\index{GameRecords@{GameRecords}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{GameRecords}{GameRecords}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper}{Records\+Keeper}} Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+Game\+Records =$>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a733732a5c7d2aaf216771525e9ac3e4e}{\+\_\+game\+Records}}}
+
+
+
+Records for the game levels, meaning levels that come bundled with the game and were not made by the user or others 
+
+
+
+Definition at line 33 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ad6c23cf197d5a3079fac62578cab1f2e}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ad6c23cf197d5a3079fac62578cab1f2e}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!ImportedLevelRecords@{ImportedLevelRecords}}
+\index{ImportedLevelRecords@{ImportedLevelRecords}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{ImportedLevelRecords}{ImportedLevelRecords}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper}{Records\+Keeper}} Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+Imported\+Level\+Records =$>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aacfad319306ccd338ce0c48d9def53b0}{\+\_\+imported\+Level\+Records}}}
+
+
+
+Records for levels made by other users 
+
+
+
+Definition at line 43 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aecd07b3eeaaab7ab1bffb086e0da8c2b}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aecd07b3eeaaab7ab1bffb086e0da8c2b}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!ImportedMaps@{ImportedMaps}}
+\index{ImportedMaps@{ImportedMaps}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{ImportedMaps}{ImportedMaps}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection}{Game\+Map\+Collection}} Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+Imported\+Maps =$>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ae740a22b8bfc314900935070112baea5}{\+\_\+imported\+Maps}}}
+
+
+
+Imported maps made by other users 
+
+
+
+Definition at line 53 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ab96a8708f408abdc3a6b8392cdeda75d}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_ab96a8708f408abdc3a6b8392cdeda75d}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!Statistics@{Statistics}}
+\index{Statistics@{Statistics}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{Statistics}{Statistics}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_statistics}{Game\+Statistics}} Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+Statistics =$>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a1054e0d20dc1b77d53ac13dcd9ea2ca2}{\+\_\+statistics}}}
+
+
+
+Contains user related statistics 
+
+
+
+Definition at line 27 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aa11008c5c9e3986b769907460b458ab5}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aa11008c5c9e3986b769907460b458ab5}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!UserLevelRecords@{UserLevelRecords}}
+\index{UserLevelRecords@{UserLevelRecords}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{UserLevelRecords}{UserLevelRecords}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_records_keeper}{Records\+Keeper}} Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+User\+Level\+Records =$>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_aa21e1396afbb919f7b0acc101e31a12b}{\+\_\+user\+Level\+Records}}}
+
+
+
+Records for levels made by the user 
+
+
+
+Definition at line 38 of file Game\+Save.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a9bfa1490b8330eb7178e8e09c3af21d1}\label{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a9bfa1490b8330eb7178e8e09c3af21d1}} 
+\index{TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}!UserMaps@{UserMaps}}
+\index{UserMaps@{UserMaps}!TilesWalk.Gameplay.Persistence.GameSave@{TilesWalk.Gameplay.Persistence.GameSave}}
+\doxysubsubsection{\texorpdfstring{UserMaps}{UserMaps}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_map_collection}{Game\+Map\+Collection}} Tiles\+Walk.\+Gameplay.\+Persistence.\+Game\+Save.\+User\+Maps =$>$ \mbox{\hyperlink{class_tiles_walk_1_1_gameplay_1_1_persistence_1_1_game_save_a28fdad2187d0024d00fa318f9f7100a3}{\+\_\+user\+Maps}}}
+
+
+
+Levels made by the user 
+
+
+
+Definition at line 48 of file Game\+Save.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Source/\+Gameplay/\+Persistence/\mbox{\hyperlink{_game_save_8cs}{Game\+Save.\+cs}}\end{DoxyCompactItemize}

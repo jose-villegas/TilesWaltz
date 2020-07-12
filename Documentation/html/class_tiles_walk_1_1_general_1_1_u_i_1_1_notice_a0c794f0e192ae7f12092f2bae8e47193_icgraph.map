@@ -1,0 +1,5 @@
+<map id="TilesWalk.General.UI.Notice.Show" name="TilesWalk.General.UI.Notice.Show">
+<area shape="rect" id="node1" title=" " alt="" coords="508,20,729,47"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_u_i_1_1_save_level_canvas.html#a4d4d4d3130dc09103705b0db05703972" title=" " alt="" coords="5,5,201,61"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_building_1_1_level_editor_1_1_u_i_1_1_save_level_canvas.html#a850b200f5e10e6e7b7b360c25810c99b" title=" " alt="" coords="249,42,460,83"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="TilesWalk.Gameplay.Persistence.RecordsKeeper.Exist" name="TilesWalk.Gameplay.Persistence.RecordsKeeper.Exist">
+<area shape="rect" id="node1" title="Determines if such a record exists within the collection" alt="" coords="237,5,456,47"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_gameplay_1_1_score_1_1_game_scores_helper.html#aac288553325580d1cdac7bd1e7185e24" title=" " alt="" coords="5,5,189,47"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="TilesWalk.General.UI.CanvasGroupBehaviour.Show" name="TilesWalk.General.UI.CanvasGroupBehaviour.Show">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,196,80"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_gameplay_1_1_input_1_1_game_events_handler.html#a68ccb2a335507442125cde4d3964f7a4" title=" " alt="" coords="249,5,431,47"/>
+<area shape="rect" id="node3" href="$class_tiles_walk_1_1_gameplay_1_1_input_1_1_game_events_handler.html#ada6a0914a4c7993ba1d54df7a30173d7" title=" " alt="" coords="244,71,436,112"/>
+</map>

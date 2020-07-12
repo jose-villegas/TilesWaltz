@@ -1,0 +1,4 @@
+<map id="TilesWalk.Map.Tile.GameLevelsMapBuilder.RegisterTile" name="TilesWalk.Map.Tile.GameLevelsMapBuilder.RegisterTile">
+<area shape="rect" id="node1" title="Register a new tile to the map structure" alt="" coords="260,5,467,47"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_map_1_1_tile_1_1_game_levels_map_builder.html#a7aefc75ede4d72de68e920521a450de4" title="Builds the given game map" alt="" coords="5,5,212,47"/>
+</map>

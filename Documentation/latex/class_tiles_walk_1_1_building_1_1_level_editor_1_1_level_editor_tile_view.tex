@@ -1,0 +1,145 @@
+\hypertarget{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view}{}\doxysection{Tiles\+Walk.\+Building.\+Level\+Editor.\+Level\+Editor\+Tile\+View Class Reference}
+\label{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view}\index{TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}}
+
+
+\mbox{\hyperlink{namespace_tiles_walk_1_1_building_1_1_level}{Level}} editor tiles behave as \mbox{\hyperlink{_tile_view_extension_8cs_a5836298f26f5baab9fce7df075ec2451}{Level\+Tile\+View}} when the game is playing, but they contain extra logic to enable the creationg of new levels in the editor  
+
+
+
+
+Inheritance diagram for Tiles\+Walk.\+Building.\+Level\+Editor.\+Level\+Editor\+Tile\+View\+:
+% FIG 0
+
+
+Collaboration diagram for Tiles\+Walk.\+Building.\+Level\+Editor.\+Level\+Editor\+Tile\+View\+:
+% FIG 1
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_af00f3b1bddadef6f8d64f97d4b73cf9a}{Has\+Ghost}} =$>$ \+\_\+ghost\+Tile\+View != null \&\& Is\+Selected.\+Value
+\item 
+\mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}} \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_a09b51f0da09c4f4d885c7a439f27d0b1}{Ghost\+Direction}} =$>$ \+\_\+ghost\+Tile\+View.\+Item1
+\item 
+\mbox{\hyperlink{namespace_tiles_walk_1_1_tile_1_1_rules_a01057f990b901629316bc34452f9a82b}{Neighbor\+Walk\+Rule}} \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_aff5127a7b4d1f809ac3b23bf06b7f438}{Current\+Rule}} =$>$ \+\_\+current\+Rule
+\item 
+\mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}} \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_a97f273beeb2f49704710b61dd496132a}{Current\+Direction}} =$>$ \+\_\+current\+Direction
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+override void \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_ae86fbf6ba799a416f59e377bbf02db0a}{Start}} ()
+\item 
+override void \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_a0181ee13fdd2c71895c5acae3d4b9b72}{On\+Mouse\+Down}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Bool\+Reactive\+Property \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_a093dc088ab5358205c2cc5397cd5dca7}{Is\+Selected}} = new Bool\+Reactive\+Property()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+bool \mbox{\hyperlink{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_a33e4511a4fdf4fa8894d93248685e6e1}{Is\+Ghost}} = false\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{namespace_tiles_walk_1_1_building_1_1_level}{Level}} editor tiles behave as \mbox{\hyperlink{_tile_view_extension_8cs_a5836298f26f5baab9fce7df075ec2451}{Level\+Tile\+View}} when the game is playing, but they contain extra logic to enable the creationg of new levels in the editor 
+
+
+
+Definition at line 27 of file Level\+Editor\+Tile\+View.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_a0181ee13fdd2c71895c5acae3d4b9b72}\label{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_a0181ee13fdd2c71895c5acae3d4b9b72}} 
+\index{TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}!OnMouseDown@{OnMouseDown}}
+\index{OnMouseDown@{OnMouseDown}!TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}}
+\doxysubsubsection{\texorpdfstring{OnMouseDown()}{OnMouseDown()}}
+{\footnotesize\ttfamily override void Tiles\+Walk.\+Building.\+Level\+Editor.\+Level\+Editor\+Tile\+View.\+On\+Mouse\+Down (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 268 of file Level\+Editor\+Tile\+View.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_ae86fbf6ba799a416f59e377bbf02db0a}\label{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_ae86fbf6ba799a416f59e377bbf02db0a}} 
+\index{TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}!Start@{Start}}
+\index{Start@{Start}!TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily override void Tiles\+Walk.\+Building.\+Level\+Editor.\+Level\+Editor\+Tile\+View.\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 57 of file Level\+Editor\+Tile\+View.\+cs.
+
+Here is the call graph for this function\+:
+% FIG 2
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_a97f273beeb2f49704710b61dd496132a}\label{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_a97f273beeb2f49704710b61dd496132a}} 
+\index{TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}!CurrentDirection@{CurrentDirection}}
+\index{CurrentDirection@{CurrentDirection}!TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}}
+\doxysubsubsection{\texorpdfstring{CurrentDirection}{CurrentDirection}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}} Tiles\+Walk.\+Building.\+Level\+Editor.\+Level\+Editor\+Tile\+View.\+Current\+Direction =$>$ \+\_\+current\+Direction}
+
+
+
+Definition at line 55 of file Level\+Editor\+Tile\+View.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_aff5127a7b4d1f809ac3b23bf06b7f438}\label{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_aff5127a7b4d1f809ac3b23bf06b7f438}} 
+\index{TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}!CurrentRule@{CurrentRule}}
+\index{CurrentRule@{CurrentRule}!TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}}
+\doxysubsubsection{\texorpdfstring{CurrentRule}{CurrentRule}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_tiles_walk_1_1_tile_1_1_rules_a01057f990b901629316bc34452f9a82b}{Neighbor\+Walk\+Rule}} Tiles\+Walk.\+Building.\+Level\+Editor.\+Level\+Editor\+Tile\+View.\+Current\+Rule =$>$ \+\_\+current\+Rule}
+
+
+
+Definition at line 53 of file Level\+Editor\+Tile\+View.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_a09b51f0da09c4f4d885c7a439f27d0b1}\label{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_a09b51f0da09c4f4d885c7a439f27d0b1}} 
+\index{TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}!GhostDirection@{GhostDirection}}
+\index{GhostDirection@{GhostDirection}!TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}}
+\doxysubsubsection{\texorpdfstring{GhostDirection}{GhostDirection}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_tiles_walk_1_1_general_a09735a601473763448d00458eaa531ca}{Cardinal\+Direction}} Tiles\+Walk.\+Building.\+Level\+Editor.\+Level\+Editor\+Tile\+View.\+Ghost\+Direction =$>$ \+\_\+ghost\+Tile\+View.\+Item1}
+
+
+
+Definition at line 51 of file Level\+Editor\+Tile\+View.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_af00f3b1bddadef6f8d64f97d4b73cf9a}\label{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_af00f3b1bddadef6f8d64f97d4b73cf9a}} 
+\index{TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}!HasGhost@{HasGhost}}
+\index{HasGhost@{HasGhost}!TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}}
+\doxysubsubsection{\texorpdfstring{HasGhost}{HasGhost}}
+{\footnotesize\ttfamily bool Tiles\+Walk.\+Building.\+Level\+Editor.\+Level\+Editor\+Tile\+View.\+Has\+Ghost =$>$ \+\_\+ghost\+Tile\+View != null \&\& Is\+Selected.\+Value}
+
+
+
+Definition at line 49 of file Level\+Editor\+Tile\+View.\+cs.
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_a33e4511a4fdf4fa8894d93248685e6e1}\label{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_a33e4511a4fdf4fa8894d93248685e6e1}} 
+\index{TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}!IsGhost@{IsGhost}}
+\index{IsGhost@{IsGhost}!TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}}
+\doxysubsubsection{\texorpdfstring{IsGhost}{IsGhost}}
+{\footnotesize\ttfamily bool Tiles\+Walk.\+Building.\+Level\+Editor.\+Level\+Editor\+Tile\+View.\+Is\+Ghost = false\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Definition at line 47 of file Level\+Editor\+Tile\+View.\+cs.
+
+\mbox{\Hypertarget{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_a093dc088ab5358205c2cc5397cd5dca7}\label{class_tiles_walk_1_1_building_1_1_level_editor_1_1_level_editor_tile_view_a093dc088ab5358205c2cc5397cd5dca7}} 
+\index{TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}!IsSelected@{IsSelected}}
+\index{IsSelected@{IsSelected}!TilesWalk.Building.LevelEditor.LevelEditorTileView@{TilesWalk.Building.LevelEditor.LevelEditorTileView}}
+\doxysubsubsection{\texorpdfstring{IsSelected}{IsSelected}}
+{\footnotesize\ttfamily Bool\+Reactive\+Property Tiles\+Walk.\+Building.\+Level\+Editor.\+Level\+Editor\+Tile\+View.\+Is\+Selected = new Bool\+Reactive\+Property()\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Definition at line 46 of file Level\+Editor\+Tile\+View.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Source/\+Building/\+Level\+Editor/\mbox{\hyperlink{_level_editor_tile_view_8cs}{Level\+Editor\+Tile\+View.\+cs}}\end{DoxyCompactItemize}

@@ -1,0 +1,4 @@
+<map id="TilesWalk.Map.Tile.GameLevelsMapBuilder" name="TilesWalk.Map.Tile.GameLevelsMapBuilder">
+<area shape="rect" id="node1" title="This class builds the game map, the game map contains all the internal levels developed for the game" alt="" coords="27,95,234,136"/>
+<area shape="rect" id="node2" href="$class_tiles_walk_1_1_building_1_1_level_1_1_tile_view_map.html" title=" " alt="" coords="5,5,256,47"/>
+</map>
