@@ -32,9 +32,22 @@ namespace TilesWalk.Building.LevelEditor
 
 		private Tuple<CardinalDirection, LevelEditorTileView> _ghostTileView;
         private CanvasGroupBehaviour _guides;
-		private Animator _animator;
 		private Vector3? _sourcePosition = null;
 		private Subject<Unit> _onAllPathsHidden = new Subject<Unit>();
+        private Animator _editorUIAnimator;
+
+        public Animator EditorUIAnimator
+        {
+            get
+            {
+                if (_editorUIAnimator == null)
+                {
+					_editorUIAnimator = GetComponentInChildren<Animator>(true);
+				}
+
+                return _editorUIAnimator;
+            }
+        }
 
 		public BoolReactiveProperty IsSelected { get; } = new BoolReactiveProperty();
 		public bool IsGhost { get; private set; }
@@ -50,7 +63,6 @@ namespace TilesWalk.Building.LevelEditor
         protected override void Start()
 		{
 			_guides = GetComponentInChildren<CanvasGroupBehaviour>(true);
-			_animator = GetComponentInChildren<Animator>(true);
 
 			if (IsGhost) return;
 
@@ -390,11 +402,11 @@ namespace TilesWalk.Building.LevelEditor
 							{
 								Observable.Timer(TimeSpan.FromSeconds(i * 0.075)).DelayFrame(1).Subscribe(_ => { }, () =>
 								{
-									Transform childTrans = view._animator.transform.Find("PathContainer");
+									Transform childTrans = view.EditorUIAnimator.transform.Find("PathContainer");
 
 									if (childTrans != null) childTrans.gameObject.SetActive(true);
 
-									view._animator.SetBool("ShowPath", true);
+									view.EditorUIAnimator.SetBool("ShowPath", true);
 								}).AddTo(this);
 							}
 						}
@@ -422,9 +434,9 @@ namespace TilesWalk.Building.LevelEditor
 				{
 					var view = (LevelEditorTileView)levelTileView;
 
-					if (view != null) view._animator.SetBool("ShowPath", false);
+					if (view != null) view.EditorUIAnimator.SetBool("ShowPath", false);
 
-					Transform childTrans = view._animator.transform.Find("PathContainer");
+					Transform childTrans = view.EditorUIAnimator.transform.Find("PathContainer");
 
 					if (childTrans != null) childTrans.gameObject.SetActive(false);
 

@@ -187,7 +187,7 @@ namespace TilesWalk.Map.Tile
 									// here is the root direction instead of the pair, as the link source can differ
 									if (!linkHandler.Links.Exists(x => x.Direction == root.Key.Opposite()))
 									{
-										var reverse = new List<GameObject>(currentLink.Path);
+										var reverse = new List<GameMapTile>(currentLink.Path);
 										reverse.Reverse();
 
 										linkHandler.Links.Add(new LevelTileLink(root.Key.Opposite())
@@ -200,7 +200,7 @@ namespace TilesWalk.Map.Tile
 								}
 
 								// we are on a path, level link not reached, add more roots
-								currentLink.Path.Add(gameTile.gameObject);
+								currentLink.Path.Add(gameTile);
 
 								// add new roots
 								var newRoots = new List<KeyValuePair<CardinalDirection, TilesWalk.Tile.Tile>>();

@@ -20,8 +20,9 @@ namespace TilesWalk.Tile
 		private MeshRenderer _meshRenderer;
 		private BoxCollider _collider;
 		private ParticleSystemsCollector _particleSystems;
+        private Animator _animator;
 
-		public TileController Controller
+        public TileController Controller
 		{
 			get => _controller;
 			set => _controller = value;
@@ -67,6 +68,18 @@ namespace TilesWalk.Tile
 			protected set => _particleSystems = value;
 		}
 
+        public Animator Animator
+        {
+            get
+            {
+                if (_animator == null)
+                {
+                    _animator = GetComponentInParent<Animator>();
+                }
+
+                return _animator;
+            }
+        }
 
 		protected abstract void UpdateColor(Tuple<Tile, TileColor> color);
 

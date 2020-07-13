@@ -10,7 +10,7 @@ namespace TilesWalk.Map.Tile
 	{
 		[SerializeField] private CardinalDirection _direction;
 		[SerializeField] private GameLevelTile _level;
-		[SerializeField] private List<GameObject> _path;
+		[SerializeField] private List<GameMapTile> _path;
 
 		public CardinalDirection Direction => _direction;
 
@@ -20,7 +20,7 @@ namespace TilesWalk.Map.Tile
 			set => _level = value;
 		}
 
-		public List<GameObject> Path
+		public List<GameMapTile> Path
 		{
 			get => _path;
 			set => _path = value;
@@ -30,7 +30,7 @@ namespace TilesWalk.Map.Tile
 		{
 			_level = null;
 			_direction = direction;
-			_path = new List<GameObject>();
+			_path = new List<GameMapTile>();
 		}
 	}
 }

@@ -171,21 +171,22 @@ namespace TilesWalk.Map.Tile
 		{
 			foreach (var o in levelTileLink.Path)
 			{
-				if (incomplete.Add(o.GetComponent<Animator>()))
+				if (incomplete.Add(o.Animator))
 				{
 					// get model renderer
-					var meshRenderer = o.GetComponentInChildren<MeshRenderer>();
-					meshRenderer.material = _starsColorHandler.GetMaterial(Mathf.Max(levelTile.Map.Value.StarsRequired,
+                    var meshRenderer = o.Renderer;
+                    meshRenderer.material = _starsColorHandler.GetMaterial(Mathf.Max(levelTile.Map.Value.StarsRequired,
 						levelTileLink.Level.Map.Value.StarsRequired));
 				}
 			}
 
-			var animator = levelTileLink.Level.transform.parent.GetComponent<Animator>();
+			var animator = levelTileLink.Level.MapTile.Animator;
+
 			// also add the level tile
 			if (incomplete.Add(animator))
 			{
 				// get model renderer
-				var meshRenderer = levelTileLink.Level.GetComponentInChildren<MeshRenderer>();
+                var meshRenderer = levelTileLink.Level.MapTile.Renderer;
 				meshRenderer.material = _starsColorHandler.GetMaterial(Mathf.Max(levelTile.Map.Value.StarsRequired,
 					levelTileLink.Level.Map.Value.StarsRequired));
 			}
@@ -197,10 +198,10 @@ namespace TilesWalk.Map.Tile
 		{
 			foreach (var o in levelTileLink.Path)
 			{
-				if (justUnlocked.Add(o.GetComponent<Animator>()))
+				if (justUnlocked.Add(o.Animator))
 				{
 					// get model renderer
-					var meshRenderer = o.GetComponentInChildren<MeshRenderer>();
+					var meshRenderer = o.Renderer;
 					meshRenderer.material = _colorHandler.GetMaterial(LevelMapState.Locked);
 
 					maxStars[justUnlocked.Last()] = Mathf.Max(levelTile.Map.Value.StarsRequired,
@@ -208,13 +209,13 @@ namespace TilesWalk.Map.Tile
 				}
 			}
 
-			var animator = levelTileLink.Level.transform.parent.GetComponent<Animator>();
-			
-            // also add the level tile
+			var animator = levelTileLink.Level.MapTile.Animator;
+
+			// also add the level tile
 			if (justUnlocked.Add(animator))
 			{
 				// get model renderer
-				var meshRenderer = levelTileLink.Level.GetComponentInChildren<MeshRenderer>();
+                var meshRenderer = levelTileLink.Level.MapTile.Renderer;
 				meshRenderer.material = _colorHandler.GetMaterial(LevelMapState.Locked);
 
 				maxStars[animator] = Mathf.Max(levelTile.Map.Value.StarsRequired,
@@ -226,10 +227,10 @@ namespace TilesWalk.Map.Tile
 		{
 			foreach (var o in levelTileLink.Path)
 			{
-				if (blocked.Add(o.GetComponent<Animator>()))
+				if (blocked.Add(o.Animator))
 				{
 					// get model renderer
-					var meshRenderer = o.GetComponentInChildren<MeshRenderer>();
+                    var meshRenderer = o.Renderer;
 					meshRenderer.material = _colorHandler.GetMaterial(LevelMapState.Locked);
 				}
 			}
@@ -243,17 +244,17 @@ namespace TilesWalk.Map.Tile
 				if (completed.Add(o.GetComponent<Animator>()))
 				{
 					// get model renderer
-					var meshRenderer = o.GetComponentInChildren<MeshRenderer>();
+                    var meshRenderer = o.Renderer;
 					meshRenderer.material = _starsColorHandler.GetMaterial(Mathf.Max(levelTile.Map.Value.StarsRequired,
 						levelTileLink.Level.Map.Value.StarsRequired));
 				}
 			}
 
 			// also add the level tile
-			if (completed.Add(levelTileLink.Level.transform.parent.GetComponent<Animator>()))
+			if (completed.Add(levelTileLink.Level.MapTile.Animator))
 			{
 				// get model renderer
-				var meshRenderer = levelTileLink.Level.GetComponentInChildren<MeshRenderer>();
+                var meshRenderer = levelTileLink.Level.MapTile.Renderer;
 				meshRenderer.material = _starsColorHandler.GetMaterial(Mathf.Max(levelTile.Map.Value.StarsRequired,
 					levelTileLink.Level.Map.Value.StarsRequired));
 			}
