@@ -40,7 +40,7 @@ namespace TilesWalk.Tile
 			}
 		}
 
-		protected MeshRenderer Renderer
+        public MeshRenderer Renderer
 		{
 			get
 			{

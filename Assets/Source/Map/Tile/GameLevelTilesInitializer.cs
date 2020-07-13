@@ -209,7 +209,8 @@ namespace TilesWalk.Map.Tile
 			}
 
 			var animator = levelTileLink.Level.transform.parent.GetComponent<Animator>();
-			// also add the level tile
+			
+            // also add the level tile
 			if (justUnlocked.Add(animator))
 			{
 				// get model renderer
@@ -232,15 +233,7 @@ namespace TilesWalk.Map.Tile
 					meshRenderer.material = _colorHandler.GetMaterial(LevelMapState.Locked);
 				}
 			}
-
-			// also add the level tile
-			//if (blocked.Add(levelTileLink.Level.transform.parent.GetComponent<Animator>()))
-			//{
-			//	// get model renderer
-			//	var meshRenderer = levelTileLink.Level.GetComponentInChildren<MeshRenderer>();
-			//	meshRenderer.material = _colorHandler.GetMaterial(LevelMapState.Locked);
-			//}
-		}
+        }
 
 		private void InitializeCompleted(LevelTileLink levelTileLink, HashSet<Animator> completed,
 			GameLevelTile levelTile)

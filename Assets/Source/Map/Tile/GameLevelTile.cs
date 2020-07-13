@@ -17,176 +17,180 @@ using Zenject;
 
 namespace TilesWalk.Map.Tile
 {
-	/// <summary>
-	/// The game level tiles are tiles in the game map used to represent
-	/// entries to game levels
-	/// </summary>
-	public class GameLevelTile : ObservableTriggerBase, ILevelNameRequire
-	{
-		[Inject] private LevelMapDetailsCanvas _detailsCanvas;
-		[Inject] private GameScoresHelper _gameScoresHelper;
-		[Inject] private LevelStateTileMaterialHandler _colorHandler;
-		[Inject] private LevelStarsTileMaterialHandler _starsColorHandler;
-		[Inject] private GameEventsHandler _gameEvents;
+    /// <summary>
+    /// The game level tiles are tiles in the game map used to represent
+    /// entries to game levels
+    /// </summary>
+    public class GameLevelTile : ObservableTriggerBase, ILevelNameRequire
+    {
+        [Inject] private LevelMapDetailsCanvas _detailsCanvas;
+        [Inject] private GameScoresHelper _gameScoresHelper;
+        [Inject] private LevelStateTileMaterialHandler _colorHandler;
+        [Inject] private LevelStarsTileMaterialHandler _starsColorHandler;
+        [Inject] private GameEventsHandler _gameEvents;
         [Inject] private CanvasHoverListener _canvasHover;
 
-		private MeshRenderer _meshRenderer;
-		private ParticleSystemsCollector _particleSystems;
-		private GameLevelTileLinksHandler _links;
+        private GameLevelTileLinksHandler _links;
 
-		public ReactiveProperty<string> Name { get; } = new ReactiveProperty<string>();
-		public ReactiveProperty<LevelMap> Map { get; } = new ReactiveProperty<LevelMap>();
+        public ReactiveProperty<string> Name { get; } = new ReactiveProperty<string>();
+        public ReactiveProperty<LevelMap> Map { get; } = new ReactiveProperty<LevelMap>();
 
-		/// <summary>
-		/// This class holds the links that relate levels through
-		/// the map structure
-		/// </summary>
-		public GameLevelTileLinksHandler Links => _links;
+        /// <summary>
+        /// This class holds the links that relate levels through
+        /// the map structure
+        /// </summary>
+        public GameLevelTileLinksHandler Links
+        {
+            get
+            {
+                if (_links == null)
+                {
+                    _links = GetComponent<GameLevelTileLinksHandler>();
+                }
 
-		private Subject<GameLevelTile> _onLevelTileClick;
-		private Subject<GameLevelTile> _onLevelDataLoaded;
-		private bool _disabledClick;
+                return _links;
+            }
+        }
 
-		/// <summary>
-		/// The tile mesh renderer
-		/// </summary>
-		protected MeshRenderer Renderer
-		{
-			get
-			{
-				if (_meshRenderer == null)
-				{
-					_meshRenderer = GetComponentInChildren<MeshRenderer>();
-				}
+        private Subject<GameLevelTile> _onLevelTileClick;
+        private Subject<GameLevelTile> _onLevelDataLoaded;
+        private bool _disabledClick;
+        private GameMapTile _mapTile;
 
-				return _meshRenderer;
-			}
-		}
+        /// <summary>
+        /// The tile mesh renderer
+        /// </summary>
+        protected GameMapTile MapTile
+        {
+            get
+            {
+                if (_mapTile == null)
+                {
+                    _mapTile = GetComponentInParent<GameMapTile>();
+                }
 
-		private void OnMouseDown()
-		{
-			if (_disabledClick) return;
+                return _mapTile;
+            }
+        }
+
+        private void OnMouseDown()
+        {
+            if (_disabledClick) return;
 
             if (_canvasHover.IsUIOverride) return;
 
-			OnMapTileClick();
-		}
+            OnMapTileClick();
+        }
 
-		/// <summary>
-		/// Logic for when a level tile is clicked, this shows
-		/// the level details in the UI
-		/// </summary>
-		public void OnMapTileClick()
-		{
-			if (_detailsCanvas.IsVisible && _detailsCanvas.LevelRequest.Name.Value == Name.Value)
-			{
-				_detailsCanvas.Hide();
-			}
-			else
-			{
-				_detailsCanvas.LevelRequest.Name.Value = Name.Value;
-				_detailsCanvas.Show();
-			}
+        /// <summary>
+        /// Logic for when a level tile is clicked, this shows
+        /// the level details in the UI
+        /// </summary>
+        public void OnMapTileClick()
+        {
+            if (_detailsCanvas.IsVisible && _detailsCanvas.LevelRequest.Name.Value == Name.Value)
+            {
+                _detailsCanvas.Hide();
+            }
+            else
+            {
+                _detailsCanvas.LevelRequest.Name.Value = Name.Value;
+                _detailsCanvas.Show();
+            }
 
-			_onLevelTileClick?.OnNext(this);
-		}
+            _onLevelTileClick?.OnNext(this);
+        }
 
-		/// <summary>
-		/// Raised when a tile is clicked
-		/// </summary>
-		/// <returns></returns>
-		public IObservable<GameLevelTile> OnLevelTileClickAsObservable()
-		{
-			return _onLevelTileClick = _onLevelTileClick ?? new Subject<GameLevelTile>();
-		}
+        /// <summary>
+        /// Raised when a tile is clicked
+        /// </summary>
+        /// <returns></returns>
+        public IObservable<GameLevelTile> OnLevelTileClickAsObservable()
+        {
+            return _onLevelTileClick = _onLevelTileClick ?? new Subject<GameLevelTile>();
+        }
 
-		/// <summary>
-		/// Raised when the level tile is fully loaded
-		/// </summary>
-		/// <returns></returns>
-		public IObservable<GameLevelTile> OnLevelDataLoadedAsObservable()
-		{
-			return _onLevelDataLoaded = _onLevelDataLoaded ?? new Subject<GameLevelTile>();
-		}
+        /// <summary>
+        /// Raised when the level tile is fully loaded
+        /// </summary>
+        /// <returns></returns>
+        public IObservable<GameLevelTile> OnLevelDataLoadedAsObservable()
+        {
+            return _onLevelDataLoaded = _onLevelDataLoaded ?? new Subject<GameLevelTile>();
+        }
 
-		protected override void RaiseOnCompletedOnDestroy()
-		{
-			_onLevelTileClick?.OnCompleted();
-			_onLevelDataLoaded?.OnCompleted();
-		}
+        protected override void RaiseOnCompletedOnDestroy()
+        {
+            _onLevelTileClick?.OnCompleted();
+            _onLevelDataLoaded?.OnCompleted();
+        }
 
-		private void Awake()
-		{
-			_links = gameObject.GetComponent<GameLevelTileLinksHandler>();
-			_particleSystems = gameObject.AddComponent<ParticleSystemsCollector>();
-		}
+        private void Start()
+        {
+            // Subscribe to game events
+            _gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed).AddTo(this);
+            _gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused).AddTo(this);
 
-		private void Start()
-		{
-			// Subscribe to game events
-			_gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed).AddTo(this);
-			_gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused).AddTo(this);
+            // initialize particle effects
+            _detailsCanvas.LevelRequest.Name.Subscribe(mapName =>
+            {
+                if (mapName == Name.Value)
+                {
+                    if (!_gameScoresHelper.IsCompleted(Map.Value))
+                    {
+                        MapTile.ParticleSystems["Completed"].Stop();
 
-			// initialize particle effects
-			_detailsCanvas.LevelRequest.Name.Subscribe(mapName =>
-			{
-				if (mapName == Name.Value)
-				{
-					if (!_gameScoresHelper.IsCompleted(Map.Value))
-					{
-						_particleSystems["Completed"].Stop();
+                        MapTile.ParticleSystems["ToComplete"].gameObject.SetActive(true);
+                        MapTile.ParticleSystems["ToComplete"].Play();
+                    }
+                    else
+                    {
+                        MapTile.ParticleSystems["ToComplete"].Stop();
 
-						_particleSystems["ToComplete"].gameObject.SetActive(true);
-						_particleSystems["ToComplete"].Play();
-					}
-					else
-					{
-						_particleSystems["ToComplete"].Stop();
+                        MapTile.ParticleSystems["Completed"].gameObject.SetActive(true);
+                        MapTile.ParticleSystems["Completed"].Play();
+                    }
+                }
+                else
+                {
+                    MapTile.ParticleSystems.StopAll();
+                }
+            }).AddTo(this);
 
-						_particleSystems["Completed"].gameObject.SetActive(true);
-						_particleSystems["Completed"].Play();
-					}
-				}
-				else
-				{
-					_particleSystems.StopAll();
-				}
-			}).AddTo(this);
+            // Initialize materials
+            Map.Subscribe(map =>
+            {
+                if (map != null)
+                {
+                    if (_gameScoresHelper.IsCompleted(map))
+                    {
+                        MapTile.Renderer.material = _starsColorHandler.GetMaterial(Map.Value.StarsRequired);
+                    }
+                    else
+                    {
+                        if (_gameScoresHelper.GameStars < map.StarsRequired)
+                        {
+                            MapTile.Renderer.material = _colorHandler.GetMaterial(LevelMapState.Locked);
+                        }
+                        else
+                        {
+                            MapTile.Renderer.material = _colorHandler.GetMaterial(LevelMapState.ToComplete);
+                        }
+                    }
 
-			// Initialize materials
-			Map.Subscribe(map =>
-			{
-				if (map != null)
-				{
-					if (_gameScoresHelper.IsCompleted(map))
-					{
-						Renderer.material = _starsColorHandler.GetMaterial(Map.Value.StarsRequired);
-					}
-					else
-					{
-						if (_gameScoresHelper.GameStars < map.StarsRequired)
-						{
-							Renderer.material = _colorHandler.GetMaterial(LevelMapState.Locked);
-						}
-						else
-						{
-							Renderer.material = _colorHandler.GetMaterial(LevelMapState.ToComplete);
-						}
-					}
+                    _onLevelDataLoaded?.OnNext(this);
+                }
+            });
+        }
 
-					_onLevelDataLoaded?.OnNext(this);
-				}
-			});
-		}
+        private void OnGamePaused(Unit obj)
+        {
+            _disabledClick = true;
+        }
 
-		private void OnGamePaused(Unit obj)
-		{
-			_disabledClick = true;
-		}
-
-		private void OnGameResumed(Unit obj)
-		{
-			_disabledClick = false;
-		}
-	}
+        private void OnGameResumed(Unit obj)
+        {
+            _disabledClick = false;
+        }
+    }
 }
