@@ -168,5 +168,9 @@ namespace TilesWalk.Map.Tile
 		protected override void OnGamePaused(Unit u)
 		{
 		}
-	}
+
+        protected override void OnDestroy()
+        {
+        }
+    }
 }

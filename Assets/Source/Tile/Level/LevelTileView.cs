@@ -3,6 +3,7 @@ using System.Linq;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
+using TilesWalk.Gameplay;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Display;
 using TilesWalk.Gameplay.Score;
@@ -13,11 +14,15 @@ using Zenject;
 
 namespace TilesWalk.Tile.Level
 {
+	/// <summary>
+	/// This class represents the tiles viewed during level game play
+	/// </summary>
 	public partial class LevelTileView : TileView, IView
 	{
 		[Inject] protected DiContainer _container;
 		[Inject] protected TileViewLevelMap _tileLevelMap;
-		[Inject(Optional = true)] protected LevelFinishTracker _levelFinishTracker;
+        [Inject] protected GameplaySetting _setting;
+		[Inject] protected LevelFinishTracker _levelFinishTracker;
 
 		public LevelTileViewTriggerBase Trigger
 		{
@@ -42,8 +47,11 @@ namespace TilesWalk.Tile.Level
 			_tileLevelMap.State = TileLevelMapState.FreeMove;
 			StopAllCoroutines();
 		}
-
-		protected virtual void Start()
+		
+		/// <summary>
+		/// Initializes callback listeners for level tiles
+		/// </summary>
+		protected override void Start()
 		{
 			base.Start();
 
@@ -60,6 +68,10 @@ namespace TilesWalk.Tile.Level
 			CheckSeparator();
 		}
 
+		/// <summary>
+		/// When two tiles are next to each other but are not connected. This method
+		/// handles the activation of a visual separation with unrelated neighboring tiles
+		/// </summary>
 		public void CheckSeparator()
 		{
 			var index = Controller.Tile.Index;
@@ -112,6 +124,10 @@ namespace TilesWalk.Tile.Level
 			}
 		}
 
+		/// <summary>
+		/// Handles the special effects for different power ups
+		/// </summary>
+		/// <param name="power">A tuple with the source tile and the previous power up value</param>
 		private void UpdatePowerUpFX(Tuple<Tile, TilePowerUp> power)
 		{
 			if (ParticleSystems.ParticleFX == null || ParticleSystems.ParticleFX.Count == 0) return;
@@ -141,7 +157,9 @@ namespace TilesWalk.Tile.Level
 			}
 		}
 
-		// check for combos
+		/// <summary>
+		/// The update cycle checks for color matching combos
+		/// </summary>
 		private void Update()
 		{
 			// check for combos
@@ -151,6 +169,10 @@ namespace TilesWalk.Tile.Level
 			}
 		}
 
+		/// <summary>
+		/// Handles game resume
+		/// </summary>
+		/// <param name="u"></param>
 		protected override void OnGameResumed(Unit u)
 		{
 			if (_levelFinishTracker != null && _levelFinishTracker.IsFinished) return;
@@ -158,18 +180,28 @@ namespace TilesWalk.Tile.Level
 			_tileLevelMap.State = _backupState;
 		}
 
+		/// <summary>
+		/// Handles game pause
+		/// </summary>
+		/// <param name="u"></param>
 		protected override void OnGamePaused(Unit u)
 		{
 			_backupState = _tileLevelMap.State;
 			_tileLevelMap.State = TileLevelMapState.Locked;
 		}
 
+		/// <summary>
+		/// Logic for when the level finish condition is reached
+		/// </summary>
+		/// <param name="score"></param>
 		private void OnLevelFinish(LevelScore score)
 		{
 			_tileLevelMap.State = TileLevelMapState.Locked;
-			// StartCoroutine(LevelFinishAnimation());
 		}
 
+		/// <summary>
+		/// Tile click logic
+		/// </summary>
 		protected virtual void OnMouseDown()
 		{
 			Trigger.OnTileClicked?.OnNext(_controller.Tile);
@@ -181,6 +213,11 @@ namespace TilesWalk.Tile.Level
 			Remove();
 		}
 
+
+		/// <summary>
+		/// This handles updates in the <see cref="Tile.TileColor"/> property
+		/// </summary>
+		/// <param name="color">A tuple with the updated tile and the previous color</param>
 		protected override void UpdateColor(Tuple<Tile, TileColor> color)
 		{
 			Renderer.material = _colorHandler.GetMaterial(color.Item1.TileColor);

@@ -575,7 +575,7 @@ MonoBehaviour:
         Position: {x: 0, y: 0, z: 0}
         Rotation: {x: 0, y: 0, z: 0}
       MapSize: 3
-      StarsRequired: 12
+      StarsRequired: 15
       Target: 3000
       FinishCondition: 1
     - Id: Knot
@@ -691,8 +691,8 @@ MonoBehaviour:
       - Key: -271850
         Position: {x: 0.9999999, y: 1.3000001, z: 0}
         Rotation: {x: 0, y: 0, z: 180}
-      MapSize: 0
-      StarsRequired: 15
+      MapSize: 1
+      StarsRequired: 17
       Target: 2200
       FinishCondition: 1
     - Id: Sizzle

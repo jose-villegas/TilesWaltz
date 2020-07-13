@@ -1,14 +1,20 @@
 ﻿using Hellmade.Sound;
+using System;
 using TilesWalk.General.UI;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace TilesWalk.Gameplay.UI
 {
 	public class GameOptionsCanvas : CanvasGroupBehaviour
-	{
+    {
+        [Inject] private GameplaySetting _setting;
+
 		[SerializeField] private Button _close;
 		[SerializeField] private Button _quit;
+        [SerializeField] private Toggle _guide;
 		[SerializeField] private Toggle _music;
 		[SerializeField] private Toggle _effects;
 
@@ -16,29 +22,30 @@ namespace TilesWalk.Gameplay.UI
 		{
 			Hide();
 			
-			var musicPreference = bool.Parse(PlayerPrefs.GetString("Music", true.ToString()));
-			var effectsPreference = bool.Parse(PlayerPrefs.GetString("Effects", true.ToString()));
+			OnMusicToggle(_music.isOn = _setting.Music);
+			OnEffectsToggle(_effects.isOn = _setting.Sounds);
 
-			OnMusicToggle(_music.isOn = musicPreference);
-			OnEffectsToggle(_effects.isOn = effectsPreference);
-
+			_guide.onValueChanged.AddListener(OnGuidesToggle);
 			_music.onValueChanged.AddListener(OnMusicToggle);
 			_effects.onValueChanged.AddListener(OnEffectsToggle);
 		}
 
-		private void OnEffectsToggle(bool value)
+        private void OnGuidesToggle(bool value)
+        {
+            _setting.ShowGuides = value;
+		}
+
+        private void OnEffectsToggle(bool value)
 		{
 			EazySoundManager.GlobalSoundsVolume = value ? 1f : 0f;
 			EazySoundManager.GlobalUISoundsVolume = value ? 1f : 0f;
-			PlayerPrefs.SetString("Effects", value.ToString());
-			PlayerPrefs.Save();
-		}
+            _setting.Sounds = value;
+        }
 
 		private void OnMusicToggle(bool value)
 		{
 			EazySoundManager.GlobalMusicVolume = value ? 1f : 0f;
-			PlayerPrefs.SetString("Music", value.ToString());
-			PlayerPrefs.Save();
+            _setting.Music = value;
 		}
 
 		public void ApplicationQuit()
