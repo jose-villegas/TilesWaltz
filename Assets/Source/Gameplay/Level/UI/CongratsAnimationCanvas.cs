@@ -12,6 +12,7 @@ using TilesWalk.Map.General;
 using TMPro;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Zenject;
 
@@ -31,6 +32,7 @@ namespace TilesWalk.Gameplay.Level.UI
 		[Inject] private GPGSAchievementHandler _achievement;
 		[Inject] private GPGSLeaderbardsHandler _leaderbards;
 
+        [SerializeField] private UnityEvent _onCongratsFinish;
 		[SerializeField] private LevelFinishDetailsCanvas _detailsCanvas;
 
 		[Header("Points")] [SerializeField] private SlidingNumber _slidingNumber;
@@ -122,6 +124,7 @@ namespace TilesWalk.Gameplay.Level.UI
 					_levelScorePointsTracker.SaveScore();
 					_gameSave.Statistics.MapFailed(_solver.Source);
 					UpdateSocial();
+                    _onCongratsFinish?.Invoke();
 
 					return;
 				}
@@ -218,6 +221,7 @@ namespace TilesWalk.Gameplay.Level.UI
 				_retry.interactable = true;
 				_continue.interactable = true;
 				_summary.interactable = true;
+                
 			}).AddTo(this);
 
 			_timeSlidingNumber.Target(extra);
@@ -225,6 +229,7 @@ namespace TilesWalk.Gameplay.Level.UI
 			_levelScorePointsTracker.AddPoints(extra);
 			_levelScorePointsTracker.SaveScore();
 			UpdateSocial();
+            _onCongratsFinish?.Invoke();
 
 			yield return null;
 		}
@@ -265,6 +270,7 @@ namespace TilesWalk.Gameplay.Level.UI
 			_movesSlidingNumber.Target(extra);
 			_levelScorePointsTracker.SaveScore();
 			UpdateSocial();
+            _onCongratsFinish?.Invoke();
 
 			yield return null;
 		}

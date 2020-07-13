@@ -65,14 +65,18 @@ namespace TilesWalk.Building.Level
 
 		public Dictionary<Vector3Int, LevelTileView> Indexes => _indexes;
 
-		private TileLevelMapState _state;
-		private LevelTileViewTriggerBase _levelTileTriggerBase;
+        public List<Tile.Tile> CurrentPathShown { get; set; }
 
-		/// <summary>
-		/// Checks if any of the current states for the map is locking movement
-		/// </summary>
-		/// <returns></returns>
-		public bool IsMovementLocked()
+        private TileLevelMapState _state;
+		private LevelTileViewTriggerBase _levelTileTriggerBase;
+        private TileLevelMapState _backupState;
+
+
+        /// <summary>
+        /// Checks if any of the current states for the map is locking movement
+        /// </summary>
+        /// <returns></returns>
+        public bool IsMovementLocked()
 		{
 			return State == TileLevelMapState.RemovingTile ||
 			       State == TileLevelMapState.OnComboRemoval ||
@@ -374,5 +378,24 @@ namespace TilesWalk.Building.Level
 				_indexes[tile.Controller.Tile.Index] = tile;
 			}
 		}
+
+        /// <summary>
+        /// Handles game resume
+        /// </summary>
+        /// <param name="u"></param>
+        protected void OnGameResumed(Unit u)
+        {
+            State = _backupState;
+        }
+
+        /// <summary>
+        /// Handles game pause
+        /// </summary>
+        /// <param name="u"></param>
+        protected void OnGamePaused(Unit u)
+        {
+            _backupState = State;
+            State = TileLevelMapState.Locked;
+        }
 	}
 }

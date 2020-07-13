@@ -75,6 +75,7 @@ MonoBehaviour:
     _powerUpPopInSequenceFactor: 0.5
     _targetTileTime: 0.15
     _gridAnimationTime: 0.35
+    _pathGuideAnimationTime: 0.15
   _customLevelsSettings:
     _maximumUserMaps: 2
     _maximumImportedMaps: 2

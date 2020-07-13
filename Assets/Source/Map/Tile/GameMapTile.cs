@@ -154,6 +154,9 @@ namespace TilesWalk.Map.Tile
 		{
 			_gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused);
 			_gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed);
+
+            var mapLayer = Animator.GetLayerIndex("Level");
+            Animator.SetLayerWeight(mapLayer, 0f);
 		}
 
 		protected override void UpdateColor(Tuple<TilesWalk.Tile.Tile, TileColor> color)

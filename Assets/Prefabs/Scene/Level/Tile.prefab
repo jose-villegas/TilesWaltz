@@ -1263,12 +1263,12 @@ GameObject:
   - component: {fileID: 7837127188475549718}
   - component: {fileID: 3464501036891393453}
   m_Layer: 5
-  m_Name: EditorUI
+  m_Name: LevelTileUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &913975151870545814
 RectTransform:
   m_ObjectHideFlags: 0

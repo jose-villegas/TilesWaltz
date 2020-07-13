@@ -123,5 +123,15 @@ namespace TilesWalk.Extensions
 			result.Add(source);
 			return result;
 		}
+
+        public static CardinalDirection GetNeighborDirection(this Tile.Tile tile, Tile.Tile neighbor)
+        {
+            foreach (var tileNeighbor in tile.Neighbors)
+            {
+                if (tileNeighbor.Value == neighbor) return tileNeighbor.Key;
+            }
+
+            return CardinalDirection.None;
+        }
 	}
 }

@@ -10,12 +10,18 @@ namespace TilesWalk.Gameplay.Display
 	[ExecuteInEditMode, RequireComponent(typeof(Graphic))]
 	public class GameColorPicker : ObligatoryComponentBehaviour<Graphic>
 	{
-		[Inject(Optional = true)] private GameTileColorsConfiguration _colorsConfiguration;
+		[Inject] private GameTileColorsConfiguration _colorsConfiguration;
 
 		[SerializeField] private GameColor _name;
 		[SerializeField, ReadOnly] private Color _color;
 
-		private void OnValidate()
+        public GameColor Name
+        {
+            get => _name;
+            set => _name = value;
+        }
+
+        private void OnValidate()
 		{
 			// solve this through Resource Load
 			if (_colorsConfiguration == null)
@@ -23,7 +29,7 @@ namespace TilesWalk.Gameplay.Display
 				_colorsConfiguration = Resources.Load<GameSettingsInstaller>("GameSettingsInstaller").GamePalette;
 			}
 
-			_color = _colorsConfiguration[_name];
+			_color = _colorsConfiguration[Name];
 			Component.color = _color;
 		}
 	}

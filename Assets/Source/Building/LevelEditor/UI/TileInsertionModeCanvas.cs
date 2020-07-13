@@ -67,6 +67,11 @@ namespace TilesWalk.Building.LevelEditor.UI
 				}
 			}
 
+            foreach (var neighborWalkRuleButton in _ruleInsertButtons)
+            {
+                neighborWalkRuleButton.Toggle.isOn = neighborWalkRuleButton.Rule == tile.CurrentRule;
+            }
+
 			_confirm.interactable = _cancel.interactable = tile.HasGhost;
 		}
 	}

@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using NaughtyAttributes;
 using TilesWalk.Gameplay.Input;
 using TilesWalk.General.Patterns;
-using TilesWalk.Navigation.UI;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 using Zenject;
 
 namespace TilesWalk.General.UI

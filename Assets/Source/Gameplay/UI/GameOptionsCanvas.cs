@@ -18,12 +18,13 @@ namespace TilesWalk.Gameplay.UI
 		[SerializeField] private Toggle _music;
 		[SerializeField] private Toggle _effects;
 
-		private void Awake()
+		private void Start()
 		{
 			Hide();
 			
-			OnMusicToggle(_music.isOn = _setting.Music);
-			OnEffectsToggle(_effects.isOn = _setting.Sounds);
+			OnMusicToggle(_music.isOn = _setting.Music.Value);
+			OnEffectsToggle(_effects.isOn = _setting.Sounds.Value);
+            OnGuidesToggle(_guide.isOn = _setting.ShowGuides.Value);
 
 			_guide.onValueChanged.AddListener(OnGuidesToggle);
 			_music.onValueChanged.AddListener(OnMusicToggle);
@@ -32,20 +33,20 @@ namespace TilesWalk.Gameplay.UI
 
         private void OnGuidesToggle(bool value)
         {
-            _setting.ShowGuides = value;
+            _setting.ShowGuides.Value = value;
 		}
 
         private void OnEffectsToggle(bool value)
 		{
 			EazySoundManager.GlobalSoundsVolume = value ? 1f : 0f;
 			EazySoundManager.GlobalUISoundsVolume = value ? 1f : 0f;
-            _setting.Sounds = value;
+            _setting.Sounds.Value = value;
         }
 
 		private void OnMusicToggle(bool value)
 		{
 			EazySoundManager.GlobalMusicVolume = value ? 1f : 0f;
-            _setting.Music = value;
+            _setting.Music.Value = value;
 		}
 
 		public void ApplicationQuit()

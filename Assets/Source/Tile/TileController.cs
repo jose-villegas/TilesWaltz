@@ -408,15 +408,17 @@ namespace TilesWalk.Tile
 					}
 				}
 
+				// for balance the orthogonal axis is given, ensuring tiles will have to be
+				// moved for maximizing
 				if (directionPowerUp && cardinalDirection == CardinalDirection.South ||
 				    cardinalDirection == CardinalDirection.North)
 				{
-					powerUp = TilePowerUp.NorthSouthLine;
+					powerUp = TilePowerUp.EastWestLine;
 				}
 				else if (directionPowerUp && cardinalDirection == CardinalDirection.West ||
 				         cardinalDirection == CardinalDirection.East)
 				{
-					powerUp = TilePowerUp.EastWestLine;
+					powerUp = TilePowerUp.NorthSouthLine;
 				}
 
 				// assign to a tile randomly
