@@ -147,23 +147,6 @@ namespace TilesWalk.Tile
 				return dst1 - dst2;
 			});
 
-			//if (applyPowerModifier)
-			//{
-			//	float numberOfColors = Neighbors.Count(x => x.Value.TileColor == TileColor);
-
-			//	// neighboring colors manage the potency of the power up
-			//	if (numberOfColors < 1)
-			//	{
-			//		var percent = result.Count - Mathf.CeilToInt(result.Count * 0.33f);
-			//		result.RemoveRange(result.Count - percent, percent);
-			//	}
-			//	else if (numberOfColors >= 1 && numberOfColors < 2)
-			//	{
-			//		var percent = result.Count - Mathf.CeilToInt(result.Count * 0.66f);
-			//		result.RemoveRange(result.Count - percent, percent);
-			//	}
-			//}
-
 			return result;
 		}
 
@@ -206,7 +189,7 @@ namespace TilesWalk.Tile
 			return result;
 		}
 
-		public List<Tile> GetStraightPath(bool applyPowerModifier, params CardinalDirection[] direction)
+		public List<Tile> GetStraightPath(params CardinalDirection[] direction)
 		{
 			var sourceTile = this;
 			var result = new List<Tile>() {sourceTile};
@@ -227,24 +210,6 @@ namespace TilesWalk.Tile
 				var dst2 = (Index - t2.Index).sqrMagnitude;
 				return dst1 - dst2;
 			});
-
-			if (applyPowerModifier)
-			{
-				float numberOfColors = Neighbors.Count(x => x.Value.TileColor == TileColor);
-
-				// neighboring colors manage the potency of the power up
-				if (numberOfColors < 1)
-				{
-					var percent = result.Count - Mathf.CeilToInt(result.Count * 0.33f);
-					result.RemoveRange(result.Count - percent, percent);
-				}
-				else if (numberOfColors >= 1 && numberOfColors < 2)
-				{
-					var percent = result.Count - Mathf.CeilToInt(result.Count * 0.66f);
-					result.RemoveRange(result.Count - percent, percent);
-				}
-			}
-
 
 			return result;
 		}

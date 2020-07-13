@@ -109,13 +109,13 @@ namespace TilesWalk.Tile.Level
 				case TilePowerUp.None:
 					break;
 				case TilePowerUp.NorthSouthLine:
-					path = _controller.Tile.GetStraightPath(true, CardinalDirection.North, CardinalDirection.South);
+					path = _controller.Tile.GetStraightPath(CardinalDirection.North, CardinalDirection.South);
 					audioToPlay = "LinePower";
 					particlePerTile = "SwooshNS";
 					audioPerTileToPlay = "Clank";
 					break;
 				case TilePowerUp.EastWestLine:
-					path = _controller.Tile.GetStraightPath(true, CardinalDirection.East, CardinalDirection.West);
+					path = _controller.Tile.GetStraightPath(CardinalDirection.East, CardinalDirection.West);
 					audioToPlay = "LinePower";
 					particlePerTile = "SwooshEW";
 					audioPerTileToPlay = "Clank";

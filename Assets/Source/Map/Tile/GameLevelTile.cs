@@ -60,7 +60,7 @@ namespace TilesWalk.Map.Tile
         /// <summary>
         /// The tile mesh renderer
         /// </summary>
-        protected GameMapTile MapTile
+        public GameMapTile MapTile
         {
             get
             {

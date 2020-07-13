@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using TilesWalk.Building.Level;
 using TilesWalk.Building.LevelEditor.UI;
 using TilesWalk.Extensions;
-using TilesWalk.Gameplay.Display;
 using TilesWalk.Gameplay.Level;
 using TilesWalk.General;
 using TilesWalk.General.UI;
@@ -34,27 +31,23 @@ namespace TilesWalk.Building.LevelEditor
 		[Inject] private CanvasHoverListener _canvasHover;
 
 		private Tuple<CardinalDirection, LevelEditorTileView> _ghostTileView;
-		private Bounds _ghostTileBounds = new Bounds(Vector3.zero, new Vector3(1f, 0.3f, 1f));
-
-		private NeighborWalkRule _currentRule = NeighborWalkRule.Plain;
-		private CardinalDirection _currentDirection = CardinalDirection.None;
-		private CanvasGroupBehaviour _guides;
+        private CanvasGroupBehaviour _guides;
 		private Animator _animator;
 		private Vector3? _sourcePosition = null;
 		private Subject<Unit> _onAllPathsHidden = new Subject<Unit>();
 
 		public BoolReactiveProperty IsSelected { get; } = new BoolReactiveProperty();
-		public bool IsGhost { get; private set; } = false;
+		public bool IsGhost { get; private set; }
 
 		public bool HasGhost => _ghostTileView != null && IsSelected.Value;
 
 		public CardinalDirection GhostDirection => _ghostTileView.Item1;
 
-		public NeighborWalkRule CurrentRule => _currentRule;
+        public NeighborWalkRule CurrentRule { get; private set; } = NeighborWalkRule.Plain;
 
-		public CardinalDirection CurrentDirection => _currentDirection;
+        public CardinalDirection CurrentDirection { get; private set; } = CardinalDirection.None;
 
-		protected override void Start()
+        protected override void Start()
 		{
 			_guides = GetComponentInChildren<CanvasGroupBehaviour>(true);
 			_animator = GetComponentInChildren<Animator>(true);
@@ -95,13 +88,13 @@ namespace TilesWalk.Building.LevelEditor
 				{
 					if (_customLevelPlayer.IsPlaying) return;
 
-					_currentRule = val ? enumValue : _currentRule;
+					CurrentRule = val ? enumValue : CurrentRule;
 
 					if (val && IsSelected.Value)
 					{
 						// remove previous ghost
-						RemoveGhostNeighbor(_currentDirection);
-						InsertGhostNeighbor(_currentDirection, _currentRule);
+						RemoveGhostNeighbor(CurrentDirection);
+						InsertGhostNeighbor(CurrentDirection, CurrentRule);
 
 						_levelEditorToolSet.InsertionCanvas.Confirm.interactable = true;
 						_levelEditorToolSet.InsertionCanvas.Cancel.interactable = true;
@@ -132,9 +125,9 @@ namespace TilesWalk.Building.LevelEditor
 					else
 					{
 						// remove previous ghost
-						RemoveGhostNeighbor(_currentDirection);
-						_currentDirection = enumValue;
-						InsertGhostNeighbor(_currentDirection, _currentRule);
+						RemoveGhostNeighbor(CurrentDirection);
+						CurrentDirection = enumValue;
+						InsertGhostNeighbor(CurrentDirection, CurrentRule);
 					}
 
 					_levelEditorToolSet.InsertionCanvas.Confirm.interactable = true;
@@ -328,7 +321,7 @@ namespace TilesWalk.Building.LevelEditor
 		{
 			if (IsSelected.Value && _ghostTileView != null)
 			{
-				RemoveGhostNeighbor(_currentDirection);
+				RemoveGhostNeighbor(CurrentDirection);
 				Destroy(_ghostTileView.Item2.transform.parent.gameObject);
 				_ghostTileView = null;
 				_levelEditorToolSet.InsertionCanvas.UpdateButtons(this);
@@ -346,7 +339,7 @@ namespace TilesWalk.Building.LevelEditor
 				_ghostTileView.Item2.IsGhost = false;
 				_ghostTileView.Item2.Renderer.material = Renderer.material;
 				_tileLevelMap.RegisterTile(_ghostTileView.Item2);
-				_tileLevelMap.UpdateInstructions(this, _ghostTileView.Item2, _currentDirection, _currentRule);
+				_tileLevelMap.UpdateInstructions(this, _ghostTileView.Item2, CurrentDirection, CurrentRule);
 
 				// update indexes
 				_tileLevelMap.UpdateIndexes(_ghostTileView.Item2);
@@ -357,11 +350,11 @@ namespace TilesWalk.Building.LevelEditor
 				}
 
 				_ghostTileView.Item2.Start();
-				_ghostTileView.Item2._currentDirection = _currentDirection;
-				_ghostTileView.Item2._currentRule = _currentRule;
+				_ghostTileView.Item2.CurrentDirection = CurrentDirection;
+				_ghostTileView.Item2.CurrentRule = CurrentRule;
 
 				_ghostTileView = null;
-				_currentDirection = CardinalDirection.None;
+				CurrentDirection = CardinalDirection.None;
 				_levelEditorToolSet.InsertionCanvas.UpdateButtons(this);
 			}
 		}
@@ -486,7 +479,6 @@ namespace TilesWalk.Building.LevelEditor
 				(
 					direction, _levelTileFactory.NewInstance<LevelEditorTileView>()
 				);
-				_ghostTileView.Item2.Controller.AdjustBounds(_ghostTileBounds);
 				_ghostTileView.Item2.Renderer.material = _levelEditorToolSet.GhostMaterial;
 			}
 			else
@@ -499,7 +491,6 @@ namespace TilesWalk.Building.LevelEditor
 				_ghostTileView.Item2.transform.position = Vector3.zero;
 				_ghostTileView.Item2.transform.rotation = Quaternion.identity;
 				_ghostTileView.Item2.Controller = new TileController();
-				_ghostTileView.Item2.Controller.AdjustBounds(_ghostTileBounds);
 			}
 
 			_ghostTileView.Item2.IsGhost = true;
@@ -535,7 +526,6 @@ namespace TilesWalk.Building.LevelEditor
 				_ghostTileView.Item2.transform.position = Vector3.zero;
 				_ghostTileView.Item2.transform.rotation = Quaternion.identity;
 				_ghostTileView.Item2.Controller = new TileController();
-				_ghostTileView.Item2.Controller.AdjustBounds(_ghostTileBounds);
 			}
 
 			if (direction == CardinalDirection.None) return;

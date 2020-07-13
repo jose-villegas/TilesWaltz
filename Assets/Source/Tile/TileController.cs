@@ -342,7 +342,7 @@ namespace TilesWalk.Tile
 
 		private void HandleDirectionalPowerUp(CardinalDirection forward, CardinalDirection backward)
 		{
-			var path = _tile.GetStraightPath(true, forward, backward);
+			var path = _tile.GetStraightPath(forward, backward);
 
 			foreach (var tile in path)
 			{
