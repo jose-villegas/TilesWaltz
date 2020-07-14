@@ -10,8 +10,12 @@ using Random = UnityEngine.Random;
 
 namespace TilesWalk.Tile
 {
+	/// <summary>
+	/// This class handles all the modifications over the <see cref="Tile"/>
+	/// class model and its internal structure.
+	/// </summary>
 	[Serializable]
-	public partial class TileController : IController
+	public class TileController : IController
 	{
 		[SerializeField] private Tile _tile;
 
@@ -27,13 +31,15 @@ namespace TilesWalk.Tile
 			_tile = tile;
 		}
 
-		/// <summary>
-		/// This methods inserts a neighbor in the data structure of the tile path
-		/// </summary>
-		/// <param name="direction">The direction respective to this tile as root</param>
-		/// <param name="rule">The insertion rule for this tile</param>
-		/// <param name="tile">The tile data, to be referenced</param>
-		public void AddNeighbor(CardinalDirection direction, NeighborWalkRule rule, Tile tile, Matrix4x4 root,
+        /// <summary>
+        /// This methods inserts a neighbor in the data structure of the tile path
+        /// </summary>
+        /// <param name="direction">The direction respective to this tile as root</param>
+        /// <param name="rule">The insertion rule for this tile</param>
+        /// <param name="tile">The tile data, to be referenced</param>
+        /// <param name="translate">The translation needed for the neighbor tile view</param>
+        /// <param name="rotate">The rotation needed for the neighboring tile view</param>
+        public void AddNeighbor(CardinalDirection direction, NeighborWalkRule rule, Tile tile, Matrix4x4 root,
 			out Vector3 translate, out Quaternion rotate)
 		{
 			// connect neighbor references
@@ -46,6 +52,13 @@ namespace TilesWalk.Tile
 			ChainRefreshPaths(tile);
 		}
 
+		/// <summary>
+		/// Removes a neighboring tile relation with this tile
+		/// </summary>
+		/// <param name="direction">
+		/// The direction where the neighboring
+		/// tile to be removed can be found
+		/// </param>
 		public void RemoveNeighbor(CardinalDirection direction)
 		{
 			_tile.Neighbors.Remove(direction);
