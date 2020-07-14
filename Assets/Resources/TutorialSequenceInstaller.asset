@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e91b64685206d2044b43e142cd1d5428, type: 3}
+  m_Name: TutorialSequenceInstaller
+  m_EditorClassIdentifier: 
+  _gameTutorials:
+  - _sequenceId: Intro
+    _steps:
+    - _stepId: Intro.1
+      _message: Hello there! I see this is your first time!
+      _characterPosition: {x: 0, y: 0, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifier: 0
+    - _stepId: Intro.2
+      _message: Click on me and I will show you around!
+      _characterPosition: {x: 0, y: 0, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifier: 0
+    - _stepId: Intro.3
+      _message: Here you can see all the game levels, beat them all!
+      _characterPosition: {x: 105, y: 42, z: -25}
+      _useBackground: 1
+      _highlight: 1
+      _identifier: -1152972
+    - _stepId: Intro.4
+      _message: Here you can make your own maps! Share your maps, and beat other's
+        maps.
+      _characterPosition: {x: 107, y: -3, z: -25}
+      _useBackground: 1
+      _highlight: 1
+      _identifier: -1153524
+    - _stepId: Intro.5
+      _message: And this finally lets you save your progress across devices, leaderboards
+        and achievements!
+      _characterPosition: {x: 103, y: -43, z: -25}
+      _useBackground: 1
+      _highlight: 1
+      _identifier: -1153964

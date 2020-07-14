@@ -1,7 +1,10 @@
 ﻿using System;
 using TilesWalk.General.UI;
+using TMPro;
 using UniRx;
 using UnityEngine;
+using UnityEngine.UI;
+using Zenject;
 
 namespace TilesWalk.Gameplay.Tutorial.UI
 {
@@ -10,15 +13,18 @@ namespace TilesWalk.Gameplay.Tutorial.UI
     /// </summary>
     public class TutorialCanvas : CanvasGroupBehaviour
     {
-        /// <summary>
-        /// The tile talking character
-        /// </summary>
-        [SerializeField] private GameObject _tileCharacter;
+        [Inject] private TutorialSequenceHandler _handler;
 
+        [SerializeField] private Image _background;
         /// <summary>
         /// The dialog box for the tutorial
         /// </summary>
-        [SerializeField] private RectTransform _dialogBox;
+        [Header("Dialog Box"), SerializeField] private RectTransform _dialogBox;
+
+        /// <summary>
+        /// The actual dialog text
+        /// </summary>
+        [SerializeField] private TextMeshProUGUI _dialogContent;
 
         /// <summary>
         /// The little pointing sprite in the dialog box indicating where
@@ -39,19 +45,27 @@ namespace TilesWalk.Gameplay.Tutorial.UI
         private float _tailHeight;
         private float _dialogHeight;
 
+        /// <summary>
+        /// The actual dialog text
+        /// </summary>
+        public TextMeshProUGUI DialogContent => _dialogContent;
+
+        public Image Background => _background;
 
         private void Awake()
         {
             _tailHeight = _dialogTail.localPosition.y;
             _dialogHeight = _dialogBox.localPosition.y;
-
-            _tileCharacter.transform.ObserveEveryValueChanged(x => x.localPosition).Subscribe(OnCharacterMoved)
-                .AddTo(this);
-            //_tileCharacter.SetActive(false);
-            //Hide();
+            Hide();
         }
 
-        private void OnCharacterMoved(Vector3 position)
+        private void Start()
+        {
+            _handler.TileCharacter.transform.parent.ObserveEveryValueChanged(x => x.localPosition).Subscribe(OnCharacterMoved)
+                .AddTo(this);
+        }
+
+        public void OnCharacterMoved(Vector3 position)
         {
             // first move the dialog box
             _dialogBox.localPosition += -_dialogBox.localPosition.x * Vector3.right + Vector3.right * position.x;
