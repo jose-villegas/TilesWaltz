@@ -85,9 +85,7 @@ namespace TilesWalk.Building.LevelEditor
                 {
                     if (_customLevelPlayer.IsPlaying) return;
 
-                    if (!val || _currentDirection == CardinalDirection.None) return;
-
-                    _currentRule = enumValue;
+                    _currentRule = val ? enumValue : _currentRule;
 
                     if (val && IsSelected.Value)
                     {
@@ -410,6 +408,7 @@ namespace TilesWalk.Building.LevelEditor
                 if (_levelEditorToolSet.ActionsCanvas.ShowGrid.isOn) return;
 
                 // set canvas state
+                _levelEditorToolSet.InsertionCanvas.UpdateButtons(this);
                 _levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorActionsAndInsertion);
             }
             else

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4db1560a02e1e48a2df94c781726ae, type: 3}
   m_Name: GameMapsInstaller
   m_EditorClassIdentifier: 
-  _name: Sizzle
-  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-309048,"Root":0,"Direction":1,"Rule":1},{"Tile":-315036,"Root":0,"Direction":8,"Rule":1},{"Tile":-320760,"Root":0,"Direction":4,"Rule":2},{"Tile":-309320,"Root":-309048,"Direction":4,"Rule":1},{"Tile":-309592,"Root":-309320,"Direction":1,"Rule":1},{"Tile":-309864,"Root":-309592,"Direction":4,"Rule":1},{"Tile":-310136,"Root":-309864,"Direction":1,"Rule":1},{"Tile":-310408,"Root":-310136,"Direction":4,"Rule":1},{"Tile":-310680,"Root":-310408,"Direction":1,"Rule":1},{"Tile":-310952,"Root":-310680,"Direction":4,"Rule":1},{"Tile":-311224,"Root":-310952,"Direction":1,"Rule":1},{"Tile":-311496,"Root":-311224,"Direction":4,"Rule":1},{"Tile":-311768,"Root":-311496,"Direction":1,"Rule":1},{"Tile":-312040,"Root":-311768,"Direction":4,"Rule":1},{"Tile":-312312,"Root":-312040,"Direction":1,"Rule":1},{"Tile":-312584,"Root":-312312,"Direction":4,"Rule":1},{"Tile":-312856,"Root":-312584,"Direction":1,"Rule":1},{"Tile":-313128,"Root":-312856,"Direction":4,"Rule":1},{"Tile":-313400,"Root":-313128,"Direction":1,"Rule":1},{"Tile":-313672,"Root":-313400,"Direction":4,"Rule":1},{"Tile":-313944,"Root":-313672,"Direction":1,"Rule":1},{"Tile":-314216,"Root":-313944,"Direction":4,"Rule":1},{"Tile":-314488,"Root":-314216,"Direction":1,"Rule":1},{"Tile":-314760,"Root":-314488,"Direction":4,"Rule":1},{"Tile":-315308,"Root":-315036,"Direction":2,"Rule":1},{"Tile":-323484,"Root":-315036,"Direction":8,"Rule":0},{"Tile":-315580,"Root":-315308,"Direction":8,"Rule":1},{"Tile":-315852,"Root":-315580,"Direction":2,"Rule":1},{"Tile":-316124,"Root":-315852,"Direction":8,"Rule":1},{"Tile":-316396,"Root":-316124,"Direction":2,"Rule":1},{"Tile":-316668,"Root":-316396,"Direction":8,"Rule":1},{"Tile":-316940,"Root":-316668,"Direction":2,"Rule":1},{"Tile":-317212,"Root":-316940,"Direction":8,"Rule":1},{"Tile":-317484,"Root":-317212,"Direction":2,"Rule":1},{"Tile":-317756,"Root":-317484,"Direction":8,"Rule":1},{"Tile":-318028,"Root":-317756,"Direction":2,"Rule":1},{"Tile":-318300,"Root":-318028,"Direction":8,"Rule":1},{"Tile":-318572,"Root":-318300,"Direction":2,"Rule":1},{"Tile":-318844,"Root":-318572,"Direction":8,"Rule":1},{"Tile":-319116,"Root":-318844,"Direction":2,"Rule":1},{"Tile":-319388,"Root":-319116,"Direction":8,"Rule":1},{"Tile":-319660,"Root":-319388,"Direction":2,"Rule":1},{"Tile":-319932,"Root":-319660,"Direction":8,"Rule":1},{"Tile":-320204,"Root":-319932,"Direction":2,"Rule":1},{"Tile":-320476,"Root":-320204,"Direction":8,"Rule":1},{"Tile":-321032,"Root":-320760,"Direction":4,"Rule":0},{"Tile":-321304,"Root":-321032,"Direction":2,"Rule":1},{"Tile":-321576,"Root":-321304,"Direction":4,"Rule":1},{"Tile":-321848,"Root":-321576,"Direction":2,"Rule":1},{"Tile":-322120,"Root":-321848,"Direction":4,"Rule":1},{"Tile":-322392,"Root":-322120,"Direction":2,"Rule":1},{"Tile":-322664,"Root":-322392,"Direction":4,"Rule":1},{"Tile":-322936,"Root":-322664,"Direction":2,"Rule":1},{"Tile":-323208,"Root":-322936,"Direction":4,"Rule":1},{"Tile":-323756,"Root":-323484,"Direction":8,"Rule":2},{"Tile":-324028,"Root":-323756,"Direction":1,"Rule":1},{"Tile":-324300,"Root":-324028,"Direction":8,"Rule":1},{"Tile":-324572,"Root":-324300,"Direction":1,"Rule":1},{"Tile":-324844,"Root":-324572,"Direction":8,"Rule":1},{"Tile":-325116,"Root":-324844,"Direction":1,"Rule":1},{"Tile":-325388,"Root":-325116,"Direction":8,"Rule":1}],"Roots":[{"Key":0,"Position":{"x":0.0,"y":0.0,"z":0.0},"Rotation":{"x":0.0,"y":0.0,"z":0.0}}],"MapSize":0}'
+  _name: Jumpy
+  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-798214,"Root":0,"Direction":1,"Rule":0},{"Tile":-799298,"Root":0,"Direction":4,"Rule":0},{"Tile":-800382,"Root":0,"Direction":8,"Rule":0},{"Tile":-801466,"Root":0,"Direction":2,"Rule":0},{"Tile":-798484,"Root":-798214,"Direction":1,"Rule":1},{"Tile":-798754,"Root":-798484,"Direction":1,"Rule":1},{"Tile":-799024,"Root":-798754,"Direction":1,"Rule":1},{"Tile":-799568,"Root":-799298,"Direction":4,"Rule":1},{"Tile":-799838,"Root":-799568,"Direction":4,"Rule":1},{"Tile":-800108,"Root":-799838,"Direction":4,"Rule":1},{"Tile":-800652,"Root":-800382,"Direction":8,"Rule":1},{"Tile":-804976,"Root":-800382,"Direction":2,"Rule":2},{"Tile":-800922,"Root":-800652,"Direction":8,"Rule":1},{"Tile":-804160,"Root":-800652,"Direction":1,"Rule":2},{"Tile":-801192,"Root":-800922,"Direction":8,"Rule":1},{"Tile":-801736,"Root":-801466,"Direction":2,"Rule":1},{"Tile":-805250,"Root":-801466,"Direction":8,"Rule":2},{"Tile":-802006,"Root":-801736,"Direction":2,"Rule":1},{"Tile":-803352,"Root":-801736,"Direction":4,"Rule":2},{"Tile":-802276,"Root":-802006,"Direction":2,"Rule":1},{"Tile":-803622,"Root":-803352,"Direction":4,"Rule":1},{"Tile":-804430,"Root":-804160,"Direction":1,"Rule":1},{"Tile":-805528,"Root":-799024,"Direction":1,"Rule":1},{"Tile":-807138,"Root":-802276,"Direction":4,"Rule":2},{"Tile":-809282,"Root":-802276,"Direction":2,"Rule":0},{"Tile":-807412,"Root":-801192,"Direction":1,"Rule":2},{"Tile":-807950,"Root":-800108,"Direction":4,"Rule":1},{"Tile":-809754,"Root":-804976,"Direction":2,"Rule":1},{"Tile":-810028,"Root":-805250,"Direction":8,"Rule":1},{"Tile":-810302,"Root":-809754,"Direction":4,"Rule":1},{"Tile":-810576,"Root":-810028,"Direction":1,"Rule":1},{"Tile":-810846,"Root":-810576,"Direction":1,"Rule":1},{"Tile":-811120,"Root":-810302,"Direction":4,"Rule":1}],"Roots":[{"Key":0,"Position":{"x":0.0,"y":0.0,"z":0.0},"Rotation":{"x":0.0,"y":0.0,"z":0.0}}],"MapSize":0}'
   _condition: 0
-  _seconds: 45
+  _seconds: 60
   _moves: 20
-  _mapSize: 3
-  _starsRequired: 15
-  _targetPoints: 3500
+  _mapSize: 2
+  _starsRequired: 25
+  _targetPoints: 3250
   _gameLevels:
     _availableMaps:
     - Id: Chromosome
@@ -949,6 +949,354 @@ MonoBehaviour:
       StarsRequired: 16
       Target: 3500
       FinishCondition: 0
+    - Id: Scorpion
+      Instructions:
+      - Tile: -745082
+        Root: 0
+        Direction: 1
+        Rule: 1
+      - Tile: -750788
+        Root: 0
+        Direction: 8
+        Rule: 1
+      - Tile: -751332
+        Root: 0
+        Direction: 4
+        Rule: 1
+      - Tile: -751876
+        Root: 0
+        Direction: 2
+        Rule: 1
+      - Tile: -745352
+        Root: -745082
+        Direction: 1
+        Rule: 1
+      - Tile: -745622
+        Root: -745352
+        Direction: 1
+        Rule: 1
+      - Tile: -749160
+        Root: -745352
+        Direction: 8
+        Rule: 1
+      - Tile: -749974
+        Root: -745352
+        Direction: 4
+        Rule: 1
+      - Tile: -745892
+        Root: -745622
+        Direction: 1
+        Rule: 1
+      - Tile: -746162
+        Root: -745892
+        Direction: 1
+        Rule: 1
+      - Tile: -747516
+        Root: -745892
+        Direction: 4
+        Rule: 1
+      - Tile: -748060
+        Root: -745892
+        Direction: 8
+        Rule: 1
+      - Tile: -746432
+        Root: -746162
+        Direction: 1
+        Rule: 0
+      - Tile: -746702
+        Root: -746432
+        Direction: 1
+        Rule: 1
+      - Tile: -746972
+        Root: -746702
+        Direction: 1
+        Rule: 0
+      - Tile: -747242
+        Root: -746972
+        Direction: 1
+        Rule: 1
+      - Tile: -747786
+        Root: -747516
+        Direction: 4
+        Rule: 2
+      - Tile: -748330
+        Root: -748060
+        Direction: 8
+        Rule: 2
+      - Tile: -748608
+        Root: -748330
+        Direction: 8
+        Rule: 2
+      - Tile: -748882
+        Root: -747786
+        Direction: 4
+        Rule: 2
+      - Tile: -749430
+        Root: -749160
+        Direction: 8
+        Rule: 1
+      - Tile: -749700
+        Root: -749430
+        Direction: 8
+        Rule: 2
+      - Tile: -750244
+        Root: -749974
+        Direction: 4
+        Rule: 1
+      - Tile: -750514
+        Root: -750244
+        Direction: 4
+        Rule: 2
+      - Tile: -751058
+        Root: -750788
+        Direction: 8
+        Rule: 2
+      - Tile: -751602
+        Root: -751332
+        Direction: 4
+        Rule: 2
+      - Tile: -752146
+        Root: -751876
+        Direction: 2
+        Rule: 1
+      - Tile: -752416
+        Root: -752146
+        Direction: 8
+        Rule: 1
+      - Tile: -753230
+        Root: -752146
+        Direction: 4
+        Rule: 1
+      - Tile: -754044
+        Root: -752146
+        Direction: 2
+        Rule: 1
+      - Tile: -752686
+        Root: -752416
+        Direction: 8
+        Rule: 2
+      - Tile: -752956
+        Root: -752686
+        Direction: 8
+        Rule: 2
+      - Tile: -753500
+        Root: -753230
+        Direction: 4
+        Rule: 2
+      - Tile: -753770
+        Root: -753500
+        Direction: 4
+        Rule: 2
+      - Tile: -754314
+        Root: -754044
+        Direction: 2
+        Rule: 1
+      - Tile: -754584
+        Root: -754314
+        Direction: 2
+        Rule: 1
+      - Tile: -755938
+        Root: -754314
+        Direction: 8
+        Rule: 1
+      - Tile: -757292
+        Root: -754314
+        Direction: 4
+        Rule: 1
+      - Tile: -754854
+        Root: -754584
+        Direction: 2
+        Rule: 0
+      - Tile: -755124
+        Root: -754854
+        Direction: 2
+        Rule: 0
+      - Tile: -755394
+        Root: -755124
+        Direction: 2
+        Rule: 1
+      - Tile: -755664
+        Root: -755394
+        Direction: 2
+        Rule: 0
+      - Tile: -756208
+        Root: -755938
+        Direction: 8
+        Rule: 1
+      - Tile: -756478
+        Root: -756208
+        Direction: 8
+        Rule: 1
+      - Tile: -756748
+        Root: -756478
+        Direction: 1
+        Rule: 0
+      - Tile: -757018
+        Root: -756748
+        Direction: 1
+        Rule: 0
+      - Tile: -757562
+        Root: -757292
+        Direction: 4
+        Rule: 1
+      - Tile: -757832
+        Root: -757562
+        Direction: 1
+        Rule: 0
+      - Tile: -758102
+        Root: -757832
+        Direction: 1
+        Rule: 0
+      Roots:
+      - Key: 0
+        Position: {x: 0, y: 0, z: 0}
+        Rotation: {x: 0, y: 0, z: 0}
+      MapSize: 5
+      StarsRequired: 21
+      Target: 3750
+      FinishCondition: 0
+    - Id: Jumpy
+      Instructions:
+      - Tile: -798214
+        Root: 0
+        Direction: 1
+        Rule: 0
+      - Tile: -799298
+        Root: 0
+        Direction: 4
+        Rule: 0
+      - Tile: -800382
+        Root: 0
+        Direction: 8
+        Rule: 0
+      - Tile: -801466
+        Root: 0
+        Direction: 2
+        Rule: 0
+      - Tile: -798484
+        Root: -798214
+        Direction: 1
+        Rule: 1
+      - Tile: -798754
+        Root: -798484
+        Direction: 1
+        Rule: 1
+      - Tile: -799024
+        Root: -798754
+        Direction: 1
+        Rule: 1
+      - Tile: -799568
+        Root: -799298
+        Direction: 4
+        Rule: 1
+      - Tile: -799838
+        Root: -799568
+        Direction: 4
+        Rule: 1
+      - Tile: -800108
+        Root: -799838
+        Direction: 4
+        Rule: 1
+      - Tile: -800652
+        Root: -800382
+        Direction: 8
+        Rule: 1
+      - Tile: -804976
+        Root: -800382
+        Direction: 2
+        Rule: 2
+      - Tile: -800922
+        Root: -800652
+        Direction: 8
+        Rule: 1
+      - Tile: -804160
+        Root: -800652
+        Direction: 1
+        Rule: 2
+      - Tile: -801192
+        Root: -800922
+        Direction: 8
+        Rule: 1
+      - Tile: -801736
+        Root: -801466
+        Direction: 2
+        Rule: 1
+      - Tile: -805250
+        Root: -801466
+        Direction: 8
+        Rule: 2
+      - Tile: -802006
+        Root: -801736
+        Direction: 2
+        Rule: 1
+      - Tile: -803352
+        Root: -801736
+        Direction: 4
+        Rule: 2
+      - Tile: -802276
+        Root: -802006
+        Direction: 2
+        Rule: 1
+      - Tile: -803622
+        Root: -803352
+        Direction: 4
+        Rule: 1
+      - Tile: -804430
+        Root: -804160
+        Direction: 1
+        Rule: 1
+      - Tile: -805528
+        Root: -799024
+        Direction: 1
+        Rule: 1
+      - Tile: -807138
+        Root: -802276
+        Direction: 4
+        Rule: 2
+      - Tile: -809282
+        Root: -802276
+        Direction: 2
+        Rule: 0
+      - Tile: -807412
+        Root: -801192
+        Direction: 1
+        Rule: 2
+      - Tile: -807950
+        Root: -800108
+        Direction: 4
+        Rule: 1
+      - Tile: -809754
+        Root: -804976
+        Direction: 2
+        Rule: 1
+      - Tile: -810028
+        Root: -805250
+        Direction: 8
+        Rule: 1
+      - Tile: -810302
+        Root: -809754
+        Direction: 4
+        Rule: 1
+      - Tile: -810576
+        Root: -810028
+        Direction: 1
+        Rule: 1
+      - Tile: -810846
+        Root: -810576
+        Direction: 1
+        Rule: 1
+      - Tile: -811120
+        Root: -810302
+        Direction: 4
+        Rule: 1
+      Roots:
+      - Key: 0
+        Position: {x: 0, y: 0, z: 0}
+        Rotation: {x: 0, y: 0, z: 0}
+      MapSize: 2
+      StarsRequired: 25
+      Target: 6500
+      FinishCondition: 0
     _movesFinishConditions:
     - _id: Chromosome
       _limit: 20
@@ -967,6 +1315,10 @@ MonoBehaviour:
       _limit: 30
     - _id: Sizzle
       _limit: 45
+    - _id: Scorpion
+      _limit: 45
+    - _id: Jumpy
+      _limit: 60
   _gameMap:
     Id: Game Map
     Instructions:
@@ -1026,6 +1378,10 @@ MonoBehaviour:
       Root: -209514
       Direction: 2
       Rule: 1
+    - Tile: -338260
+      Root: -209514
+      Direction: 4
+      Rule: 1
     - Tile: -29356
       Root: -29238
       Direction: 4
@@ -1042,6 +1398,10 @@ MonoBehaviour:
       Root: -297758
       Direction: 2
       Rule: 2
+    - Tile: -338374
+      Root: -338260
+      Direction: 4
+      Rule: 1
     - Tile: -29474
       Root: -29356
       Direction: 4
@@ -1058,6 +1418,14 @@ MonoBehaviour:
       Root: -297876
       Direction: 2
       Rule: 1
+    - Tile: -338564
+      Root: -338374
+      Direction: 4
+      Rule: 1
+    - Tile: -763768
+      Root: -99834
+      Direction: 8
+      Rule: 1
     - Tile: -178522
       Root: -173954
       Direction: 8
@@ -1066,6 +1434,14 @@ MonoBehaviour:
       Root: -297994
       Direction: 2
       Rule: 0
+    - Tile: -338682
+      Root: -338564
+      Direction: 4
+      Rule: 2
+    - Tile: -763882
+      Root: -763768
+      Direction: 8
+      Rule: 1
     - Tile: -178640
       Root: -178522
       Direction: 8
@@ -1074,18 +1450,46 @@ MonoBehaviour:
       Root: -298112
       Direction: 2
       Rule: 1
+    - Tile: -338800
+      Root: -338682
+      Direction: 4
+      Rule: 1
+    - Tile: -764000
+      Root: -763882
+      Direction: 8
+      Rule: 2
     - Tile: -279890
       Root: -214180
+      Direction: 8
+      Rule: 1
+    - Tile: -338914
+      Root: -338800
+      Direction: 4
+      Rule: 1
+    - Tile: -764118
+      Root: -764000
       Direction: 8
       Rule: 1
     - Tile: -280004
       Root: -279890
       Direction: 8
       Rule: 1
+    - Tile: -339040
+      Root: -338914
+      Direction: 4
+      Rule: 0
+    - Tile: -764236
+      Root: -764118
+      Direction: 8
+      Rule: 0
     - Tile: -280122
       Root: -280004
       Direction: 8
       Rule: 2
+    - Tile: -339174
+      Root: -339040
+      Direction: 4
+      Rule: 1
     - Tile: -280240
       Root: -280122
       Direction: 8
@@ -1094,37 +1498,25 @@ MonoBehaviour:
       Root: -280240
       Direction: 8
       Rule: 0
-    - Tile: -338260
-      Root: -209514
-      Direction: 4
-      Rule: 1
-    - Tile: -338374
-      Root: -338260
-      Direction: 4
-      Rule: 1
-    - Tile: -338564
-      Root: -338374
-      Direction: 4
-      Rule: 1
-    - Tile: -338682
-      Root: -338564
-      Direction: 4
+    - Tile: -817392
+      Root: -764236
+      Direction: 2
       Rule: 2
-    - Tile: -338800
-      Root: -338682
-      Direction: 4
+    - Tile: -817510
+      Root: -817392
+      Direction: 2
       Rule: 1
-    - Tile: -338914
-      Root: -338800
-      Direction: 4
+    - Tile: -817624
+      Root: -817510
+      Direction: 2
       Rule: 1
-    - Tile: -339040
-      Root: -338914
-      Direction: 4
+    - Tile: -817742
+      Root: -817624
+      Direction: 2
       Rule: 0
-    - Tile: -339174
-      Root: -339040
-      Direction: 4
+    - Tile: -817884
+      Root: -817742
+      Direction: 2
       Rule: 1
     Roots:
     - Key: -182758
@@ -1144,7 +1536,11 @@ MonoBehaviour:
       Hash: -178640
     - Id: Tree
       Hash: -214180
-    - Id: Knot
-      Hash: -280358
+    - Id: Scorpion
+      Hash: -764236
     - Id: Sizzle
       Hash: -339174
+    - Id: Knot
+      Hash: -280358
+    - Id: Jumpy
+      Hash: -817884

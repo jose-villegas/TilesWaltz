@@ -150,7 +150,12 @@ namespace TilesWalk.Map.Tile
 					() =>
 					{
 						{
-							animator.SetTrigger("IsNowAvailable");
+							// check if its level tile
+                            if (animator.GetComponentInChildren<GameLevelTile>() == null)
+                            {
+                                animator.SetTrigger("IsNowAvailable");
+							}
+							
 							var meshRenderer = animator.GetComponentInChildren<MeshRenderer>();
 							meshRenderer.material = _starsColorHandler.GetMaterial(maxStars[animator]);
 						}
