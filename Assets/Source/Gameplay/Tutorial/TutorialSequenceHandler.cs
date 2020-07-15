@@ -21,6 +21,9 @@ using UnityEditor;
 
 namespace TilesWalk.Gameplay.Tutorial
 {
+    /// <summary>
+    /// This class handles the visualization in-game of a tutorial sequence
+    /// </summary>
     public class TutorialSequenceHandler : ObservableTriggerBase
     {
         [Inject(Id = "GameTutorials"), SerializeField]
@@ -39,9 +42,11 @@ namespace TilesWalk.Gameplay.Tutorial
         private TutorialCanvas _canvas;
         private int _currentStepIndex;
         private Coroutine _runningCoroutine;
-        private GameObject _copiedElement;
+        private List<GameObject> _copiedElement = new List<GameObject>();
         private Canvas _overlayCanvas;
         private List<string> _currentPhrases;
+        private IDisposable _clickDispose;
+
 
         public TutorialCanvas Canvas
         {
@@ -169,6 +174,11 @@ namespace TilesWalk.Gameplay.Tutorial
             _onCharacterMovementCompleted?.OnCompleted();
         }
 
+        /// <summary>
+        /// This moves the <see cref="TileCharacter"/> to another position
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
         private IEnumerator MoveCharacter(Vector3 target)
         {
             var source = _tileCharacter.transform.parent.localPosition;
@@ -186,6 +196,13 @@ namespace TilesWalk.Gameplay.Tutorial
             _onCharacterMovementCompleted?.OnNext(_tileCharacter);
         }
 
+        /// <summary>
+        /// This prepares the sequence handler to manage the given sequence id.
+        /// The sequence handle can only manage one tutorial sequence at a time.
+        /// Use <see cref="NextStep"/> to start the sequence.
+        /// </summary>
+        /// <param name="sequenceId"></param>
+        /// <returns></returns>
         public TutorialSequenceHandler SetupForSequence(string sequenceId)
         {
             // first find if this sequence actually exists
@@ -195,8 +212,8 @@ namespace TilesWalk.Gameplay.Tutorial
             {
                 _currentSequence = _gameTutorials[indexOf];
                 _currentStepIndex = 0;
-
                 // todo: check for conflict, when two sequences want to play
+                _clickDispose?.Dispose();
             }
             else
             {
@@ -206,6 +223,11 @@ namespace TilesWalk.Gameplay.Tutorial
             return this;
         }
 
+        /// <summary>
+        /// From the current sequence, moves to the next step, if the sequence just happens
+        /// to be recently setup the next step would be the first.
+        /// </summary>
+        /// <returns></returns>
         public bool NextStep()
         {
             if (_currentStepIndex >= 0 && _currentStepIndex < _currentSequence.Steps.Count)
@@ -225,51 +247,27 @@ namespace TilesWalk.Gameplay.Tutorial
                     if (!UIElementIdentifier.Registered.TryGetValue(step.Identifier, out var identifier))
                     {
                         Debug.LogError($"Couldn't find the UIElement with the given id {step.Identifier}");
-                        return false;
-                    }
-
-                    // bring to front through sorting
-                    if (step.BringToFront)
-                    {
-                        // first copy the object on our canvas
-                        _copiedElement = Instantiate(identifier.gameObject, Canvas.Background.transform);
-                        _copiedElement.transform.localPosition = identifier.transform.localPosition;
-                        var rectTransform = _copiedElement.GetComponent<RectTransform>();
-                        var srcRectTransform = identifier.GetComponent<RectTransform>();
-                        rectTransform.sizeDelta = srcRectTransform.sizeDelta;
-
-                        _copiedElement.layer = gameObject.layer;
-
-                        // first add highlight, first the first graphic component
-                        var graphic = _copiedElement.gameObject.GetComponentInChildren<Graphic>();
-                        // add shadow
-                        var shadow = graphic.gameObject.AddComponent<UIShadow>();
-
-                        shadow.style = ShadowStyle.Outline;
-                        shadow.effectColor = Color.cyan;
-                        shadow.effectDistance = Vector2.one * 2.5f;
-
-                        var canvas = _copiedElement.gameObject.AddComponent<Canvas>();
-                        canvas.overrideSorting = true;
-                        canvas.sortingLayerID = OverlayCanvas.sortingLayerID;
-                        canvas.sortingOrder = 999;
-
-                        if (step.Interactable)
-                        {
-                            var raycaster = _copiedElement.gameObject.AddComponent<GraphicRaycaster>();
-                        }
                     }
                     else
                     {
-                        _copiedElement = null;
-                        // first add highlight, first the first graphic component
-                        var graphic = identifier.gameObject.GetComponentInChildren<Graphic>();
-                        // add shadow
-                        var shadow = graphic.gameObject.AddComponent<UIShadow>();
+                        HandleHighlight(step, identifier);
+                    }
 
-                        shadow.style = ShadowStyle.Outline;
-                        shadow.effectColor = Color.cyan;
-                        shadow.effectDistance = Vector2.one * 2.5f;
+                    // handles multiple highlights
+                    if (step.Identifiers != null && step.Identifiers.Count > 0)
+                    {
+                        foreach (var stepIdentifier in step.Identifiers)
+                        {
+                            // find ui element
+                            if (!UIElementIdentifier.Registered.TryGetValue(stepIdentifier, out identifier))
+                            {
+                                Debug.LogError($"Couldn't find the UIElement with the given id {step.Identifier}");
+                            }
+                            else
+                            {
+                                HandleHighlight(step, identifier);
+                            }
+                        }
                     }
                 }
 
@@ -278,9 +276,13 @@ namespace TilesWalk.Gameplay.Tutorial
                     StopCoroutine(_runningCoroutine);
                 }
 
+                // start moving
                 _runningCoroutine = StartCoroutine(MoveCharacter(step.CharacterPosition));
+                // show dialog
                 Canvas.DialogContent.ChangeText(step.Message);
+                // determine if we need the background
                 Canvas.Background.gameObject.SetActive(step.UseBackground);
+                // finally show the elements
                 Canvas.Show();
                 _tileCharacter.gameObject.SetActive(true);
 
@@ -292,6 +294,57 @@ namespace TilesWalk.Gameplay.Tutorial
             return false;
         }
 
+        private void HandleHighlight(TutorialStep step, UIElementIdentifier identifier)
+        {
+            // bring to front through sorting
+            if (step.BringToFront)
+            {
+                // first copy the object on our canvas
+                var instance = Instantiate(identifier.gameObject, Canvas.Background.transform);
+                instance.transform.localPosition = identifier.transform.localPosition;
+                var rectTransform = instance.GetComponent<RectTransform>();
+                var srcRectTransform = identifier.GetComponent<RectTransform>();
+                rectTransform.sizeDelta = srcRectTransform.sizeDelta;
+
+                instance.layer = gameObject.layer;
+
+                // first add highlight, first the first graphic component
+                var graphic = instance.gameObject.GetComponentInChildren<Graphic>();
+                // add shadow
+                var shadow = graphic.gameObject.AddComponent<UIShadow>();
+
+                shadow.style = ShadowStyle.Outline;
+                shadow.effectColor = Color.cyan;
+                shadow.effectDistance = Vector2.one * 2.5f;
+
+                var canvas = instance.gameObject.AddComponent<Canvas>();
+                canvas.overrideSorting = true;
+                canvas.sortingLayerID = OverlayCanvas.sortingLayerID;
+                canvas.sortingOrder = 999;
+
+                if (step.Interactable)
+                {
+                    var raycaster = instance.gameObject.AddComponent<GraphicRaycaster>();
+                }
+
+                _copiedElement.Add(instance);
+            }
+            else
+            {
+                // first add highlight, first the first graphic component
+                var graphic = identifier.gameObject.GetComponentInChildren<Graphic>();
+                // add shadow
+                var shadow = graphic.gameObject.AddComponent<UIShadow>();
+
+                shadow.style = ShadowStyle.Outline;
+                shadow.effectColor = Color.cyan;
+                shadow.effectDistance = Vector2.one * 2.5f;
+            }
+        }
+
+        /// <summary>
+        /// This handles getting rid of the changes made by the previous step
+        /// </summary>
         private void DiscardPreviousStep()
         {
             var previousIndex = _currentStepIndex - 1;
@@ -300,11 +353,19 @@ namespace TilesWalk.Gameplay.Tutorial
             // setup highlight
             if (prevStep.Highlight)
             {
+                if (_copiedElement.Count > 0)
+                {
+                    foreach (var o in _copiedElement)
+                    {
+                        Destroy(o);
+                    }
+
+                    _copiedElement = new List<GameObject>();
+                }
+
                 // find ui element
                 if (UIElementIdentifier.Registered.TryGetValue(prevStep.Identifier, out var identifier))
                 {
-                    if (_copiedElement != null) Destroy(_copiedElement);
-
                     if (!prevStep.BringToFront)
                     {
                         var shadow = identifier.GetComponentInChildren<UIShadow>();
@@ -315,11 +376,39 @@ namespace TilesWalk.Gameplay.Tutorial
                 {
                     Debug.LogWarning($"Couldn't find the UIElement with the given id {prevStep.Identifier}");
                 }
+
+                if (prevStep.Identifiers != null && prevStep.Identifiers.Count > 0)
+                {
+                    foreach (var stepIdentifier in prevStep.Identifiers)
+                    {
+                        // find ui element
+                        if (UIElementIdentifier.Registered.TryGetValue(stepIdentifier, out identifier))
+                        {
+                            if (!prevStep.BringToFront)
+                            {
+                                var shadow = identifier.GetComponentInChildren<UIShadow>();
+                                shadow.enabled = false;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"Couldn't find the UIElement with the given id {prevStep.Identifier}");
+                        }
+                    }
+                }
             }
         }
 
+        /// <summary>
+        /// Once a sequence is finished this method must be called.
+        /// It handles clean up of the current sequence.
+        /// Some sequences may leave the character around with random phrases, this
+        /// method handles that behavior.
+        /// </summary>
         public void FinishSequence()
         {
+            DiscardPreviousStep();
+
             if (_currentSequence.HideCharacterAfter)
             {
                 _tileCharacter.gameObject.SetActive(false);
@@ -335,9 +424,10 @@ namespace TilesWalk.Gameplay.Tutorial
                     {
                         StopCoroutine(_runningCoroutine);
                     }
+
                     _runningCoroutine = StartCoroutine(MoveCharacter(_currentSequence.LastPosition));
 
-                    _tileCharacter.OnTileCharacterClickedAsObservable().Subscribe(character =>
+                    _clickDispose = _tileCharacter.OnTileCharacterClickedAsObservable().Subscribe(character =>
                     {
                         Canvas.DialogContent.ChangeText(_currentPhrases[Random.Range(0, _currentPhrases.Count)]);
                         Canvas.Show();

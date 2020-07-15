@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace TilesWalk.Gameplay.Tutorial
 
         [Header("Highlight")] [SerializeField] private bool _highlight;
         [SerializeField, ShowIf("_highlight")] private int _identifier;
+        [SerializeField, ShowIf("_highlight")] private List<int> _identifiers;
         [SerializeField, ShowIf("_highlight")] private bool _bringToFront;
         [SerializeField, ShowIf("_highlight")] private bool _interactable;
         public string StepId => _stepId;
@@ -59,6 +61,8 @@ namespace TilesWalk.Gameplay.Tutorial
             get => _interactable;
             set => _interactable = value;
         }
+
+        public List<int> Identifiers => _identifiers;
 
         public TutorialStep(string identifier)
         {

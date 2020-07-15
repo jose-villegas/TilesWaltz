@@ -21,6 +21,7 @@ MonoBehaviour:
       _useBackground: 1
       _highlight: 0
       _identifier: 0
+      _identifiers: 
       _bringToFront: 0
       _interactable: 0
     - _stepId: Intro.2
@@ -29,6 +30,7 @@ MonoBehaviour:
       _useBackground: 1
       _highlight: 0
       _identifier: 0
+      _identifiers: 
       _bringToFront: 0
       _interactable: 0
     - _stepId: Intro.3
@@ -37,6 +39,7 @@ MonoBehaviour:
       _useBackground: 1
       _highlight: 1
       _identifier: -1152972
+      _identifiers: 
       _bringToFront: 1
       _interactable: 0
     - _stepId: Intro.4
@@ -46,6 +49,7 @@ MonoBehaviour:
       _useBackground: 1
       _highlight: 1
       _identifier: -1153524
+      _identifiers: 
       _bringToFront: 1
       _interactable: 0
     - _stepId: Intro.5
@@ -55,6 +59,7 @@ MonoBehaviour:
       _useBackground: 1
       _highlight: 1
       _identifier: -1153964
+      _identifiers: 
       _bringToFront: 1
       _interactable: 0
     _hideCharacterAfter: 0
@@ -65,4 +70,215 @@ MonoBehaviour:
     - Hey! Hello.
     - All thoose options...
     - It's chilly here, lets go!
+    - One small click for you, a big step for tile kingdom.
+    - Bit lonely here, what if we click on any of those?
+    - I still have so much to show you...
+    - Lets go!
+    - Hey look, I'm in a videogame!
     _lastPosition: {x: 40, y: -200, z: -25}
+  - _sequenceId: Intro.Map
+    _steps:
+    - _stepId: Intro.Map.1
+      _message: This is the game map, it's full of levels to play.
+      _characterPosition: {x: -58, y: -200, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifier: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.Map.2
+      _message: This indicates how many stars you need to play this level!
+      _characterPosition: {x: 109, y: 114, z: -25}
+      _useBackground: 0
+      _highlight: 1
+      _identifier: -1534924
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.Map.3
+      _message: The amount of points needed for completion and your record
+      _characterPosition: {x: 109, y: 46, z: -25}
+      _useBackground: 0
+      _highlight: 1
+      _identifier: -1535920
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.Map.4
+      _message: You need to complete the level under these conditions!
+      _characterPosition: {x: 106.7, y: -17.1, z: -25}
+      _useBackground: 0
+      _highlight: 1
+      _identifier: -1536200
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.Map.5
+      _message: Play, or explore the map by dragging your finger, click on the flags
+        to see the level details again.
+      _characterPosition: {x: 99, y: -189, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifier: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    _hideCharacterAfter: 1
+    _possiblePhrases: []
+    _lastPosition: {x: 0, y: 0, z: 0}
+  - _sequenceId: Intro.CustomLevels
+    _steps:
+    - _stepId: Intro.1
+      _message: This is the custom levels gallery. Feeling creative?
+      _characterPosition: {x: 0, y: 0, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifier: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.2
+      _message: Here you can find the levels you have made!
+      _characterPosition: {x: 67.7, y: 28.9, z: -25}
+      _useBackground: 0
+      _highlight: 1
+      _identifier: -1562088
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.3
+      _message: Here you can import levels from other people or friends!
+      _characterPosition: {x: -69.6, y: 17, z: -25}
+      _useBackground: 0
+      _highlight: 1
+      _identifier: -1562444
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.4
+      _message: Click here to add new levels!
+      _characterPosition: {x: 56.4, y: -141.2, z: -25}
+      _useBackground: 0
+      _highlight: 1
+      _identifier: -1562942
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    _hideCharacterAfter: 1
+    _possiblePhrases: []
+    _lastPosition: {x: 0, y: 0, z: 0}
+  - _sequenceId: Intro.LevelMaker
+    _steps:
+    - _stepId: Intro.1
+      _message: This is the map maker, here you can get creative!
+      _characterPosition: {x: -84.7, y: -126.3, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifier: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.2
+      _message: Clicking these buttons will create a new "ghost" tile.
+      _characterPosition: {x: -84.7, y: -126.3, z: -25}
+      _useBackground: 0
+      _highlight: 1
+      _identifier: 0
+      _identifiers: 10f9e6ff0af9e6ff0ef9e6ff0cf9e6ff
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.3
+      _message: Each button represents a direction.
+      _characterPosition: {x: -84.7, y: -126.3, z: -25}
+      _useBackground: 0
+      _highlight: 0
+      _identifier: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.4
+      _message: See that the colors match with the arrows on the selected tile.
+      _characterPosition: {x: -51, y: 20, z: -25}
+      _useBackground: 0
+      _highlight: 0
+      _identifier: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.5
+      _message: These control the orientation of the tile. They can go up, or down.
+      _characterPosition: {x: -51, y: 20, z: -25}
+      _useBackground: 0
+      _highlight: 1
+      _identifier: 0
+      _identifiers: d8f3e6ffdaf3e6ffd6f3e6ff
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.6
+      _message: Confirm your insertion by clicking this!
+      _characterPosition: {x: -51, y: 20, z: -25}
+      _useBackground: 0
+      _highlight: 1
+      _identifier: -1642360
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.7
+      _message: Clicking the same direction twice works too.
+      _characterPosition: {x: -51, y: 20, z: -25}
+      _useBackground: 0
+      _highlight: 0
+      _identifier: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.8
+      _message: Or clicking over the ghost tile!
+      _characterPosition: {x: -51, y: 20, z: -25}
+      _useBackground: 0
+      _highlight: 0
+      _identifier: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.8
+      _message: The other buttoms let you cancel and delete a tile!
+      _characterPosition: {x: -51, y: 20, z: -25}
+      _useBackground: 0
+      _highlight: 0
+      _identifier: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.9
+      _message: You can save your map clicking here! A quicksave button will appear
+        later!
+      _characterPosition: {x: 82, y: -164, z: -25}
+      _useBackground: 0
+      _highlight: 1
+      _identifier: -1643400
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.10
+      _message: The other buttons just change the view mode, try them!
+      _characterPosition: {x: -69, y: -41, z: -25}
+      _useBackground: 0
+      _highlight: 0
+      _identifier: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.11
+      _message: Finally you can give your map a try clicking here!
+      _characterPosition: {x: 73, y: 88, z: -25}
+      _useBackground: 0
+      _highlight: 1
+      _identifier: -1644082
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    _hideCharacterAfter: 1
+    _possiblePhrases: []
+    _lastPosition: {x: 0, y: 0, z: 0}

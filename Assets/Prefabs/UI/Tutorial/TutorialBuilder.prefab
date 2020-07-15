@@ -88,15 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64da69d9b9e95eb449ab93b1ff85fd3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameTutorials:
-  - _sequenceId: Intro
-    _steps:
-    - _stepId: Intro.1
-      _message: Hello there! I see this is your first time
-      _characterPosition: {x: 0, y: 0, z: -25}
-      _useBackground: 1
-      _highlight: 0
-      _identifier: 0
+  _gameTutorials: []
   _tileCharacter: {fileID: 827054720846881329}
   _sequenceId: Intro
   _stepId: Intro.1

@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace TilesWalk.Gameplay.Tutorial
 {
+    /// <summary>
+    /// This class represents a series of tutorial steps.
+    /// </summary>
     [Serializable]
     public class TutorialSequence
     {
