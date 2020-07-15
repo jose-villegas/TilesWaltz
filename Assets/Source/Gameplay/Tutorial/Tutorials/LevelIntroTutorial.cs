@@ -3,11 +3,11 @@ using UniRx;
 
 namespace TilesWalk.Gameplay.Tutorial.Tutorials
 {
-    public class CustomLevelsIntroTutorial : TutorialSequencePlayer
+    public class LevelIntroTutorial : TutorialSequencePlayer
     {
         private void Awake()
         {
-            if (!_save.Statistics.IsTutorialCompleted("Intro.CustomLevels"))
+            if (!_save.Statistics.IsTutorialCompleted("Intro.Level"))
             {
                 TriggerSequence();
             }
@@ -15,7 +15,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
 
         public override void PlaySequence()
         {
-            _handler.SetupForSequence("Intro.CustomLevels").NextStep();
+            _handler.SetupForSequence("Intro.Level").NextStep();
             // next step as soon the first dialogue ends
             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                 .Take(1)
@@ -54,12 +54,12 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
         {
             _handler.FinishSequence();
             _handler.Canvas.Hide();
-            _save.Statistics.CompletedTutorial("Intro.CustomLevels");
+            _save.Statistics.CompletedTutorial("Intro.Level");
         }
 
         private void OnDestroy()
         {
-            _save.Statistics.CompletedTutorial("Intro.CustomLevels");
+            _save.Statistics.CompletedTutorial("Intro.Level");
         }
     }
 }

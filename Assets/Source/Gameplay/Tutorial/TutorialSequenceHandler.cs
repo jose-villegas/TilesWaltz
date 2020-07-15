@@ -208,11 +208,13 @@ namespace TilesWalk.Gameplay.Tutorial
             // first find if this sequence actually exists
             var indexOf = _gameTutorials.FindIndex(x => x.SequenceId == sequenceId);
 
+            // if anything was playing before, discard
+            FinishSequence();
+
             if (indexOf >= 0)
             {
                 _currentSequence = _gameTutorials[indexOf];
                 _currentStepIndex = 0;
-                // todo: check for conflict, when two sequences want to play
                 _clickDispose?.Dispose();
             }
             else
@@ -347,6 +349,8 @@ namespace TilesWalk.Gameplay.Tutorial
         /// </summary>
         private void DiscardPreviousStep()
         {
+            if (_currentSequence == null) return;
+
             var previousIndex = _currentStepIndex - 1;
             var prevStep = _currentSequence.Steps[previousIndex];
 
@@ -407,6 +411,8 @@ namespace TilesWalk.Gameplay.Tutorial
         /// </summary>
         public void FinishSequence()
         {
+            if (_currentSequence == null) return;
+
             DiscardPreviousStep();
 
             if (_currentSequence.HideCharacterAfter)

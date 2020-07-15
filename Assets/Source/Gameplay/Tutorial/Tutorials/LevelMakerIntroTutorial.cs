@@ -7,7 +7,10 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
     {
         private void Awake()
         {
-            TriggerSequence();
+            if (!_save.Statistics.IsTutorialCompleted("Intro.LevelMaker"))
+            {
+                TriggerSequence();
+            }
         }
 
         public override void PlaySequence()
@@ -140,6 +143,12 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
         {
             _handler.FinishSequence();
             _handler.Canvas.Hide();
+            _save.Statistics.CompletedTutorial("Intro.LevelMaker");
+        }
+
+        private void OnDestroy()
+        {
+            _save.Statistics.CompletedTutorial("Intro.LevelMaker");
         }
     }
 }

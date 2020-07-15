@@ -7,7 +7,10 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
     {
         private void Awake()
         {
+            //if (!_save.Statistics.IsTutorialCompleted("Intro") && _save.Statistics.IsFirstTimeLaunch)
+            //{
             TriggerSequence();
+            //}
         }
 
         public override void PlaySequence()
@@ -17,36 +20,49 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                 .Take(1)
                 .Delay(TimeSpan.FromSeconds(1.5f))
-                .Subscribe(val => { _handler.NextStep(); }).AddTo(this);
-            // handle click action
-            _handler.TileCharacter.OnTileCharacterClickedAsObservable().Take(1).Subscribe(val =>
-            {
-                if (_handler.CurrentStepIndex == 2)
+                .Subscribe(val =>
                 {
-                    // show next dialog
                     _handler.NextStep();
-                    _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
-                        .Take(1)
-                        .Delay(TimeSpan.FromSeconds(2.5f))
-                        .Subscribe(_val =>
-                        {
-                            // show next dialog
-                            _handler.NextStep();
-                            _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
-                                .Take(1)
-                                .Delay(TimeSpan.FromSeconds(2.5f))
-                                .Subscribe(__val =>
-                                {
-                                    // show last dialog, on completion call Finish
-                                    _handler.NextStep();
-                                    _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
-                                        .Take(1)
-                                        .Delay(TimeSpan.FromSeconds(2f))
-                                        .Subscribe(___val => FinishSequence());
-                                }).AddTo(this);
-                        }).AddTo(this);
-                }
-            }).AddTo(this);
+                    _handler.TileCharacter.ToggleGesture(TutorialTileCharacter.Gestures.ShowPointer);
+
+                    // handle click action
+                    _handler.TileCharacter.OnTileCharacterClickedAsObservable().Take(1).Subscribe(_val =>
+                    {
+                        _handler.TileCharacter.ToggleGesture(TutorialTileCharacter.Gestures.Excited);
+                        PointLeft();
+                        // show next dialog
+                        _handler.NextStep();
+                        _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
+                            .Take(1)
+                            .Delay(TimeSpan.FromSeconds(2.5f))
+                            .Subscribe(__val =>
+                            {
+                                PointLeft();
+                                // show next dialog
+                                _handler.NextStep();
+                                _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
+                                    .Take(1)
+                                    .Delay(TimeSpan.FromSeconds(2.5f))
+                                    .Subscribe(___val =>
+                                    {
+                                        PointLeft();
+                                        // show last dialog, on completion call Finish
+                                        _handler.NextStep();
+                                        _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
+                                            .Take(1)
+                                            .Delay(TimeSpan.FromSeconds(2f))
+                                            .Subscribe(____val => FinishSequence());
+                                    }).AddTo(this);
+                            }).AddTo(this);
+                    }).AddTo(this);
+                }).AddTo(this);
+        }
+
+        private void PointLeft()
+        {
+            Observable.Timer(TimeSpan.FromSeconds(.5f)).Subscribe(_ => { },
+                    () => { _handler.TileCharacter.ToggleGesture(TutorialTileCharacter.Gestures.PointLeft); })
+                .AddTo(this);
         }
 
         public override void TriggerSequence()
@@ -58,6 +74,16 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
         {
             _handler.FinishSequence();
             _handler.Canvas.Hide();
+            _save.Statistics.CompletedTutorial("Intro");
+            _handler.TileCharacter.OnTileCharacterClickedAsObservable().Subscribe(val =>
+            {
+                _handler.TileCharacter.ToggleGesture(TutorialTileCharacter.Gestures.Excited);
+            }).AddTo(this);
+        }
+
+        private void OnDestroy()
+        {
+            _save.Statistics.CompletedTutorial("Intro");
         }
     }
 }

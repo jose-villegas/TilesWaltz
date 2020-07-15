@@ -55,6 +55,8 @@ namespace TilesWalk.Gameplay.Persistence
 
         public DateTime LastSaveTimestamp => _lastSaveTimestamp;
 
+        public bool IsFirstTimeLaunch => _isFirstTimeLaunch;
+
         public void CompletedTutorial(string sequenceId)
         {
             if (_tutorialSequencesCompleted == null) _tutorialSequencesCompleted = new List<string>();

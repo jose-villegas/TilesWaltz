@@ -282,3 +282,45 @@ MonoBehaviour:
     _hideCharacterAfter: 1
     _possiblePhrases: []
     _lastPosition: {x: 0, y: 0, z: 0}
+  - _sequenceId: Intro.Level
+    _steps:
+    - _stepId: Intro.1
+      _message: Well this is your first challenge!
+      _characterPosition: {x: 94.3, y: -186.9, z: -25}
+      _useBackground: 0
+      _highlight: 0
+      _identifier: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.2
+      _message: To gain points you need to combine three or more tiles of the same
+        color!
+      _characterPosition: {x: 50.35, y: -199, z: -25}
+      _useBackground: 0
+      _highlight: 0
+      _identifier: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.3
+      _message: Combine 4 in line for a power up! Watch out for the direction!
+      _characterPosition: {x: -9.6, y: -192.3, z: -25}
+      _useBackground: 0
+      _highlight: 0
+      _identifier: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.4
+      _message: Combine 5 or more for a powerful power up!
+      _characterPosition: {x: -79.2, y: -192.3, z: -25}
+      _useBackground: 0
+      _highlight: 0
+      _identifier: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    _hideCharacterAfter: 1
+    _possiblePhrases: []
+    _lastPosition: {x: 0, y: 0, z: 0}
