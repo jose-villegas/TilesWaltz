@@ -133,6 +133,11 @@ namespace TilesWalk.Building.LevelEditor
                     _levelEditorToolSet.InsertionCanvas.Cancel.interactable = true;
                 }).AddTo(this);
             }
+
+            if (_tileLevelMap.HashToTile.Count == 1)
+            {
+                OnMouseDown();
+            }
         }
 
         /// <summary>
@@ -165,7 +170,7 @@ namespace TilesWalk.Building.LevelEditor
                 {
                     _levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorActions);
                 }
-                else
+                else if (IsSelected.Value)
                 {
                     _levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorActionsAndInsertion);
                 }
@@ -330,6 +335,8 @@ namespace TilesWalk.Building.LevelEditor
         /// <param name="u"></param>
         private void OnConfirmClick(Unit u)
         {
+            if (_levelEditorToolSet.ActionsCanvas.ShowGrid.isOn) return;
+
             if (IsSelected.Value && _ghostTileView != null)
             {
                 _ghostTileView.Item2.IsGhost = false;
@@ -399,6 +406,9 @@ namespace TilesWalk.Building.LevelEditor
                 };
 
                 Renderer.materials = newMaterials;
+
+                if (_levelEditorToolSet.ActionsCanvas.ShowGrid.isOn) return;
+
                 // set canvas state
                 _levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorActionsAndInsertion);
             }

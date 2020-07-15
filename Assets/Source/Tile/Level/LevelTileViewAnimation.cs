@@ -124,6 +124,9 @@ namespace TilesWalk.Tile.Level
                 for (var index = 0; index < _tileLevelMap.CurrentPathShown.Count; index++)
                 {
                     var tile = _tileLevelMap.CurrentPathShown[index];
+
+                    if (!_tileLevelMap.HasTileView(tile)) continue;
+
                     var view = _tileLevelMap.GetTileView(tile);
 
                     view.LevelTileUIAnimator.SetBool("ShowPath", false);
@@ -144,6 +147,9 @@ namespace TilesWalk.Tile.Level
             for (var index = 0; index < tileShortestPathToLeaf.Count; index++)
             {
                 var tile = tileShortestPathToLeaf[index];
+
+                if (!_tileLevelMap.HasTileView(tile)) continue;
+
                 var view = _tileLevelMap.GetTileView(tile);
 
                 Observable.Timer(TimeSpan.FromSeconds(index * steps)).Subscribe(_ => { }, () =>
