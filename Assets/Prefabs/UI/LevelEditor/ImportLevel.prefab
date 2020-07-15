@@ -1409,7 +1409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8099503988133149319
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2292,7 +2292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3909495068694038428
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2715,17 +2715,17 @@ PrefabInstance:
     - target: {fileID: 7400336958354852620, guid: 800bc9befb7555441901050feae73732,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 110
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7400336958354852620, guid: 800bc9befb7555441901050feae73732,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 43
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7400336958354852620, guid: 800bc9befb7555441901050feae73732,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 11
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7400336958354852620, guid: 800bc9befb7555441901050feae73732,
         type: 3}
@@ -2755,12 +2755,12 @@ PrefabInstance:
     - target: {fileID: 7400336958354852620, guid: 800bc9befb7555441901050feae73732,
         type: 3}
       propertyPath: m_text
-      value: "Test$12$13$3$20$T$20%0$1$EP%1$2$EP%2$3$NP%3$4$NP%4$5$WP%5$6$WP%6$7$WP%7$8$WP%8$9$SP%9$10$SP%10$11$SP%11$12$SP\u200B"
+      value: "\u200B"
       objectReference: {fileID: 0}
     - target: {fileID: 7400336958354852620, guid: 800bc9befb7555441901050feae73732,
         type: 3}
       propertyPath: m_fontSize
-      value: 18
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7400336958354852620, guid: 800bc9befb7555441901050feae73732,
         type: 3}
@@ -2780,7 +2780,7 @@ PrefabInstance:
     - target: {fileID: 7400336958354852620, guid: 800bc9befb7555441901050feae73732,
         type: 3}
       propertyPath: m_firstOverflowCharacterIndex
-      value: 43
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7400336958354852620, guid: 800bc9befb7555441901050feae73732,
         type: 3}
@@ -2795,7 +2795,7 @@ PrefabInstance:
     - target: {fileID: 8905810834161518049, guid: 800bc9befb7555441901050feae73732,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 8905810834161518049, guid: 800bc9befb7555441901050feae73732,
         type: 3}
@@ -3360,7 +3360,7 @@ PrefabInstance:
     - target: {fileID: 206187646296670085, guid: 7e63a4b57bde15a44b798774c44b5a34,
         type: 3}
       propertyPath: m_IsOn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 206187646296670085, guid: 7e63a4b57bde15a44b798774c44b5a34,
         type: 3}
@@ -3430,7 +3430,7 @@ PrefabInstance:
     - target: {fileID: 1440516303787466635, guid: 7e63a4b57bde15a44b798774c44b5a34,
         type: 3}
       propertyPath: m_IsOn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1440516303787466635, guid: 7e63a4b57bde15a44b798774c44b5a34,
         type: 3}

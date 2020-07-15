@@ -11,8 +11,9 @@ namespace TilesWalk.Gameplay.Persistence.Installer
 
 		private LocalGameSave _localSave = new LocalGameSave();
 		private CloudSaveGame _cloudSave = new CloudSaveGame();
+        private bool _bound;
 
-		public override void InstallBindings()
+        public override void InstallBindings()
 		{
 			_localSave.OnGameSaveLoadedAsObservable().Subscribe(OnLocalSaveLoaded).AddTo(this);
 			_localSave.OnGameSaveLoadFailureAsObservable().Subscribe(OnLocalSaveLoadFailure).AddTo(this);
@@ -55,7 +56,11 @@ namespace TilesWalk.Gameplay.Persistence.Installer
 				_gameSave = _localSave;
 			}
 
-			Container.Bind<GameSave>().FromInstance(_gameSave).AsSingle();
+            if (!_bound)
+            {
+                _bound = true;
+                Container.Bind<GameSave>().FromInstance(_gameSave).AsSingle();
+			}
 		}
 
 		private void OnCloudSaveLoadFailure(GameSave save)
@@ -63,7 +68,11 @@ namespace TilesWalk.Gameplay.Persistence.Installer
 			// since the cloud save failed, prefer the local save as savepoint
 			_gameSave = _localSave;
 
-			Container.Bind<GameSave>().FromInstance(_gameSave).AsSingle();
+            if (!_bound)
+            {
+                _bound = true;
+                Container.Bind<GameSave>().FromInstance(_gameSave).AsSingle();
+            }
 		}
 
 		private void OnApplicationPause(bool _)

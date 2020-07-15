@@ -217,6 +217,7 @@ GameObject:
   - component: {fileID: 321132663}
   - component: {fileID: 321132662}
   - component: {fileID: 321132664}
+  - component: {fileID: 321132665}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -241,6 +242,7 @@ MonoBehaviour:
   - {fileID: 321132663}
   - {fileID: 321132662}
   - {fileID: 321132664}
+  - {fileID: 321132665}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -313,6 +315,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _previewCamera: {fileID: 434062396}
+--- !u!114 &321132665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321132659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec54f5ff117b96b47a9a2fe1955eca93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _listener: {fileID: 1015931570}
 --- !u!1 &434062395
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,6 +926,7 @@ GameObject:
   - component: {fileID: 1015931566}
   - component: {fileID: 1015931565}
   - component: {fileID: 1015931569}
+  - component: {fileID: 1015931570}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -1020,6 +1036,18 @@ MonoBehaviour:
   identifier: Gameplay
   loop: 1
   persist: 1
+--- !u!114 &1015931570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015931564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8f27a6611e3e9b44a9acc6bf70a0527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1018566025
 GameObject:
   m_ObjectHideFlags: 0

@@ -183,7 +183,7 @@ namespace TilesWalk.Gameplay.Level.UI
 					_leaderbards.ReportGameLevelsScore(totalScore);
 					break;
 				default:
-					throw new ArgumentOutOfRangeException();
+                    break;
 			}
 		}
 

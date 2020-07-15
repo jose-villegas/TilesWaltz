@@ -18,167 +18,166 @@ using LevelTileView = TilesWalk.Tile.Level.LevelTileView;
 
 namespace TilesWalk.Building.Gallery.UI
 {
-	public class ImportLevelCanvas : CanvasGroupBehaviour
-	{
-		[Inject] private TileViewLevelMap __tileLevelMap;
-		[Inject] private LevelMapPreviewRenderCamera _previewCamera;
-		[Inject] private MapProviderSolver _solver;
-		[Inject] private Notice _notice;
-		[Inject] private Confirmation _confirmation;
+    public class ImportLevelCanvas : CanvasGroupBehaviour
+    {
+        [Inject] private TileViewLevelMap __tileLevelMap;
+        [Inject] private LevelMapPreviewRenderCamera _previewCamera;
+        [Inject] private MapProviderSolver _solver;
+        [Inject] private Notice _notice;
+        [Inject] private Confirmation _confirmation;
 
-		[SerializeField] private Animator _animator;
-		[SerializeField] private RawImage _cameraRenderer;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private RawImage _cameraRenderer;
 
-		[Header("Content")] [SerializeField] private TextMeshProUGUI _title;
-		[SerializeField] private TextMeshProUGUI _points;
+        [Header("Content")] [SerializeField] private TextMeshProUGUI _title;
+        [SerializeField] private TextMeshProUGUI _points;
 
-		[SerializeField] private RawImage _mapPreview;
-		[SerializeField] private RawImage _qr;
+        [SerializeField] private RawImage _mapPreview;
+        [SerializeField] private RawImage _qr;
 
-		[SerializeField] private CanvasGroupBehaviour _timeCanvas;
-		[SerializeField] private TextMeshProUGUI _time;
-		[SerializeField] private CanvasGroupBehaviour _movesCanvas;
-		[SerializeField] private TextMeshProUGUI _moves;
+        [SerializeField] private CanvasGroupBehaviour _timeCanvas;
+        [SerializeField] private TextMeshProUGUI _time;
+        [SerializeField] private CanvasGroupBehaviour _movesCanvas;
+        [SerializeField] private TextMeshProUGUI _moves;
 
-		[SerializeField] private TMP_InputField _codeInput;
-		[SerializeField] private Toggle _qrToggle;
-		[SerializeField] private Toggle _codeToggle;
+        [SerializeField] private TMP_InputField _codeInput;
+        [SerializeField] private Toggle _qrToggle;
+        [SerializeField] private Toggle _codeToggle;
 
-		[Header("Actions")] [SerializeField] private Button _add;
+        [Header("Actions")] [SerializeField] private Button _add;
 
-		private WebCamTexture _cameraTexture;
+        private WebCamTexture _cameraTexture;
 
-		private LevelMap _map;
-		private MapFinishCondition _condition;
-		private bool _isMapRead;
-		private bool _cameraAvailable;
-		private bool _askingPermission;
-		private IDisposable _qrCheck = null;
+        private LevelMap _map;
+        private MapFinishCondition _condition;
+        private bool _isMapRead;
+        private bool _cameraAvailable;
+        private bool _askingPermission;
+        private IDisposable _qrCheck = null;
 
-		private void Awake()
-		{
-			_add.interactable = false;
-			_qrToggle.onValueChanged.AsObservable().Subscribe(OnQRToggle).AddTo(this);
-			_codeInput.onEndEdit.AsObservable().Subscribe(OnCodeEntered).AddTo(this);
-			_add.onClick.AsObservable().Subscribe(OnSaveClick).AddTo(this);
-		}
+        private void Awake()
+        {
+            _add.interactable = false;
+            _qrToggle.onValueChanged.AsObservable().Subscribe(OnQRToggle).AddTo(this);
+            _codeInput.onEndEdit.AsObservable().Subscribe(OnCodeEntered).AddTo(this);
+            _add.onClick.AsObservable().Subscribe(OnSaveClick).AddTo(this);
+        }
 
-		private void OnSaveClick(Unit obj)
-		{
-			if (_isMapRead && _map != null && _condition != null)
-			{
-				if (_solver.Provider.Collection.Exist(_map.Id))
-				{
-					_confirmation.Configure("There is another map with the same name, replace?", () =>
-					{
-						_solver.Provider.Collection.Insert(_map, _condition);
-						gameObject.SetActive(false);
-					}).Show();
-				}
-				else
-				{
-					_solver.Provider.Collection.Insert(_map, _condition);
-					gameObject.SetActive(false);
-				}
-			}
-		}
+        private void OnSaveClick(Unit obj)
+        {
+            if (_isMapRead && _map != null && _condition != null)
+            {
+                if (_solver.Provider.Collection.Exist(_map.Id))
+                {
+                    _confirmation.Configure("There is another map with the same name, replace?", () =>
+                    {
+                        _solver.Provider.Collection.Insert(_map, _condition);
+                        gameObject.SetActive(false);
+                    }).Show();
+                }
+                else
+                {
+                    _solver.Provider.Collection.Insert(_map, _condition);
+                    gameObject.SetActive(false);
+                }
+            }
+        }
 
-		private void OnCodeEntered(string code)
-		{
-			if (_isMapRead) return;
+        private void OnCodeEntered(string code)
+        {
+            if (_isMapRead) return;
 
-			if (!_codeToggle.isOn) return;
+            if (!_codeToggle.isOn) return;
 
-			try
-			{
-				LevelMap.FromQRString(code, out _map, out _condition);
-				_animator.SetTrigger("ScanningDone");
-				_isMapRead = true;
-				_add.interactable = true;
-				_cameraTexture.Stop();
-				_codeInput.readOnly = true;
+            LevelMap.FromQRString(code, out _map, out _condition);
+            _animator.SetTrigger("ScanningDone");
+            _isMapRead = true;
+            _add.interactable = true;
 
-				UpdateCanvas();
-			}
-			catch (Exception e)
-			{
-				Debug.LogWarning(e.Message);
-			}
-		}
+            if (_cameraTexture != null & _cameraAvailable)
+            {
+                _cameraTexture.Stop();
+            }
+            _codeInput.readOnly = true;
 
-		private void OnQRToggle(bool val)
-		{
-			if (_isMapRead) return;
+            UpdateCanvas();
+        }
 
-			if (!_cameraAvailable && val)
-			{
-				InitializeCamera();
-				_cameraTexture.Play();
+        private void OnQRToggle(bool val)
+        {
+            if (_isMapRead) return;
 
-				if (_qrCheck == null)
-				{
-					_qrCheck = Observable.Interval(TimeSpan.FromMilliseconds(250)).Subscribe(_ => ReadQR());
-				}
-			}
-			else if (_cameraAvailable && val)
-			{
-				_cameraTexture.Play();
-				if (_qrCheck == null)
-				{
-					_qrCheck = Observable.Interval(TimeSpan.FromMilliseconds(250)).Subscribe(_ => ReadQR());
-				}
-			}
-			else if (!val)
-			{
-				_cameraTexture.Stop();
-				_qrCheck?.Dispose();
-				_qrCheck = null;
-			}
-		}
-
-		private void OnDisable()
-		{
-			_qrCheck?.Dispose();
-			_qrCheck = null;
-
-			if (_cameraTexture != null)
-			{
-				_cameraTexture.Stop();
-			}
-
-			_isMapRead = false;
-			_codeInput.readOnly = false;
-			_animator.SetTrigger("ScanningMode");
-		}
-
-		private void InitializeCamera()
-		{
-			WebCamDevice[] devices = WebCamTexture.devices;
-
-			if (devices.Length == 0)
-			{
-				return;
-			}
-
-			_cameraTexture = new WebCamTexture(Screen.width, Screen.height);
-
-			if (_cameraTexture == null)
-			{
-				return;
-			}
-
-			_cameraRenderer.texture = _cameraTexture;
-			_cameraAvailable = true;
-		}
-
-		public override void Show()
-		{
-			if (_qrToggle.isOn)
-			{
+            if (!_cameraAvailable && val)
+            {
 #if UNITY_EDITOR
-				if (!_cameraAvailable) InitializeCamera();
+                if (!_cameraAvailable) InitializeCamera();
+#elif PLATFORM_ANDROID
+			if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
+			{
+				_askingPermission = true;
+				Permission.RequestUserPermission(Permission.Camera);
+			}
+#endif
+            }
+            else if (_cameraAvailable && val)
+            {
+                _cameraTexture.Play();
+                if (_qrCheck == null)
+                {
+                    _qrCheck = Observable.Interval(TimeSpan.FromMilliseconds(250)).Subscribe(_ => ReadQR());
+                }
+            }
+            else if (!val)
+            {
+                _cameraTexture.Stop();
+                _qrCheck?.Dispose();
+                _qrCheck = null;
+            }
+        }
 
-				base.Show();
+        private void OnDisable()
+        {
+            _qrCheck?.Dispose();
+            _qrCheck = null;
+
+            if (_cameraTexture != null)
+            {
+                _cameraTexture.Stop();
+            }
+
+            _isMapRead = false;
+            _codeInput.readOnly = false;
+            _animator.SetTrigger("ScanningMode");
+        }
+
+        private void InitializeCamera()
+        {
+            WebCamDevice[] devices = WebCamTexture.devices;
+
+            if (devices.Length == 0)
+            {
+                return;
+            }
+
+            _cameraTexture = new WebCamTexture(Screen.width, Screen.height);
+
+            if (_cameraTexture == null)
+            {
+                return;
+            }
+
+            _cameraRenderer.texture = _cameraTexture;
+            _cameraAvailable = true;
+        }
+
+        public override void Show()
+        {
+            if (_qrToggle.isOn)
+            {
+#if UNITY_EDITOR
+                if (!_cameraAvailable) InitializeCamera();
+
+                base.Show();
 #elif PLATFORM_ANDROID
 			if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
 			{
@@ -192,128 +191,142 @@ namespace TilesWalk.Building.Gallery.UI
 				if (!_cameraAvailable) InitializeCamera();
 			}
 #endif
-				if (_qrCheck == null)
-				{
-					// check qr data
-					_qrCheck = Observable.Interval(TimeSpan.FromMilliseconds(250)).Subscribe(_ => ReadQR());
-				}
+                if (_qrCheck == null)
+                {
+                    // check qr data
+                    _qrCheck = Observable.Interval(TimeSpan.FromMilliseconds(250)).Subscribe(_ => ReadQR());
+                }
 
-				if (_cameraAvailable)
-				{
-					_cameraTexture.Play();
-				}
-			}
-		}
+                if (_cameraAvailable)
+                {
+                    _cameraTexture.Play();
+                }
+            }
+            else
+            {
+                base.Show();
+            }
+        }
 
-		private void OnApplicationFocus(bool val)
-		{
-			if (_qrToggle.isOn)
-			{
-				if (_askingPermission && val)
-				{
-					if (Permission.HasUserAuthorizedPermission(Permission.Camera))
-					{
-						if (!_cameraAvailable) InitializeCamera();
+        private void OnApplicationFocus(bool val)
+        {
+            if (_qrToggle.isOn)
+            {
+                if (_askingPermission && val)
+                {
+                    if (Permission.HasUserAuthorizedPermission(Permission.Camera))
+                    {
+                        if (!_cameraAvailable) InitializeCamera();
 
-						_notice.Configure("Close and reopen this popup if not rendering.")
-							.Show(2f);
+                        _cameraTexture.Play();
 
-						base.Show();
-					}
-					else
-					{
-						_notice.Configure("Needs camera permission to scan new maps from QR codes.",
-								NoticePriority.Error)
-							.Show(3f);
-					}
-				}
-			}
-		}
+                        if (_qrCheck == null)
+                        {
+                            _qrCheck = Observable.Interval(TimeSpan.FromMilliseconds(250)).Subscribe(_ => ReadQR());
+                        }
 
-		private void Update()
-		{
-			if (!_cameraAvailable || !_qrToggle.isOn)
-				return;
+                        _notice.Configure("Close and reopen this popup if not rendering.")
+                            .Show(2f);
 
-			float scaleY = _cameraTexture.videoVerticallyMirrored ? -1f : 1f; // Find if the camera is mirrored or not
-			_cameraRenderer.rectTransform.localScale = new Vector3(1f, scaleY, 1f); // Swap the mirrored camera
+                        if (!IsVisible)
+                        {
+                            base.Show();
+                        }
+                    }
+                    else
+                    {
+                        _notice.Configure("Needs camera permission to scan new maps from QR codes.",
+                                NoticePriority.Error)
+                            .Show(3f);
+                    }
+                }
+            }
+        }
 
-			int orient = -_cameraTexture.videoRotationAngle;
-			_cameraRenderer.rectTransform.localEulerAngles = new Vector3(0, 0, orient);
-		}
+        private void Update()
+        {
+            if (!_cameraAvailable || !_qrToggle.isOn)
+                return;
 
-		private void ReadQR()
-		{
-			if (_isMapRead) return;
+            float scaleY = _cameraTexture.videoVerticallyMirrored ? -1f : 1f; // Find if the camera is mirrored or not
+            _cameraRenderer.rectTransform.localScale = new Vector3(1f, scaleY, 1f); // Swap the mirrored camera
 
-			try
-			{
-				if (!_cameraTexture.isPlaying) return;
+            int orient = -_cameraTexture.videoRotationAngle;
+            _cameraRenderer.rectTransform.localEulerAngles = new Vector3(0, 0, orient);
+        }
 
-				IBarcodeReader barcodeReader = new BarcodeReader();
+        private void ReadQR()
+        {
+            if (_isMapRead) return;
 
-				// decode the current frame
-				var result = barcodeReader.Decode(_cameraTexture.GetPixels32(), _cameraTexture.width,
-					_cameraTexture.height);
+            try
+            {
+                if (!_cameraTexture.isPlaying) return;
 
-				if (result != null)
-				{
-					LevelMap.FromQRString(result.Text, out _map, out _condition);
-					_animator.SetTrigger("ScanningDone");
-					_isMapRead = true;
-					_add.interactable = true;
-					_cameraTexture.Stop();
+                IBarcodeReader barcodeReader = new BarcodeReader();
 
-					UpdateCanvas();
-				}
-			}
-			catch (Exception ex)
-			{
-				Debug.LogWarning(ex.Message);
-			}
-		}
+                // decode the current frame
+                var result = barcodeReader.Decode(_cameraTexture.GetPixels32(), _cameraTexture.width,
+                    _cameraTexture.height);
 
-		private void UpdateCanvas()
-		{
-			_title.text = _map.Id;
-			_points.text = _map.Target.Localize();
+                if (result != null)
+                {
+                    LevelMap.FromQRString(result.Text, out _map, out _condition);
+                    _animator.SetTrigger("ScanningDone");
+                    _isMapRead = true;
+                    _add.interactable = true;
+                    _cameraTexture.Stop();
 
-			_movesCanvas.Show();
-			_timeCanvas.Show();
+                    UpdateCanvas();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning(ex.Message);
+            }
+        }
 
-			int limit = 0;
+        private void UpdateCanvas()
+        {
+            _title.text = _map.Id;
+            _points.text = _map.Target.Localize();
 
-			switch (_map.FinishCondition)
-			{
-				case FinishCondition.TimeLimit:
-					_movesCanvas.Hide();
+            _movesCanvas.Show();
+            _timeCanvas.Show();
 
-					if (_condition is TimeFinishCondition timeCond)
-					{
-						var time = TimeSpan.FromSeconds(timeCond.Limit);
-						limit = Mathf.CeilToInt(timeCond.Limit);
-						_time.text = string.Format("{0:mm\\:ss}", time);
-					}
+            int limit = 0;
 
-					break;
-				case FinishCondition.MovesLimit:
-					_timeCanvas.Hide();
+            switch (_map.FinishCondition)
+            {
+                case FinishCondition.TimeLimit:
+                    _movesCanvas.Hide();
 
-					if (_condition is MovesFinishCondition moveCond)
-					{
-						limit = moveCond.Limit;
-						_moves.text = moveCond.Limit.Localize();
-					}
+                    if (_condition is TimeFinishCondition timeCond)
+                    {
+                        var time = TimeSpan.FromSeconds(timeCond.Limit);
+                        limit = Mathf.CeilToInt(timeCond.Limit);
+                        _time.text = string.Format("{0:mm\\:ss}", time);
+                    }
 
-					break;
-			}
+                    break;
+                case FinishCondition.MovesLimit:
+                    _timeCanvas.Hide();
 
-			var parsedToQR = _map.ToQRString(limit);
-			_qr.texture = TextQRConverter.GenerateTexture(parsedToQR);
+                    if (_condition is MovesFinishCondition moveCond)
+                    {
+                        limit = moveCond.Limit;
+                        _moves.text = moveCond.Limit.Localize();
+                    }
 
-			__tileLevelMap.BuildTileMap<LevelTileView>(_map);
-			_mapPreview.texture = _previewCamera.GetCurrentRender(512, 512);
-			__tileLevelMap.Reset();
-		}
-	}
+                    break;
+            }
+
+            var parsedToQR = _map.ToQRString(limit);
+            _qr.texture = TextQRConverter.GenerateTexture(parsedToQR);
+
+            __tileLevelMap.BuildTileMap<LevelTileView>(_map);
+            _mapPreview.texture = _previewCamera.GetCurrentRender(512, 512);
+            __tileLevelMap.Reset();
+        }
+    }
 }

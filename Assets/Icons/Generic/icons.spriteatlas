@@ -1,0 +1,172 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: icons
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 4096
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 2
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 83177b09f8a8efc46850718e14fd08c3, type: 3}
+    totalSpriteSurfaceArea: 4354832
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 25c651302e27f3246a8d843f81c60d7c, type: 3}
+  - {fileID: 21300000, guid: 294628409e64b38488803ceade6454a7, type: 3}
+  - {fileID: 21300000, guid: 18c70bd0ca5fdd04982dde42fc5f05d8, type: 3}
+  - {fileID: 21300000, guid: b024a3e075d067f4f88382bfce6936c7, type: 3}
+  - {fileID: 21300000, guid: e38ae9e0c4acdfc4691322b054c2c912, type: 3}
+  - {fileID: 21300000, guid: 3e8f50410d7bb31449b946016783c82c, type: 3}
+  - {fileID: 21300000, guid: 9c9316d1e6999594ba2744575a2ac57c, type: 3}
+  - {fileID: 21300000, guid: 861cbb420cc89d34185016034065a6a5, type: 3}
+  - {fileID: 21300000, guid: f94dc572f9a9b7048b0d98b94e753c77, type: 3}
+  - {fileID: 21300000, guid: 62a57f92cb3ef0b418fc6aa9a3989f2a, type: 3}
+  - {fileID: 21300000, guid: d6d9f113570b3244485f7731a0890601, type: 3}
+  - {fileID: 21300000, guid: 237df23355815494097b5ab1c465d519, type: 3}
+  - {fileID: 21300000, guid: 85ab3f835d2f50b4b886e7a2e7cdc828, type: 3}
+  - {fileID: 21300000, guid: f12ea2a3336635440a1d3b55dafe3e0d, type: 3}
+  - {fileID: 21300000, guid: 99d28ab3e30ad394bb68f37d680a48c4, type: 3}
+  - {fileID: 21300000, guid: 841d5114d3c6ff849b30abfcd07ea485, type: 3}
+  - {fileID: 21300000, guid: 47b32134fe37e834e88a418b73b71ddb, type: 3}
+  - {fileID: 21300000, guid: 4e6c525494ac536489e2fd9ab34efff8, type: 3}
+  - {fileID: 21300000, guid: 6b0f0f6487a024a449062c52399daaf5, type: 3}
+  - {fileID: 21300000, guid: 2c0a3b557f5f8c1409f8ded0aaa157c3, type: 3}
+  - {fileID: 21300000, guid: 3a1ce1e56134802499ceb269d596c887, type: 3}
+  - {fileID: 21300000, guid: ea676cf513c86954e9db02878043490d, type: 3}
+  - {fileID: 21300000, guid: 8f7fc476b9cbabf46a1ab13d934a4bd1, type: 3}
+  - {fileID: 21300000, guid: b273d3869b550e24ea918202f8796b32, type: 3}
+  - {fileID: 21300000, guid: 5fd22bc6d3bb41546ab4083c7758dab5, type: 3}
+  - {fileID: 21300000, guid: a0642117f6b7eed4f91052603496e71a, type: 3}
+  - {fileID: 21300000, guid: 44361a67d9eb94c42a56c0bfe3c466a1, type: 3}
+  - {fileID: 21300000, guid: ce0245a753f96f6418275f929e81101e, type: 3}
+  - {fileID: 21300000, guid: 65100ee876b63df468698d4e9b31c74b, type: 3}
+  - {fileID: 21300000, guid: 2e8fc739b6a78e14ea33556122ed77d7, type: 3}
+  - {fileID: 21300000, guid: b49c948952f43d545ad8ce7bb3c7a6c0, type: 3}
+  - {fileID: 21300000, guid: 053da8a97d2030a40a6226b7e26eeeff, type: 3}
+  - {fileID: 21300000, guid: 5e2e820afa4b7234596a1beffb7254f3, type: 3}
+  - {fileID: 21300000, guid: 0134519a9f74ac542b7bfe6394c6569c, type: 3}
+  - {fileID: 21300000, guid: 8e15c8caf8029ae4cbea66db1533a917, type: 3}
+  - {fileID: 21300000, guid: 96c9a5ea647f5354c8e9451c827814b4, type: 3}
+  - {fileID: 21300000, guid: df03ce8bf2641764a83a86c27523a799, type: 3}
+  - {fileID: 21300000, guid: 3f9e779b754602047ab47d1fa7117819, type: 3}
+  - {fileID: 21300000, guid: 8c3dd9dbfb1d1f9418c667d27c1d372b, type: 3}
+  - {fileID: 21300000, guid: 76e2cfeb6e457694aa266e1b49803262, type: 3}
+  - {fileID: 21300000, guid: b429bf1c6bc1ed1409a0031377a5d882, type: 3}
+  - {fileID: 21300000, guid: dff3523c5aa59434881a62c47f26a059, type: 3}
+  - {fileID: 21300000, guid: 78e9bf8c12320004a8656af804cb85fb, type: 3}
+  - {fileID: 21300000, guid: 8e6061dc958bbb54c9fa9d347507b46e, type: 3}
+  - {fileID: 21300000, guid: 656bc51d544003549bece8494c70635f, type: 3}
+  - {fileID: 21300000, guid: b7a54a4decfe73343807de42a0ece4d3, type: 3}
+  - {fileID: 21300000, guid: 7fe1766d5a8f5fb409d71a1e782fd43a, type: 3}
+  - {fileID: 21300000, guid: 6e70489d36149854b8ffcd571fcf7de9, type: 3}
+  - {fileID: 21300000, guid: d52bbcadd64323b4bad2c6752f3bc712, type: 3}
+  - {fileID: 21300000, guid: 3829bfad551592645857366bc8a5ffe2, type: 3}
+  - {fileID: 21300000, guid: 820409cdae4c1e74f9c6adee5d57eeaa, type: 3}
+  - {fileID: 21300000, guid: 5e31300ed6090834b9c06d6dbde25a8c, type: 3}
+  - {fileID: 21300000, guid: 7ca3113e0480e824988fe61bb220f514, type: 3}
+  - {fileID: 21300000, guid: 2995294e79b3a034fa8da7ae12d93a60, type: 3}
+  - {fileID: 21300000, guid: 81cf4baebcc8b2e448c9888960710806, type: 3}
+  - {fileID: 21300000, guid: 1b9f41de1ccf93948ae25a2954b536f7, type: 3}
+  - {fileID: 21300000, guid: b4a4f64f6c7bfe94c9d7f0fedb256fb0, type: 3}
+  - {fileID: 21300000, guid: 291b7d8fa0dcec849b3f77aaeacc2748, type: 3}
+  - {fileID: 21300000, guid: cdc2bcbfe17bbb447a1f9c99cd9e4c9a, type: 3}
+  - {fileID: 21300000, guid: 19b617cf6848c3f42839f8d8654f41fd, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - patch-minus-fll
+  - arrows-move
+  - chevron-left
+  - hammer
+  - chevron-bar-contract
+  - eye-slash-fill
+  - backspace
+  - arrow-repeat
+  - square
+  - gear
+  - qr
+  - dot
+  - plus-square
+  - circle-fill
+  - patch-plus-fll
+  - caret-right-fill
+  - square-fill
+  - circle
+  - archive
+  - gear-filled
+  - clock
+  - hr
+  - check-square
+  - eye-fill
+  - link
+  - award-fill
+  - x-square
+  - chat
+  - stop
+  - caret-down
+  - check-circle-fill
+  - arrow-down-circle
+  - dash
+  - plus
+  - cloud-plus-fill
+  - chat-square-text-fill
+  - arrow-down-square
+  - arrow-up-square
+  - journal-plus
+  - caret-up-fill
+  - play
+  - trash
+  - flag-fill
+  - chevron-up
+  - award
+  - chevron-right
+  - arrow-up-circle
+  - share-fill
+  - wire
+  - exclamation-octagon
+  - chevron-down
+  - pencil-square
+  - caret-down-fill
+  - exclamation-triangle
+  - grid-fill
+  - lock-fill
+  - tropy
+  - caret-left-fill
+  - diamond
+  - diamond-fill
+  m_Tag: icons
+  m_IsVariant: 0

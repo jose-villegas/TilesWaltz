@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TilesWalk.Building.Level;
-using TilesWalk.Gameplay.Condition;
 using TilesWalk.Map.General;
 using UniRx;
 using UnityEngine;
@@ -40,7 +38,7 @@ namespace TilesWalk.Building.Gallery.UI
 
 		private void OnCollectionEntryInserted(LevelMap map)
 		{
-			// this meants the entry was replaced
+			// this means the entry was replaced
 			if (_entries.TryGetValue(map.Id, out var canvas))
 			{
 				Destroy(canvas.gameObject);
