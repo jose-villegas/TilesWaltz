@@ -20,6 +20,9 @@ namespace TilesWalk.Gameplay.Animation
 
         [SerializeField] private float _pathGuideAnimationTime;
 
+        [Header("Tutorial")] [SerializeField] private float _wordsPerSecond;
+        [SerializeField] private float characterMovementTime;
+
         public float ShuffleMoveTime => _shuffleMoveTime;
 
         public float ScalePopInTime => _scalePopInTime;
@@ -34,5 +37,9 @@ namespace TilesWalk.Gameplay.Animation
 
         public float GridAnimationTime => _gridAnimationTime;
         public float PathGuideAnimationTime => _pathGuideAnimationTime;
+
+        public float WordsPerSecond => _wordsPerSecond;
+
+        public float CharacterMovementTime => characterMovementTime;
     }
 }

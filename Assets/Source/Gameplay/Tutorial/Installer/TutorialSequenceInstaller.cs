@@ -17,7 +17,7 @@ namespace TilesWalk.Gameplay.Tutorial.Installer
 
         public override void InstallBindings()
         {
-            Container.Bind<List<TutorialSequence>>().WithId("GameTutorials").FromInstance(GameTutorials).AsSingle();
+            Container.Bind<List<TutorialSequence>>().WithId("GameTutorials").FromInstance(_gameTutorials).AsSingle();
         }
     }
 }

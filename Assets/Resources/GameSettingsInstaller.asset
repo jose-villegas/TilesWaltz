@@ -76,6 +76,8 @@ MonoBehaviour:
     _targetTileTime: 0.15
     _gridAnimationTime: 0.35
     _pathGuideAnimationTime: 0.15
+    _wordsPerSecond: 10
+    characterMovementTime: 1
   _customLevelsSettings:
     _maximumUserMaps: 2
     _maximumImportedMaps: 2

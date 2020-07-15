@@ -14,7 +14,8 @@ namespace TilesWalk.Gameplay.Tutorial
 
         [Header("Highlight")] [SerializeField] private bool _highlight;
         [SerializeField, ShowIf("_highlight")] private int _identifier;
-
+        [SerializeField, ShowIf("_highlight")] private bool _bringToFront;
+        [SerializeField, ShowIf("_highlight")] private bool _interactable;
         public string StepId => _stepId;
 
         public string Message
@@ -45,6 +46,18 @@ namespace TilesWalk.Gameplay.Tutorial
         {
             get => _useBackground;
             set => _useBackground = value;
+        }
+
+        public bool BringToFront
+        {
+            get => _bringToFront;
+            set => _bringToFront = value;
+        }
+
+        public bool Interactable
+        {
+            get => _interactable;
+            set => _interactable = value;
         }
 
         public TutorialStep(string identifier)

@@ -21,7 +21,10 @@ namespace TilesWalk.General.UI
             // register element
             if (Registered == null) Registered = new Dictionary<int, UIElementIdentifier>();
 
-            Registered.Add(_identifier, this);
+            if (!Registered.TryGetValue(_identifier, out var identifier))
+            {
+                Registered.Add(_identifier, this);
+            }
         }
 
         private void OnValidate()

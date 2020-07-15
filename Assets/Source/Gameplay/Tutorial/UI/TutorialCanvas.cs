@@ -24,7 +24,7 @@ namespace TilesWalk.Gameplay.Tutorial.UI
         /// <summary>
         /// The actual dialog text
         /// </summary>
-        [SerializeField] private TextMeshProUGUI _dialogContent;
+        [SerializeField] private DialogueText _dialogContent;
 
         /// <summary>
         /// The little pointing sprite in the dialog box indicating where
@@ -48,7 +48,7 @@ namespace TilesWalk.Gameplay.Tutorial.UI
         /// <summary>
         /// The actual dialog text
         /// </summary>
-        public TextMeshProUGUI DialogContent => _dialogContent;
+        public DialogueText DialogContent => _dialogContent;
 
         public Image Background => _background;
 
@@ -59,10 +59,9 @@ namespace TilesWalk.Gameplay.Tutorial.UI
             Hide();
         }
 
-        private void Start()
+        public void Update()
         {
-            _handler.TileCharacter.transform.parent.ObserveEveryValueChanged(x => x.localPosition).Subscribe(OnCharacterMoved)
-                .AddTo(this);
+            OnCharacterMoved(_handler.TileCharacter.transform.parent.localPosition);
         }
 
         public void OnCharacterMoved(Vector3 position)
