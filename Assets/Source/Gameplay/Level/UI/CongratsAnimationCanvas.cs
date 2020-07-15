@@ -224,9 +224,9 @@ namespace TilesWalk.Gameplay.Level.UI
                 
 			}).AddTo(this);
 
-			_timeSlidingNumber.Target(extra);
+            _levelScorePointsTracker.AddPoints(extra);
 			_slidingNumber.Target(_currentScore.Points.Last);
-			_levelScorePointsTracker.AddPoints(extra);
+            _timeSlidingNumber.Target(extra);
 			_levelScorePointsTracker.SaveScore();
 			UpdateSocial();
             _onCongratsFinish?.Invoke();
