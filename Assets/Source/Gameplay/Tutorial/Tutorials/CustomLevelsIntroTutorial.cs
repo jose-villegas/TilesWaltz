@@ -16,6 +16,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
         public override void PlaySequence()
         {
             _handler.SetupForSequence("Intro.CustomLevels").NextStep();
+            TileCharacterExcited();
             // next step as soon the first dialogue ends
             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                 .Take(1)
@@ -30,6 +31,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                         .Subscribe(_val =>
                         {
                             _handler.NextStep();
+                            TileCharacterExcited();
                             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                 .Take(1)
                                 .Delay(TimeSpan.FromSeconds(2f))

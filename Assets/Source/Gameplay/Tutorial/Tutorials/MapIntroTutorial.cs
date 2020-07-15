@@ -16,7 +16,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
         public override void PlaySequence()
         {
             _handler.SetupForSequence("Intro.Map").NextStep();
-            //_handler.TileCharacter.ToggleGesture(TutorialTileCharacter.Gestures.Orbit);
+            TileCharacterExcited();
             // next step as soon the first dialogue ends
             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                 .Take(1)
@@ -25,28 +25,28 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                 {
                     // next dialog
                     _handler.NextStep();
-                    PointLeft();
+                    TileCharacterPointLeft();
                     _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                         .Take(1)
                         .Delay(TimeSpan.FromSeconds(2.5f))
                         .Subscribe(_val =>
                         {
                             _handler.NextStep();
-                            PointLeft();
+                            TileCharacterPointLeft();
                             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                 .Take(1)
                                 .Delay(TimeSpan.FromSeconds(2.5f))
                                 .Subscribe(__val =>
                                 {
                                     _handler.NextStep();
-                                    PointLeft();
+                                    TileCharacterPointLeft();
                                     _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                         .Take(1)
                                         .Delay(TimeSpan.FromSeconds(2.5f))
                                         .Subscribe(___val =>
                                         {
                                             _handler.NextStep();
-                                            _handler.TileCharacter.ToggleGesture(TutorialTileCharacter.Gestures.Orbit);
+                                            TileCharacterOrbit();
                                             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                                 .Take(1)
                                                 .Delay(TimeSpan.FromSeconds(4f))
@@ -55,13 +55,6 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                                 }).AddTo(this);
                         }).AddTo(this);
                 }).AddTo(this);
-        }
-
-        private void PointLeft()
-        {
-            Observable.Timer(TimeSpan.FromSeconds(.5f)).Subscribe(_ => { },
-                    () => { _handler.TileCharacter.ToggleGesture(TutorialTileCharacter.Gestures.PointLeft); })
-                .AddTo(this);
         }
 
         public override void TriggerSequence()

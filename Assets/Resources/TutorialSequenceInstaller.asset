@@ -117,7 +117,7 @@ MonoBehaviour:
     - _stepId: Intro.Map.5
       _message: Play, or explore the map by dragging your finger, click on the flags
         to see the level details again.
-      _characterPosition: {x: 99, y: -189, z: -25}
+      _characterPosition: {x: 75, y: -189, z: -25}
       _useBackground: 1
       _highlight: 0
       _identifier: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
       _interactable: 0
     - _stepId: Intro.5
       _message: These control the orientation of the tile. They can go up, or down.
-      _characterPosition: {x: -51, y: 20, z: -25}
+      _characterPosition: {x: -91, y: -129, z: -25}
       _useBackground: 0
       _highlight: 1
       _identifier: 0
@@ -217,7 +217,7 @@ MonoBehaviour:
       _interactable: 0
     - _stepId: Intro.6
       _message: Confirm your insertion by clicking this!
-      _characterPosition: {x: -51, y: 20, z: -25}
+      _characterPosition: {x: 75, y: -167, z: -25}
       _useBackground: 0
       _highlight: 1
       _identifier: -1642360

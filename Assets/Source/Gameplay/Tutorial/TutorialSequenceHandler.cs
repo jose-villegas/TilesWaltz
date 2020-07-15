@@ -286,7 +286,11 @@ namespace TilesWalk.Gameplay.Tutorial
                 Canvas.Background.gameObject.SetActive(step.UseBackground);
                 // finally show the elements
                 Canvas.Show();
-                _tileCharacter.gameObject.SetActive(true);
+
+                if (!_tileCharacter.gameObject.activeInHierarchy)
+                {
+                    _tileCharacter.ToggleGesture(TutorialTileCharacter.Gestures.Appear);
+                }
 
                 _onStepSetupCompleted?.OnNext(step);
                 _currentStepIndex++;
@@ -417,7 +421,7 @@ namespace TilesWalk.Gameplay.Tutorial
 
             if (_currentSequence.HideCharacterAfter)
             {
-                _tileCharacter.gameObject.SetActive(false);
+                _tileCharacter.ToggleGesture(TutorialTileCharacter.Gestures.Dissapear);
             }
             else
             {

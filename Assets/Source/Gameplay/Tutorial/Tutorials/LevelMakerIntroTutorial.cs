@@ -16,6 +16,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
         public override void PlaySequence()
         {
             _handler.SetupForSequence("Intro.LevelMaker").NextStep();
+            TileCharacterExcited();
             // next step as soon the first dialogue ends
             // todo: handle this horrible nesting better
             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
@@ -32,6 +33,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                         {
                             // next dialog
                             _handler.NextStep();
+                            TileCharacterPointRight();
                             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                 .Take(1)
                                 .Delay(TimeSpan.FromSeconds(2f))
@@ -39,6 +41,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                                 {
                                     // next dialog
                                     _handler.NextStep();
+                                    TileCharacterPointRight();
                                     _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                         .Take(1)
                                         .Delay(TimeSpan.FromSeconds(2f))
@@ -46,6 +49,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                                         {
                                             // next dialog
                                             _handler.NextStep();
+                                            TileCharacterPointRight();
                                             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                                 .Take(1)
                                                 .Delay(TimeSpan.FromSeconds(2f))
@@ -53,6 +57,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                                                 {
                                                     // next dialog
                                                     _handler.NextStep();
+                                                    TileCharacterPointLeft();
                                                     _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                                         .Take(1)
                                                         .Delay(TimeSpan.FromSeconds(2f))
@@ -68,6 +73,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                                                                 {
                                                                     // next dialog
                                                                     _handler.NextStep();
+                                                                    TileCharacterExcited();
                                                                     _handler.Canvas.DialogContent
                                                                         .OnTextDialogCompletedAsObservable()
                                                                         .Take(1)
@@ -101,6 +107,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                                                                                                     {
                                                                                                         _handler
                                                                                                             .NextStep();
+                                                                                                        TileCharacterPointLeft();
                                                                                                         _handler.Canvas
                                                                                                             .DialogContent
                                                                                                             .OnTextDialogCompletedAsObservable()
