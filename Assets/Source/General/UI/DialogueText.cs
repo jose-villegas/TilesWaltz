@@ -29,10 +29,12 @@ namespace TilesWalk.General.UI
         {
             if (_running != null)
             {
-                StopCoroutine(_running);
+               StopAllCoroutines();
+                _running = null;
             }
 
             Component.text = _currentTarget;
+            _onTextDialogCompleted?.OnNext(_currentTarget);
         }
 
         public void ChangeText(string text)
@@ -44,8 +46,11 @@ namespace TilesWalk.General.UI
             }
             else
             {
-                StopCoroutine(_running);
+                StopAllCoroutines();
+                _running = null;
                 _currentTarget = text;
+                _onTextDialogCompleted?.OnNext(_currentTarget);
+
                 _running = StartCoroutine(ChangeTextCoroutine(text));
             }
         }

@@ -151,7 +151,6 @@ namespace TilesWalk.Gameplay.Tutorial
 
         private void Awake()
         {
-            _tileCharacter.gameObject.SetActive(false);
         }
 
         public IObservable<TutorialStep> OnStepSetupCompletedAsObservable()

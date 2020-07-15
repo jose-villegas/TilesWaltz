@@ -19,7 +19,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
             // next step as soon the first dialogue ends
             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                 .Take(1)
-                .Delay(TimeSpan.FromSeconds(1.5f))
+                .Delay(TimeSpan.FromSeconds(1.0f))
                 .Subscribe(val =>
                 {
                     _handler.NextStep();
@@ -34,7 +34,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                         _handler.NextStep();
                         _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                             .Take(1)
-                            .Delay(TimeSpan.FromSeconds(2.5f))
+                            .Delay(TimeSpan.FromSeconds(2f))
                             .Subscribe(__val =>
                             {
                                 TileCharacterPointLeft();
@@ -42,7 +42,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                                 _handler.NextStep();
                                 _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                     .Take(1)
-                                    .Delay(TimeSpan.FromSeconds(2.5f))
+                                    .Delay(TimeSpan.FromSeconds(2f))
                                     .Subscribe(___val =>
                                     {
                                         TileCharacterPointLeft();

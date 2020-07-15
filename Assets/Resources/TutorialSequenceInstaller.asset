@@ -246,9 +246,9 @@ MonoBehaviour:
       _message: The other buttoms let you cancel and delete a tile!
       _characterPosition: {x: -51, y: 20, z: -25}
       _useBackground: 0
-      _highlight: 0
+      _highlight: 1
       _identifier: 0
-      _identifiers: 
+      _identifiers: 58fbf8ff5afbf8ff
       _bringToFront: 0
       _interactable: 0
     - _stepId: Intro.9
@@ -265,9 +265,9 @@ MonoBehaviour:
       _message: The other buttons just change the view mode, try them!
       _characterPosition: {x: -69, y: -41, z: -25}
       _useBackground: 0
-      _highlight: 0
+      _highlight: 1
       _identifier: 0
-      _identifiers: 
+      _identifiers: 98f7f8ff9af7f8ff
       _bringToFront: 0
       _interactable: 0
     - _stepId: Intro.11
