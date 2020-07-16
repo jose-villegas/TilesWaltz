@@ -40,9 +40,9 @@ The game currently contains:
 * Sharing and importing through text or QR
 * Basic tutorial
 
-## Future Work / To-do
+## In Progress
 
-The game stills pretty much in development, there are some things that need to be addressed:
+The game stills in development, there are some things that are in progress:
 
 * A more intuitive FTUE
 * More maps
@@ -50,6 +50,10 @@ The game stills pretty much in development, there are some things that need to b
 * Integrate localization
 * Improve visual effects
 * Improve action feedback and user input ease
+* Game Font
+* Game intro visual improvements
+* Level finish visual improvements
+* Level start animation
 * Fix Bugs
     * Fix multiple roots logic, in the editor when a tile is removed, multiple roots may be created. Don't mark as root tile if the neigboring tiles of the removed are actually connected to a root.
     * Color power up has issue with maps with multiple roots
