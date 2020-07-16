@@ -204,7 +204,7 @@ MonoBehaviour:
         Rotation: {x: 0, y: 0, z: 0}
       MapSize: 3
       StarsRequired: 1
-      Target: 7250
+      Target: 4750
       FinishCondition: 0
     - Id: Jumpers
       Instructions:
@@ -282,7 +282,7 @@ MonoBehaviour:
         Rotation: {x: 0, y: 0, z: 0}
       MapSize: 2
       StarsRequired: 4
-      Target: 4850
+      Target: 4550
       FinishCondition: 0
     - Id: Gecko
       Instructions:
@@ -1295,7 +1295,7 @@ MonoBehaviour:
         Rotation: {x: 0, y: 0, z: 0}
       MapSize: 2
       StarsRequired: 25
-      Target: 6500
+      Target: 6250
       FinishCondition: 0
     - Id: Privat
       Instructions:
