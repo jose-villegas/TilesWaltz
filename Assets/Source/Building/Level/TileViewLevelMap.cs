@@ -24,7 +24,7 @@ namespace TilesWalk.Building.Level
 	/// This class holds the currently running level map and all its <see cref="LevelTileView"/>
 	/// instances
 	/// </summary>
-	public class TileViewLevelMap : TileViewMap<LevelMap, LevelTileView, LevelTileViewFactory>
+	public class  TileViewLevelMap : TileViewMap<LevelMap, LevelTileView, LevelTileViewFactory>
 	{
 		[Inject] private LevelBridge _levelBridge;
 
@@ -201,33 +201,33 @@ namespace TilesWalk.Building.Level
 			_map.Instructions.RemoveAll(x => x.Tile == hash);
 			_map.Instructions.RemoveAll(x => x.Root == hash);
 
-			// in case of removing a root and its neighbor pass to be roots
-			if (tile.Controller.Tile.Root)
-			{
-				var index = _map.Roots.FindIndex(x => x.Key == hash);
+            if (!tile.Controller.Tile.IsLeaf())
+            {
+                foreach (var tileNeighbor in tile.Controller.Tile.Neighbors)
+                {
+                    if (tileNeighbor.Value.Root)
+                    {
+                        var index = _map.Roots.FindIndex(x => x.Key == hash);
 
-				if (index >= 0)
-				{
-					_map.Roots.RemoveAt(index);
+                        if (index < 0)
+                        {
+                            Debug.LogWarning("Root tile is marked as root but wasn't found of the level map" +
+                                             "check your level integrity.");
+						}
 
-					foreach (var tileNeighbor in tile.Controller.Tile.Neighbors)
-					{
-						tileNeighbor.Value.Root = true;
-						var view = TileView[tileNeighbor.Value];
-
-						_map.Roots.Add(new RootTile()
-						{
-							Key = TileToHash[view],
-							Position = view.transform.position,
-							Rotation = view.transform.eulerAngles
-						});
+						continue;
 					}
-				}
-				else
-				{
-					Debug.LogWarning("Root tile is marked as root but wasn't found of the level map" +
-					                 "check your level integrity.");
-				}
+
+                    tileNeighbor.Value.Root = true;
+                    var view = TileView[tileNeighbor.Value];
+
+                    _map.Roots.Add(new RootTile()
+                    {
+                        Key = TileToHash[view],
+                        Position = view.transform.position,
+                        Rotation = view.transform.eulerAngles
+                    });
+                }
 			}
 
 			// update indexes

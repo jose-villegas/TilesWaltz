@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameMapsInstaller
   m_EditorClassIdentifier: 
   _name: Pulsar
-  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-92050,"Root":0,"Direction":4,"Rule":1},{"Tile":-93674,"Root":0,"Direction":8,"Rule":1},{"Tile":-92320,"Root":-92050,"Direction":4,"Rule":1},{"Tile":-99900,"Root":-92050,"Direction":1,"Rule":1},{"Tile":-92590,"Root":-92320,"Direction":4,"Rule":1},{"Tile":-108632,"Root":-92320,"Direction":2,"Rule":1},{"Tile":-92860,"Root":-92590,"Direction":4,"Rule":1},{"Tile":-93130,"Root":-92860,"Direction":4,"Rule":1},{"Tile":-102612,"Root":-92860,"Direction":1,"Rule":1},{"Tile":-93400,"Root":-93130,"Direction":4,"Rule":1},{"Tile":-93944,"Root":-93674,"Direction":8,"Rule":1},{"Tile":-98006,"Root":-93674,"Direction":2,"Rule":1},{"Tile":-94214,"Root":-93944,"Direction":8,"Rule":1},{"Tile":-94484,"Root":-94214,"Direction":8,"Rule":1},{"Tile":-95568,"Root":-94214,"Direction":1,"Rule":1},{"Tile":-94754,"Root":-94484,"Direction":8,"Rule":1},{"Tile":-95024,"Root":-94754,"Direction":8,"Rule":1},{"Tile":-96112,"Root":-94754,"Direction":2,"Rule":1},{"Tile":-95294,"Root":-95024,"Direction":8,"Rule":1},{"Tile":-95838,"Root":-95568,"Direction":1,"Rule":1},{"Tile":-96382,"Root":-96112,"Direction":2,"Rule":1},{"Tile":-96652,"Root":-96382,"Direction":2,"Rule":1},{"Tile":-96922,"Root":-96652,"Direction":2,"Rule":1},{"Tile":-107766,"Root":-96652,"Direction":8,"Rule":1},{"Tile":-97192,"Root":-96922,"Direction":2,"Rule":1},{"Tile":-97462,"Root":-97192,"Direction":2,"Rule":1},{"Tile":-97732,"Root":-97462,"Direction":2,"Rule":1},{"Tile":-98276,"Root":-98006,"Direction":2,"Rule":1},{"Tile":-98546,"Root":-98276,"Direction":2,"Rule":1},{"Tile":-98816,"Root":-98546,"Direction":2,"Rule":1},{"Tile":-99086,"Root":-98816,"Direction":2,"Rule":1},{"Tile":-99356,"Root":-99086,"Direction":2,"Rule":1},{"Tile":-106948,"Root":-99086,"Direction":8,"Rule":1},{"Tile":-99626,"Root":-99356,"Direction":2,"Rule":1},{"Tile":-100170,"Root":-99900,"Direction":1,"Rule":1},{"Tile":-100440,"Root":-100170,"Direction":1,"Rule":1},{"Tile":-100710,"Root":-100440,"Direction":1,"Rule":1},{"Tile":-100980,"Root":-100710,"Direction":1,"Rule":1},{"Tile":-101528,"Root":-100710,"Direction":8,"Rule":1},{"Tile":-101250,"Root":-100980,"Direction":1,"Rule":1},{"Tile":-101798,"Root":-101528,"Direction":8,"Rule":1},{"Tile":-102068,"Root":-101798,"Direction":8,"Rule":1},{"Tile":-102338,"Root":-102068,"Direction":8,"Rule":1},{"Tile":-102882,"Root":-102612,"Direction":1,"Rule":1},{"Tile":-103152,"Root":-102882,"Direction":1,"Rule":1},{"Tile":-103422,"Root":-103152,"Direction":1,"Rule":1},{"Tile":-105594,"Root":-103152,"Direction":4,"Rule":1},{"Tile":-103692,"Root":-103422,"Direction":1,"Rule":1},{"Tile":-103962,"Root":-103692,"Direction":1,"Rule":1},{"Tile":-104232,"Root":-103962,"Direction":1,"Rule":1},{"Tile":-105046,"Root":-103962,"Direction":8,"Rule":1},{"Tile":-104502,"Root":-104232,"Direction":1,"Rule":1},{"Tile":-104772,"Root":-104502,"Direction":1,"Rule":1},{"Tile":-105316,"Root":-105046,"Direction":8,"Rule":1},{"Tile":-105864,"Root":-105594,"Direction":4,"Rule":1},{"Tile":-106134,"Root":-105864,"Direction":4,"Rule":1},{"Tile":-106404,"Root":-106134,"Direction":4,"Rule":1},{"Tile":-106674,"Root":-106404,"Direction":4,"Rule":1},{"Tile":-107218,"Root":-106948,"Direction":8,"Rule":1},{"Tile":-107488,"Root":-107218,"Direction":8,"Rule":1},{"Tile":-108036,"Root":-107766,"Direction":8,"Rule":1},{"Tile":-108306,"Root":-108036,"Direction":8,"Rule":1},{"Tile":-108902,"Root":-108632,"Direction":2,"Rule":1},{"Tile":-109172,"Root":-108902,"Direction":2,"Rule":1},{"Tile":-109442,"Root":-109172,"Direction":2,"Rule":1},{"Tile":-109712,"Root":-109442,"Direction":2,"Rule":1},{"Tile":-109986,"Root":-95838,"Direction":1,"Rule":1}],"Roots":[{"Key":0,"Position":{"x":0.0,"y":0.0,"z":0.0},"Rotation":{"x":0.0,"y":0.0,"z":0.0}}],"MapSize":0}'
+  _instructions: '{"StarsRequired":0,"Target":0,"FinishCondition":0,"Id":"","Instructions":[{"Tile":-439830,"Root":0,"Direction":1,"Rule":1},{"Tile":-441454,"Root":0,"Direction":4,"Rule":1},{"Tile":-450388,"Root":0,"Direction":8,"Rule":1},{"Tile":-452012,"Root":0,"Direction":2,"Rule":1},{"Tile":-440100,"Root":-439830,"Direction":1,"Rule":0},{"Tile":-440370,"Root":-440100,"Direction":1,"Rule":1},{"Tile":-440640,"Root":-440370,"Direction":1,"Rule":1},{"Tile":-440910,"Root":-440640,"Direction":1,"Rule":1},{"Tile":-441180,"Root":-440910,"Direction":1,"Rule":0},{"Tile":-441724,"Root":-441454,"Direction":4,"Rule":0},{"Tile":-441994,"Root":-441724,"Direction":4,"Rule":1},{"Tile":-442264,"Root":-441994,"Direction":4,"Rule":1},{"Tile":-442534,"Root":-442264,"Direction":4,"Rule":1},{"Tile":-442804,"Root":-442534,"Direction":4,"Rule":0},{"Tile":-443628,"Root":-443348,"Direction":2,"Rule":1},{"Tile":-445252,"Root":-443348,"Direction":4,"Rule":1},{"Tile":-447140,"Root":-443348,"Direction":8,"Rule":1},{"Tile":-448764,"Root":-443348,"Direction":1,"Rule":1},{"Tile":-443898,"Root":-443628,"Direction":2,"Rule":0},{"Tile":-444168,"Root":-443898,"Direction":2,"Rule":1},{"Tile":-444438,"Root":-444168,"Direction":2,"Rule":1},{"Tile":-444708,"Root":-444438,"Direction":2,"Rule":1},{"Tile":-444978,"Root":-444708,"Direction":2,"Rule":0},{"Tile":-445522,"Root":-445252,"Direction":4,"Rule":0},{"Tile":-445792,"Root":-445522,"Direction":4,"Rule":1},{"Tile":-446062,"Root":-445792,"Direction":4,"Rule":1},{"Tile":-446332,"Root":-446062,"Direction":4,"Rule":1},{"Tile":-446602,"Root":-446332,"Direction":4,"Rule":0},{"Tile":-447410,"Root":-447140,"Direction":8,"Rule":0},{"Tile":-447680,"Root":-447410,"Direction":8,"Rule":1},{"Tile":-447950,"Root":-447680,"Direction":8,"Rule":1},{"Tile":-448220,"Root":-447950,"Direction":8,"Rule":1},{"Tile":-448490,"Root":-448220,"Direction":8,"Rule":0},{"Tile":-449034,"Root":-448764,"Direction":1,"Rule":0},{"Tile":-449304,"Root":-449034,"Direction":1,"Rule":1},{"Tile":-449574,"Root":-449304,"Direction":1,"Rule":1},{"Tile":-449844,"Root":-449574,"Direction":1,"Rule":1},{"Tile":-450114,"Root":-449844,"Direction":1,"Rule":0},{"Tile":-450658,"Root":-450388,"Direction":8,"Rule":0},{"Tile":-450928,"Root":-450658,"Direction":8,"Rule":1},{"Tile":-451198,"Root":-450928,"Direction":8,"Rule":1},{"Tile":-451468,"Root":-451198,"Direction":8,"Rule":1},{"Tile":-451738,"Root":-451468,"Direction":8,"Rule":0},{"Tile":-452282,"Root":-452012,"Direction":2,"Rule":0},{"Tile":-452552,"Root":-452282,"Direction":2,"Rule":1},{"Tile":-452822,"Root":-452552,"Direction":2,"Rule":1},{"Tile":-453092,"Root":-452822,"Direction":2,"Rule":1},{"Tile":-453362,"Root":-453092,"Direction":2,"Rule":0}],"Roots":[{"Key":0,"Position":{"x":0.0,"y":0.0,"z":0.0},"Rotation":{"x":0.0,"y":0.0,"z":0.0}},{"Key":-443348,"Position":{"x":0.0,"y":-1.30000007,"z":1.1920929E-07},"Rotation":{"x":0.0,"y":180.0,"z":180.0}}],"MapSize":0}'
   _condition: 1
   _seconds: 60
   _moves: 35
@@ -1759,278 +1759,205 @@ MonoBehaviour:
       FinishCondition: 0
     - Id: Pulsar
       Instructions:
-      - Tile: -92050
+      - Tile: -439830
+        Root: 0
+        Direction: 1
+        Rule: 1
+      - Tile: -441454
         Root: 0
         Direction: 4
         Rule: 1
-      - Tile: -93674
+      - Tile: -450388
         Root: 0
         Direction: 8
         Rule: 1
-      - Tile: -92320
-        Root: -92050
+      - Tile: -452012
+        Root: 0
+        Direction: 2
+        Rule: 1
+      - Tile: -440100
+        Root: -439830
+        Direction: 1
+        Rule: 0
+      - Tile: -440370
+        Root: -440100
+        Direction: 1
+        Rule: 1
+      - Tile: -440640
+        Root: -440370
+        Direction: 1
+        Rule: 1
+      - Tile: -440910
+        Root: -440640
+        Direction: 1
+        Rule: 1
+      - Tile: -441180
+        Root: -440910
+        Direction: 1
+        Rule: 0
+      - Tile: -441724
+        Root: -441454
+        Direction: 4
+        Rule: 0
+      - Tile: -441994
+        Root: -441724
         Direction: 4
         Rule: 1
-      - Tile: -99900
-        Root: -92050
-        Direction: 1
-        Rule: 1
-      - Tile: -92590
-        Root: -92320
+      - Tile: -442264
+        Root: -441994
         Direction: 4
         Rule: 1
-      - Tile: -108632
-        Root: -92320
-        Direction: 2
-        Rule: 1
-      - Tile: -92860
-        Root: -92590
+      - Tile: -442534
+        Root: -442264
         Direction: 4
         Rule: 1
-      - Tile: -93130
-        Root: -92860
+      - Tile: -442804
+        Root: -442534
+        Direction: 4
+        Rule: 0
+      - Tile: -443628
+        Root: -443348
+        Direction: 2
+        Rule: 1
+      - Tile: -445252
+        Root: -443348
         Direction: 4
         Rule: 1
-      - Tile: -102612
-        Root: -92860
+      - Tile: -447140
+        Root: -443348
+        Direction: 8
+        Rule: 1
+      - Tile: -448764
+        Root: -443348
         Direction: 1
         Rule: 1
-      - Tile: -93400
-        Root: -93130
+      - Tile: -443898
+        Root: -443628
+        Direction: 2
+        Rule: 0
+      - Tile: -444168
+        Root: -443898
+        Direction: 2
+        Rule: 1
+      - Tile: -444438
+        Root: -444168
+        Direction: 2
+        Rule: 1
+      - Tile: -444708
+        Root: -444438
+        Direction: 2
+        Rule: 1
+      - Tile: -444978
+        Root: -444708
+        Direction: 2
+        Rule: 0
+      - Tile: -445522
+        Root: -445252
+        Direction: 4
+        Rule: 0
+      - Tile: -445792
+        Root: -445522
         Direction: 4
         Rule: 1
-      - Tile: -93944
-        Root: -93674
-        Direction: 8
-        Rule: 1
-      - Tile: -98006
-        Root: -93674
-        Direction: 2
-        Rule: 1
-      - Tile: -94214
-        Root: -93944
-        Direction: 8
-        Rule: 1
-      - Tile: -94484
-        Root: -94214
-        Direction: 8
-        Rule: 1
-      - Tile: -95568
-        Root: -94214
-        Direction: 1
-        Rule: 1
-      - Tile: -94754
-        Root: -94484
-        Direction: 8
-        Rule: 1
-      - Tile: -95024
-        Root: -94754
-        Direction: 8
-        Rule: 1
-      - Tile: -96112
-        Root: -94754
-        Direction: 2
-        Rule: 1
-      - Tile: -95294
-        Root: -95024
-        Direction: 8
-        Rule: 1
-      - Tile: -95838
-        Root: -95568
-        Direction: 1
-        Rule: 1
-      - Tile: -96382
-        Root: -96112
-        Direction: 2
-        Rule: 1
-      - Tile: -96652
-        Root: -96382
-        Direction: 2
-        Rule: 1
-      - Tile: -96922
-        Root: -96652
-        Direction: 2
-        Rule: 1
-      - Tile: -107766
-        Root: -96652
-        Direction: 8
-        Rule: 1
-      - Tile: -97192
-        Root: -96922
-        Direction: 2
-        Rule: 1
-      - Tile: -97462
-        Root: -97192
-        Direction: 2
-        Rule: 1
-      - Tile: -97732
-        Root: -97462
-        Direction: 2
-        Rule: 1
-      - Tile: -98276
-        Root: -98006
-        Direction: 2
-        Rule: 1
-      - Tile: -98546
-        Root: -98276
-        Direction: 2
-        Rule: 1
-      - Tile: -98816
-        Root: -98546
-        Direction: 2
-        Rule: 1
-      - Tile: -99086
-        Root: -98816
-        Direction: 2
-        Rule: 1
-      - Tile: -99356
-        Root: -99086
-        Direction: 2
-        Rule: 1
-      - Tile: -106948
-        Root: -99086
-        Direction: 8
-        Rule: 1
-      - Tile: -99626
-        Root: -99356
-        Direction: 2
-        Rule: 1
-      - Tile: -100170
-        Root: -99900
-        Direction: 1
-        Rule: 1
-      - Tile: -100440
-        Root: -100170
-        Direction: 1
-        Rule: 1
-      - Tile: -100710
-        Root: -100440
-        Direction: 1
-        Rule: 1
-      - Tile: -100980
-        Root: -100710
-        Direction: 1
-        Rule: 1
-      - Tile: -101528
-        Root: -100710
-        Direction: 8
-        Rule: 1
-      - Tile: -101250
-        Root: -100980
-        Direction: 1
-        Rule: 1
-      - Tile: -101798
-        Root: -101528
-        Direction: 8
-        Rule: 1
-      - Tile: -102068
-        Root: -101798
-        Direction: 8
-        Rule: 1
-      - Tile: -102338
-        Root: -102068
-        Direction: 8
-        Rule: 1
-      - Tile: -102882
-        Root: -102612
-        Direction: 1
-        Rule: 1
-      - Tile: -103152
-        Root: -102882
-        Direction: 1
-        Rule: 1
-      - Tile: -103422
-        Root: -103152
-        Direction: 1
-        Rule: 1
-      - Tile: -105594
-        Root: -103152
+      - Tile: -446062
+        Root: -445792
         Direction: 4
         Rule: 1
-      - Tile: -103692
-        Root: -103422
-        Direction: 1
-        Rule: 1
-      - Tile: -103962
-        Root: -103692
-        Direction: 1
-        Rule: 1
-      - Tile: -104232
-        Root: -103962
-        Direction: 1
-        Rule: 1
-      - Tile: -105046
-        Root: -103962
-        Direction: 8
-        Rule: 1
-      - Tile: -104502
-        Root: -104232
-        Direction: 1
-        Rule: 1
-      - Tile: -104772
-        Root: -104502
-        Direction: 1
-        Rule: 1
-      - Tile: -105316
-        Root: -105046
-        Direction: 8
-        Rule: 1
-      - Tile: -105864
-        Root: -105594
+      - Tile: -446332
+        Root: -446062
         Direction: 4
         Rule: 1
-      - Tile: -106134
-        Root: -105864
+      - Tile: -446602
+        Root: -446332
         Direction: 4
-        Rule: 1
-      - Tile: -106404
-        Root: -106134
-        Direction: 4
-        Rule: 1
-      - Tile: -106674
-        Root: -106404
-        Direction: 4
-        Rule: 1
-      - Tile: -107218
-        Root: -106948
+        Rule: 0
+      - Tile: -447410
+        Root: -447140
+        Direction: 8
+        Rule: 0
+      - Tile: -447680
+        Root: -447410
         Direction: 8
         Rule: 1
-      - Tile: -107488
-        Root: -107218
+      - Tile: -447950
+        Root: -447680
         Direction: 8
         Rule: 1
-      - Tile: -108036
-        Root: -107766
+      - Tile: -448220
+        Root: -447950
         Direction: 8
         Rule: 1
-      - Tile: -108306
-        Root: -108036
+      - Tile: -448490
+        Root: -448220
         Direction: 8
-        Rule: 1
-      - Tile: -108902
-        Root: -108632
-        Direction: 2
-        Rule: 1
-      - Tile: -109172
-        Root: -108902
-        Direction: 2
-        Rule: 1
-      - Tile: -109442
-        Root: -109172
-        Direction: 2
-        Rule: 1
-      - Tile: -109712
-        Root: -109442
-        Direction: 2
-        Rule: 1
-      - Tile: -109986
-        Root: -95838
+        Rule: 0
+      - Tile: -449034
+        Root: -448764
+        Direction: 1
+        Rule: 0
+      - Tile: -449304
+        Root: -449034
         Direction: 1
         Rule: 1
+      - Tile: -449574
+        Root: -449304
+        Direction: 1
+        Rule: 1
+      - Tile: -449844
+        Root: -449574
+        Direction: 1
+        Rule: 1
+      - Tile: -450114
+        Root: -449844
+        Direction: 1
+        Rule: 0
+      - Tile: -450658
+        Root: -450388
+        Direction: 8
+        Rule: 0
+      - Tile: -450928
+        Root: -450658
+        Direction: 8
+        Rule: 1
+      - Tile: -451198
+        Root: -450928
+        Direction: 8
+        Rule: 1
+      - Tile: -451468
+        Root: -451198
+        Direction: 8
+        Rule: 1
+      - Tile: -451738
+        Root: -451468
+        Direction: 8
+        Rule: 0
+      - Tile: -452282
+        Root: -452012
+        Direction: 2
+        Rule: 0
+      - Tile: -452552
+        Root: -452282
+        Direction: 2
+        Rule: 1
+      - Tile: -452822
+        Root: -452552
+        Direction: 2
+        Rule: 1
+      - Tile: -453092
+        Root: -452822
+        Direction: 2
+        Rule: 1
+      - Tile: -453362
+        Root: -453092
+        Direction: 2
+        Rule: 0
       Roots:
       - Key: 0
         Position: {x: 0, y: 0, z: 0}
         Rotation: {x: 0, y: 0, z: 0}
+      - Key: -443348
+        Position: {x: 0, y: -1.3000001, z: 0.00000011920929}
+        Rotation: {x: 0, y: 180, z: 180}
       MapSize: 2
       StarsRequired: 30
       Target: 3500
