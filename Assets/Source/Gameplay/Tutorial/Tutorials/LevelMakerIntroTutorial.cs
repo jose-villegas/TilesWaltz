@@ -21,55 +21,48 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
             // todo: handle this horrible nesting better
             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                 .Take(1)
-                .Delay(TimeSpan.FromSeconds(1.5f))
-                .Subscribe(val =>
+                .Subscribe(_ =>
                 {
                     // next dialog
                     _handler.NextStep();
                     _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                         .Take(1)
-                        .Delay(TimeSpan.FromSeconds(2f))
-                        .Subscribe(_val =>
+                        .Subscribe(__ =>
                         {
                             // next dialog
                             _handler.NextStep();
                             TileCharacterPointRight();
                             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                 .Take(1)
-                                .Delay(TimeSpan.FromSeconds(2f))
-                                .Subscribe(__val =>
+                                .Subscribe(___ =>
                                 {
                                     // next dialog
                                     _handler.NextStep();
                                     TileCharacterPointRight();
                                     _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                         .Take(1)
-                                        .Delay(TimeSpan.FromSeconds(2f))
-                                        .Subscribe(___val =>
+                                        .Subscribe(____ =>
                                         {
                                             // next dialog
                                             _handler.NextStep();
                                             TileCharacterPointRight();
                                             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                                 .Take(1)
-                                                .Delay(TimeSpan.FromSeconds(2f))
-                                                .Subscribe(____val =>
+                                                .Subscribe(_____ =>
                                                 {
                                                     // next dialog
                                                     _handler.NextStep();
                                                     TileCharacterPointLeft();
                                                     _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                                         .Take(1)
-                                                        .Delay(TimeSpan.FromSeconds(2f))
-                                                        .Subscribe(_____val =>
+                                                        .Subscribe(______ =>
                                                         {
                                                             // next dialog
                                                             _handler.NextStep();
                                                             _handler.Canvas.DialogContent
                                                                 .OnTextDialogCompletedAsObservable()
                                                                 .Take(1)
-                                                                .Delay(TimeSpan.FromSeconds(2f))
-                                                                .Subscribe(______val =>
+                                                                .Subscribe(_______ =>
                                                                 {
                                                                     // next dialog
                                                                     _handler.NextStep();
@@ -77,33 +70,28 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                                                                     _handler.Canvas.DialogContent
                                                                         .OnTextDialogCompletedAsObservable()
                                                                         .Take(1)
-                                                                        .Delay(TimeSpan.FromSeconds(2f))
-                                                                        .Subscribe(_______val =>
+                                                                        .Subscribe(________ =>
                                                                         {
                                                                             // next dialog
                                                                             _handler.NextStep();
                                                                             _handler.Canvas.DialogContent
                                                                                 .OnTextDialogCompletedAsObservable()
                                                                                 .Take(1)
-                                                                                .Delay(TimeSpan.FromSeconds(2f))
-                                                                                .Subscribe(________val =>
+                                                                                .Subscribe(_________ =>
                                                                                 {
                                                                                     _handler.NextStep();
                                                                                     _handler.Canvas.DialogContent
                                                                                         .OnTextDialogCompletedAsObservable()
                                                                                         .Take(1)
-                                                                                        .Delay(TimeSpan.FromSeconds(2f))
-                                                                                        .Subscribe(_________val =>
+                                                                                        .Subscribe(__________ =>
                                                                                         {
                                                                                             _handler.NextStep();
                                                                                             _handler.Canvas
                                                                                                 .DialogContent
                                                                                                 .OnTextDialogCompletedAsObservable()
                                                                                                 .Take(1)
-                                                                                                .Delay(TimeSpan
-                                                                                                    .FromSeconds(2f))
                                                                                                 .Subscribe(
-                                                                                                    __________val =>
+                                                                                                    ___________ =>
                                                                                                     {
                                                                                                         _handler
                                                                                                             .NextStep();
@@ -112,12 +100,8 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                                                                                                             .DialogContent
                                                                                                             .OnTextDialogCompletedAsObservable()
                                                                                                             .Take(1)
-                                                                                                            .Delay(
-                                                                                                                TimeSpan
-                                                                                                                    .FromSeconds(
-                                                                                                                        2f))
                                                                                                             .Subscribe(
-                                                                                                                ___________val =>
+                                                                                                                ____________ =>
                                                                                                                 {
                                                                                                                     FinishSequence();
                                                                                                                 })

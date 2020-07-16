@@ -89,7 +89,7 @@ MonoBehaviour:
       _interactable: 0
     - _stepId: Intro.Map.2
       _message: This indicates how many stars you need to play this level!
-      _characterPosition: {x: 109, y: 114, z: -25}
+      _characterPosition: {x: 99, y: 114, z: -25}
       _useBackground: 0
       _highlight: 1
       _identifier: -1534924
@@ -98,7 +98,7 @@ MonoBehaviour:
       _interactable: 0
     - _stepId: Intro.Map.3
       _message: The amount of points needed for completion and your record
-      _characterPosition: {x: 109, y: 46, z: -25}
+      _characterPosition: {x: 95, y: 46, z: -25}
       _useBackground: 0
       _highlight: 1
       _identifier: -1535920
@@ -107,7 +107,7 @@ MonoBehaviour:
       _interactable: 0
     - _stepId: Intro.Map.4
       _message: You need to complete the level under these conditions!
-      _characterPosition: {x: 106.7, y: -17.1, z: -25}
+      _characterPosition: {x: 97, y: -17.1, z: -25}
       _useBackground: 0
       _highlight: 1
       _identifier: -1536200
@@ -117,7 +117,7 @@ MonoBehaviour:
     - _stepId: Intro.Map.5
       _message: Play, or explore the map by dragging your finger, click on the flags
         to see the level details again.
-      _characterPosition: {x: 75, y: -189, z: -25}
+      _characterPosition: {x: 60, y: -189, z: -25}
       _useBackground: 1
       _highlight: 0
       _identifier: 0
@@ -314,6 +314,15 @@ MonoBehaviour:
       _interactable: 0
     - _stepId: Intro.4
       _message: Combine 5 or more for a powerful power up!
+      _characterPosition: {x: -79.2, y: -192.3, z: -25}
+      _useBackground: 0
+      _highlight: 0
+      _identifier: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+    - _stepId: Intro.5
+      _message: When you feel ready you can disable the path guides in the options!
       _characterPosition: {x: -79.2, y: -192.3, z: -25}
       _useBackground: 0
       _highlight: 0

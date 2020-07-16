@@ -19,43 +19,41 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
             // next step as soon the first dialogue ends
             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                 .Take(1)
-                .Delay(TimeSpan.FromSeconds(1.0f))
-                .Subscribe(val =>
+                .Subscribe(_ =>
                 {
                     _handler.NextStep();
-                    TileCharacterPointer();
-
-                    // handle click action
-                    _handler.TileCharacter.OnTileCharacterClickedAsObservable().Take(1).Subscribe(_val =>
+                    _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable().Take(1).Subscribe(__ =>
                     {
-                        _handler.TileCharacter.ToggleGesture(TutorialTileCharacter.Gestures.Excited);
-                        TileCharacterPointLeft();
-                        // show next dialog
-                        _handler.NextStep();
-                        _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
-                            .Take(1)
-                            .Delay(TimeSpan.FromSeconds(2f))
-                            .Subscribe(__val =>
-                            {
-                                TileCharacterPointLeft();
-                                // show next dialog
-                                _handler.NextStep();
-                                _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
-                                    .Take(1)
-                                    .Delay(TimeSpan.FromSeconds(2f))
-                                    .Subscribe(___val =>
-                                    {
-                                        TileCharacterPointLeft();
-                                        // show last dialog, on completion call Finish
-                                        _handler.NextStep();
-                                        _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
-                                            .Take(1)
-                                            .Delay(TimeSpan.FromSeconds(2f))
-                                            .Subscribe(____val => FinishSequence());
-                                    }).AddTo(this);
-                            }).AddTo(this);
-                    }).AddTo(this);
-                }).AddTo(this);
+                        TileCharacterPointer();
+                        // handle click action
+                        _handler.TileCharacter.OnTileCharacterClickedAsObservable().Take(1).Subscribe(___ =>
+                        {
+                            _handler.TileCharacter.ToggleGesture(TutorialTileCharacter.Gestures.Excited);
+                            TileCharacterPointLeft();
+                            // show next dialog
+                            _handler.NextStep();
+                            _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
+                                .Take(1)
+                                .Subscribe(____ =>
+                                {
+                                    TileCharacterPointLeft();
+                                    // show next dialog
+                                    _handler.NextStep();
+                                    _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
+                                        .Take(1)
+                                        .Subscribe(_____ =>
+                                        {
+                                            TileCharacterPointLeft();
+                                            // show last dialog, on completion call Finish
+                                            _handler.NextStep();
+                                            _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
+                                                .Take(1)
+                                                .Subscribe(______ => FinishSequence());
+                                        });
+                                });
+                        });
+                    });
+                });
         }
 
         public override void TriggerSequence()

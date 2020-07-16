@@ -1753,7 +1753,7 @@ MonoBehaviour:
       - Key: 0
         Position: {x: 0, y: 0, z: 0}
         Rotation: {x: 0, y: 0, z: 0}
-      MapSize: 1
+      MapSize: 0
       StarsRequired: 28
       Target: 5000
       FinishCondition: 0

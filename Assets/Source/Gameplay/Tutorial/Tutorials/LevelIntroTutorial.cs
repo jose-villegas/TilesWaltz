@@ -20,28 +20,30 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
             // next step as soon the first dialogue ends
             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                 .Take(1)
-                .Delay(TimeSpan.FromSeconds(2f))
-                .Subscribe(val =>
+                .Subscribe(_ =>
                 {
                     // next dialog
                     _handler.NextStep();
                     _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                         .Take(1)
-                        .Delay(TimeSpan.FromSeconds(2f))
-                        .Subscribe(_val =>
+                        .Subscribe(__ =>
                         {
                             _handler.NextStep();
                             TileCharacterExcited();
                             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                 .Take(1)
-                                .Delay(TimeSpan.FromSeconds(2f))
-                                .Subscribe(__val =>
+                                .Subscribe(___ =>
                                 {
                                     _handler.NextStep();
                                     _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                         .Take(1)
-                                        .Delay(TimeSpan.FromSeconds(2f))
-                                        .Subscribe(___val => { FinishSequence(); }).AddTo(this);
+                                        .Subscribe(____ =>
+                                        {
+                                            _handler.NextStep();
+                                            _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
+                                                .Take(1)
+                                                .Subscribe(_____ => { FinishSequence(); }).AddTo(this);
+                                        }).AddTo(this);
                                 }).AddTo(this);
                         }).AddTo(this);
                 }).AddTo(this);

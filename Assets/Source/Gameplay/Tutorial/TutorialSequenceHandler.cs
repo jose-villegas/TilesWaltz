@@ -247,7 +247,7 @@ namespace TilesWalk.Gameplay.Tutorial
                     // find ui element
                     if (!UIElementIdentifier.Registered.TryGetValue(step.Identifier, out var identifier))
                     {
-                        Debug.LogError($"Couldn't find the UIElement with the given id {step.Identifier}");
+                        Debug.LogWarning($"Couldn't find the UIElement with the given id {step.Identifier}");
                     }
                     else
                     {
@@ -262,7 +262,7 @@ namespace TilesWalk.Gameplay.Tutorial
                             // find ui element
                             if (!UIElementIdentifier.Registered.TryGetValue(stepIdentifier, out identifier))
                             {
-                                Debug.LogError($"Couldn't find the UIElement with the given id {step.Identifier}");
+                                Debug.LogWarning($"Couldn't find the UIElement with the given id {step.Identifier}");
                             }
                             else
                             {
@@ -280,7 +280,7 @@ namespace TilesWalk.Gameplay.Tutorial
                 // start moving
                 _runningCoroutine = StartCoroutine(MoveCharacter(step.CharacterPosition));
                 // show dialog
-                Canvas.DialogContent.ChangeText(step.Message);
+                Canvas.DialogContent.ChangeText(step.Message, 2f);
                 // determine if we need the background
                 Canvas.Background.gameObject.SetActive(step.UseBackground);
                 // finally show the elements
@@ -438,11 +438,9 @@ namespace TilesWalk.Gameplay.Tutorial
 
                     _clickDispose = _tileCharacter.OnTileCharacterClickedAsObservable().Subscribe(character =>
                     {
-                        Canvas.DialogContent.ChangeText(_currentPhrases[Random.Range(0, _currentPhrases.Count)]);
+                        Canvas.DialogContent.ChangeText(_currentPhrases[Random.Range(0, _currentPhrases.Count)], 2f);
                         Canvas.Show();
-                        Canvas.DialogContent.OnTextDialogCompletedAsObservable()
-                            .Delay(TimeSpan.FromSeconds(2f))
-                            .Subscribe(done => { Canvas.Hide(); });
+                        Canvas.DialogContent.OnTextDialogCompletedAsObservable().Take(1).Subscribe(done => { Canvas.Hide(); });
                     }).AddTo(this);
                 }
             }

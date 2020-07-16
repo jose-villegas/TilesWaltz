@@ -37,12 +37,12 @@ namespace TilesWalk.General.UI
             _onTextDialogCompleted?.OnNext(_currentTarget);
         }
 
-        public void ChangeText(string text)
+        public void ChangeText(string text, float time)
         {
             if (_running == null)
             {
                 _currentTarget = text;
-                _running = StartCoroutine(ChangeTextCoroutine(text));
+                _running = StartCoroutine(ChangeTextCoroutine(text, time));
             }
             else
             {
@@ -51,11 +51,11 @@ namespace TilesWalk.General.UI
                 _currentTarget = text;
                 _onTextDialogCompleted?.OnNext(_currentTarget);
 
-                _running = StartCoroutine(ChangeTextCoroutine(text));
+                _running = StartCoroutine(ChangeTextCoroutine(text, time));
             }
         }
 
-        private IEnumerator ChangeTextCoroutine(string text)
+        private IEnumerator ChangeTextCoroutine(string text, float time)
         {
             Component.text = string.Empty;
             var timePerWord = 1f / _animation.WordsPerSecond;
@@ -74,8 +74,11 @@ namespace TilesWalk.General.UI
             }
 
             Component.text = text;
-            _running = null;
+                
+            yield return new WaitForSeconds(time);
             _onTextDialogCompleted?.OnNext(text);
+
+            _running = null;
         }
     }
 }

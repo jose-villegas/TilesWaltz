@@ -20,37 +20,32 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
             // next step as soon the first dialogue ends
             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                 .Take(1)
-                .Delay(TimeSpan.FromSeconds(2.5f))
-                .Subscribe(val =>
+                .Subscribe(_ =>
                 {
                     // next dialog
                     _handler.NextStep();
                     TileCharacterPointLeft();
                     _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                         .Take(1)
-                        .Delay(TimeSpan.FromSeconds(2.5f))
-                        .Subscribe(_val =>
+                        .Subscribe(__ =>
                         {
                             _handler.NextStep();
                             TileCharacterPointLeft();
                             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                 .Take(1)
-                                .Delay(TimeSpan.FromSeconds(2.5f))
-                                .Subscribe(__val =>
+                                .Subscribe(___ =>
                                 {
                                     _handler.NextStep();
                                     TileCharacterPointLeft();
                                     _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                         .Take(1)
-                                        .Delay(TimeSpan.FromSeconds(2.5f))
-                                        .Subscribe(___val =>
+                                        .Subscribe(____ =>
                                         {
                                             _handler.NextStep();
                                             TileCharacterOrbit();
                                             _handler.Canvas.DialogContent.OnTextDialogCompletedAsObservable()
                                                 .Take(1)
-                                                .Delay(TimeSpan.FromSeconds(4f))
-                                                .Subscribe(____val => { FinishSequence(); }).AddTo(this);
+                                                .Subscribe(_____ => { FinishSequence(); }).AddTo(this);
                                         }).AddTo(this);
                                 }).AddTo(this);
                         }).AddTo(this);
