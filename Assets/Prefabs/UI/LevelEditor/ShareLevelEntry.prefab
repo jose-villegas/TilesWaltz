@@ -2502,7 +2502,7 @@ PrefabInstance:
     - target: {fileID: 6789331370515133313, guid: 800bc9befb7555441901050feae73732,
         type: 3}
       propertyPath: m_ReadOnly
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6789331370515133313, guid: 800bc9befb7555441901050feae73732,
         type: 3}

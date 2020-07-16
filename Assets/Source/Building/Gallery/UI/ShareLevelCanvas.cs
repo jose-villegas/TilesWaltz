@@ -72,6 +72,11 @@ namespace TilesWalk.Building.Gallery.UI
 			var parsedToQR = _levelRequest.Map.ToQRString(limit);
 			_qrCode.texture = TextQRConverter.GenerateTexture(parsedToQR);
 			_code.text = parsedToQR;
-		}
+
+            _code.onValueChanged.AsObservable().Subscribe(_ =>
+            {
+                _code.text = parsedToQR;
+            }).AddTo(this);
+        }
 	}
 }
