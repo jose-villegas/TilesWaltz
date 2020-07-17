@@ -130,6 +130,13 @@ namespace TilesWalk.Extensions
 			return result;
 		}
 
+		/// <summary>
+		/// If two tiles are connected this returns the connection direction from
+		/// tile to neighbor
+		/// </summary>
+		/// <param name="tile"></param>
+		/// <param name="neighbor"></param>
+		/// <returns></returns>
         public static CardinalDirection GetNeighborDirection(this Tile.Tile tile, Tile.Tile neighbor)
         {
             foreach (var tileNeighbor in tile.Neighbors)
@@ -140,6 +147,12 @@ namespace TilesWalk.Extensions
             return CardinalDirection.None;
         }
 
+		/// <summary>
+		/// Gets a path in a straight line coming from the source tile in the given direction
+		/// </summary>
+		/// <param name="tile"></param>
+		/// <param name="direction"></param>
+		/// <returns></returns>
         public static List<Tile.Tile> GetStraightPath(this Tile.Tile tile, params CardinalDirection[] direction)
         {
             var result = new List<Tile.Tile>() { tile };
@@ -166,6 +179,12 @@ namespace TilesWalk.Extensions
             return result;
         }
 
+		/// <summary>
+		/// Gets all the tiles matching the color
+		/// </summary>
+		/// <param name="tiles"></param>
+		/// <param name="color"></param>
+		/// <returns></returns>
         public static List<Tile.Tile> GetAllOfColor(this IEnumerable<Tile.Tile> tiles, TileColor color)
         {
 			var result = new List<Tile.Tile>();
@@ -178,6 +197,15 @@ namespace TilesWalk.Extensions
             return result;
         }
 
+		/// <summary>
+		/// This method calls path finding methods recursively for all the neighboring tiles, use with care
+		/// as this isn't necessary to be called for every tile. A single tile will refresh the whole structure
+		/// if they are connected. Best usage is once per root.
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="ignore"></param>
+		/// <param name="updateColorPath"></param>
+		/// <param name="updateShortestPath"></param>
         public static void ChainRefreshPaths(this Tile.Tile source, CardinalDirection ignore = CardinalDirection.None,
             bool updateColorPath = true, bool updateShortestPath = true)
         {
