@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Animation;
-using TilesWalk.Gameplay.Display;
 using TilesWalk.General;
-using UniRx;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -113,50 +109,6 @@ namespace TilesWalk.Tile.Level
                 var tile = tiles[i];
                 tile.transform.position = source[i].Item1;
                 tile.transform.rotation = source[i].Item2;
-            }
-        }
-
-        protected void ShowGuide(int time)
-        {
-            // first hide the previous path
-            if (_tileLevelMap.CurrentPathShown != null && _tileLevelMap.CurrentPathShown.Count >= 0)
-            {
-                for (var index = 0; index < _tileLevelMap.CurrentPathShown.Count; index++)
-                {
-                    var tile = _tileLevelMap.CurrentPathShown[index];
-
-                    if (!_tileLevelMap.HasTileView(tile)) continue;
-
-                    var view = _tileLevelMap.GetTileView(tile);
-
-                    view.LevelTileUIAnimator.SetBool("ShowPath", false);
-                    view.PathContainer.gameObject.SetActive(false);
-                }
-            }
-
-            // now handle the newest path
-            var tileShortestPathToLeaf = Controller.Tile.ShortestPathToLeaf;
-
-            if (tileShortestPathToLeaf == null || tileShortestPathToLeaf.Count == 0) return;
-
-            _tileLevelMap.CurrentPathShown = tileShortestPathToLeaf;
-
-            var animDuration = _animationSettings.PathGuideAnimationTime;
-            var steps = animDuration / tileShortestPathToLeaf.Count;
-
-            for (var index = 0; index < tileShortestPathToLeaf.Count; index++)
-            {
-                var tile = tileShortestPathToLeaf[index];
-
-                if (!_tileLevelMap.HasTileView(tile)) continue;
-
-                var view = _tileLevelMap.GetTileView(tile);
-
-                Observable.Timer(TimeSpan.FromSeconds(index * steps)).Subscribe(_ => { }, () =>
-                {
-                    view.PathContainer.gameObject.SetActive(true);
-                    view.LevelTileUIAnimator.SetBool("ShowPath", true);
-                }).AddTo(this);
             }
         }
     }

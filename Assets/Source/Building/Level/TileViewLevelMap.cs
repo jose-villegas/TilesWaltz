@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using ModestTree;
 using NaughtyAttributes;
 using Newtonsoft.Json;
 using TilesWalk.Building.LevelEditor;
 using TilesWalk.Extensions;
+using TilesWalk.Gameplay.Animation;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.General;
 using TilesWalk.Map.Bridge;
-using TilesWalk.Tile;
 using TilesWalk.Tile.Level;
-using TilesWalk.Tile.Rules;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -27,6 +24,7 @@ namespace TilesWalk.Building.Level
 	public class  TileViewLevelMap : TileViewMap<LevelMap, LevelTileView, LevelTileViewFactory>
 	{
 		[Inject] private LevelBridge _levelBridge;
+        [Inject] protected AnimationConfiguration _animationSettings;
 
 		[SerializeField] private LevelLoadOptions _loadOption;
 
@@ -370,6 +368,57 @@ namespace TilesWalk.Building.Level
 			_map.MapSize = map.MapSize;
 			_onLevelMapLoaded?.OnNext(_map);
 		}
+
+        public void HideGuide()
+        {
+            // first hide the previous path
+            if (CurrentPathShown != null && CurrentPathShown.Count >= 0)
+            {
+                for (var index = 0; index < CurrentPathShown.Count; index++)
+                {
+                    var tile = CurrentPathShown[index];
+
+                    if (!HasTileView(tile)) continue;
+
+                    var view = GetTileView(tile);
+
+                    view.LevelTileUIAnimator.SetBool("ShowPath", false);
+                    view.PathContainer.gameObject.SetActive(false);
+                }
+            }
+
+            CurrentPathShown = null;
+        }
+
+        public void ShowGuide(Tile.Tile tile)
+        {
+            HideGuide();
+
+            // now handle the newest path
+            var tileShortestPathToLeaf = tile.ShortestPathToLeaf;
+
+            if (tileShortestPathToLeaf == null || tileShortestPathToLeaf.Count == 0) return;
+
+            CurrentPathShown = tileShortestPathToLeaf;
+
+            var animDuration = _animationSettings.PathGuideAnimationTime;
+            var steps = animDuration / tileShortestPathToLeaf.Count;
+
+            for (var index = 0; index < tileShortestPathToLeaf.Count; index++)
+            {
+                var current = tileShortestPathToLeaf[index];
+
+                if (!HasTileView(current)) continue;
+
+                var view = GetTileView(current);
+
+                Observable.Timer(TimeSpan.FromSeconds(index * steps)).Subscribe(_ => { }, () =>
+                {
+                    view.PathContainer.gameObject.SetActive(true);
+                    view.LevelTileUIAnimator.SetBool("ShowPath", true);
+                }).AddTo(this);
+            }
+        }
 
 		public void UpdateIndexes<T>(T tile) where T : LevelTileView
 		{

@@ -56,7 +56,5 @@ The game stills in development, there are some things that are in progress:
 * Level start animation
 * Fix Bugs
     * Fix multiple roots logic, in the editor when a tile is removed, multiple roots may be created. Don't mark as root tile if the neigboring tiles of the removed are actually connected to a root.
-    * Color power up has issue with maps with multiple roots
-    * Path display in the level editor needs works
     * Music repeat when reloading an scene
     * There may be more bugs...

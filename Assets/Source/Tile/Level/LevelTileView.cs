@@ -47,7 +47,7 @@ namespace TilesWalk.Tile.Level
             }
         }
 
-        protected Transform PathContainer
+        public Transform PathContainer
         {
             get
             {
@@ -73,7 +73,7 @@ namespace TilesWalk.Tile.Level
             }
         }
 
-        protected Animator LevelTileUIAnimator
+        public Animator LevelTileUIAnimator
         {
             get
             {
@@ -299,7 +299,7 @@ namespace TilesWalk.Tile.Level
             {
                 if (!ShownGuide)
                 {
-                    ShowGuide(0);
+                    _tileLevelMap.ShowGuide(Controller.Tile);
                     ShownGuide = true;
                 }
                 else
