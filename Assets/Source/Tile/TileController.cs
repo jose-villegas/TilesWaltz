@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Boo.Lang;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Display;
@@ -317,53 +318,7 @@ namespace TilesWalk.Tile
 			ChainRefreshPaths(_tile, updateShortestPath: false);
 		}
 
-		public void HandleTilePowerUp()
-		{
-			switch (_tile.PowerUp)
-			{
-				case TilePowerUp.None:
-					break;
-				case TilePowerUp.NorthSouthLine:
-					HandleDirectionalPowerUp(CardinalDirection.North, CardinalDirection.South);
-					break;
-				case TilePowerUp.EastWestLine:
-					HandleDirectionalPowerUp(CardinalDirection.East, CardinalDirection.West);
-					break;
-				case TilePowerUp.ColorMatch:
-					HandleColorMatchPowerUp(_tile, _tile.TileColor);
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
-			}
-
-			ChainRefreshPaths(_tile, updateShortestPath: false);
-			_tile.PowerUp = TilePowerUp.None;
-		}
-
-		private static void HandleColorMatchPowerUp(Tile source, TileColor color,
-			CardinalDirection ignore = CardinalDirection.None)
-		{
-			if (source.TileColor == color) source.ShuffleColor(true);
-
-			foreach (var neighbor in source.Neighbors)
-			{
-				if (neighbor.Key == ignore) continue;
-
-				HandleColorMatchPowerUp(neighbor.Value, color, neighbor.Key.Opposite());
-			}
-		}
-
-		private void HandleDirectionalPowerUp(CardinalDirection forward, CardinalDirection backward)
-		{
-			var path = _tile.GetStraightPath(forward, backward);
-
-			foreach (var tile in path)
-			{
-				tile.ShuffleColor();
-			}
-		}
-
-		/// <summary>
+        /// <summary>
 		/// Combo removal works by changing the colors for all the tiles within a matching
 		/// color patch
 		/// </summary>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TilesWalk.Gameplay;
+using TilesWalk.Gameplay.Display;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
 using UnityEngine;
@@ -132,6 +133,44 @@ namespace TilesWalk.Extensions
             }
 
             return CardinalDirection.None;
+        }
+
+        public static List<Tile.Tile> GetStraightPath(this Tile.Tile tile, params CardinalDirection[] direction)
+        {
+            var result = new List<Tile.Tile>() { tile };
+            var currentTile = tile;
+
+            foreach (var cardinalDirection in direction)
+            {
+                currentTile = tile;
+
+                while (currentTile.Neighbors.TryGetValue(cardinalDirection, out var neighbor))
+                {
+                    currentTile = neighbor;
+                    result.Add(currentTile);
+                }
+            }
+
+            result.Sort((t1, t2) =>
+            {
+                var dst1 = (tile.Index - t1.Index).sqrMagnitude;
+                var dst2 = (tile.Index - t2.Index).sqrMagnitude;
+                return dst1 - dst2;
+            });
+
+            return result;
+        }
+
+        public static List<Tile.Tile> GetAllOfColor(this IEnumerable<Tile.Tile> tiles, TileColor color)
+        {
+			var result = new List<Tile.Tile>();
+
+            foreach (var tile in tiles)
+            {
+                if (tile.TileColor == color) result.Add(tile);
+            }
+
+            return result;
         }
 	}
 }
