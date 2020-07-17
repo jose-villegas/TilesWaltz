@@ -340,7 +340,7 @@ namespace TilesWalk.Building.LevelEditor
                 {
                     neighbor.Value.Neighbors.Remove(neighbor.Key.Opposite());
                     neighbor.Value.HingePoints.Remove(neighbor.Key.Opposite());
-                    TileController.ChainRefreshPaths(neighbor.Value);
+                    neighbor.Value.ChainRefreshPaths();
                 }
 
                 _tileLevelMap.RemoveTile(this);

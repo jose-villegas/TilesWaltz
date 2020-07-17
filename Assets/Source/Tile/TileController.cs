@@ -50,7 +50,7 @@ namespace TilesWalk.Tile
 			// adjust 3d index according to neighbor
 			AdjustNeighborSpace(direction, rule, tile, root, out translate, out rotate);
 			// refresh shortest path for all related neighbors
-			ChainRefreshPaths(tile);
+			tile.ChainRefreshPaths();
 		}
 
 		/// <summary>
@@ -64,24 +64,10 @@ namespace TilesWalk.Tile
 		{
 			_tile.Neighbors.Remove(direction);
 			_tile.HingePoints.Remove(direction);
-			ChainRefreshPaths(_tile);
+			_tile.ChainRefreshPaths();
 		}
 
-		public static void ChainRefreshPaths(Tile source, CardinalDirection ignore = CardinalDirection.None,
-			bool updateColorPath = true, bool updateShortestPath = true)
-		{
-			if (updateColorPath) source.RefreshMatchingColorPatch();
-			if (updateShortestPath) source.RefreshShortestLeafPath();
-
-			foreach (var neighbor in source.Neighbors)
-			{
-				if (neighbor.Key == ignore) continue;
-
-				ChainRefreshPaths(neighbor.Value, neighbor.Key.Opposite(), updateColorPath, updateShortestPath);
-			}
-		}
-
-		/// <summary>
+        /// <summary>
 		/// This method adjust a newly added tile positioning and rotation
 		/// </summary>
 		/// <param name="direction"></param>
@@ -315,7 +301,7 @@ namespace TilesWalk.Tile
 				}
 			}
 
-			ChainRefreshPaths(_tile, updateShortestPath: false);
+			_tile.ChainRefreshPaths(updateShortestPath: false);
 		}
 
         /// <summary>
@@ -338,7 +324,7 @@ namespace TilesWalk.Tile
 				tile.ShuffleColor();
 			}
 
-			ChainRefreshPaths(_tile, updateShortestPath: false);
+            _tile.ChainRefreshPaths(updateShortestPath: false);
 		}
 
 		private void FindColorMatchPowerUp()

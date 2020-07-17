@@ -1,16 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using TilesWalk.Gameplay;
 using TilesWalk.Gameplay.Display;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
-using UnityEngine;
 
 namespace TilesWalk.Extensions
 {
+	/// <summary>
+	/// Extension methods for the <see cref="Tile.Tile"/> class
+	/// </summary>
 	public static class TileExtension
 	{
+		/// <summary>
+		/// This method determines if it's possible to insert a tile as neighbor
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="direction"></param>
+		/// <param name="rule"></param>
+		/// <returns></returns>
 		public static bool IsValidInsertion(this Tile.Tile source, CardinalDirection direction, NeighborWalkRule rule) 
 		{
 			bool result = false;
@@ -20,10 +27,8 @@ namespace TilesWalk.Extensions
 			{
 				return source.Neighbors[direction] == null;
 			}
-			else
-			{
-				return true;
-			}
+
+			return true;
 		}
 
 		/// <summary>
@@ -171,6 +176,20 @@ namespace TilesWalk.Extensions
             }
 
             return result;
+        }
+
+        public static void ChainRefreshPaths(this Tile.Tile source, CardinalDirection ignore = CardinalDirection.None,
+            bool updateColorPath = true, bool updateShortestPath = true)
+        {
+            if (updateColorPath) source.RefreshMatchingColorPatch();
+            if (updateShortestPath) source.RefreshShortestLeafPath();
+
+            foreach (var neighbor in source.Neighbors)
+            {
+                if (neighbor.Key == ignore) continue;
+
+                ChainRefreshPaths(neighbor.Value, neighbor.Key.Opposite(), updateColorPath, updateShortestPath);
+            }
         }
 	}
 }

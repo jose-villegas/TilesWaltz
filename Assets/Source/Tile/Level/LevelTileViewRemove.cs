@@ -177,7 +177,7 @@ namespace TilesWalk.Tile.Level
                                             foreach (var rootTile in _tileLevelMap.Map.Roots)
                                             {
                                                 var view = _tileLevelMap.HashToTile[rootTile.Key];
-                                                TileController.ChainRefreshPaths(view.Controller.Tile, updateShortestPath: false);
+                                                view.Controller.Tile.ChainRefreshPaths(updateShortestPath: false);
                                             }
 
                                             _tileLevelMap.State = TileLevelMapState.FreeMove;
