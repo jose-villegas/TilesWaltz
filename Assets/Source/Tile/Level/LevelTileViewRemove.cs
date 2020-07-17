@@ -156,15 +156,15 @@ namespace TilesWalk.Tile.Level
                             MainThreadDispatcher.StartEndOfFrameMicroCoroutine(
                                 tileView.ScalePopInAnimation(sourceScale));
 
-                            // change the color after it appears
-                            tileView.Controller.Tile.ShuffleColor();
-
                             // callback for power up execution, remove power up
-                            if (index == path.Count - 1)
+                            if (index == 0)
                             {
                                 Trigger.OnPowerUpRemoval?.OnNext(new Tuple<List<Tile>, TilePowerUp>(path, powerUp));
                                 Controller.Tile.PowerUp = TilePowerUp.None;
                             }
+
+                            // change the color after it appears
+                            tileView.Controller.Tile.ShuffleColor();
 
                             Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
                                 .DelayFrame(1)
