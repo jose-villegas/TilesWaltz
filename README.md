@@ -18,7 +18,7 @@ If you combine 4 in a straight line you get a directional power in the orthogona
 
 <img src="Media/Animated/dir1.gif" alt="alt text" width="200">
 
-* Combine 4 tiles:
+* Combine 5 or more tiles:
 
 If you combine 5 of more tiles you get a color power up, when you click the tile with this power up it will the remove all the tiles that have this same color, it's important to look at the map to make the best use of it.
 
