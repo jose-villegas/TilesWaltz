@@ -55,6 +55,5 @@ The game stills in development, there are some things that are in progress:
 * Level finish visual improvements
 * Level start animation
 * Fix Bugs
-    * Fix multiple roots logic, in the editor when a tile is removed, multiple roots may be created. Don't mark as root tile if the neigboring tiles of the removed are actually connected to a root.
     * Music repeat when reloading an scene
-    * There may be more bugs...
+    * General bug fixing / testing.
