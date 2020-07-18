@@ -39,9 +39,13 @@ namespace TilesWalk.Building.LevelEditor
         private CanvasGroupBehaviour _guides;
         private Vector3? _sourcePosition = null;
 
+        // flags using for custom play logic
+        private bool _hadGhostTileBeforePlay;
+        private bool _wasSelectedBeforePlay;
+
         public BoolReactiveProperty IsSelected { get; } = new BoolReactiveProperty();
         public bool IsGhost { get; private set; }
-        public bool HasGhost => _ghostTileView != null && IsSelected.Value;
+        public bool HasGhost => _ghostTileView != null;
         public CardinalDirection GhostDirection => _ghostTileView.Item1;
         public NeighborWalkRule CurrentRule => _currentRule;
 
@@ -236,6 +240,19 @@ namespace TilesWalk.Building.LevelEditor
 
                 if (childTrans != null) childTrans.gameObject.SetActive(true);
             }
+
+            if (_hadGhostTileBeforePlay)
+            {
+                InsertGhostNeighbor(_currentDirection, _currentRule);
+                _hadGhostTileBeforePlay = false;
+            }
+
+            if (_wasSelectedBeforePlay)
+            {
+                IsSelected.Value = true;
+                OnTileSelected(true);
+                _wasSelectedBeforePlay = false;
+            }
         }
 
         /// <summary>
@@ -246,15 +263,34 @@ namespace TilesWalk.Building.LevelEditor
         private void OnCustomLevelPlay(LevelMap obj)
         {
             // remove ghost tile if there is any
-            OnCancelClick(Unit.Default);
+            if (HasGhost)
+            {
+                RemoveGhostNeighbor(_currentDirection);
+                Destroy(_ghostTileView.Item2.transform.parent.gameObject);
+                _ghostTileView = null;
+                _hadGhostTileBeforePlay = true;
+            }
+
             // unselect
-            if (IsSelected.Value) OnTileSelected(false);
+            if (IsSelected.Value)
+            {
+                _wasSelectedBeforePlay = true;
+                OnTileSelected(false);
+            }
+
+            IsSelected.Value = false;
+
             // assign a color and update render
             _controller.Tile.ShuffleColor();
             Renderer.material = _colorHandler.GetMaterial(_controller.Tile.TileColor);
-            _tileLevelMap.State = TileLevelMapState.FreeMove;
+
+            // hide currently shown guide
+            _tileLevelMap.HideGuide();
 
             WireBox.gameObject.SetActive(false);
+
+            // finally unlock the map
+            _tileLevelMap.State = TileLevelMapState.FreeMove;
         }
 
         protected override void OnMouseDown()
@@ -304,7 +340,7 @@ namespace TilesWalk.Building.LevelEditor
                 {
                     neighbor.Value.Neighbors.Remove(neighbor.Key.Opposite());
                     neighbor.Value.HingePoints.Remove(neighbor.Key.Opposite());
-                    TileController.ChainRefreshPaths(neighbor.Value);
+                    neighbor.Value.ChainRefreshPaths();
                 }
 
                 _tileLevelMap.RemoveTile(this);
@@ -374,27 +410,7 @@ namespace TilesWalk.Building.LevelEditor
                 _guides.Show();
 
                 // show path
-                var shortestPath = Controller.Tile.ShortestPathToLeaf;
-
-                if (shortestPath != null && shortestPath.Count > 0)
-                {
-                    for (var i = 0; i < shortestPath.Count; i++)
-                    {
-                        var tile = shortestPath[i];
-                        var hasTileView = _tileLevelMap.HasTileView(tile);
-
-                        if (hasTileView)
-                        {
-                            var view = _tileLevelMap.GetTileView(tile) as LevelEditorTileView;
-
-                            if (view != null)
-                            {
-                                view.PathColorPicker.Name = GameColor.Target;
-                                view.ShowGuide(0);
-                            }
-                        }
-                    }
-                }
+                _tileLevelMap.ShowGuide(Controller.Tile);
 
                 // set outline for this tile
                 var newMaterials = new[]

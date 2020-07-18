@@ -1,15 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using TilesWalk.Gameplay;
+using TilesWalk.Gameplay.Display;
 using TilesWalk.General;
 using TilesWalk.Tile.Rules;
-using UnityEngine;
 
 namespace TilesWalk.Extensions
 {
+	/// <summary>
+	/// Extension methods for the <see cref="Tile.Tile"/> class
+	/// </summary>
 	public static class TileExtension
 	{
+		/// <summary>
+		/// This method determines if it's possible to insert a tile as neighbor
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="direction"></param>
+		/// <param name="rule"></param>
+		/// <returns></returns>
 		public static bool IsValidInsertion(this Tile.Tile source, CardinalDirection direction, NeighborWalkRule rule) 
 		{
 			bool result = false;
@@ -19,10 +27,8 @@ namespace TilesWalk.Extensions
 			{
 				return source.Neighbors[direction] == null;
 			}
-			else
-			{
-				return true;
-			}
+
+			return true;
 		}
 
 		/// <summary>
@@ -57,9 +63,9 @@ namespace TilesWalk.Extensions
 		/// then used recursively to avoid infinite loops
 		/// </param>
 		/// <returns></returns>
-		public static List<Tile.Tile> GetShortestLeafPath(this Tile.Tile source, params CardinalDirection[] ignore)
+		public static System.Collections.Generic.List<Tile.Tile> GetShortestLeafPath(this Tile.Tile source, params CardinalDirection[] ignore)
 		{
-			List<Tile.Tile> result = new List<Tile.Tile>();
+            System.Collections.Generic.List<Tile.Tile> result = new System.Collections.Generic.List<Tile.Tile>();
 			var keys = source.Neighbors.Keys;
 
 			var count = int.MaxValue;
@@ -96,9 +102,9 @@ namespace TilesWalk.Extensions
 		/// then used recursively to avoid infinite loops
 		/// </param>
 		/// <returns></returns>
-		public static List<Tile.Tile> GetColorMatchPatch(this Tile.Tile source, params CardinalDirection[] ignore)
+		public static System.Collections.Generic.List<Tile.Tile> GetColorMatchPatch(this Tile.Tile source, params CardinalDirection[] ignore)
 		{
-			List<Tile.Tile> result = new List<Tile.Tile>();
+            System.Collections.Generic.List<Tile.Tile> result = new System.Collections.Generic.List<Tile.Tile>();
 			var keys = source.Neighbors.Keys;
 
 			foreach (var key in keys)
@@ -124,6 +130,13 @@ namespace TilesWalk.Extensions
 			return result;
 		}
 
+		/// <summary>
+		/// If two tiles are connected this returns the connection direction from
+		/// tile to neighbor
+		/// </summary>
+		/// <param name="tile"></param>
+		/// <param name="neighbor"></param>
+		/// <returns></returns>
         public static CardinalDirection GetNeighborDirection(this Tile.Tile tile, Tile.Tile neighbor)
         {
             foreach (var tileNeighbor in tile.Neighbors)
@@ -132,6 +145,120 @@ namespace TilesWalk.Extensions
             }
 
             return CardinalDirection.None;
+        }
+
+		/// <summary>
+		/// Gets a path in a straight line coming from the source tile in the given direction
+		/// </summary>
+		/// <param name="tile"></param>
+		/// <param name="direction"></param>
+		/// <returns></returns>
+        public static System.Collections.Generic.List<Tile.Tile> GetStraightPath(this Tile.Tile tile, params CardinalDirection[] direction)
+        {
+            var result = new System.Collections.Generic.List<Tile.Tile>() { tile };
+            var currentTile = tile;
+
+            foreach (var cardinalDirection in direction)
+            {
+                currentTile = tile;
+
+                while (currentTile.Neighbors.TryGetValue(cardinalDirection, out var neighbor))
+                {
+                    currentTile = neighbor;
+                    result.Add(currentTile);
+                }
+            }
+
+            result.Sort((t1, t2) =>
+            {
+                var dst1 = (tile.Index - t1.Index).sqrMagnitude;
+                var dst2 = (tile.Index - t2.Index).sqrMagnitude;
+                return dst1 - dst2;
+            });
+
+            return result;
+        }
+
+		/// <summary>
+		/// Gets all the tiles matching the color
+		/// </summary>
+		/// <param name="tiles"></param>
+		/// <param name="color"></param>
+		/// <returns></returns>
+        public static System.Collections.Generic.List<Tile.Tile> GetAllOfColor(this IEnumerable<Tile.Tile> tiles, TileColor color)
+        {
+			var result = new System.Collections.Generic.List<Tile.Tile>();
+
+            foreach (var tile in tiles)
+            {
+                if (tile.TileColor == color) result.Add(tile);
+            }
+
+            return result;
+        }
+
+		/// <summary>
+		/// This method calls path finding methods recursively for all the neighboring tiles, use with care
+		/// as this isn't necessary to be called for every tile. A single tile will refresh the whole structure
+		/// if they are connected. Best usage is once per root.
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="ignore"></param>
+		/// <param name="updateColorPath"></param>
+		/// <param name="updateShortestPath"></param>
+        public static void ChainRefreshPaths(this Tile.Tile source, CardinalDirection ignore = CardinalDirection.None,
+            bool updateColorPath = true, bool updateShortestPath = true)
+        {
+            if (updateColorPath) source.RefreshMatchingColorPatch();
+            if (updateShortestPath) source.RefreshShortestLeafPath();
+
+            foreach (var neighbor in source.Neighbors)
+            {
+                if (neighbor.Key == ignore) continue;
+
+                ChainRefreshPaths(neighbor.Value, neighbor.Key.Opposite(), updateColorPath, updateShortestPath);
+            }
+        }
+
+		/// <summary>
+		/// This method finds if a tile is connected through any neighboring path
+		/// to a <see cref="Tile.Tile"/> marked as root.
+		/// </summary>
+		/// <returns></returns>
+        public static bool IsConnectedToRoot(this Tile.Tile source)
+        {
+            var neighbors = source.Neighbors.Values.ToList();
+			var roots = new HashSet<Tile.Tile>() { source };
+
+            if (source.Root) return true;
+
+            while (neighbors.Count != 0)
+            {
+				var newNeighbors = new List<Tile.Tile>();
+
+                foreach (var neighbor in neighbors)
+                {
+                    if (neighbor.Root) return true;
+
+                    if (neighbor.Neighbors.Count > 1)
+                    {
+                        // new sources
+                        roots.Add(neighbor);
+
+                        // add neighbor's neighbors
+                        var unrelatedNew = neighbor.Neighbors.Values.Where(x => !roots.Contains(x)).ToList();
+
+                        if (unrelatedNew.Count > 0)
+                        {
+                            newNeighbors.AddRange(unrelatedNew);
+						}
+					}
+                }
+
+                neighbors = newNeighbors;
+            }
+
+            return source.Root;
         }
 	}
 }

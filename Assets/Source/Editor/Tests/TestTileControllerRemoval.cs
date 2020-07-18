@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Display;
 using TilesWalk.General;
 using TilesWalk.Tile;
@@ -102,7 +103,7 @@ namespace Tests
 				out translate, out rotate);
 			controller[5].Tile.TileColor = TileColor.Red;
 
-			TileController.ChainRefreshPaths(controller[5].Tile);
+            controller[5].Tile.ChainRefreshPaths();
 
 			// verify chain update
 			Assert.IsTrue(controller[3].Tile.MatchingColorPatch.Count >= 3);
