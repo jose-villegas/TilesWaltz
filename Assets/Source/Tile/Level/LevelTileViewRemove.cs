@@ -16,6 +16,12 @@ namespace TilesWalk.Tile.Level
     {
         [Inject] private GameAudioCollection _audioCollection;
 
+        /// <summary>
+        /// This method moves all the tiles to the position of their neighbor in the given path
+        /// It also returns a backup array with their previous transforms, useful for animating.
+        /// </summary>
+        /// <param name="shufflePath">A backup array with their previous transforms</param>
+        /// <returns></returns>
         private List<Tuple<Vector3, Quaternion>> ShufflePath(IReadOnlyList<LevelTileView> shufflePath)
         {
             if (shufflePath == null || shufflePath.Count <= 0) return null;
@@ -37,6 +43,9 @@ namespace TilesWalk.Tile.Level
             return backup;
         }
 
+        /// <summary>
+        /// Handles removal of a tile
+        /// </summary>
         [Button]
         private void Remove()
         {
@@ -95,6 +104,10 @@ namespace TilesWalk.Tile.Level
                 }).AddTo(this);
         }
 
+        /// <summary>
+        /// Handles power up logic and color changes
+        /// </summary>
+        /// <param name="onFinish"></param>
         private void HandlePowerUp(Action onFinish)
         {
             _tileLevelMap.State = TileLevelMapState.OnPowerUpRemoval;
@@ -189,6 +202,9 @@ namespace TilesWalk.Tile.Level
             }
         }
 
+        /// <summary>
+        /// This handles the logic of a combo removal
+        /// </summary>
         [Button]
         private void RemoveCombo()
         {
@@ -225,7 +241,7 @@ namespace TilesWalk.Tile.Level
 
                 _audioCollection.Play(GameAudioType.Sound, "Combo");
                 MainThreadDispatcher.StartEndOfFrameMicroCoroutine(tileView.ScalePopInAnimation(Vector3.zero));
-                DisposableExtensions.AddTo(Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
+                Observable.Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
                     .DelayFrame(1)
                     .Subscribe(_ => { }, () =>
                     {
@@ -236,7 +252,7 @@ namespace TilesWalk.Tile.Level
 
                         tileView.ParticleSystems["PopIn"].Play();
                         MainThreadDispatcher.StartEndOfFrameMicroCoroutine(tileView.ScalePopInAnimation(sourceScale));
-                        DisposableExtensions.AddTo(Observable
+                        Observable
                             .Timer(TimeSpan.FromSeconds(_animationSettings.ScalePopInTime))
                             .DelayFrame(1)
                             .Subscribe(_ => { },
@@ -247,8 +263,8 @@ namespace TilesWalk.Tile.Level
                                         _tileLevelMap.State = TileLevelMapState.FreeMove;
                                         Trigger.OnComboRemoval?.OnNext(shufflePath);
                                     }
-                                }), (Component) this);
-                    }), (Component) this);
+                                }).AddTo(this);
+                    }).AddTo(this);
             }
         }
     }
