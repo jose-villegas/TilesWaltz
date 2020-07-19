@@ -73,7 +73,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     _scalePopInTime: 0.1
     _powerUpPopInSequenceFactor: 0.5
-    _levelMapBuildingTime: 0.15
+    _levelMapBuildingTime: 0.75
     _targetTileTime: 0.15
     _gridAnimationTime: 0.35
     _pathGuideAnimationTime: 0.15
