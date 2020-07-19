@@ -13,45 +13,6 @@ namespace TilesWalk.Tile.Level
     {
         [Inject] protected AnimationConfiguration _animationSettings;
 
-        private IEnumerator LevelFinishAnimation()
-        {
-            var scale = transform.localScale;
-            float t = 0f;
-
-            while (transform != null)
-            {
-                var movementSpeed = Random.Range(-1f, 1f);
-                var scaleSpeed = Random.Range(0.1f, 0.25f);
-
-                while (transform != null && transform.localScale.sqrMagnitude > Constants.Tolerance)
-                {
-                    var step = movementSpeed * Time.deltaTime;
-
-                    transform.position += Vector3.down * step;
-                    transform.localScale =
-                        Vector3.MoveTowards(transform.localScale, Vector3.zero, scaleSpeed * Time.deltaTime);
-
-                    t += Time.deltaTime;
-                    yield return new WaitForEndOfFrame();
-                }
-
-                movementSpeed = Random.Range(-1f, 1f);
-                scaleSpeed = Random.Range(0.1f, 0.25f);
-
-                while (transform != null && (scale - transform.localScale).sqrMagnitude > Constants.Tolerance)
-                {
-                    var step = movementSpeed * Time.deltaTime;
-
-                    transform.position += Vector3.up * step;
-                    transform.localScale =
-                        Vector3.MoveTowards(transform.localScale, scale, scaleSpeed * Time.deltaTime);
-
-                    t += Time.deltaTime;
-                    yield return new WaitForEndOfFrame();
-                }
-            }
-        }
-
         private IEnumerator ScalePopInAnimation(Vector3 scale, float delay = 0f)
         {
             var t = 0f;

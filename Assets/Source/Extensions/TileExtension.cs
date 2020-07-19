@@ -63,9 +63,9 @@ namespace TilesWalk.Extensions
 		/// then used recursively to avoid infinite loops
 		/// </param>
 		/// <returns></returns>
-		public static System.Collections.Generic.List<Tile.Tile> GetShortestLeafPath(this Tile.Tile source, params CardinalDirection[] ignore)
+		public static List<Tile.Tile> GetShortestLeafPath(this Tile.Tile source, params CardinalDirection[] ignore)
 		{
-            System.Collections.Generic.List<Tile.Tile> result = new System.Collections.Generic.List<Tile.Tile>();
+            List<Tile.Tile> result = new List<Tile.Tile>();
 			var keys = source.Neighbors.Keys;
 
 			var count = int.MaxValue;
@@ -102,9 +102,9 @@ namespace TilesWalk.Extensions
 		/// then used recursively to avoid infinite loops
 		/// </param>
 		/// <returns></returns>
-		public static System.Collections.Generic.List<Tile.Tile> GetColorMatchPatch(this Tile.Tile source, params CardinalDirection[] ignore)
+		public static List<Tile.Tile> GetColorMatchPatch(this Tile.Tile source, params CardinalDirection[] ignore)
 		{
-            System.Collections.Generic.List<Tile.Tile> result = new System.Collections.Generic.List<Tile.Tile>();
+            List<Tile.Tile> result = new List<Tile.Tile>();
 			var keys = source.Neighbors.Keys;
 
 			foreach (var key in keys)
@@ -153,9 +153,9 @@ namespace TilesWalk.Extensions
 		/// <param name="tile"></param>
 		/// <param name="direction"></param>
 		/// <returns></returns>
-        public static System.Collections.Generic.List<Tile.Tile> GetStraightPath(this Tile.Tile tile, params CardinalDirection[] direction)
+        public static List<Tile.Tile> GetStraightPath(this Tile.Tile tile, params CardinalDirection[] direction)
         {
-            var result = new System.Collections.Generic.List<Tile.Tile>() { tile };
+            var result = new List<Tile.Tile>() { tile };
             var currentTile = tile;
 
             foreach (var cardinalDirection in direction)
@@ -185,9 +185,9 @@ namespace TilesWalk.Extensions
 		/// <param name="tiles"></param>
 		/// <param name="color"></param>
 		/// <returns></returns>
-        public static System.Collections.Generic.List<Tile.Tile> GetAllOfColor(this IEnumerable<Tile.Tile> tiles, TileColor color)
+        public static List<Tile.Tile> GetAllOfColor(this IEnumerable<Tile.Tile> tiles, TileColor color)
         {
-			var result = new System.Collections.Generic.List<Tile.Tile>();
+			var result = new List<Tile.Tile>();
 
             foreach (var tile in tiles)
             {

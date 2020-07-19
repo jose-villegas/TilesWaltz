@@ -132,7 +132,7 @@ MonoBehaviour:
       - Key: 0
         Position: {x: 0, y: 0, z: 0}
         Rotation: {x: 0, y: 0, z: 0}
-      MapSize: 2
+      MapSize: 0
       StarsRequired: 0
       Target: 1750
       FinishCondition: 1
@@ -202,7 +202,7 @@ MonoBehaviour:
       - Key: 0
         Position: {x: 0, y: 0, z: 0}
         Rotation: {x: 0, y: 0, z: 0}
-      MapSize: 3
+      MapSize: 2
       StarsRequired: 1
       Target: 4750
       FinishCondition: 0
@@ -280,7 +280,7 @@ MonoBehaviour:
       - Key: 0
         Position: {x: 0, y: 0, z: 0}
         Rotation: {x: 0, y: 0, z: 0}
-      MapSize: 2
+      MapSize: 0
       StarsRequired: 4
       Target: 4550
       FinishCondition: 0
@@ -480,7 +480,7 @@ MonoBehaviour:
       - Key: 0
         Position: {x: 0, y: 0, z: 0}
         Rotation: {x: 0, y: 0, z: 0}
-      MapSize: 2
+      MapSize: 1
       StarsRequired: 11
       Target: 3250
       FinishCondition: 0
@@ -691,7 +691,7 @@ MonoBehaviour:
       - Key: -271850
         Position: {x: 0.9999999, y: 1.3000001, z: 0}
         Rotation: {x: 0, y: 0, z: 180}
-      MapSize: 1
+      MapSize: 0
       StarsRequired: 17
       Target: 2200
       FinishCondition: 1
@@ -1151,7 +1151,7 @@ MonoBehaviour:
       - Key: 0
         Position: {x: 0, y: 0, z: 0}
         Rotation: {x: 0, y: 0, z: 0}
-      MapSize: 5
+      MapSize: 4
       StarsRequired: 21
       Target: 3750
       FinishCondition: 0
@@ -1293,7 +1293,7 @@ MonoBehaviour:
       - Key: 0
         Position: {x: 0, y: 0, z: 0}
         Rotation: {x: 0, y: 0, z: 0}
-      MapSize: 2
+      MapSize: 0
       StarsRequired: 25
       Target: 6250
       FinishCondition: 0
@@ -1475,7 +1475,7 @@ MonoBehaviour:
       - Key: 0
         Position: {x: 0, y: 0, z: 0}
         Rotation: {x: 0, y: 0, z: 0}
-      MapSize: 2
+      MapSize: 1
       StarsRequired: 19
       Target: 3250
       FinishCondition: 1
@@ -1958,7 +1958,7 @@ MonoBehaviour:
       - Key: -443348
         Position: {x: 0, y: -1.3000001, z: 0.00000011920929}
         Rotation: {x: 0, y: 180, z: 180}
-      MapSize: 2
+      MapSize: 0
       StarsRequired: 30
       Target: 3500
       FinishCondition: 1

@@ -144,7 +144,10 @@ namespace TilesWalk.Tile.Level
             _setting.ShowGuides.Subscribe(OnGuideSettingsChanged).AddTo(this);
 
             // check if we need to activate a separator
-            CheckSeparator();
+            _tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(_ =>
+            {
+                CheckSeparator();
+            }).AddTo(this);
         }
 
         private void OnGuideSettingsChanged(bool toggle)

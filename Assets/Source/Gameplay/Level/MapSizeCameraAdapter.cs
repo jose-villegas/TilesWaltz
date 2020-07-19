@@ -9,19 +9,19 @@ using Zenject;
 namespace TilesWalk.Gameplay.Level
 {
     [RequireComponent(typeof(Camera))]
-	public class MapSizeCameraAdapter : ObligatoryComponentBehaviour<Camera>
-	{
-		[Inject] private TileViewLevelMap _tileLevelMap;
+    public class MapSizeCameraAdapter : ObligatoryComponentBehaviour<Camera>
+    {
+        [Inject] private TileViewLevelMap _tileLevelMap;
         [Inject] private GameDisplayConfiguration _displayConfiguration;
 
-		private void Awake()
-		{
-			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
-		}
+        private void Awake()
+        {
+            _tileLevelMap.OnLevelMapDataLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
+        }
 
-		private void OnLevelMapLoaded(LevelMap map)
-		{
-			Component.orthographicSize = _displayConfiguration.GetOrthogonalSize(map.MapSize);
-		}
-	}
+        private void OnLevelMapLoaded(LevelMap map)
+        {
+            Component.orthographicSize = _displayConfiguration.GetOrthogonalSize(map.MapSize);
+        }
+    }
 }

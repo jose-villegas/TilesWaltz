@@ -12,6 +12,8 @@ namespace TilesWalk.Gameplay.Animation
         [SerializeField] [Min(0f)] private float _scalePopInTime;
         [SerializeField] private float _powerUpPopInSequenceFactor;
 
+        [Header("Level")] [SerializeField] private float _levelMapBuildingTime = 1.5f;
+
         [Header("Map Camera")] [SerializeField, Min(0f)]
         private float _targetTileTime;
 
@@ -41,5 +43,7 @@ namespace TilesWalk.Gameplay.Animation
         public float WordsPerSecond => _wordsPerSecond;
 
         public float CharacterMovementTime => characterMovementTime;
+
+        public float LevelMapBuildingTime => _levelMapBuildingTime;
     }
 }

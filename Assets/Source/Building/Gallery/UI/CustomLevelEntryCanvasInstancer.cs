@@ -7,6 +7,10 @@ using Zenject;
 
 namespace TilesWalk.Building.Gallery.UI
 {
+	/// <summary>
+	/// This class instances entries for the gallery view, it handles user
+	/// custom maps and imported custom maps
+	/// </summary>
 	[RequireComponent(typeof(IMapProvider))]
 	public class CustomLevelEntryCanvasInstancer : MonoBehaviour
 	{
@@ -36,6 +40,10 @@ namespace TilesWalk.Building.Gallery.UI
 			_solver.Provider.Collection.OnNewLevelInsertAsObservable().Subscribe(OnCollectionEntryInserted).AddTo(this);
 		}
 
+		/// <summary>
+		/// When the map collection is modified through insertion
+		/// </summary>
+		/// <param name="map"></param>
 		private void OnCollectionEntryInserted(LevelMap map)
 		{
 			// this means the entry was replaced
@@ -52,6 +60,10 @@ namespace TilesWalk.Building.Gallery.UI
 			_entries[map.Id] = newCanvas;
 		}
 
+		/// <summary>
+		/// When the map collection is modified through removal
+		/// </summary>
+		/// <param name="map"></param>
 		private void OnCollectionEntryRemoved(LevelMap map)
 		{
 			if (_entries.TryGetValue(map.Id, out var canvas))

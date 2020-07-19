@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using NaughtyAttributes;
 using Newtonsoft.Json;
@@ -68,6 +70,7 @@ namespace TilesWalk.Building.Level
         private TileLevelMapState _state;
         private LevelTileViewTriggerBase _levelTileTriggerBase;
         private TileLevelMapState _backupState;
+        protected Subject<LevelMap> _onLevelMapDataLoaded;
 
 
         /// <summary>
@@ -153,6 +156,11 @@ namespace TilesWalk.Building.Level
                 .Subscribe(path => Trigger.OnPowerUpRemoval?.OnNext(path)).AddTo(tile);
         }
 
+        /// <summary>
+        /// Register new level map tiles
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <param name="hash"></param>
         public override void RegisterTile(LevelTileView tile, int? hash = null)
         {
             if (TileToHash.ContainsKey(tile))
@@ -188,6 +196,12 @@ namespace TilesWalk.Building.Level
             return false;
         }
 
+        /// <summary>
+        /// Handles the removal of tiles within a level map
+        /// This method is is charge of resigning roots in case
+        /// it's necessary .
+        /// </summary>
+        /// <param name="tile"></param>
         public override void RemoveTile(LevelTileView tile)
         {
             if (!TileToHash.TryGetValue(tile, out var hash)) return;
@@ -294,10 +308,59 @@ namespace TilesWalk.Building.Level
             }
         }
 
+        private IEnumerator BuildingAnimation(List<List<int>> tiles, Vector3 target)
+        {
+            var views = new List<List<LevelTileView>>();
+
+            for (int i = 0; i < tiles.Count; i++)
+            {
+                var current = tiles[i];
+                views.Add(new List<LevelTileView>());
+
+                for (int j = 0; j < current.Count; j++)
+                {
+                    var view = HashToTile[current[j]];
+                    view.transform.localScale = Vector3.zero;
+                    views[views.Count - 1].Add(view);
+                }
+            }
+
+            for (int i = 0; i < views.Count; i++)
+            {
+                var t = 0f;
+                var current = views[i];
+
+                while (t < _animationSettings.LevelMapBuildingTime / views.Count)
+                {
+                    foreach (var view in current)
+                    {
+                        view.transform.localScale =
+                            Vector3.Slerp(Vector3.zero, target,
+                                t / (_animationSettings.LevelMapBuildingTime / views.Count));
+                    }
+
+                    t += Time.deltaTime;
+                    yield return null;
+                }
+
+                foreach (var view in current)
+                {
+                    view.transform.localScale = target;
+                }
+            }
+
+            yield return null;
+        }
+
         public override void BuildTileMap<T>(LevelMap map)
         {
+            // while the map is being built consider its state as locked
+            State = TileLevelMapState.Locked;
+
             Reset();
             List<int> currentRoots = new List<int>();
+            List<List<int>> toAnimate = new List<List<int>>();
+            Vector3 target = Vector3.zero;
 
             // create root tiles first
             foreach (var rootTile in map.Roots)
@@ -309,6 +372,7 @@ namespace TilesWalk.Building.Level
                 // set transform
                 tile.transform.position = rootTile.Position;
                 tile.transform.rotation = Quaternion.Euler(rootTile.Rotation);
+                target = tile.transform.localScale;
                 // register root within the tile map
                 tile.Controller.Tile.Root = true;
                 _map.Roots.Add(rootTile);
@@ -316,6 +380,7 @@ namespace TilesWalk.Building.Level
                 UpdateIndexes(tile);
             }
 
+            toAnimate.Add(new List<int>(currentRoots));
             var hasNewRootAvailable = true;
 
             // Now execute neighbor insertion logic
@@ -355,13 +420,20 @@ namespace TilesWalk.Building.Level
                 }
 
                 currentRoots = newRoots;
+                toAnimate.Add(new List<int>(newRoots));
             }
 
             _map.Id = map.Id;
             _map.Target = map.Target;
             _map.FinishCondition = map.FinishCondition;
             _map.MapSize = map.MapSize;
-            _onLevelMapLoaded?.OnNext(_map);
+            _onLevelMapDataLoaded?.OnNext(_map);
+
+            StartCoroutine(BuildingAnimation(toAnimate, target)).GetAwaiter().OnCompleted(() =>
+            {
+                State = TileLevelMapState.FreeMove;
+                _onLevelMapLoaded?.OnNext(_map);
+            });
         }
 
         public void HideGuide()
@@ -385,6 +457,12 @@ namespace TilesWalk.Building.Level
             CurrentPathShown = null;
         }
 
+        /// <summary>
+        /// Path guide display is handled by the map. This method handles
+        /// showing the shortest path for a tile and removing the previously
+        /// shown path
+        /// </summary>
+        /// <param name="tile"></param>
         public void ShowGuide(Tile.Tile tile)
         {
             HideGuide();
@@ -415,6 +493,11 @@ namespace TilesWalk.Building.Level
             }
         }
 
+        /// <summary>
+        /// Updates the indexing structure with this new tile
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="tile"></param>
         public void UpdateIndexes<T>(T tile) where T : LevelTileView
         {
             if (!_indexes.TryGetValue(tile.Controller.Tile.Index, out var matching))
@@ -440,6 +523,23 @@ namespace TilesWalk.Building.Level
         {
             _backupState = State;
             State = TileLevelMapState.Locked;
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            _onLevelMapDataLoaded?.OnCompleted();
+        }
+
+        /// <summary>
+        /// Unlike complete level map load from <see cref="TileViewMap{T1,T2,T3}.OnLevelMapLoadedAsObservable"/>
+        /// that is called after the build animation is done, this method only refers when the data for the
+        /// level map has been fully copied over after building the map.
+        /// </summary>
+        /// <returns></returns>
+        public IObservable<LevelMap> OnLevelMapDataLoadedAsObservable()
+        {
+            return _onLevelMapDataLoaded = _onLevelMapDataLoaded ?? new Subject<LevelMap>();
         }
     }
 }
