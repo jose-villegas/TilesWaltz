@@ -135,6 +135,8 @@ MonoBehaviour:
       _match: 20
     - _color: {r: 0.62656003, g: 0.88110006, b: 0.97900003, a: 1}
       _match: 30
+    - _color: {r: 0.66733336, g: 0.8666667, b: 0.66733336, a: 1}
+      _match: 40
   _displaySettings:
     _displayOptions:
     - _aspectRatio: {x: 9, y: 16}
