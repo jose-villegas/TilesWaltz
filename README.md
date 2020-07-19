@@ -53,7 +53,4 @@ The game stills in development, there are some things that are in progress:
 * Game Font
 * Game intro visual improvements
 * Level finish visual improvements
-* Level start animation
-* Fix Bugs
-    * Music repeat when reloading an scene
-    * General bug fixing / testing.
+* Bug fixing
