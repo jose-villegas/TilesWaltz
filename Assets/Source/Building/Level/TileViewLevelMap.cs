@@ -9,6 +9,7 @@ using TilesWalk.Building.LevelEditor;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Animation;
 using TilesWalk.Gameplay.Condition;
+using TilesWalk.Gameplay.Input;
 using TilesWalk.General;
 using TilesWalk.Map.Bridge;
 using TilesWalk.Tile.Level;
@@ -27,6 +28,7 @@ namespace TilesWalk.Building.Level
     {
         [Inject] private LevelBridge _levelBridge;
         [Inject] protected AnimationConfiguration _animationSettings;
+        [Inject] private GameEventsHandler _gameEvents;
 
         [SerializeField] private LevelLoadOptions _loadOption;
 
@@ -89,6 +91,9 @@ namespace TilesWalk.Building.Level
         protected override void Start()
         {
             base.Start();
+
+            _gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused);
+            _gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed);
 
             switch (_loadOption)
             {
