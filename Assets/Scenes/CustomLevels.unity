@@ -470,6 +470,7 @@ MonoBehaviour:
     Target: 0
     FinishCondition: 0
   _loadOption: 0
+  _animateBuilding: 0
 --- !u!114 &519995528
 MonoBehaviour:
   m_ObjectHideFlags: 0

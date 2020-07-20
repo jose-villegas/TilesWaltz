@@ -32,6 +32,8 @@ namespace TilesWalk.Building.Level
 
         [SerializeField] private LevelLoadOptions _loadOption;
 
+        [SerializeField] private bool _animateBuilding = true;
+
         [SerializeField]
         private Dictionary<Vector3Int, LevelTileView> _indexes = new Dictionary<Vector3Int, LevelTileView>();
 
@@ -313,9 +315,11 @@ namespace TilesWalk.Building.Level
             }
         }
 
-        private IEnumerator BuildingAnimation(List<List<int>> tiles, Vector3 target)
+        private IEnumerator BuildingAnimation(List<List<int>> tiles)
         {
             var views = new List<List<LevelTileView>>();
+            var source = new Dictionary<LevelTileView, Tuple<Vector3, Quaternion, Vector3>>();
+            var transforms = new Dictionary<LevelTileView, Tuple<Vector3, Quaternion, Vector3>>();
 
             for (int i = 0; i < tiles.Count; i++)
             {
@@ -325,8 +329,26 @@ namespace TilesWalk.Building.Level
                 for (int j = 0; j < current.Count; j++)
                 {
                     var view = HashToTile[current[j]];
-                    view.transform.localScale = Vector3.zero;
                     views[views.Count - 1].Add(view);
+                    transforms.Add(view, new Tuple<Vector3, Quaternion, Vector3>
+                    (
+                        view.transform.position,
+                        view.transform.rotation,
+                        view.transform.localScale
+                    ));
+
+                    // set initial values
+                    view.transform.localScale = Vector3.zero;
+                    view.transform.position += 2f * Vector3.up;
+                    view.transform.rotation = Quaternion.identity;
+
+                    // save values
+                    source.Add(view, new Tuple<Vector3, Quaternion, Vector3>
+                    (
+                        view.transform.position,
+                        view.transform.rotation,
+                        view.transform.localScale
+                    ));
                 }
             }
 
@@ -340,7 +362,13 @@ namespace TilesWalk.Building.Level
                     foreach (var view in current)
                     {
                         view.transform.localScale =
-                            Vector3.Slerp(Vector3.zero, target,
+                            Vector3.Lerp(source[view].Item3, transforms[view].Item3,
+                                t / (_animationSettings.LevelMapBuildingTime / views.Count));
+                        view.transform.position =
+                            Vector3.Lerp(source[view].Item1, transforms[view].Item1,
+                                t / (_animationSettings.LevelMapBuildingTime / views.Count));
+                        view.transform.rotation =
+                            Quaternion.Slerp(source[view].Item2, transforms[view].Item2,
                                 t / (_animationSettings.LevelMapBuildingTime / views.Count));
                     }
 
@@ -350,7 +378,9 @@ namespace TilesWalk.Building.Level
 
                 foreach (var view in current)
                 {
-                    view.transform.localScale = target;
+                    view.transform.position = transforms[view].Item1;
+                    view.transform.rotation = transforms[view].Item2;
+                    view.transform.localScale = transforms[view].Item3;
                 }
             }
 
@@ -434,11 +464,19 @@ namespace TilesWalk.Building.Level
             _map.MapSize = map.MapSize;
             _onLevelMapDataLoaded?.OnNext(_map);
 
-            StartCoroutine(BuildingAnimation(toAnimate, target)).GetAwaiter().OnCompleted(() =>
+            if (_animateBuilding)
+            {
+                StartCoroutine(BuildingAnimation(toAnimate)).GetAwaiter().OnCompleted(() =>
+                {
+                    State = TileLevelMapState.FreeMove;
+                    _onLevelMapLoaded?.OnNext(_map);
+                });
+            }
+            else
             {
                 State = TileLevelMapState.FreeMove;
                 _onLevelMapLoaded?.OnNext(_map);
-            });
+            }
         }
 
         public void HideGuide()

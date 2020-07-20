@@ -15,8 +15,8 @@ MonoBehaviour:
   _scorePointsSettings:
     _pointsPerTile: 10
     _comboMultiplier: 10
-    _directionalPowerUpMultiplier: 7
-    _colorMatchPowerUpMultiplier: 7
+    _directionalPowerUpMultiplier: 12
+    _colorMatchPowerUpMultiplier: 20
     _pointsPerExtraSecond: 20
     _pointsPerExtraMove: 100
     _oneStarRange: 0.3
@@ -73,7 +73,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     _scalePopInTime: 0.1
     _powerUpPopInSequenceFactor: 0.5
-    _levelMapBuildingTime: 0.75
+    _levelMapBuildingTime: 1
     _targetTileTime: 0.15
     _gridAnimationTime: 0.35
     _pathGuideAnimationTime: 0.15
@@ -131,11 +131,11 @@ MonoBehaviour:
     _mapStarsConfiguration:
     - _color: {r: 0.68235296, g: 0.7764706, b: 0.8117647, a: 1}
       _match: 10
-    - _color: {r: 0.67715997, g: 0.8326799, b: 0.891, a: 1}
+    - _color: {r: 0.7019608, g: 0.61960787, b: 0.70980394, a: 1}
       _match: 20
-    - _color: {r: 0.62656003, g: 0.88110006, b: 0.97900003, a: 1}
+    - _color: {r: 0.46666667, g: 0.8666667, b: 0.46666667, a: 1}
       _match: 30
-    - _color: {r: 0.66733336, g: 0.8666667, b: 0.66733336, a: 1}
+    - _color: {r: 1, g: 0.7019608, b: 0.2784314, a: 1}
       _match: 40
   _displaySettings:
     _displayOptions:

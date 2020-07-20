@@ -109,8 +109,6 @@ namespace TilesWalk.Gameplay.Score
 
 		public void AddPoints(int points)
 		{
-			var mapName = _tileLevelMap.Map.Id;
-
 			if (!_scoreTracking.TryGetValue(LevelScore.Id, out var track))
 			{
 				_scoreTracking[LevelScore.Id] = 0;

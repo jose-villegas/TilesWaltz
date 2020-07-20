@@ -14,7 +14,9 @@ namespace TilesWalk.Audio
 
 		public string Identifier => _identifier;
 
-		public void PlayMusic(bool loop = false, bool persist = false, float fadeInSeconds = 1f,
+        public AudioClip Clip => _clip;
+
+        public void PlayMusic(bool loop = false, bool persist = false, float fadeInSeconds = 1f,
 			float fadeOutSeconds = 1f, float currentMusicfadeOutSeconds = -1f, Transform sourceTransform = null)
 		{
 			int audioID = EazySoundManager.PlayMusic(_clip, volume, loop, persist, fadeInSeconds, fadeOutSeconds,
