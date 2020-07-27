@@ -1,6 +1,7 @@
 ﻿using TilesWalk.General.Patterns;
 using UniRx;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace TilesWalk.Gameplay.Tutorial.Tutorials
@@ -19,6 +20,18 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
         {
             _handler.SetupForSequence("Intro.Level");
             _handler.NextStep();
+            _handler.Canvas.ConfigureDialogActions(OnConfirmClick, OnCancelClick);
+        }
+
+        private void OnCancelClick()
+        {
+            _handler.FinishSequence();
+        }
+
+        private void OnConfirmClick()
+        {
+            SceneManager.LoadScene("LevelTutorial");
+           
         }
 
         public override void FinishSequence()

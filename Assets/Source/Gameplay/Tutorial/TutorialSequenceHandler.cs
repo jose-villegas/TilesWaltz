@@ -433,6 +433,7 @@ namespace TilesWalk.Gameplay.Tutorial
             if (_currentSequence == null) return;
 
             DiscardPreviousStep();
+            Canvas.Hide();
 
             if (_currentSequence.HideCharacterAfter)
             {

@@ -345,7 +345,6 @@ GameObject:
   - component: {fileID: 4508277879528107502}
   - component: {fileID: 6241953909263439898}
   - component: {fileID: 6980064699181171572}
-  - component: {fileID: 1028642024994005858}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -509,18 +508,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1028642024994005858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3171318342872540770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d8ed146688925e43a956b2c6d97d59c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4616597435752277396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,7 +1105,6 @@ GameObject:
   - component: {fileID: 4465028716286585403}
   - component: {fileID: 699613970818670712}
   - component: {fileID: 2904595823632558659}
-  - component: {fileID: 1016190745303208514}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1282,18 +1268,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1016190745303208514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8275417938718426334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d8ed146688925e43a956b2c6d97d59c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8624273943403877565
 GameObject:
   m_ObjectHideFlags: 0
