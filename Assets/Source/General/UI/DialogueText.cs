@@ -92,24 +92,6 @@ namespace TilesWalk.General.UI
 
             Component.text = text;
             _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
-            _onTextDialogFillCompleted?.OnNext(text);
 
             yield return new WaitForSeconds(time);
             _onTextDialogReadCompleted?.OnNext(text);

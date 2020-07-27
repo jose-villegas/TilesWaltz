@@ -161,7 +161,7 @@ MonoBehaviour:
       _bringToFront: 0
       _interactable: 0
       _playGesture: 0
-      gestureAtWord: 
+      gestureAtWord: '#'
       _showDialogActions: 1
     _hideCharacterAfter: 1
     _lastPosition: {x: 0, y: 0, z: 0}
