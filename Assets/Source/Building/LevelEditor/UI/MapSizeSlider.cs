@@ -14,7 +14,7 @@ namespace TilesWalk.Building.LevelEditor.UI
 
 		private void Awake()
 		{
-			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
+			_tileLevelMap.OnLevelMapDataLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
 		}
 
 		private void OnLevelMapLoaded(LevelMap map)
