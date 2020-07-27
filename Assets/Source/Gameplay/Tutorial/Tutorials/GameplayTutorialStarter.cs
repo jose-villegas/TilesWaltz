@@ -30,7 +30,6 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
 
         private void OnConfirmClick()
         {
-            SceneManager.LoadScene("LevelTutorial");
            
         }
 

@@ -181,6 +181,7 @@ namespace TilesWalk.Building.Level
             TileToHash[tile] = id;
             HashToTile[id] = tile;
             TileView[tile.Controller.Tile] = tile;
+            tile.name = id.ToString();
             // trigger event
             _onTileRegistered?.OnNext(tile);
         }
