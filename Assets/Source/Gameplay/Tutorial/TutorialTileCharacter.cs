@@ -9,6 +9,7 @@ namespace TilesWalk.Gameplay.Tutorial
     {
         public enum Gestures
         {
+            None,
             ShowPointer,
             Excited,
             PointLeft,
@@ -55,6 +56,8 @@ namespace TilesWalk.Gameplay.Tutorial
         {
             switch (gesture)
             {
+                case Gestures.None:
+                    break;
                 case Gestures.ShowPointer:
                     Animator.SetTrigger("Pointer");
                     break;

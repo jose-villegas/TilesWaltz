@@ -14,15 +14,31 @@ namespace TilesWalk.General.UI
     {
         [Inject] private AnimationConfiguration _animation;
 
-        private Subject<string> _onTextDialogCompleted;
+        private Subject<string> _onTextDialogReadCompleted;
+        private Subject<string> _onTextDialogFillCompleted;
+        private Subject<string> _onWordCompleted;
         private Coroutine _running;
         private string _currentTarget;
 
-        public IObservable<string> OnTextDialogCompletedAsObservable()
+        public IObservable<string> OnTextDialogFillCompletedAsObservable()
         {
-            return _onTextDialogCompleted == null
-                ? _onTextDialogCompleted = new Subject<string>()
-                : _onTextDialogCompleted;
+            return _onTextDialogFillCompleted == null
+                ? _onTextDialogFillCompleted = new Subject<string>()
+                : _onTextDialogFillCompleted;
+        }
+
+        public IObservable<string> OnTextDialogReadCompletedAsObservable()
+        {
+            return _onTextDialogReadCompleted == null
+                ? _onTextDialogReadCompleted = new Subject<string>()
+                : _onTextDialogReadCompleted;
+        }
+
+        public IObservable<string> OnWordCompletedAsObservable()
+        {
+            return _onWordCompleted == null
+                ? _onWordCompleted = new Subject<string>()
+                : _onWordCompleted;
         }
 
         private void OnMouseDown()
@@ -34,7 +50,7 @@ namespace TilesWalk.General.UI
             }
 
             Component.text = _currentTarget;
-            _onTextDialogCompleted?.OnNext(_currentTarget);
+            _onTextDialogReadCompleted?.OnNext(_currentTarget);
         }
 
         public void ChangeText(string text, float time)
@@ -49,7 +65,7 @@ namespace TilesWalk.General.UI
                 StopAllCoroutines();
                 _running = null;
                 _currentTarget = text;
-                _onTextDialogCompleted?.OnNext(_currentTarget);
+                _onTextDialogReadCompleted?.OnNext(_currentTarget);
 
                 _running = StartCoroutine(ChangeTextCoroutine(text, time));
             }
@@ -70,13 +86,33 @@ namespace TilesWalk.General.UI
                     yield return new WaitForSeconds(timePerWord / split[i].Length);
                 }
 
+                _onWordCompleted?.OnNext(split[i]);
                 Component.text += " ";
             }
 
             Component.text = text;
-                
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+            _onTextDialogFillCompleted?.OnNext(text);
+
             yield return new WaitForSeconds(time);
-            _onTextDialogCompleted?.OnNext(text);
+            _onTextDialogReadCompleted?.OnNext(text);
 
             _running = null;
         }

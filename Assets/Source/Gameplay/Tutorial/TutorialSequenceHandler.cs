@@ -11,9 +11,7 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 using Zenject;
-using Random = UnityEngine.Random;
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -46,7 +44,6 @@ namespace TilesWalk.Gameplay.Tutorial
         private Canvas _overlayCanvas;
         private List<string> _currentPhrases;
         private IDisposable _clickDispose;
-
 
         public TutorialCanvas Canvas
         {
@@ -99,7 +96,7 @@ namespace TilesWalk.Gameplay.Tutorial
         private string _sequenceId;
 
         [SerializeField] private string _stepId;
-        [SerializeField] private RectTransform _highlight;
+        [SerializeField] private List<RectTransform> _highlight;
 
 
         [Button(enabledMode: EButtonEnableMode.Editor)]
@@ -125,20 +122,23 @@ namespace TilesWalk.Gameplay.Tutorial
             step.CharacterPosition = _tileCharacter.transform.parent.localPosition;
             step.Message = Canvas.DialogContent.Component.text;
             step.UseBackground = Canvas.Background.isActiveAndEnabled;
-            step.Highlight = _highlight != null;
+            step.Highlight = _highlight != null && _highlight.Count > 0;
 
             if (indexOf < 0) sequence.Steps.Add(step);
 
-            if (step.Highlight && _highlight != null)
+            if (step.Highlight && _highlight != null && _highlight.Count > 0)
             {
-                var identifier = _highlight.gameObject.GetComponent<UIElementIdentifier>();
-
-                if (identifier == null)
+                foreach (var rectTransform in _highlight)
                 {
-                    identifier = _highlight.gameObject.AddComponent<UIElementIdentifier>();
-                }
+                    var identifier = rectTransform.GetComponent<UIElementIdentifier>();
 
-                step.Identifier = identifier.Identifier;
+                    if (identifier == null)
+                    {
+                        identifier = rectTransform.gameObject.AddComponent<UIElementIdentifier>();
+                    }
+
+                    step.Identifiers.Add(identifier.Identifier);
+                }
             }
 
             if (tutorials != null)
@@ -245,24 +245,14 @@ namespace TilesWalk.Gameplay.Tutorial
                 if (step.Highlight)
                 {
                     // find ui element
-                    if (!UIElementIdentifier.Registered.TryGetValue(step.Identifier, out var identifier))
-                    {
-                        Debug.LogWarning($"Couldn't find the UIElement with the given id {step.Identifier}");
-                    }
-                    else
-                    {
-                        HandleHighlight(step, identifier);
-                    }
-
-                    // handles multiple highlights
                     if (step.Identifiers != null && step.Identifiers.Count > 0)
                     {
                         foreach (var stepIdentifier in step.Identifiers)
                         {
                             // find ui element
-                            if (!UIElementIdentifier.Registered.TryGetValue(stepIdentifier, out identifier))
+                            if (!UIElementIdentifier.Registered.TryGetValue(stepIdentifier, out var identifier))
                             {
-                                Debug.LogWarning($"Couldn't find the UIElement with the given id {step.Identifier}");
+                                Debug.LogWarning($"Couldn't find the UIElement with the given id {stepIdentifier}");
                             }
                             else
                             {
@@ -289,6 +279,45 @@ namespace TilesWalk.Gameplay.Tutorial
                 if (!_tileCharacter.gameObject.activeInHierarchy)
                 {
                     _tileCharacter.ToggleGesture(TutorialTileCharacter.Gestures.Appear);
+                }
+
+                if (step.PlayGesture != TutorialTileCharacter.Gestures.None)
+                {
+                    // play at the beginning
+                    if (step.GestureAtWord == "#")
+                    {
+                        TileCharacter.ToggleGesture(step.PlayGesture);
+                    }
+
+                    // play at the end
+                    else if (step.GestureAtWord == "$")
+                    {
+                        _canvas.DialogContent.OnTextDialogFillCompletedAsObservable().Take(1).Subscribe(s =>
+                        {
+                            TileCharacter.ToggleGesture(step.PlayGesture);
+                        }).AddTo(this);
+                    }
+
+                    else if (step.GestureAtWord != string.Empty)
+                    {
+                        _canvas.DialogContent.OnWordCompletedAsObservable()
+                            .TakeUntil(_canvas.DialogContent.OnWordCompletedAsObservable())
+                            .Subscribe(s =>
+                        {
+                            if (s == step.GestureAtWord)
+                            {
+                                TileCharacter.ToggleGesture(step.PlayGesture);
+                            }
+                        }).AddTo(this);
+                    }
+                }
+
+                if (step.ShowDialogActions)
+                {
+                    _canvas.DialogContent.OnTextDialogFillCompletedAsObservable().Take(1).Subscribe(s =>
+                    {
+                        _canvas.DialogActions.Show();
+                    }).AddTo(this);
                 }
 
                 _onStepSetupCompleted?.OnNext(step);
@@ -329,7 +358,7 @@ namespace TilesWalk.Gameplay.Tutorial
 
                 if (step.Interactable)
                 {
-                    var raycaster = instance.gameObject.AddComponent<GraphicRaycaster>();
+                    instance.gameObject.AddComponent<GraphicRaycaster>();
                 }
 
                 _copiedElement.Add(instance);
@@ -371,25 +400,12 @@ namespace TilesWalk.Gameplay.Tutorial
                 }
 
                 // find ui element
-                if (UIElementIdentifier.Registered.TryGetValue(prevStep.Identifier, out var identifier))
-                {
-                    if (!prevStep.BringToFront)
-                    {
-                        var shadow = identifier.GetComponentInChildren<UIShadow>();
-                        shadow.enabled = false;
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning($"Couldn't find the UIElement with the given id {prevStep.Identifier}");
-                }
-
                 if (prevStep.Identifiers != null && prevStep.Identifiers.Count > 0)
                 {
                     foreach (var stepIdentifier in prevStep.Identifiers)
                     {
                         // find ui element
-                        if (UIElementIdentifier.Registered.TryGetValue(stepIdentifier, out identifier))
+                        if (UIElementIdentifier.Registered.TryGetValue(stepIdentifier, out var identifier))
                         {
                             if (!prevStep.BringToFront)
                             {
@@ -399,7 +415,7 @@ namespace TilesWalk.Gameplay.Tutorial
                         }
                         else
                         {
-                            Debug.LogWarning($"Couldn't find the UIElement with the given id {prevStep.Identifier}");
+                            Debug.LogWarning($"Couldn't find the UIElement with the given id {stepIdentifier}");
                         }
                     }
                 }
@@ -421,28 +437,6 @@ namespace TilesWalk.Gameplay.Tutorial
             if (_currentSequence.HideCharacterAfter)
             {
                 _tileCharacter.ToggleGesture(TutorialTileCharacter.Gestures.Dissapear);
-            }
-            else
-            {
-                if (_currentSequence.PossiblePhrases != null && _currentSequence.PossiblePhrases.Count > 0)
-                {
-                    Canvas.Background.gameObject.SetActive(false);
-                    _currentPhrases = new List<string>(_currentSequence.PossiblePhrases);
-
-                    if (_runningCoroutine != null)
-                    {
-                        StopCoroutine(_runningCoroutine);
-                    }
-
-                    _runningCoroutine = StartCoroutine(MoveCharacter(_currentSequence.LastPosition));
-
-                    _clickDispose = _tileCharacter.OnTileCharacterClickedAsObservable().Subscribe(character =>
-                    {
-                        Canvas.DialogContent.ChangeText(_currentPhrases[Random.Range(0, _currentPhrases.Count)], 2f);
-                        Canvas.Show();
-                        Canvas.DialogContent.OnTextDialogCompletedAsObservable().Take(1).Subscribe(done => { Canvas.Hide(); });
-                    }).AddTo(this);
-                }
             }
 
             _currentSequence = null;

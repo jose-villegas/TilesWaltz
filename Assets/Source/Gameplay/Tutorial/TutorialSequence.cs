@@ -16,16 +16,11 @@ namespace TilesWalk.Gameplay.Tutorial
         [SerializeField] private bool _hideCharacterAfter;
 
         [SerializeField, HideIf("_hideCharacterAfter")]
-        private List<string> _possiblePhrases;
-
-        [SerializeField, HideIf("_hideCharacterAfter")]
         private Vector3 _lastPosition;
 
         public string SequenceId => _sequenceId;
 
         public List<TutorialStep> Steps => _steps;
-
-        public List<string> PossiblePhrases => _possiblePhrases;
 
         public bool HideCharacterAfter => _hideCharacterAfter;
 
