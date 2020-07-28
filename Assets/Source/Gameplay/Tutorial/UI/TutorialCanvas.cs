@@ -16,6 +16,7 @@ namespace TilesWalk.Gameplay.Tutorial.UI
         [Inject] private TutorialSequenceHandler _handler;
 
         [SerializeField] private Image _background;
+        [SerializeField] private RectTransform _contentContainer;
 
         /// <summary>
         /// The dialog box for the tutorial
@@ -65,6 +66,8 @@ namespace TilesWalk.Gameplay.Tutorial.UI
         /// This canvas contains input actions for the dialog canvas
         /// </summary>
         public CanvasGroupBehaviour DialogActions => _dialogActions;
+
+        public RectTransform ContentContainer => _contentContainer;
 
         /// <summary>
         /// This configures and shows the <see cref="DialogActions"/> canvas
