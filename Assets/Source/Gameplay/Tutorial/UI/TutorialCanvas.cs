@@ -45,6 +45,17 @@ namespace TilesWalk.Gameplay.Tutorial.UI
         [SerializeField] private RectTransform _tailArea;
 
         /// <summary>
+        /// Registers clicks to the dialog container
+        /// </summary>
+        [SerializeField] private Button _dialogButton;
+
+        /// <summary>
+        /// This small canvas contains a label advising the user to
+        /// tap to continue
+        /// </summary>
+        [SerializeField] private CanvasGroupBehaviour _tapToContinueCanvas;
+
+        /// <summary>
         /// This canvas contains input actions for the dialog canvas
         /// </summary>
         [Header("Actions")] [SerializeField] private CanvasGroupBehaviour _dialogActions;
@@ -68,6 +79,17 @@ namespace TilesWalk.Gameplay.Tutorial.UI
         public CanvasGroupBehaviour DialogActions => _dialogActions;
 
         public RectTransform ContentContainer => _contentContainer;
+
+        /// <summary>
+        /// Registers clicks to the dialog container
+        /// </summary>
+        public Button DialogButton => _dialogButton;
+
+        /// <summary>
+        /// This small canvas contains a label advising the user to
+        /// tap to continue
+        /// </summary>
+        public CanvasGroupBehaviour TapToContinueCanvas => _tapToContinueCanvas;
 
         /// <summary>
         /// This configures and shows the <see cref="DialogActions"/> canvas

@@ -319,6 +319,13 @@ namespace TilesWalk.Gameplay.Tutorial
                         _canvas.DialogActions.Show();
                     }).AddTo(this);
                 }
+                else
+                {
+                    if (Canvas.DialogActions.IsVisible)
+                    {
+                        _canvas.DialogActions.Hide();
+                    }
+                }
 
                 _onStepSetupCompleted?.OnNext(step);
                 _currentStepIndex++;

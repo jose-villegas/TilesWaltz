@@ -163,5 +163,27 @@ MonoBehaviour:
       _playGesture: 0
       gestureAtWord: '#'
       _showDialogActions: 1
+    - _stepId: Intro.Level.2
+      _message: Click on the tiles to move them around!
+      _characterPosition: {x: 95, y: -185, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+      _playGesture: 0
+      gestureAtWord: '#'
+      _showDialogActions: 0
+    - _stepId: Intro.Level.3
+      _message: When three or more of the same color are together you get a combo!
+      _characterPosition: {x: 95, y: -185, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+      _playGesture: 0
+      gestureAtWord: '#'
+      _showDialogActions: 0
     _hideCharacterAfter: 1
     _lastPosition: {x: 0, y: 0, z: 0}

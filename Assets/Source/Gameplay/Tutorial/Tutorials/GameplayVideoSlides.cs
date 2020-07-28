@@ -12,63 +12,37 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
     public class GameplayVideoSlides : ObservableTriggerBase
     {
         [SerializeField] private Button _nextButton;
-        [SerializeField] private Button _previousButton;
         [SerializeField] private CanvasGroupBehaviour _slideContainer;
         [SerializeField] private VideoPlayer _videoPlayer;
 
         [Header("Content")] [SerializeField] private List<VideoClip> _clips;
 
         private Subject<int> _onNextButtonClick;
-        private Subject<int> _onPreviousButtonClick;
         private int _currentIndex;
 
         public VideoPlayer Player => _videoPlayer;
+
+        public Button NextButton => _nextButton;
 
         public IObservable<int> OnNextButtonClickAsObservable()
         {
             return _onNextButtonClick = _onNextButtonClick == null ? new Subject<int>() : _onNextButtonClick;
         }
 
-        public IObservable<int> OnPreviousButtonClickAsObservable()
-        {
-            return _onPreviousButtonClick =
-                _onPreviousButtonClick == null ? new Subject<int>() : _onPreviousButtonClick;
-        }
-
         protected override void RaiseOnCompletedOnDestroy()
         {
-            _onPreviousButtonClick?.OnCompleted();
             _onNextButtonClick?.OnCompleted();
         }
 
         private void Awake()
         {
             _nextButton.onClick.AsObservable().Subscribe(OnNext);
-            _previousButton.onClick.AsObservable().Subscribe(OnPrevious);
         }
 
         private void Start()
         {
             var clip = _clips[_currentIndex];
             _videoPlayer.clip = clip;
-        }
-
-        private void OnPrevious(Unit unit)
-        {
-            _currentIndex -= 1;
-
-            if (_currentIndex <= 0)
-            {
-                _previousButton.interactable = false;
-            }
-            else
-            {
-                _previousButton.interactable = true;
-            }
-
-            ShowNextClip();
-
-            _onPreviousButtonClick?.OnNext(_currentIndex);
         }
 
         private void OnNext(Unit unit)
@@ -100,6 +74,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
             }).AddTo(this);
 
             _slideContainer.Hide();
+            _videoPlayer.Pause();
         }
     }
 }

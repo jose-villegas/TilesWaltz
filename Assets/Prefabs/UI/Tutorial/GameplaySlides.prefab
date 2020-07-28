@@ -45,6 +45,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8002654652085528774}
+  - component: {fileID: 1608962799382434664}
   m_Layer: 31
   m_Name: GameplaySlides
   m_TagString: Untagged
@@ -74,6 +75,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1608962799382434664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2181204763367238018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c85f09f09d1c845beb9ca2f72c03bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nextButton: {fileID: 294274782418435253}
+  _previousButton: {fileID: 2974425696945950319}
+  _slideContainer: {fileID: 3965815252868098933}
+  _videoPlayer: {fileID: 3684471172371634301}
+  _clips:
+  - {fileID: 32900000, guid: 4b0768f1bbed98148969fb7ba59c3264, type: 3}
+  - {fileID: 32900000, guid: 9be6f01b7b8c6214eb522055441e140e, type: 3}
 --- !u!1 &2497207316779943101
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,6 +290,8 @@ GameObject:
   - component: {fileID: 2964167554914806739}
   - component: {fileID: 5831567493449949713}
   - component: {fileID: 1780491412399934502}
+  - component: {fileID: 8516491598274191740}
+  - component: {fileID: 3965815252868098933}
   m_Layer: 5
   m_Name: VideoContainer
   m_TagString: Untagged
@@ -349,6 +371,45 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &8516491598274191740
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3432691140556172512}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &3965815252868098933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3432691140556172512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16582c5b9d001c24ab05e0de7ae28f06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animate: 0
+  _animationTime: 0.1
+  _enterDirection: {x: 1, y: 0}
+  _exitDirection: {x: -1, y: 0}
+  _onCanvasShown:
+    m_PersistentCalls:
+      m_Calls: []
+  _onCanvasHidden:
+    m_PersistentCalls:
+      m_Calls: []
+  _triggerGameEvents: 0
+  _showTriggersPause: 0
+  _showTriggersResume: 0
+  _hideTriggersPause: 0
+  _hideTriggersResume: 0
 --- !u!1 &4159091988372552576
 GameObject:
   m_ObjectHideFlags: 0
