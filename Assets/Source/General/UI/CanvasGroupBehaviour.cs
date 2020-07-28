@@ -103,9 +103,9 @@ namespace TilesWalk.General.UI
 
 			yield return null;
 
-			_onCanvasHidden?.Invoke();
-			_onHide?.OnNext(new Unit());
 			_animationCoroutine = null;
+            _onCanvasHidden?.Invoke();
+			_onHide?.OnNext(new Unit());
 		}
 
 		private IEnumerator ShowAnimation()
@@ -132,9 +132,9 @@ namespace TilesWalk.General.UI
 
 			yield return null;
 
-			_onCanvasShown?.Invoke();
-			_onShow?.OnNext(new Unit());
 			_animationCoroutine = null;
+            _onCanvasShown?.Invoke();
+            _onShow?.OnNext(new Unit());
 		}
 
 		public virtual void Hide()
