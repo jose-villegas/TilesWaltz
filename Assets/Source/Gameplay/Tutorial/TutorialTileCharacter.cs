@@ -16,7 +16,8 @@ namespace TilesWalk.Gameplay.Tutorial
             Orbit,
             PointRight,
             Appear,
-            Dissapear
+            Dissapear,
+            ShowPath
         }
 
         private Subject<TutorialTileCharacter> _onTileCharacterClicked;
@@ -78,6 +79,9 @@ namespace TilesWalk.Gameplay.Tutorial
                     break;
                 case Gestures.Dissapear:
                     Animator.SetTrigger("Dissapear");
+                    break;
+                case Gestures.ShowPath:
+                    Animator.SetTrigger("ShowPath");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gesture), gesture, null);

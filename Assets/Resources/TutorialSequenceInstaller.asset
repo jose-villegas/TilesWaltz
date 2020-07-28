@@ -182,6 +182,28 @@ MonoBehaviour:
       _identifiers: 
       _bringToFront: 0
       _interactable: 0
+      _playGesture: 2
+      gestureAtWord: $
+      _showDialogActions: 0
+    - _stepId: Intro.Level.4
+      _message: The little dots serve as a guide to know which tiles will move!
+      _characterPosition: {x: 85, y: -185, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+      _playGesture: 8
+      gestureAtWord: '#'
+      _showDialogActions: 0
+    - _stepId: Intro.Level.5
+      _message: When you feel ready you can disable them in the options! It's faster!
+      _characterPosition: {x: 85, y: -185, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
       _playGesture: 0
       gestureAtWord: '#'
       _showDialogActions: 0

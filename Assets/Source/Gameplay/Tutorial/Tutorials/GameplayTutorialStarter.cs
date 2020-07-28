@@ -1,4 +1,5 @@
-﻿using TilesWalk.General.Patterns;
+﻿using System;
+using TilesWalk.General.Patterns;
 using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -46,7 +47,6 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                 var instance = _container.InstantiatePrefab(_sliders, content.transform);
 
                 _slidersInstance = instance.GetComponent<GameplayVideoSlides>();
-                _slidersInstance.NextButton.interactable = false;
                 _slidersInstance.Player.prepareCompleted += OnVideoPrepareCompleted;
             }
 
@@ -55,20 +55,94 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
             _handler.NextStep();
 
             // enable dialog click after text is completed
-            _handler.Canvas.DialogContent.OnTextDialogFillCompletedAsObservable()
+            var waitForFill = _handler.Canvas.DialogContent.OnTextDialogFillCompletedAsObservable()
                 .Take(1).Subscribe(s => { _handler.Canvas.DialogButton.interactable = true; }).AddTo(this);
 
             // advise the user to tap after reading
-            _handler.Canvas.DialogContent.OnTextDialogReadCompletedAsObservable()
+            var waitForRead = _handler.Canvas.DialogContent.OnTextDialogReadCompletedAsObservable()
                 .Take(1).Subscribe(s => { _handler.Canvas.TapToContinueCanvas.Show(); }).AddTo(this);
 
             // configure so click shows the next step
-            _handler.Canvas.DialogButton.onClick.AsObservable()
-                .Take(1).Subscribe(unit =>
+            _handler.Canvas.DialogButton.onClick.AsObservable().Take(1).Subscribe(_ =>
+            {
+                waitForFill?.Dispose();
+                waitForRead?.Dispose();
+                ComboTutorial();
+            }).AddTo(this);
+        }
+
+        private void ComboTutorial()
+        {
+            _handler.Canvas.DialogButton.interactable = false;
+            _handler.Canvas.TapToContinueCanvas.Hide();
+            _handler.NextStep();
+
+            // enable dialog click after text is completed
+            var waitForFill = _handler.Canvas.DialogContent.OnTextDialogFillCompletedAsObservable()
+                .Take(1).Subscribe(s => { _handler.Canvas.DialogButton.interactable = true; }).AddTo(this);
+
+            // advise the user to tap after reading
+            var waitForRead = _handler.Canvas.DialogContent.OnTextDialogReadCompletedAsObservable()
+                .Take(1).Subscribe(s => { _handler.Canvas.TapToContinueCanvas.Show(); }).AddTo(this);
+
+            // configure so click shows the next step
+            _handler.Canvas.DialogButton.onClick.AsObservable().Take(1).Subscribe(_ =>
+            {
+                waitForFill?.Dispose();
+                waitForRead?.Dispose();
+                GuidesTutorial();
+            }).AddTo(this);
+        }
+
+        private void GuidesTutorial()
+        {
+            _handler.Canvas.DialogButton.interactable = false;
+            _handler.Canvas.TapToContinueCanvas.Hide();
+            _handler.NextStep();
+
+            // enable dialog click after text is completed
+            var waitForFill = _handler.Canvas.DialogContent.OnTextDialogFillCompletedAsObservable()
+                .Take(1).Subscribe(s =>
                 {
-                    _handler.Canvas.TapToContinueCanvas.Hide();
-                    _handler.NextStep();
+                    _handler.Canvas.DialogButton.interactable = true;
                 }).AddTo(this);
+
+            // advise the user to tap after reading
+            var waitForRead = _handler.Canvas.DialogContent.OnTextDialogReadCompletedAsObservable()
+                .Take(1).Subscribe(s => { _handler.Canvas.TapToContinueCanvas.Show(); }).AddTo(this);
+
+            // configure so click shows the next step
+            _handler.Canvas.DialogButton.onClick.AsObservable().Take(1).Subscribe(_ =>
+            {
+                waitForFill?.Dispose();
+                waitForRead?.Dispose();
+                DisabledGuidesTutorial();
+            }).AddTo(this);
+        }
+
+        private void DisabledGuidesTutorial()
+        {
+            _handler.Canvas.DialogButton.interactable = false;
+            _handler.Canvas.TapToContinueCanvas.Hide();
+            _handler.NextStep();
+
+            // show next clip
+            _slidersInstance.NextClip();
+
+            //// enable dialog click after text is completed
+            //var waitForFill = _handler.Canvas.DialogContent.OnTextDialogFillCompletedAsObservable()
+            //    .Take(1).Subscribe(s => { _handler.Canvas.DialogButton.interactable = true; }).AddTo(this);
+
+            //// advise the user to tap after reading
+            //var waitForRead = _handler.Canvas.DialogContent.OnTextDialogReadCompletedAsObservable()
+            //    .Take(1).Subscribe(s => { _handler.Canvas.TapToContinueCanvas.Show(); }).AddTo(this);
+
+            //// configure so click shows the next step
+            //_handler.Canvas.DialogButton.onClick.AsObservable().Take(1).Subscribe(_ =>
+            //{
+            //    waitForFill?.Dispose();
+            //    waitForRead?.Dispose();
+            //}).AddTo(this);
         }
 
         private void OnVideoPrepareCompleted(VideoPlayer source)
