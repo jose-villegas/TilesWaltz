@@ -3,6 +3,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 using Zenject;
 
 namespace TilesWalk.Gameplay.Tutorial.Tutorials
@@ -46,7 +47,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
 
                 _slidersInstance = instance.GetComponent<GameplayVideoSlides>();
                 _slidersInstance.NextButton.interactable = false;
-                _slidersInstance.Player.Play();
+                _slidersInstance.Player.prepareCompleted += OnVideoPrepareCompleted;
             }
 
             _handler.Canvas.DialogButton.interactable = false;
@@ -68,6 +69,11 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                     _handler.Canvas.TapToContinueCanvas.Hide();
                     _handler.NextStep();
                 }).AddTo(this);
+        }
+
+        private void OnVideoPrepareCompleted(VideoPlayer source)
+        {
+            source.Play();
         }
 
         public override void FinishSequence()

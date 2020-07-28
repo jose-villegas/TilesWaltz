@@ -43,6 +43,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
         {
             var clip = _clips[_currentIndex];
             _videoPlayer.clip = clip;
+            _videoPlayer.Prepare();
         }
 
         private void OnNext(Unit unit)
@@ -69,12 +70,13 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
 
             _slideContainer.OnHideAsObservable().Take(1).Subscribe(unit1 =>
             {
+                _videoPlayer.Stop();
                 _videoPlayer.clip = nextClip;
+                _videoPlayer.Prepare();
                 _slideContainer.Show();
             }).AddTo(this);
 
             _slideContainer.Hide();
-            _videoPlayer.Pause();
         }
     }
 }
