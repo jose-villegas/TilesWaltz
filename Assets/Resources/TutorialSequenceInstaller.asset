@@ -200,9 +200,9 @@ MonoBehaviour:
       _message: When you feel ready you can disable them in the options! It's faster!
       _characterPosition: {x: 85, y: -185, z: -25}
       _useBackground: 1
-      _highlight: 0
-      _identifiers: 
-      _bringToFront: 0
+      _highlight: 1
+      _identifiers: 02c9edff
+      _bringToFront: 1
       _interactable: 0
       _playGesture: 0
       gestureAtWord: '#'

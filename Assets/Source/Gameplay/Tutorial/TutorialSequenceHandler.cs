@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Coffee.UIExtensions;
 using NaughtyAttributes;
+using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Animation;
 using TilesWalk.Gameplay.Tutorial.UI;
 using TilesWalk.General.UI;
@@ -303,12 +304,12 @@ namespace TilesWalk.Gameplay.Tutorial
                         _canvas.DialogContent.OnWordCompletedAsObservable()
                             .TakeUntil(_canvas.DialogContent.OnWordCompletedAsObservable())
                             .Subscribe(s =>
-                        {
-                            if (s == step.GestureAtWord)
                             {
-                                TileCharacter.ToggleGesture(step.PlayGesture);
-                            }
-                        }).AddTo(this);
+                                if (s == step.GestureAtWord)
+                                {
+                                    TileCharacter.ToggleGesture(step.PlayGesture);
+                                }
+                            }).AddTo(this);
                     }
                 }
 
@@ -342,11 +343,31 @@ namespace TilesWalk.Gameplay.Tutorial
             {
                 // first copy the object on our canvas
                 var instance = Instantiate(identifier.gameObject, Canvas.Background.transform);
-                instance.transform.localPosition = identifier.transform.localPosition;
+
                 var rectTransform = instance.GetComponent<RectTransform>();
                 var srcRectTransform = identifier.GetComponent<RectTransform>();
+                var srcCanvas = identifier.GetComponentInParent<Canvas>();
+
+                // put the clone anchors to the bottom-left corner
+                rectTransform.anchorMax = Vector2.zero;
+                rectTransform.anchorMin = Vector2.zero;
+                rectTransform.pivot = Vector2.up;
+                // copy size
                 rectTransform.sizeDelta = srcRectTransform.sizeDelta;
 
+                if (srcCanvas != null)
+                {
+                    var screenPoint =
+                        RectTransformUtility.WorldToScreenPoint(srcCanvas.worldCamera, identifier.transform.position);
+
+                    rectTransform.anchoredPosition = new Vector2
+                    (
+                        screenPoint.x - rectTransform.sizeDelta.x / 2f,
+                        screenPoint.y + rectTransform.sizeDelta.y / 2f
+                    );
+                }
+
+                // copy layer as we will be rendering on top
                 instance.layer = gameObject.layer;
 
                 // first add highlight, first the first graphic component
