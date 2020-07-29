@@ -354,26 +354,10 @@ namespace TilesWalk.Gameplay.Tutorial
 
                 var rectTransform = instance.GetComponent<RectTransform>();
                 var srcRectTransform = identifier.GetComponent<RectTransform>();
-                var srcCanvas = identifier.GetComponentInParent<Canvas>();
 
-                // put the clone anchors to the bottom-left corner
-                rectTransform.anchorMax = Vector2.zero;
-                rectTransform.anchorMin = Vector2.zero;
-                rectTransform.pivot = Vector2.up;
-                // copy size
+                // copy values
                 rectTransform.sizeDelta = srcRectTransform.sizeDelta;
-
-                if (srcCanvas != null)
-                {
-                    var screenPoint =
-                        RectTransformUtility.WorldToScreenPoint(srcCanvas.worldCamera, identifier.transform.position);
-
-                    rectTransform.anchoredPosition = new Vector2
-                    (
-                        screenPoint.x - rectTransform.sizeDelta.x / 2f,
-                        screenPoint.y + rectTransform.sizeDelta.y / 2f
-                    );
-                }
+                rectTransform.anchoredPosition = srcRectTransform.anchoredPosition;
 
                 // copy layer as we will be rendering on top
                 instance.layer = gameObject.layer;
