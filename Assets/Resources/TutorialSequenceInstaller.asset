@@ -187,7 +187,7 @@ MonoBehaviour:
       _showDialogActions: 0
     - _stepId: Intro.Level.4
       _message: The little dots serve as a guide to know which tiles will move!
-      _characterPosition: {x: 85, y: -185, z: -25}
+      _characterPosition: {x: 0, y: -185, z: -25}
       _useBackground: 1
       _highlight: 0
       _identifiers: 
@@ -198,13 +198,49 @@ MonoBehaviour:
       _showDialogActions: 0
     - _stepId: Intro.Level.5
       _message: When you feel ready you can disable them in the options! It's faster!
-      _characterPosition: {x: 85, y: -185, z: -25}
+      _characterPosition: {x: -65, y: -195, z: -25}
       _useBackground: 1
       _highlight: 1
       _identifiers: 02c9edff
       _bringToFront: 1
       _interactable: 0
-      _playGesture: 0
+      _playGesture: 3
+      gestureAtWord: '%'
+      _showDialogActions: 0
+    - _stepId: Intro.Level.6
+      _message: Combine four in a straight line to get a power up that clears tiles
+        in line!
+      _characterPosition: {x: -35, y: -185, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+      _playGesture: 2
+      gestureAtWord: $
+      _showDialogActions: 0
+    - _stepId: Intro.Level.7
+      _message: Combine 5 to get a power up that removes all the tiles that match
+        a color!
+      _characterPosition: {x: -35, y: -185, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+      _playGesture: 2
+      gestureAtWord: $
+      _showDialogActions: 0
+    - _stepId: Intro.Level.8
+      _message: And that's it! Are you ready for the challenge? Tap again to finish
+        the tutorial.
+      _characterPosition: {x: 0, y: -185, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+      _playGesture: 4
       gestureAtWord: '#'
       _showDialogActions: 0
     _hideCharacterAfter: 1

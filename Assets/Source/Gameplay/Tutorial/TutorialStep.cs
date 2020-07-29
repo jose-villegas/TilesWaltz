@@ -20,7 +20,7 @@ namespace TilesWalk.Gameplay.Tutorial
 
         [Header("Animation")] [SerializeField] private TutorialTileCharacter.Gestures _playGesture;
 
-        [SerializeField, Tooltip("Use $ for at end of dialogue, # for just at the beginning")]
+        [SerializeField, Tooltip("Use $ for at end of dialogue, # for just at the beginning, % for after movement completed")]
         private string gestureAtWord;
 
         [Header("Required Input")] [SerializeField]

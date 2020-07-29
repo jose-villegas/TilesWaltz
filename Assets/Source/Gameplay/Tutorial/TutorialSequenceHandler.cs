@@ -186,8 +186,9 @@ namespace TilesWalk.Gameplay.Tutorial
 
             while (t < _animation.CharacterMovementTime)
             {
-                _tileCharacter.transform.parent.localPosition = Vector3.Lerp(source, target, t);
-                t += Time.deltaTime / _animation.CharacterMovementTime;
+                _tileCharacter.transform.parent.localPosition =
+                    Vector3.Lerp(source, target, t / _animation.CharacterMovementTime);
+                t += Time.deltaTime;
                 yield return null;
             }
 
@@ -294,6 +295,13 @@ namespace TilesWalk.Gameplay.Tutorial
                     else if (step.GestureAtWord == "$")
                     {
                         _canvas.DialogContent.OnTextDialogFillCompletedAsObservable().Take(1).Subscribe(s =>
+                        {
+                            TileCharacter.ToggleGesture(step.PlayGesture);
+                        }).AddTo(this);
+                    }
+                    else if (step.GestureAtWord == "%")
+                    {
+                        OnCharacterMovementCompletedAsObservable().Take(1).Subscribe(s =>
                         {
                             TileCharacter.ToggleGesture(step.PlayGesture);
                         }).AddTo(this);
