@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8002654652085528774}
   - component: {fileID: 1608962799382434664}
   m_Layer: 31
-  m_Name: GameplaySlides
+  m_Name: LevelMakerSlides
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,10 +52,7 @@ MonoBehaviour:
   _slideContainer: {fileID: 3965815252868098933}
   _videoPlayer: {fileID: 3684471172371634301}
   _clips:
-  - {fileID: 32900000, guid: 1d06c8e23c7b81141b342c7b335d6b65, type: 3}
-  - {fileID: 32900000, guid: 4a8a12915d6a4ec4088c40b1b99ec976, type: 3}
-  - {fileID: 32900000, guid: fd05ce695c2a8274fb1941574d1c0e7b, type: 3}
-  - {fileID: 32900000, guid: a32ea67f76a350d418b74c23b04c4480, type: 3}
+  - {fileID: 32900000, guid: c323248b310b261439ae0373e5af43e7, type: 3}
 --- !u!1 &2827923177564888313
 GameObject:
   m_ObjectHideFlags: 0

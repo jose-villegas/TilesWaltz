@@ -9,22 +9,8 @@ using Zenject;
 
 namespace TilesWalk.Gameplay.Tutorial.Tutorials
 {
-    [RequireComponent(typeof(Button))]
     public class GameplayTutorialStarter : TutorialSequencePlayer
     {
-        [Inject] private DiContainer _container;
-
-        [SerializeField] private GameplayVideoSlides _sliders;
-
-        private GameplayVideoSlides _slidersInstance;
-
-        private void Awake()
-        {
-            var button = GetComponent<Button>();
-
-            button.onClick.AsObservable().Subscribe(unit => PlaySequence()).AddTo(this);
-        }
-
         public override void PlaySequence()
         {
             _handler.SetupForSequence("Intro.Level");
@@ -42,13 +28,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
         {
             var content = _handler.Canvas.ContentContainer;
 
-            if (_slidersInstance == null)
-            {
-                var instance = _container.InstantiatePrefab(_sliders, content.transform);
-
-                _slidersInstance = instance.GetComponent<GameplayVideoSlides>();
-                _slidersInstance.Player.prepareCompleted += OnVideoPrepareCompleted;
-            }
+            InstanceTutorialVideoSlider(content);
 
             _handler.Canvas.DialogButton.interactable = false;
             // the intro is made of two steps
@@ -124,7 +104,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
             _handler.NextStep();
 
             // show next clip
-            _slidersInstance.NextClip();
+            SlidersInstance.NextClip();
 
             // enable dialog click after text is completed
             var waitForFill = _handler.Canvas.DialogContent.OnTextDialogFillCompletedAsObservable()
@@ -150,7 +130,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
             _handler.NextStep();
 
             // show next clip
-            _slidersInstance.NextClip();
+            SlidersInstance.NextClip();
 
             // enable dialog click after text is completed
             var waitForFill = _handler.Canvas.DialogContent.OnTextDialogFillCompletedAsObservable()
@@ -176,7 +156,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
             _handler.NextStep();
 
             // show next clip
-            _slidersInstance.NextClip();
+            SlidersInstance.NextClip();
 
             // enable dialog click after text is completed
             var waitForFill = _handler.Canvas.DialogContent.OnTextDialogFillCompletedAsObservable()
@@ -193,11 +173,6 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
                 waitForRead?.Dispose();
                 FinishSequence();
             }).AddTo(this);
-        }
-
-        private void OnVideoPrepareCompleted(VideoPlayer source)
-        {
-            source.Play();
         }
 
         public override void FinishSequence()

@@ -6,7 +6,7 @@ using UnityEngine.Video;
 
 namespace TilesWalk.Gameplay.Tutorial.Tutorials
 {
-    public class GameplayVideoSlides : MonoBehaviour
+    public class TutorialVideoSlides : MonoBehaviour
     {
         [SerializeField] private CanvasGroupBehaviour _slideContainer;
         [SerializeField] private VideoPlayer _videoPlayer;

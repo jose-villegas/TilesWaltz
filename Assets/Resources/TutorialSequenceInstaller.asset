@@ -15,9 +15,9 @@ MonoBehaviour:
   _gameTutorials:
   - _sequenceId: Intro.LevelMaker
     _steps:
-    - _stepId: Intro.1
-      _message: This is the map maker, here you can get creative!
-      _characterPosition: {x: -84.7, y: -126.3, z: -25}
+    - _stepId: Intro.LevelMaker.1
+      _message: Do you want to see the level editor tutorial?
+      _characterPosition: {x: 95, y: -185, z: -25}
       _useBackground: 1
       _highlight: 0
       _identifiers: 
@@ -25,128 +25,18 @@ MonoBehaviour:
       _interactable: 0
       _playGesture: 0
       gestureAtWord: 
-      _showDialogActions: 0
-    - _stepId: Intro.2
-      _message: Clicking these buttons will create a new "ghost" tile.
-      _characterPosition: {x: -84.7, y: -126.3, z: -25}
-      _useBackground: 0
-      _highlight: 1
-      _identifiers: 10f9e6ff0af9e6ff0ef9e6ff0cf9e6ff
-      _bringToFront: 0
-      _interactable: 0
-      _playGesture: 0
-      gestureAtWord: 
-      _showDialogActions: 0
-    - _stepId: Intro.3
-      _message: Each button represents a direction.
-      _characterPosition: {x: -84.7, y: -126.3, z: -25}
-      _useBackground: 0
+      _showDialogActions: 1
+    - _stepId: Intro.LevelMaker.2
+      _message: In the level editor you can make your own maps, you can also share
+        these maps with others!
+      _characterPosition: {x: 85, y: -185, z: -25}
+      _useBackground: 1
       _highlight: 0
       _identifiers: 
       _bringToFront: 0
       _interactable: 0
-      _playGesture: 0
-      gestureAtWord: 
-      _showDialogActions: 0
-    - _stepId: Intro.4
-      _message: See that the colors match with the arrows on the selected tile.
-      _characterPosition: {x: -51, y: 20, z: -25}
-      _useBackground: 0
-      _highlight: 0
-      _identifiers: 
-      _bringToFront: 0
-      _interactable: 0
-      _playGesture: 0
-      gestureAtWord: 
-      _showDialogActions: 0
-    - _stepId: Intro.5
-      _message: These control the orientation of the tile. They can go up, or down.
-      _characterPosition: {x: -91, y: -129, z: -25}
-      _useBackground: 0
-      _highlight: 1
-      _identifiers: d8f3e6ffdaf3e6ffd6f3e6ff
-      _bringToFront: 0
-      _interactable: 0
-      _playGesture: 0
-      gestureAtWord: 
-      _showDialogActions: 0
-    - _stepId: Intro.6
-      _message: Confirm your insertion by clicking this!
-      _characterPosition: {x: 75, y: -167, z: -25}
-      _useBackground: 0
-      _highlight: 1
-      _identifiers: 
-      _bringToFront: 0
-      _interactable: 0
-      _playGesture: 0
-      gestureAtWord: 
-      _showDialogActions: 0
-    - _stepId: Intro.7
-      _message: Clicking the same direction twice works too.
-      _characterPosition: {x: -51, y: 20, z: -25}
-      _useBackground: 0
-      _highlight: 0
-      _identifiers: 
-      _bringToFront: 0
-      _interactable: 0
-      _playGesture: 0
-      gestureAtWord: 
-      _showDialogActions: 0
-    - _stepId: Intro.8
-      _message: Or clicking over the ghost tile!
-      _characterPosition: {x: -51, y: 20, z: -25}
-      _useBackground: 0
-      _highlight: 0
-      _identifiers: 
-      _bringToFront: 0
-      _interactable: 0
-      _playGesture: 0
-      gestureAtWord: 
-      _showDialogActions: 0
-    - _stepId: Intro.8
-      _message: The other buttoms let you cancel and delete a tile!
-      _characterPosition: {x: -51, y: 20, z: -25}
-      _useBackground: 0
-      _highlight: 1
-      _identifiers: 58fbf8ff5afbf8ff
-      _bringToFront: 0
-      _interactable: 0
-      _playGesture: 0
-      gestureAtWord: 
-      _showDialogActions: 0
-    - _stepId: Intro.9
-      _message: You can save your map clicking here! A quicksave button will appear
-        later!
-      _characterPosition: {x: 82, y: -164, z: -25}
-      _useBackground: 0
-      _highlight: 1
-      _identifiers: 
-      _bringToFront: 0
-      _interactable: 0
-      _playGesture: 0
-      gestureAtWord: 
-      _showDialogActions: 0
-    - _stepId: Intro.10
-      _message: The other buttons just change the view mode, try them!
-      _characterPosition: {x: -69, y: -41, z: -25}
-      _useBackground: 0
-      _highlight: 1
-      _identifiers: 98f7f8ff9af7f8ff
-      _bringToFront: 0
-      _interactable: 0
-      _playGesture: 0
-      gestureAtWord: 
-      _showDialogActions: 0
-    - _stepId: Intro.11
-      _message: Finally you can give your map a try clicking here!
-      _characterPosition: {x: 73, y: 88, z: -25}
-      _useBackground: 0
-      _highlight: 1
-      _identifiers: 
-      _bringToFront: 0
-      _interactable: 0
-      _playGesture: 0
-      gestureAtWord: 
+      _playGesture: 2
+      gestureAtWord: $
       _showDialogActions: 0
     _hideCharacterAfter: 1
     _lastPosition: {x: 0, y: 0, z: 0}
