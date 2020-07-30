@@ -1320,7 +1320,7 @@ MonoBehaviour:
     Target: 0
     FinishCondition: 0
   _loadOption: 4
-  _animateBuilding: 1
+  _animateBuilding: 0
 --- !u!1 &1850621300
 GameObject:
   m_ObjectHideFlags: 0
