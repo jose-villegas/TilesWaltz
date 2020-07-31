@@ -27,9 +27,91 @@ MonoBehaviour:
       gestureAtWord: 
       _showDialogActions: 1
     - _stepId: Intro.LevelMaker.2
-      _message: In the level editor you can make your own maps, you can also share
-        these maps with others!
+      _message: In the level editor you can make your own maps, which you can share
+        with others!
       _characterPosition: {x: 85, y: -185, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+      _playGesture: 2
+      gestureAtWord: $
+      _showDialogActions: 0
+    - _stepId: Intro.LevelMaker.3
+      _message: Click on a tile and use the directional buttons to create a new "ghost"
+        tile.
+      _characterPosition: {x: 75, y: -185, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+      _playGesture: 0
+      gestureAtWord: $
+      _showDialogActions: 0
+    - _stepId: Intro.LevelMaker.4
+      _message: Notice that the tile has guides matching the color of the directional
+        buttons!
+      _characterPosition: {x: 75, y: -185, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+      _playGesture: 0
+      gestureAtWord: $
+      _showDialogActions: 0
+    - _stepId: Intro.LevelMaker.5
+      _message: You can confirm the "ghost" tile by tapping twice the directional
+        button.
+      _characterPosition: {x: 65, y: -185, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+      _playGesture: 0
+      gestureAtWord: $
+      _showDialogActions: 0
+    - _stepId: Intro.LevelMaker.6
+      _message: Clicking on the ghost tile works too!
+      _characterPosition: {x: 65, y: -185, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+      _playGesture: 0
+      gestureAtWord: $
+      _showDialogActions: 0
+    - _stepId: Intro.LevelMaker.7
+      _message: Or just use the confirm button!
+      _characterPosition: {x: 65, y: -185, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+      _playGesture: 0
+      gestureAtWord: $
+      _showDialogActions: 0
+    - _stepId: Intro.LevelMaker.8
+      _message: Use the orientation buttoms to make the tiles go up, down or stay
+        plain
+      _characterPosition: {x: 55, y: -185, z: -25}
+      _useBackground: 1
+      _highlight: 0
+      _identifiers: 
+      _bringToFront: 0
+      _interactable: 0
+      _playGesture: 0
+      gestureAtWord: $
+      _showDialogActions: 0
+    - _stepId: Intro.LevelMaker.9
+      _message: When you are ready save the map details, after saving a new button
+        will appear that will let you quicksave.
+      _characterPosition: {x: 45, y: -185, z: -25}
       _useBackground: 1
       _highlight: 0
       _identifiers: 
