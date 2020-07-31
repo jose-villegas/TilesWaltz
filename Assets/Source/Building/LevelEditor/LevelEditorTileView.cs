@@ -345,6 +345,9 @@ namespace TilesWalk.Building.LevelEditor
 
                 _tileLevelMap.RemoveTile(this);
                 Destroy(gameObject);
+
+                // update canvas state
+                _levelEditorToolSet.SetEditorInterfaceState(LevelEditorToolSet.State.EditorActions);
             }
         }
 
@@ -457,11 +460,6 @@ namespace TilesWalk.Building.LevelEditor
             }
 
             IsSelected.Value = (tile == _controller.Tile) && !IsSelected.Value;
-
-            if (IsSelected.Value)
-            {
-                _levelEditorToolSet.InsertionCanvas.Delete.interactable = _controller.Tile.Neighbors.Count > 0;
-            }
         }
 
         /// <summary>

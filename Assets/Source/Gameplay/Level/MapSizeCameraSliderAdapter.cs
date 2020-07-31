@@ -20,7 +20,7 @@ namespace TilesWalk.Gameplay.Level
 
 		private void Awake()
 		{
-			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
+			_tileLevelMap.OnLevelMapDataLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
 
 			if (_mapSizeSlider != null)
 			{

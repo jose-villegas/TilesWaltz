@@ -6,6 +6,6 @@
 		FromInstructions,
 		FromBridgeLevelMode,
 		LevelEditor,
-		FromBridgeEditorMode
+		FromBridgeEditorMode,
 	}
 }

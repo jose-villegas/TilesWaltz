@@ -9,13 +9,15 @@ namespace TilesWalk.Gameplay.Tutorial
     {
         public enum Gestures
         {
+            None,
             ShowPointer,
             Excited,
             PointLeft,
             Orbit,
             PointRight,
             Appear,
-            Dissapear
+            Dissapear,
+            ShowPath
         }
 
         private Subject<TutorialTileCharacter> _onTileCharacterClicked;
@@ -55,6 +57,8 @@ namespace TilesWalk.Gameplay.Tutorial
         {
             switch (gesture)
             {
+                case Gestures.None:
+                    break;
                 case Gestures.ShowPointer:
                     Animator.SetTrigger("Pointer");
                     break;
@@ -75,6 +79,9 @@ namespace TilesWalk.Gameplay.Tutorial
                     break;
                 case Gestures.Dissapear:
                     Animator.SetTrigger("Dissapear");
+                    break;
+                case Gestures.ShowPath:
+                    Animator.SetTrigger("ShowPath");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gesture), gesture, null);

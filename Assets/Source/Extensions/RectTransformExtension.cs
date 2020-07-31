@@ -10,7 +10,7 @@ namespace TilesWalk.Extensions
 		/// </summary>
 		/// <returns>The world rect.</returns>
 		/// <param name="rt">RectangleTransform we want to convert to world coordinates.</param>
-		/// <param name="scale">Optional scale pulled from the CanvasScaler. Default to using Vector2.one.</param>
+		/// <param name="scale">Optional scale pulled from the CanvasScaler</param>
 		public static Rect GetWorldSpaceRect(this RectTransform rt, Vector2 scale)
 		{
 			// Convert the rectangle to world corners and grab the top left
@@ -24,11 +24,11 @@ namespace TilesWalk.Extensions
 			return new Rect(topLeft, scaledSize);
 		}
 
-		public static Rect GetWorldSpaceRect(this RectTransform rt)
-		{
-			return GetWorldSpaceRect(rt, new Vector2(1f, 1f));
-		}
-
+		/// <summary>
+		/// A rect for the <see cref="RectTransform"/> in screen space
+		/// </summary>
+		/// <param name="rt"></param>
+		/// <returns></returns>
 		public static Rect GetScreenSpaceRect(this RectTransform rt)
 		{
 			Vector2 size = Vector2.Scale(rt.rect.size, rt.lossyScale);
@@ -38,15 +38,22 @@ namespace TilesWalk.Extensions
 			return rect;
 		}
 
+		/// <summary>
+		/// Gets a <see cref="Bounds"/> instance for the transform world corners
+		/// </summary>
+		/// <param name="transform"></param>
+		/// <returns></returns>
 		public static Bounds GetRectTransformBounds(this RectTransform transform)
 		{
-			Vector3[] WorldCorners = new Vector3[4];
-			transform.GetWorldCorners(WorldCorners);
-			Bounds bounds = new Bounds(WorldCorners[0], Vector3.zero);
+			Vector3[] worldCorners = new Vector3[4];
+			transform.GetWorldCorners(worldCorners);
+			Bounds bounds = new Bounds(worldCorners[0], Vector3.zero);
+
 			for (int i = 1; i < 4; ++i)
 			{
-				bounds.Encapsulate(WorldCorners[i]);
+				bounds.Encapsulate(worldCorners[i]);
 			}
+
 			return bounds;
 		}
 

@@ -16,6 +16,8 @@ namespace TilesWalk.Gameplay.Tutorial.UI
         [Inject] private TutorialSequenceHandler _handler;
 
         [SerializeField] private Image _background;
+        [SerializeField] private RectTransform _contentContainer;
+
         /// <summary>
         /// The dialog box for the tutorial
         /// </summary>
@@ -42,6 +44,25 @@ namespace TilesWalk.Gameplay.Tutorial.UI
         /// </summary>
         [SerializeField] private RectTransform _tailArea;
 
+        /// <summary>
+        /// Registers clicks to the dialog container
+        /// </summary>
+        [SerializeField] private Button _dialogButton;
+
+        /// <summary>
+        /// This small canvas contains a label advising the user to
+        /// tap to continue
+        /// </summary>
+        [SerializeField] private CanvasGroupBehaviour _tapToContinueCanvas;
+
+        /// <summary>
+        /// This canvas contains input actions for the dialog canvas
+        /// </summary>
+        [Header("Actions")] [SerializeField] private CanvasGroupBehaviour _dialogActions;
+
+        [SerializeField] private Button _yesButton;
+        [SerializeField] private Button _noButton;
+
         private float _tailHeight;
         private float _dialogHeight;
 
@@ -51,6 +72,40 @@ namespace TilesWalk.Gameplay.Tutorial.UI
         public DialogueText DialogContent => _dialogContent;
 
         public Image Background => _background;
+
+        /// <summary>
+        /// This canvas contains input actions for the dialog canvas
+        /// </summary>
+        public CanvasGroupBehaviour DialogActions => _dialogActions;
+
+        public RectTransform ContentContainer => _contentContainer;
+
+        /// <summary>
+        /// Registers clicks to the dialog container
+        /// </summary>
+        public Button DialogButton => _dialogButton;
+
+        /// <summary>
+        /// This small canvas contains a label advising the user to
+        /// tap to continue
+        /// </summary>
+        public CanvasGroupBehaviour TapToContinueCanvas => _tapToContinueCanvas;
+
+        /// <summary>
+        /// This configures and shows the <see cref="DialogActions"/> canvas
+        /// </summary>
+        /// <param name="onYesClick"></param>
+        /// <param name="onNoClick"></param>
+        public void ConfigureDialogActions(Action onYesClick, Action onNoClick)
+        {
+            _yesButton.onClick.RemoveAllListeners();
+            _noButton.onClick.RemoveAllListeners();
+
+            _yesButton.onClick.AddListener(() => onYesClick?.Invoke());
+            _noButton.onClick.AddListener(() => onNoClick?.Invoke());
+            _yesButton.onClick.AddListener(() => _dialogActions.Hide());
+            _noButton.onClick.AddListener(() => _dialogActions.Hide());
+        }
 
         private void Awake()
         {
