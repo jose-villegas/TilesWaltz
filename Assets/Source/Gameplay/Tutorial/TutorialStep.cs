@@ -14,10 +14,18 @@ namespace TilesWalk.Gameplay.Tutorial
         [SerializeField] private bool _useBackground;
 
         [Header("Highlight")] [SerializeField] private bool _highlight;
-        [SerializeField, ShowIf("_highlight")] private int _identifier;
         [SerializeField, ShowIf("_highlight")] private List<int> _identifiers;
         [SerializeField, ShowIf("_highlight")] private bool _bringToFront;
         [SerializeField, ShowIf("_highlight")] private bool _interactable;
+
+        [Header("Animation")] [SerializeField] private TutorialTileCharacter.Gestures _playGesture;
+
+        [SerializeField, Tooltip("Use $ for at end of dialogue, # for just at the beginning, % for after movement completed")]
+        private string gestureAtWord;
+
+        [Header("Required Input")] [SerializeField]
+        private bool _showDialogActions;
+
         public string StepId => _stepId;
 
         public string Message
@@ -38,12 +46,6 @@ namespace TilesWalk.Gameplay.Tutorial
             set => _highlight = value;
         }
 
-        public int Identifier
-        {
-            get => _identifier;
-            set => _identifier = value;
-        }
-
         public bool UseBackground
         {
             get => _useBackground;
@@ -53,16 +55,29 @@ namespace TilesWalk.Gameplay.Tutorial
         public bool BringToFront
         {
             get => _bringToFront;
-            set => _bringToFront = value;
         }
 
         public bool Interactable
         {
             get => _interactable;
-            set => _interactable = value;
         }
 
         public List<int> Identifiers => _identifiers;
+
+        public TutorialTileCharacter.Gestures PlayGesture
+        {
+            get => _playGesture;
+        }
+
+        public bool ShowDialogActions
+        {
+            get => _showDialogActions;
+        }
+
+        public string GestureAtWord
+        {
+            get => gestureAtWord;
+        }
 
         public TutorialStep(string identifier)
         {

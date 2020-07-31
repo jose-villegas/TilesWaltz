@@ -43,7 +43,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 83177b09f8a8efc46850718e14fd08c3, type: 3}
-    totalSpriteSurfaceArea: 4354832
+    totalSpriteSurfaceArea: 4485904
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -54,6 +54,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e38ae9e0c4acdfc4691322b054c2c912, type: 3}
   - {fileID: 21300000, guid: 3e8f50410d7bb31449b946016783c82c, type: 3}
   - {fileID: 21300000, guid: 9c9316d1e6999594ba2744575a2ac57c, type: 3}
+  - {fileID: 21300000, guid: 0c06b1e1e7482f1488348afefe86700f, type: 3}
   - {fileID: 21300000, guid: 861cbb420cc89d34185016034065a6a5, type: 3}
   - {fileID: 21300000, guid: f94dc572f9a9b7048b0d98b94e753c77, type: 3}
   - {fileID: 21300000, guid: 62a57f92cb3ef0b418fc6aa9a3989f2a, type: 3}
@@ -105,6 +106,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 1b9f41de1ccf93948ae25a2954b536f7, type: 3}
   - {fileID: 21300000, guid: b4a4f64f6c7bfe94c9d7f0fedb256fb0, type: 3}
   - {fileID: 21300000, guid: 291b7d8fa0dcec849b3f77aaeacc2748, type: 3}
+  - {fileID: 21300000, guid: 15c9ac9fe8b8fa94088f2414288aa148, type: 3}
   - {fileID: 21300000, guid: cdc2bcbfe17bbb447a1f9c99cd9e4c9a, type: 3}
   - {fileID: 21300000, guid: 19b617cf6848c3f42839f8d8654f41fd, type: 3}
   m_PackedSpriteNamesToIndex:
@@ -115,6 +117,7 @@ SpriteAtlas:
   - chevron-bar-contract
   - eye-slash-fill
   - backspace
+  - question-square-fill
   - arrow-repeat
   - square
   - gear
@@ -166,6 +169,7 @@ SpriteAtlas:
   - lock-fill
   - tropy
   - caret-left-fill
+  - hand-index
   - diamond
   - diamond-fill
   m_Tag: icons
