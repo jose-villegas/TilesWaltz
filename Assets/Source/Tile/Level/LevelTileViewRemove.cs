@@ -224,14 +224,6 @@ namespace TilesWalk.Tile.Level
 
             _tileLevelMap.State = TileLevelMapState.OnComboRemoval;
             var shufflePath = _controller.Tile.MatchingColorPatch;
-            var indexOf = shufflePath.FindIndex(x => x.PowerUp != TilePowerUp.None);
-
-            if (indexOf >= 0)
-            {
-                var view = _tileLevelMap.GetTileView(shufflePath[indexOf]);
-                view.HandlePowerUp(() => { Trigger.OnComboRemoval?.OnNext(shufflePath); });
-                return;
-            }
 
             for (int i = 0; i < shufflePath.Count; i++)
             {
