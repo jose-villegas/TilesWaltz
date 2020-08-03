@@ -44,13 +44,9 @@ The game currently contains:
 
 The game stills in development, there are some things that are in progress:
 
-* A more intuitive FTUE
-* More maps
-* Integrate ads
-* Integrate localization
-* Improve visual effects
-* Improve action feedback and user input ease
-* Game Font
-* Game intro visual improvements
-* Level finish visual improvements
-* Bug fixing
+* FTUE Improvements
+* Add map "pointers" in the game map to the UI, easy return if the user drags too far away in the game map.
+* Localization
+* Ads, maybe
+* Check tablets aspect ratio
+* Map level previewer
