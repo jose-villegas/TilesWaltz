@@ -17,6 +17,9 @@ using Zenject;
 
 namespace TilesWalk.Navigation.UI
 {
+    /// <summary>
+    /// This component handles the panel for showing level details in the game map scene
+    /// </summary>
     public class LevelMapDetailsCanvas : CanvasGroupBehaviour
     {
         [Inject] private LevelBridge _levelBridge;
@@ -101,6 +104,10 @@ namespace TilesWalk.Navigation.UI
             base.Hide();
         }
 
+        /// <summary>
+        /// Determines if the user clicks outside the canvas, if that's the case, it closes the <see cref="CanvasGroupBehaviour"/>
+        /// </summary>
+        /// <param name="tick"></param>
         private void OnMouseClick(long tick)
         {
             var clickOutside = true;
@@ -109,7 +116,8 @@ namespace TilesWalk.Navigation.UI
             {
                 var area = _panelArea[i];
 
-                clickOutside &= !RectTransformUtility.RectangleContainsScreenPoint(area, Input.mousePosition, _canvasCamera);
+                clickOutside &=
+                    !RectTransformUtility.RectangleContainsScreenPoint(area, Input.mousePosition, _canvasCamera);
             }
 
             if (IsVisible && clickOutside)
@@ -118,6 +126,10 @@ namespace TilesWalk.Navigation.UI
             }
         }
 
+        /// <summary>
+        /// Update the panel content with the given <see cref="LevelMap"/>
+        /// </summary>
+        /// <param name="map">The map to show details of</param>
         private void UpdateCanvas(LevelMap map)
         {
             //_playButton.interactable = _gameScoresHelper.GameStars >= map.StarsRequired;
