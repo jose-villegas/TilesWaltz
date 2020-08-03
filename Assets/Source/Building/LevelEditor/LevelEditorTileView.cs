@@ -78,7 +78,7 @@ namespace TilesWalk.Building.LevelEditor
                 .AddTo(this);
             _levelEditorToolSet.ActionsCanvas.ShowGrid.onValueChanged.AsObservable().Subscribe(OnShowGridToggle)
                 .AddTo(this);
-            _levelEditorToolSet.ActionsCanvas.ShowUI.onValueChanged.AsObservable().Subscribe(OnShowUI);
+            _levelEditorToolSet.ActionsCanvas.ShowUI.onValueChanged.AsObservable().Subscribe(OnShowUI).AddTo(this);
 
             // subscribe to UI actions
             foreach (var value in Enum.GetValues(typeof(NeighborWalkRule)))
@@ -150,7 +150,20 @@ namespace TilesWalk.Building.LevelEditor
         {
             if (!val)
             {
-                OnTileSelected(false);
+                var animated = _guides.Animated;
+                _guides.Animated = false;
+                // hide tools
+                _guides.Hide();
+                _guides.Animated = animated;
+
+                if (Renderer.materials.Length > 1)
+                {
+                    Renderer.materials = new[] {_levelEditorToolSet.EditorTileMaterial};
+                }
+
+                _tileLevelMap.HideGuide();
+
+                if (IsSelected.Value) IsSelected.Value = false;
             }
         }
 
