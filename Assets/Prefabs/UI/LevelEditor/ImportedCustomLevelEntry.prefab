@@ -1611,7 +1611,7 @@ MonoBehaviour:
   _levelRequest: {fileID: 9151244941528270523}
   _timeCanvas: {fileID: 9120614134272700861}
   _movesCanvas: {fileID: 7244845082852803818}
-  _loadingContainer: {fileID: 0}
+  _loadingContainer: {fileID: 383783723139961429}
   _mapPreviewContainer: {fileID: 870476530226710556}
   _mapPreview: {fileID: 5223345758350739548}
   _delete: {fileID: 4456569688661451335}
