@@ -72,7 +72,6 @@ namespace TilesWalk.Navigation.UI
                             break;
                     }
 
-
                     var levelTile = _gameLevelTilesInitializer[_levelRequest.Map];
                     var neighbor = levelTile.Links[directionButton.Direction];
 

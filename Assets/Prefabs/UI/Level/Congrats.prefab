@@ -2159,6 +2159,9 @@ MonoBehaviour:
   _showTriggersResume: 0
   _hideTriggersPause: 0
   _hideTriggersResume: 0
+  _onCongratsFinish:
+    m_PersistentCalls:
+      m_Calls: []
   _detailsCanvas: {fileID: 0}
   _slidingNumber: {fileID: 650448776793620998}
   _slider: {fileID: 1756810684464789682}
