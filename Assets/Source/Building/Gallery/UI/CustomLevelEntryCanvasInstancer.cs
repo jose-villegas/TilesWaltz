@@ -25,7 +25,11 @@ namespace TilesWalk.Building.Gallery.UI
         {
             _solver.InstanceProvider(gameObject);
 
-            if (_solver.Provider.Collection?.AvailableMaps == null) yield break;
+
+            _solver.Provider.Collection.OnLevelRemovedAsObservable().Subscribe(OnCollectionEntryRemoved).AddTo(this);
+            _solver.Provider.Collection.OnNewLevelInsertAsObservable().Subscribe(OnCollectionEntryInserted).AddTo(this);
+
+            if (_solver.Provider.Collection.AvailableMaps == null) yield break;
 
             var instances = new List<CustomLevelEntryCanvas>();
 
@@ -40,9 +44,6 @@ namespace TilesWalk.Building.Gallery.UI
                 _entries.Add(map.Id, canvas);
             }
 
-            _solver.Provider.Collection.OnLevelRemovedAsObservable().Subscribe(OnCollectionEntryRemoved).AddTo(this);
-            _solver.Provider.Collection.OnNewLevelInsertAsObservable().Subscribe(OnCollectionEntryInserted).AddTo(this);
-            
             foreach (var canvas in instances)
             {
                 canvas.RefreshMapPreview();
@@ -66,6 +67,7 @@ namespace TilesWalk.Building.Gallery.UI
             var newCanvas = instance.GetComponent<CustomLevelEntryCanvas>();
             newCanvas.name = map.Id;
             newCanvas.LevelRequest.RawName = map.Id;
+            newCanvas.RefreshMapPreview();
 
             _entries[map.Id] = newCanvas;
         }
