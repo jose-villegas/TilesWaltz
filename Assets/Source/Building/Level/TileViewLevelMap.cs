@@ -260,6 +260,8 @@ namespace TilesWalk.Building.Level
                 insertion.Value.RemoveAll(x => x.Root == hash);
                 insertion.Value.RemoveAll(x => x.Tile == hash);
             }
+
+            _onTileRemoved?.OnNext(tile);
         }
 
 

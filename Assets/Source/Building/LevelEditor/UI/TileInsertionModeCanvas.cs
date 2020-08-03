@@ -52,11 +52,12 @@ namespace TilesWalk.Building.LevelEditor.UI
             {
                 foreach (var button in _directionInsertButtons)
                 {
-                    button.Button.gameObject.SetActive
-                    (
-                        tile.Controller.Tile.IsValidInsertion(button.Direction, tile.CurrentRule) ||
-                        tile.HasGhost && button.Direction == tile.GhostDirection
-                    );
+                    var showActive = tile.Controller.Tile.IsValidInsertion(button.Direction, tile.CurrentRule) ||
+                                     tile.HasGhost && button.Direction == tile.GhostDirection;
+
+                    button.Button.gameObject.SetActive(showActive);
+                    button.Button.image.enabled = showActive;
+                    button.Button.interactable = showActive;
                 }
             }
             else

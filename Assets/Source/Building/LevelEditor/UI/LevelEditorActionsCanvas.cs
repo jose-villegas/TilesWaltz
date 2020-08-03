@@ -12,73 +12,74 @@ using LevelTileView = TilesWalk.Tile.Level.LevelTileView;
 
 namespace TilesWalk.Building.LevelEditor.UI
 {
-	public class LevelEditorActionsCanvas : CanvasGroupBehaviour
-	{
-		[Inject] private LevelEditorToolSet _levelEditorToolSet;
-		[Inject] private SaveLevelCanvas _saveLevelCanvas;
-		[Inject] private TileViewLevelMap __tileLevelMap;
+    public class LevelEditorActionsCanvas : CanvasGroupBehaviour
+    {
+        [Inject] private LevelEditorToolSet _levelEditorToolSet;
+        [Inject] private SaveLevelCanvas _saveLevelCanvas;
+        [Inject] private TileViewLevelMap _tileLevelMap;
 
-		[SerializeField] private Button _edit;
-		[SerializeField] private Button _save;
-		[SerializeField] private Toggle _showUi;
-		[SerializeField] private Toggle _showGrid;
-		[SerializeField] private Image _notification;
-		[SerializeField] private TextMeshProUGUI _counter;
+        [SerializeField] private Button _edit;
+        [SerializeField] private Button _save;
+        [SerializeField] private Toggle _showUi;
+        [SerializeField] private Toggle _showGrid;
+        [SerializeField] private Image _notification;
+        [SerializeField] private TextMeshProUGUI _counter;
 
-		private int _changesCounter = 0;
+        private int _changesCounter = 0;
 
-		public Button Edit => _edit;
+        public Button Edit => _edit;
 
-		public Button Save => _save;
+        public Button Save => _save;
 
-		public Toggle ShowUI => _showUi;
+        public Toggle ShowUI => _showUi;
 
-		public Toggle ShowGrid => _showGrid;
+        public Toggle ShowGrid => _showGrid;
 
-		public void Start()
-		{
-			_save.gameObject.SetActive(false);
-			_notification.gameObject.SetActive(false);
+        public void Start()
+        {
+            _save.gameObject.SetActive(false);
+            _notification.gameObject.SetActive(false);
 
-			_edit.onClick.AsObservable().Subscribe(OnEditClick).AddTo(this);
-			_save.onClick.AsObservable().Subscribe(OnQuickSaveClick).AddTo(this);
+            _edit.onClick.AsObservable().Subscribe(OnEditClick).AddTo(this);
+            _save.onClick.AsObservable().Subscribe(OnQuickSaveClick).AddTo(this);
 
-			__tileLevelMap.OnTileRegisteredAsObservable().Subscribe(OnTileRegistered).AddTo(this);
+            _tileLevelMap.OnTileRegisteredAsObservable().Subscribe(OnMapStructureModified).AddTo(this);
+            _tileLevelMap.OnTileRemovedAsObservable().Subscribe(OnMapStructureModified).AddTo(this);
 
-			_saveLevelCanvas.OnLevelMapSavedAsObservable().Subscribe(OnLevelMapSaved).AddTo(this);
-		}
+            _saveLevelCanvas.OnLevelMapSavedAsObservable().Subscribe(OnLevelMapSaved).AddTo(this);
+        }
 
-		private void OnTileRegistered(LevelTileView tile)
-		{
-			_notification.gameObject.SetActive(true);
-			_changesCounter++;
+        private void OnMapStructureModified(LevelTileView tile)
+        {
+            _notification.gameObject.SetActive(true);
+            _changesCounter++;
 
-			if (_changesCounter < 10)
-			{
-				_counter.text = _changesCounter.Localize();
-			}
-			else
-			{
-				_counter.text = "+9";
-			}
-		}
+            if (_changesCounter < 10)
+            {
+                _counter.text = _changesCounter.Localize();
+            }
+            else
+            {
+                _counter.text = "+9";
+            }
+        }
 
-		private void OnEditClick(Unit u)
-		{
-			_saveLevelCanvas.Show();
-		}
+        private void OnEditClick(Unit u)
+        {
+            _saveLevelCanvas.Show();
+        }
 
-		private void OnQuickSaveClick(Unit u)
-		{
-			_saveLevelCanvas.OnSaveConfirm(u);
-		}
+        private void OnQuickSaveClick(Unit u)
+        {
+            _saveLevelCanvas.OnSaveConfirm(u);
+        }
 
-		private void OnLevelMapSaved(LevelMap map)
-		{
-			_save.gameObject.SetActive(true);
-			_notification.gameObject.SetActive(false);
-			_counter.text = "0";
-			_changesCounter = 0;
-		}
-	}
+        private void OnLevelMapSaved(LevelMap map)
+        {
+            _save.gameObject.SetActive(true);
+            _notification.gameObject.SetActive(false);
+            _counter.text = "0";
+            _changesCounter = 0;
+        }
+    }
 }

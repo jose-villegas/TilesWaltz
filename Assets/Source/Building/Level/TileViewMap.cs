@@ -33,6 +33,7 @@ namespace TilesWalk.Building.Level
 
 		protected Subject<T1> _onLevelMapLoaded;
 		protected Subject<T2> _onTileRegistered;
+        protected Subject<T2> _onTileRemoved;
 		protected Subject<TileLevelMapState> _onMapStateChanged;
 
 		public IObservable<T1> OnLevelMapLoadedAsObservable()
@@ -44,6 +45,11 @@ namespace TilesWalk.Building.Level
 		{
 			return _onTileRegistered = _onTileRegistered ?? new Subject<T2>();
 		}
+
+        public IObservable<T2> OnTileRemovedAsObservable()
+        {
+            return _onTileRemoved = _onTileRemoved ?? new Subject<T2>();
+        }
 
 		public IObservable<TileLevelMapState> OnMapStateChangedAsObservable()
 		{
@@ -60,6 +66,7 @@ namespace TilesWalk.Building.Level
 			_onLevelMapLoaded?.OnCompleted();
 			_onTileRegistered?.OnCompleted();
 			_onMapStateChanged?.OnCompleted();
+            _onTileRemoved?.OnCompleted();
 		}
 
 		public void UpdateInstructions(T2 root, T2 tile, CardinalDirection d, NeighborWalkRule r)
@@ -90,7 +97,7 @@ namespace TilesWalk.Building.Level
 			{
 				foreach (var value in TileView.Values)
 				{
-					Destroy(value.gameObject);
+					Destroy(value.transform.parent.gameObject);
 				}
 			}
 
