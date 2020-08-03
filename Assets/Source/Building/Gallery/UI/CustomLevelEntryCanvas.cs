@@ -6,12 +6,11 @@ using TilesWalk.General.UI;
 using TilesWalk.Map.Bridge;
 using TilesWalk.Map.General;
 using TilesWalk.Map.Scaffolding;
-using TilesWalk.Tile;
+using TilesWalk.Tile.Level;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
-using LevelTileView = TilesWalk.Tile.Level.LevelTileView;
 
 namespace TilesWalk.Building.Gallery.UI
 {
@@ -19,7 +18,7 @@ namespace TilesWalk.Building.Gallery.UI
 	{
 		[Inject] private LevelBridge _bridge;
 		[Inject] private ShareLevelCanvas _shareCanvas;
-		[Inject] private TileViewLevelMap __tileLevelMap;
+		[Inject] private TileViewLevelMap _tileLevelMap;
 		[Inject] private LevelMapPreviewRenderCamera _previewCamera;
 		[Inject] private MapProviderSolver _solver;
 		[Inject] private Confirmation _confirmation;
@@ -28,6 +27,8 @@ namespace TilesWalk.Building.Gallery.UI
 		[SerializeField] private LevelNameRequestHandler _levelRequest;
 		[SerializeField] private CanvasGroupBehaviour _timeCanvas;
 		[SerializeField] private CanvasGroupBehaviour _movesCanvas;
+        [SerializeField] private GameObject _loadingContainer;
+		[SerializeField] private GameObject _mapPreviewContainer;
 		[SerializeField] private RawImage _mapPreview;
 		[SerializeField] private Button _delete;
 		[SerializeField] private Button _edit;
@@ -36,6 +37,8 @@ namespace TilesWalk.Building.Gallery.UI
 		[SerializeField] private Button _share;
 
 		public LevelNameRequestHandler LevelRequest => _levelRequest;
+
+        public static int counter = 0;
 
 		private void Start()
 		{
@@ -57,9 +60,18 @@ namespace TilesWalk.Building.Gallery.UI
 			_share.onClick.AsObservable().Subscribe(OnShareClick).AddTo(this);
 			_addToUser.onClick.AsObservable().Subscribe(OnAddToUserMapsClicked).AddTo(this);
 
-			__tileLevelMap.BuildTileMap<LevelTileView>(_levelRequest.Map);
-			_mapPreview.texture = _previewCamera.GetCurrentRender();
-			__tileLevelMap.Reset();
+            _loadingContainer.gameObject.SetActive(true);
+        }
+
+        public void RefreshMapPreview()
+        {
+            _tileLevelMap.Reset();
+            _tileLevelMap.BuildTileMap<LevelTileView>(_levelRequest.Map);
+            _mapPreview.texture = _previewCamera.GetCurrentRender();
+            _tileLevelMap.Reset();
+
+            _loadingContainer.gameObject.SetActive(false);
+            _mapPreviewContainer.gameObject.SetActive(true);
 		}
 
 		private void OnAddToUserMapsClicked(Unit u)

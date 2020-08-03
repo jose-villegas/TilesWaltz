@@ -9,8 +9,8 @@ namespace TilesWalk.Building.Gallery
 		public Texture2D GetCurrentRender(int width = 256, int height = 256)
 		{
 			Rect rect = new Rect(0, 0, width, height);
-			RenderTexture renderTexture = new RenderTexture(width, height, 24);
-			Texture2D screenShot = new Texture2D(width, height, TextureFormat.RGBA32, false);
+			RenderTexture renderTexture = new RenderTexture(width, height, 16);
+			Texture2D screenShot = new Texture2D(width, height, TextureFormat.RGB24, false);
 
 			Component.targetTexture = renderTexture;
 			Component.Render();
