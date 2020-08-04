@@ -1,5 +1,56 @@
 {
     "Start": "Start",
     "Editor": "Editor",
-    "Login": "Login"
+    "Login": "Login",
+
+    "Options": "Options",
+    "Show Guide": "Show Guide",
+    "Music": "Music",
+    "Effects": "Effects",
+    "Quit": "Quit",
+
+    "Stars Required": "Stars Required",
+    "Points": "Points",
+    "Record": "Record",
+    "Finish Condition": "Finish Condition",
+    "Moves": "Moves",
+    "Seconds": "Seconds",
+    "Play": "Play",
+    "Target": "Target",
+
+    "Time": "Time",
+
+    "Failure!": "Failure!",
+    "Congratulations!": "Congratulations!",
+    "Let's see.": "Let's see.",
+    "Let's see..": "Let's see..",
+    "Let's see...": "Let's see...",
+
+    "Retry": "Retry",
+    "Continue": "Continue",
+    "Summary": "Summary",
+    "Extra Points!": "Extra Points!",
+    "Extra": "Extra",
+    "Total": "Total",
+
+    "Stop": "Stop",
+
+    "Level Details": "Level Details",
+    "Enter title...": "Enter title...",
+    "Points Needed": "Points Needed",
+    "Enter points...": "Enter points...",
+    "Enter moves...": "Enter moves...",
+    "Enter seconds...": "Enter seconds...",
+    "Save": "Save",
+    "Cancel": "Cancel",
+
+    "Levels Gallery": "Levels Gallery",
+    "Yours": "Yours",
+    "Others": "Others",
+    "New Level": "New Level",
+
+    "Code": "Code",
+    "QR": "QR",
+    "Add": "Add",
+    "Enter code...": "Enter code..."
 }

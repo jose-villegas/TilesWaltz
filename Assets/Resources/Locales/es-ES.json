@@ -1,0 +1,56 @@
+{
+    "Start": "Empezar",
+    "Editor": "Editor",
+    "Login": "Login",
+
+    "Options": "Opciones",
+    "Show Guide": "Mostrar Guia",
+    "Music": "Musica",
+    "Effects": "Efectos",
+    "Quit": "Salir",
+
+    "Stars Required": "Estrellas Necesarias",
+    "Points": "Puntos",
+    "Record": "Record",
+    "Finish Condition": "Condicion Final",
+    "Moves": "Movidas",
+    "Seconds": "Segundos",
+    "Play": "Jugar",
+    "Target": "Objetivo",
+
+    "Time": "Tiempo",
+
+    "Failure!": "Fallaste!",
+    "Congratulations!": "Felicitaciones!",
+    "Let's see.": "Veamos.",
+    "Let's see..": "Veamos..",
+    "Let's see...": "Veamos...",
+
+    "Retry": "Reintentar",
+    "Continue": "Continuar",
+    "Summary": "Resumen",
+    "Extra Points!": "Puntos Extra!",
+    "Extra": "Extra",
+    "Total": "Total",
+
+    "Stop": "Parar",
+
+    "Level Details": "Detalles del Nivel",
+    "Enter title...": "Introduce un nombre...",
+    "Points Needed": "Puntos Necesarios",
+    "Enter points...": "Introduce puntos...",
+    "Enter moves...": "Introduce movimientos...",
+    "Enter seconds...": "Introduce segundos...",
+    "Save": "Guardar",
+    "Cancel": "Cancelar",
+
+    "Levels Gallery": "Galeria de Niveles",
+    "Yours": "Tuyos",
+    "Others": "Otros",
+    "New Level": "Nuevo Nivel",
+
+    "Code": "Codigo",
+    "QR": "QR",
+    "Add": "Agregar",
+    "Enter code...": "Introduce codigo..."
+}

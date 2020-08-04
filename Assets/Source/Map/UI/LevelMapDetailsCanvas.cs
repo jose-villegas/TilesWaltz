@@ -91,7 +91,7 @@ namespace TilesWalk.Navigation.UI
             OnShowAsObservable().Take(1).Subscribe(_ =>
             {
                 _clicksListener = Observable.EveryUpdate().Where(__ => Input.GetMouseButton(0))
-                    .Subscribe(OnMouseClick);
+                    .Subscribe(OnMouseClick).AddTo(this);
             }).AddTo(this);
 
             base.Show();

@@ -2803,6 +2803,21 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4601498419783434369, guid: 4024427ec3d4aa9478e24cee90a7b7c6,
+        type: 3}
+      propertyPath: m_text
+      value: Moves
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601498419783434369, guid: 4024427ec3d4aa9478e24cee90a7b7c6,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601498419783434369, guid: 4024427ec3d4aa9478e24cee90a7b7c6,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4601841328749695978, guid: 4024427ec3d4aa9478e24cee90a7b7c6,
         type: 3}
       propertyPath: m_AnchorMin.y
