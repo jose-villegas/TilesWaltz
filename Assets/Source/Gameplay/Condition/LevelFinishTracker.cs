@@ -34,7 +34,7 @@ namespace TilesWalk.Gameplay.Condition
 		private void Awake()
 		{
 			_solver.InstanceProvider(gameObject);
-			_tileLevelMap.OnLevelMapLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
+			_tileLevelMap.OnLevelMapDataLoadedAsObservable().Subscribe(OnLevelMapLoaded).AddTo(this);
 			_gameEvents.OnGamePausedAsObservable().Subscribe(OnGamePaused).AddTo(this);
 			_gameEvents.OnGameResumedAsObservable().Subscribe(OnGameResumed).AddTo(this);
 		}

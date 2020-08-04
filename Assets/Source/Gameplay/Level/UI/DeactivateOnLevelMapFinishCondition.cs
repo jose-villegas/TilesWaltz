@@ -14,7 +14,7 @@ namespace TilesWalk.Gameplay.Level.UI
 		private void Awake()
 		{
 			_tileLevelMap
-				.OnLevelMapLoadedAsObservable()
+				.OnLevelMapDataLoadedAsObservable()
 				.Subscribe(
 					OnLevelMapLoaded
 				)
