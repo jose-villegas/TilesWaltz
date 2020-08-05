@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using TilesWalk.Building.Level;
+﻿using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Score;
-using TilesWalk.General;
 using TilesWalk.General.Patterns;
-using TilesWalk.Navigation.UI;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -13,6 +10,10 @@ using Zenject;
 
 namespace TilesWalk.Gameplay.Limits.UI
 {
+	/// <summary>
+	/// A text label that tracks the amount of movements left for the player
+	/// in a level
+	/// </summary>
 	[RequireComponent(typeof(TextMeshProUGUI))]
 	public class MovesCounterLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{

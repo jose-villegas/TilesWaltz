@@ -1,16 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using TilesWalk.Building.Level;
 using TilesWalk.Gameplay.Input;
 using TilesWalk.Gameplay.Score;
 using TilesWalk.Map.General;
 using UniRx;
 using UniRx.Triggers;
-using UnityEngine;
 using Zenject;
 
 namespace TilesWalk.Gameplay.Condition
 {
+	/// <summary>
+	/// This class tracks the necessary conditions for a level to be consider as finished
+	/// </summary>
 	public class LevelFinishTracker : ObservableTriggerBase
 	{
 		[Inject] private LevelScorePointsTracker _levelScorePointsTracker;

@@ -1,21 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using TilesWalk.Building.Level;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Condition;
 using TilesWalk.Gameplay.Input;
 using TilesWalk.Gameplay.Score;
-using TilesWalk.General;
 using TilesWalk.General.Patterns;
-using TilesWalk.Navigation.UI;
 using TMPro;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
 
 namespace TilesWalk.Gameplay.Limits.UI
 {
+	/// <summary>
+	/// A text label that tracks the playing time left for a level
+	/// </summary>
 	[RequireComponent(typeof(TextMeshProUGUI))]
 	public class TimeTrackerLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
 	{

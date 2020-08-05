@@ -14,6 +14,10 @@ using Zenject;
 
 namespace TilesWalk.Building.Gallery.UI
 {
+	/// <summary>
+	/// This class handles the panel view for all the custom entries
+	/// in the game level gallery
+	/// </summary>
 	public class CustomLevelEntryCanvas : MonoBehaviour
 	{
 		[Inject] private LevelBridge _bridge;
