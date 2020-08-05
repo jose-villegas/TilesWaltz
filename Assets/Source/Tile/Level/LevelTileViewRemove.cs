@@ -12,6 +12,10 @@ using Zenject;
 
 namespace TilesWalk.Tile.Level
 {
+    /// <summary>
+    /// This partial contains all the logic related to tile removal for the
+    /// <see cref="LevelTileView"/>
+    /// </summary>
     public partial class LevelTileView
     {
         [Inject] private GameAudioCollection _audioCollection;

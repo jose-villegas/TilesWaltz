@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using TilesWalk.Gameplay.Animation;
-using TilesWalk.General;
 using UnityEngine;
 using Zenject;
-using Random = UnityEngine.Random;
 
 namespace TilesWalk.Tile.Level
 {
+    /// <summary>
+    /// This contains all logic related to animations for the <see cref="LevelTileView"/>
+    /// </summary>
     public partial class LevelTileView
     {
         [Inject] protected AnimationConfiguration _animationSettings;

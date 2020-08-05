@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TilesWalk.Gameplay.Display;
 using UniRx;
 using UniRx.Triggers;
 
