@@ -10,6 +10,8 @@ Tile's Waltz is a simple color matching game that uses the shortest path algorit
 
 When more than 2 tiles next to each other share the same color a "combo" happens. A combo removes these tiles and creates new in their places with a newer color, when you combine more than 3 tiles power ups start to appear.
 
+<img src="Media/Animated/summary.gif" alt="alt text" width="200">
+
 ## Power Ups
 
 * Combine 4 in a straight line:
