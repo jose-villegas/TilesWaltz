@@ -13,7 +13,7 @@ namespace Mgl
 
         protected static string[] locales = new string[] { "en-US", "es-ES" };
 
-        private static string _currentLocale = "es-ES";
+        private static string _currentLocale = "en-US";
 
         private static string _localePath = "Locales/";
 
