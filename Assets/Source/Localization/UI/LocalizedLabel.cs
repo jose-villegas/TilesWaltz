@@ -11,14 +11,22 @@ namespace TilesWalk.Localization.UI
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class LocalizedLabel : ObligatoryComponentBehaviour<TextMeshProUGUI>
     {
-        private I18n i18n = I18n.Instance;
-
         /// <summary>
         /// Assign localized value
         /// </summary>
         private void Start()
         {
-            Component.text = i18n.__(Component.text);
+            if (Component.text == "Tap to continue...")
+            {
+                Debug.Log("Here");
+            }
+
+            Component.text = I18n.Instance.__(Component.text);
+
+            if (Component.text == "Tap to continue...")
+            {
+                Debug.Log("Here");
+            }
         }
     }
 }

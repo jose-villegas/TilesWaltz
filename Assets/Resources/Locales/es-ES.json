@@ -53,5 +53,29 @@
     "Code": "Codigo",
     "QR": "QR",
     "Add": "Agregar",
-    "Enter code...": "Introduce codigo..."
+    "Enter code...": "Introduce codigo...",
+
+    "Tap to continue...": "Presiona para continuar...",
+
+    "Intro.LevelMaker.1": "¿Quieres ver el tutorial del editor de niveles?",
+    "Intro.LevelMaker.2": "¡En el editor puedes crear tus propios mapas, e incluso compartirlos!",
+    "Intro.LevelMaker.3": "Presiona y usa los botones direccionales para crear una nueva teja temporal.",
+    "Intro.LevelMaker.4": "¡Fijate que las tejas tienen guías con colores que coinciden con los botones!",
+    "Intro.LevelMaker.5": "Puedes confirmar una teja temporal presionando dos veces el botón direccional.",
+    "Intro.LevelMaker.6": "También puedes confirmar presionando sobre la teja temporal.",
+    "Intro.LevelMaker.7": "O simplemente puedes utilizar el botón de confirmar.",
+    "Intro.LevelMaker.8": "Utiliza los botones de orientación para orientar les tejas hacia arriba o abajo.",
+    "Intro.LevelMaker.9": "Cuando estes listo puedes colocar los detalles del nivel, después aparecerá un botón de guardado rápido.",
+    "Intro.LevelMaker.10": "Une vez guardando el nivel aparecerá en tu galería, presiona el botón de compartir para obtener su código.",
+    "Intro.LevelMaker.11": "En la galería también puedes importar niveles en la sección de Otros utilizando este código.",
+    "Intro.LevelMaker.12": "¡Y eso es todo! ¿Estas listo para hacer nuevos niveles? Presiona de nuevo para terminar el tutorial.",
+
+    "Intro.Level.1": "¿Quieres ver como jugar?",
+    "Intro.Level.2": "¡Presiona una teja para eliminarla, y otras se moverán a su lugar!",
+    "Intro.Level.3": "¡Junta tres o más del mismo colocar para obtener un combo!",
+    "Intro.Level.4": "Los pequeños puntos sobre las tejas sirven de guía para saber que tejas se moverán.",
+    "Intro.Level.5": "¡Cuando estes listo puedes desactivar esta guía en las opciones, es más rápido así!",
+    "Intro.Level.6": "¡Combina 4 tejas en línea recta para obtener un poder que elimina todas las tejas en línea!",
+    "Intro.Level.7": "¡Combina 5 o más para obtener un poder que elimina todas de un mismo color!",
+    "Intro.Level.8": "¡Y eso es todo! ¿Estas listo para el desafío? Presiona de nuevo para terminar el tutorial"
 }

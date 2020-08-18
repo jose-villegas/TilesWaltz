@@ -121,7 +121,6 @@ namespace TilesWalk.Gameplay.Tutorial
             var step = indexOf >= 0 ? sequence.Steps[indexOf] : new TutorialStep(_stepId);
 
             step.CharacterPosition = _tileCharacter.transform.parent.localPosition;
-            step.Message = Canvas.DialogContent.Component.text;
             step.UseBackground = Canvas.Background.isActiveAndEnabled;
             step.Highlight = _highlight != null && _highlight.Count > 0;
 

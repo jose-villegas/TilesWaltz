@@ -52,5 +52,29 @@
     "Code": "Code",
     "QR": "QR",
     "Add": "Add",
-    "Enter code...": "Enter code..."
+    "Enter code...": "Enter code...",
+
+    "Tap to continue...": "Tap to continue...",
+
+    "Intro.LevelMaker.1": "Do you want to see the level editor tutorial?",
+    "Intro.LevelMaker.2": "In the level editor you can make your own maps, which you can share with others!",
+    "Intro.LevelMaker.3": "Click on a tile and use the directional buttons to create a new ghost tile.",
+    "Intro.LevelMaker.4": "Notice that the tile has guides matching the color of the directional buttons!",
+    "Intro.LevelMaker.5": "You can confirm the ghost tile by tapping twice the directional button.",
+    "Intro.LevelMaker.6": "Clicking on the ghost tile works too!",
+    "Intro.LevelMaker.7": "Or just use the confirm button!",
+    "Intro.LevelMaker.8": "Use the orientation buttoms to make the tiles go up, down or stay plain.",
+    "Intro.LevelMaker.9": "When you are ready save the map details, after saving a new button will appear that will let you quicksave.",
+    "Intro.LevelMaker.10": "Once saved the level will appear in your gallery, you can press the share button to share codes.",
+    "Intro.LevelMaker.11": "In the gallery you can import other levels using the share code in the Others section.",
+    "Intro.LevelMaker.12": "And that's it! Want to make some new levels? Tap again to finish the tutorial.",
+
+    "Intro.Level.1": "Do you want to see the gameplay tutorial?",
+    "Intro.Level.2": "Click on a tile to remove it and others will move to take its place!",
+    "Intro.Level.3": "When three or more of the same color are together you get a combo!",
+    "Intro.Level.4": "The little dots serve as a guide to know which tiles will move!",
+    "Intro.Level.5": "When you feel ready you can disable them in the options! It's faster!",
+    "Intro.Level.6": "Combine four in a straight line to get a power up that clears tiles in line!",
+    "Intro.Level.7": "Combine 5 to get a power up that removes all the tiles that match a color!",
+    "Intro.Level.8": "And that's it! Are you ready for the challenge? Tap again to finish the tutorial."
 }

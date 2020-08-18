@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Mgl;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -9,7 +10,6 @@ namespace TilesWalk.Gameplay.Tutorial
     public class TutorialStep
     {
         [SerializeField] private string _stepId;
-        [SerializeField] private string _message;
         [SerializeField] private Vector3 _characterPosition;
         [SerializeField] private bool _useBackground;
 
@@ -20,7 +20,8 @@ namespace TilesWalk.Gameplay.Tutorial
 
         [Header("Animation")] [SerializeField] private TutorialTileCharacter.Gestures _playGesture;
 
-        [SerializeField, Tooltip("Use $ for at end of dialogue, # for just at the beginning, % for after movement completed")]
+        [SerializeField,
+         Tooltip("Use $ for at end of dialogue, # for just at the beginning, % for after movement completed")]
         private string gestureAtWord;
 
         [Header("Required Input")] [SerializeField]
@@ -30,8 +31,7 @@ namespace TilesWalk.Gameplay.Tutorial
 
         public string Message
         {
-            get => _message;
-            set => _message = value;
+            get => I18n.Instance.__(_stepId);
         }
 
         public Vector3 CharacterPosition

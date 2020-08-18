@@ -298,6 +298,7 @@ namespace TilesWalk.Gameplay.Tutorial.Tutorials
             {
                 waitForFill?.Dispose();
                 waitForRead?.Dispose();
+                Destroy(SlidersInstance.gameObject);
                 _handler.FinishSequence();
             }).AddTo(this);
         }
