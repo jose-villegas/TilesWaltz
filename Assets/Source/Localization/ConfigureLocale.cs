@@ -20,8 +20,6 @@ namespace TilesWalk.Localization
                     I18n.SetLocale("en-US");
                     break;
             }
-
-            I18n.SetLocale("es-ES");
         }
     }
 }
