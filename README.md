@@ -40,7 +40,8 @@ The game currently contains:
 * Two power ups for bigger combos.
 * Level editor
 * Sharing and importing through text or QR
-* Basic tutorial
+* Video tutorials for both the editor and the gameplay
+* English and Spanish localization
 
 ## In Progress
 
@@ -48,7 +49,6 @@ The game stills in development, there are some things that are in progress:
 
 * FTUE Improvements
 * Add map "pointers" in the game map to the UI, easy return if the user drags too far away in the game map.
-* Localization
 * Ads, maybe
 * Check tablets aspect ratio
 * Map level previewer
