@@ -2,7 +2,7 @@
 
 ### Note
 
-> This game started as a little project during quarentine of COVID-19 to better understand and try libraries such as UniRX and Zenject, what a better way to understand a framework than building a game using it.
+> This game started as a little project during quarantine of COVID-19 crisis just to keep my mind a busy while also practice some Unity frameworks.
 
 ## Summary
 
