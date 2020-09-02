@@ -237,6 +237,11 @@ namespace TilesWalk.General.UI
             }
         }
 
+        public void InverseToggle(bool val)
+        {
+            Toggle(!val);
+        }
+
         public void Toggle(bool val)
         {
             if (val) Show();
