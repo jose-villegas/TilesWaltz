@@ -42,6 +42,7 @@ The game currently contains:
 * Sharing and importing through text or QR
 * Video tutorials for both the editor and the gameplay
 * English and Spanish localization
+* GPGPS integration and cloud save (would need to be uploaded to the store to work though)
 
 ## In Progress
 
