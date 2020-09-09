@@ -292,7 +292,7 @@ namespace TilesWalk.Tile.Level
         /// <summary>
         /// Tile click logic
         /// </summary>
-        protected virtual void OnMouseDown()
+        public virtual void OnMouseDown()
         {
             if (_canvasHover.IsUIOverride) return;
 

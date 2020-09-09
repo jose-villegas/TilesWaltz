@@ -325,7 +325,7 @@ namespace TilesWalk.Building.Gallery.UI
             _qr.texture = TextQRConverter.GenerateTexture(parsedToQR);
 
             __tileLevelMap.BuildTileMap<LevelTileView>(_map);
-            _mapPreview.texture = _previewCamera.GetCurrentRender(512, 512);
+            _mapPreview.texture = _previewCamera.GetSnapshotRender(512, 512);
             __tileLevelMap.Reset();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using TilesWalk.Tile.Level;
+using UnityEngine;
 
 namespace TilesWalk.Building.Level
 {
@@ -11,7 +12,12 @@ namespace TilesWalk.Building.Level
         {
             base.RegisterTile(tile, hash);
 
-            tile.gameObject.layer = gameObject.layer;
+            var children = tile.gameObject.GetComponentsInChildren<Transform>();
+
+            foreach (var child in children)
+            {
+                child.gameObject.layer = gameObject.layer;
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using TilesWalk.Building.Gallery;
 using TilesWalk.Building.Level;
 using TilesWalk.Building.LevelEditor.UI;
 using TilesWalk.Gameplay.Condition;
@@ -10,10 +12,12 @@ using TilesWalk.Map.Bridge;
 using TilesWalk.Map.General;
 using TilesWalk.Map.Scaffolding;
 using TilesWalk.Map.Tile;
+using TilesWalk.Tile.Level;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace TilesWalk.Navigation.UI
 {
@@ -27,17 +31,25 @@ namespace TilesWalk.Navigation.UI
         [Inject] private GameScoresHelper _gameScoresHelper;
         [Inject] private MapProviderSolver _solver;
 
+        [Inject] private TileViewLevelMap _tileLevelMap;
+        [Inject] private LevelMapPreviewRenderCamera _previewCamera;
+
         [SerializeField] private LevelNameRequestHandler _levelRequest;
         [SerializeField] private Button _playButton;
         [SerializeField] private CanvasGroupBehaviour _timeConditionContainer;
         [SerializeField] private CanvasGroupBehaviour _moveConditionContainer;
         [SerializeField] private List<RectTransform> _panelArea;
 
+        [SerializeField] private Toggle _previewToggle;
+        [SerializeField] private RectTransform _previewRect;
+        [SerializeField] private RawImage _previewImage;
+
         [Header("Navigation")] [SerializeField]
         private List<DirectionButton> _directionButtons;
 
         private Camera _canvasCamera;
         private IDisposable _clicksListener;
+        private IDisposable _playMapPreview;
 
         public LevelNameRequestHandler LevelRequest => _levelRequest;
 
@@ -94,12 +106,16 @@ namespace TilesWalk.Navigation.UI
                     .Subscribe(OnMouseClick).AddTo(this);
             }).AddTo(this);
 
+            // disable preview
+            _previewToggle.isOn = false;
+
             base.Show();
         }
 
         public override void Hide()
         {
             _clicksListener?.Dispose();
+            RenderPreview(false);
             base.Hide();
         }
 
@@ -161,6 +177,34 @@ namespace TilesWalk.Navigation.UI
                 var directionButton = _directionButtons[i];
                 directionButton.Button.image.enabled = levelTile.Links.HasNeighbor(directionButton.Direction);
                 directionButton.Button.interactable = levelTile.Links.HasNeighbor(directionButton.Direction);
+            }
+        }
+
+        public void RenderPreview(bool toggle)
+        {
+            if (toggle)
+            {
+                _tileLevelMap.Reset();
+                _tileLevelMap.BuildTileMap<LevelTileView>(_levelRequest.Map);
+                var tex = _previewCamera.BeginRendering((int) _previewRect.rect.width * 2, (int) _previewRect.rect.height * 2);
+
+                _tileLevelMap.OnLevelMapLoadedAsObservable().Take(1).Subscribe(map =>
+                {
+                    _playMapPreview = Observable.Interval(TimeSpan.FromSeconds(1f)).Subscribe(l =>
+                    {
+                        var values = _tileLevelMap.HashToTile.Values;
+                        var index = Random.Range(0, values.Count);
+                        values.ElementAt(index).OnMouseDown();
+                    }).AddTo(this);
+                });
+
+                _previewImage.texture = tex;
+            }
+            else
+            {
+                _playMapPreview.Dispose();
+                _previewCamera.EndRendering();
+                _tileLevelMap.Reset();
             }
         }
     }

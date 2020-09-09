@@ -71,7 +71,7 @@ namespace TilesWalk.Building.Gallery.UI
         {
             _tileLevelMap.Reset();
             _tileLevelMap.BuildTileMap<LevelTileView>(_levelRequest.Map);
-            _mapPreview.texture = _previewCamera.GetCurrentRender();
+            _mapPreview.texture = _previewCamera.GetSnapshotRender();
             _tileLevelMap.Reset();
 
             _loadingContainer.gameObject.SetActive(false);

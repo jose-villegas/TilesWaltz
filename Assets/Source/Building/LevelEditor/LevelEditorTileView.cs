@@ -306,7 +306,7 @@ namespace TilesWalk.Building.LevelEditor
             _tileLevelMap.State = TileLevelMapState.FreeMove;
         }
 
-        protected override void OnMouseDown()
+        public override void OnMouseDown()
         {
             if (_customLevelPlayer.IsPlaying)
             {
