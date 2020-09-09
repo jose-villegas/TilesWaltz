@@ -389,7 +389,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 2048
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 519995526}
   - component: {fileID: 519995528}
   - component: {fileID: 519995527}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: TileFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +457,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 519995525}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8248d9579af4304f942e4dd4b342755, type: 3}
+  m_Script: {fileID: 11500000, guid: 126eeacea25de6047ae7feba005bbbcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _instructions: 

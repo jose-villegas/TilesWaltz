@@ -1,5 +1,4 @@
 ﻿using TilesWalk.General.Patterns;
-using TilesWalk.Tile;
 using TilesWalk.Tile.Level;
 using UnityEngine;
 using Zenject;
