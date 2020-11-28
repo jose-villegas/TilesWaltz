@@ -30,7 +30,7 @@ namespace TilesWalk.Gameplay.Level.UI
 		[Inject] private GameSave _gameSave;
 
 		[Inject] private GPGSAchievementHandler _achievement;
-		[Inject] private GPGSLeaderbardsHandler _leaderbards;
+		[Inject] private GPGSLeaderboardsHandler _leaderboards;
 
         [SerializeField] private UnityEvent _onCongratsFinish;
 		[SerializeField] private LevelFinishDetailsCanvas _detailsCanvas;
@@ -180,7 +180,7 @@ namespace TilesWalk.Gameplay.Level.UI
 						}
 					}
 
-					_leaderbards.ReportGameLevelsScore(totalScore);
+					_leaderboards.ReportGameLevelsScore(totalScore);
 					break;
 				default:
                     break;

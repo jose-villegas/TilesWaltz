@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TilesWalk.GPGS
 {
-	public class GPGSLeaderbardsHandler : MonoBehaviour
+	public class GPGSLeaderboardsHandler : MonoBehaviour
 	{
 		public void ReportGameLevelsScore(int totalScore)
 		{

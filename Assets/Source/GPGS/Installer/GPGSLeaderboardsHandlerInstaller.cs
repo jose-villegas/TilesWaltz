@@ -5,11 +5,11 @@ namespace TilesWalk.GPGS.Installer
 {
 	public class GPGSLeaderboardsHandlerInstaller : MonoInstaller
 	{
-		[SerializeField] private GPGSLeaderbardsHandler _handler;
+		[SerializeField] private GPGSLeaderboardsHandler _handler;
 
 		public override void InstallBindings()
 		{
-			Container.Bind<GPGSLeaderbardsHandler>().FromInstance(_handler).AsSingle();
+			Container.Bind<GPGSLeaderboardsHandler>().FromInstance(_handler).AsSingle();
 		}
 	}
 }

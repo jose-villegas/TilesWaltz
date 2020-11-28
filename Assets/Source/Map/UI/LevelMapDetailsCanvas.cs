@@ -88,7 +88,6 @@ namespace TilesWalk.Navigation.UI
                     var neighbor = levelTile.Links[directionButton.Direction];
 
                     OnHideAsObservable().Take(1).Subscribe(u => { neighbor.OnMapTileClick(); }).AddTo(this);
-
                     Hide();
                 });
             }
@@ -202,7 +201,7 @@ namespace TilesWalk.Navigation.UI
             }
             else
             {
-                _playMapPreview.Dispose();
+                _playMapPreview?.Dispose();
                 _previewCamera.EndRendering();
                 _tileLevelMap.Reset();
             }

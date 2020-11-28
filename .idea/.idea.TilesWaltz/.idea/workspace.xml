@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3d1f7ffc-a26c-471e-b7a0-f52c2547bce0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AddressableAssetSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AddressableAssetSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GPGSIds.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GPGSIds.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GooglePlayGames/GameInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GooglePlayGames/GameInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GooglePlayGames/Plugins/Android/GooglePlayGamesManifest.plugin/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GooglePlayGames/Plugins/Android/GooglePlayGamesManifest.plugin/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Icons/Generic/icons.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Icons/Generic/icons.spriteatlas" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/ReflectionBaking/Zenject-ReflectionBaking.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/Signals/Zenject-Signals.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/GPGS/GPGSAchievementHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/GPGS/GPGSAchievementHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/GPGS/GPGSLeaderbardsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/GPGS/GPGSLeaderboardsHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/GPGS/GPGSLeaderbardsHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/GPGS/GPGSLeaderboardsHandler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/GPGS/Installer/GPGSLeaderboardsHandlerInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/GPGS/Installer/GPGSLeaderboardsHandlerInstaller.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/Gameplay/Level/UI/CongratsAnimationCanvas.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Gameplay/Level/UI/CongratsAnimationCanvas.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/Map/UI/LevelMapDetailsCanvas.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Map/UI/LevelMapDetailsCanvas.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/GvhProjectSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GvhProjectSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/Source/GPGS/GPGSInitializer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Source/GPGS/GPGSLeaderbardsHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Source/GPGS/UI/GPGSAchievementsButton.cs" />
+        <option value="$PROJECT_DIR$/Assets/Source/GPGS/UI/GPGSSignInButton.cs" />
+        <option value="$PROJECT_DIR$/Assets/Source/GPGS/UI/GPGSStandardLeaderboardButton.cs" />
+        <option value="$PROJECT_DIR$/Assets/Source/GPGS/GPGSCloudSave.cs" />
+        <option value="$PROJECT_DIR$/Assets/Source/GPGS/GPGSLeaderboardsHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Source/GPGS/GPGSAchievementHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Source/Map/UI/LevelMapDetailsCanvas.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1kvaDIlrUlEGOwFQvHnKnw4B3W4" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34994584" />
+    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.30010834" />
+    <property name="Discover.Launch.Via.Unity" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="7352">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" value="7352" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3d1f7ffc-a26c-471e-b7a0-f52c2547bce0" name="Default Changelist" comment="" />
+      <created>1606583398763</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606583398763</updated>
+      <workItem from="1606583404341" duration="2445000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Source/Map/UI/LevelMapDetailsCanvas.cs</url>
+          <line>86</line>
+          <properties documentPath="C:\Users\ville\Documents\Projects\TilesWaltz\Assets\Source\Map\UI\LevelMapDetailsCanvas.cs" initialLine="86">
+            <startOffsets>
+              <option value="3346" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3408" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Source/Map/UI/LevelMapDetailsCanvas.cs</url>
+          <line>126</line>
+          <properties documentPath="C:\Users\ville\Documents\Projects\TilesWaltz\Assets\Source\Map\UI\LevelMapDetailsCanvas.cs" initialLine="126">
+            <startOffsets>
+              <option value="4664" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4688" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
