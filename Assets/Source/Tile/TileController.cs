@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Boo.Lang;
 using TilesWalk.BaseInterfaces;
 using TilesWalk.Extensions;
 using TilesWalk.Gameplay.Display;

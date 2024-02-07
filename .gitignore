@@ -64,3 +64,5 @@ crashlytics-build.properties
 /[Aa]ssets/GPGSIds.cs.meta
 /[Pp]rojectSettings/GooglePlayGameSettings.txt
 
+
+.fake
